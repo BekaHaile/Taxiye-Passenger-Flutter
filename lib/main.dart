@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
+import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/shared/translations/app_translations.dart';
 import 'package:taxiye_passenger/utils/logger_utils.dart';
 import 'package:get/get.dart';
@@ -34,6 +35,11 @@ class MyApp extends StatelessWidget {
       locale: const Locale('en', 'US'),
       fallbackLocale: const Locale('en', 'US'),
       getPages: AppPages.pages,
+      theme: ThemeData(
+        primaryColor: AppTheme.primaryColor,
+        // primarySwatch: AppTheme.primaryColor,
+        // textTheme: AppTheme.textTheme,
+      ),
     );
   }
 }
