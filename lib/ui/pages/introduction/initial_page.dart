@@ -9,7 +9,9 @@ class InitialPage extends StatelessWidget {
       body: Center(
         child: Text(
           'Initial page',
-          style: TextStyle(fontSize: 42.0),
+          style: TextStyle(
+            fontSize: 42.0,
+          ),
         ),
       ),
     );
