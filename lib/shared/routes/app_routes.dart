@@ -7,9 +7,7 @@ abstract class Routes {
   static const introduction = '/introduction';
 
   // Auth Routes
-  // static const initial = '/';
   static const auth = '/auth';
-  static const login = '/login';
 
   static const signup = '/signup';
   static const verify = '/verify';

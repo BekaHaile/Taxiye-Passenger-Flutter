@@ -18,13 +18,10 @@ class SplashPage extends StatelessWidget {
         future: splashDelay(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: Hero(
                 tag: 'logoHero',
-                child: LogoImage(
-                  width: Get.width * 0.4,
-                  height: Get.height * 0.12,
-                ),
+                child: LogoImage(),
               ),
             );
           } else {

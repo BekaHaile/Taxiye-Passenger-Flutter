@@ -12,12 +12,23 @@ class AppTheme {
 
   static const Color darkTextColor = Color(0xFF444444);
   static const Color lightSilverColor = Color(0xFFEFF2F5);
+  static const Color greyColor = Color(0xFF979797);
+
   static const String fontName = 'SegoeUi';
 
   static const TextStyle title = TextStyle(
     fontFamily: fontName,
     fontWeight: FontWeight.w600,
     fontSize: 24.0,
+    letterSpacing: 0.27,
     color: darkColor,
+  );
+
+  static const TextStyle subtitle = TextStyle(
+    fontFamily: fontName,
+    fontWeight: FontWeight.w400,
+    fontSize: 14.0,
+    letterSpacing: 0.27,
+    color: greyColor,
   );
 }
