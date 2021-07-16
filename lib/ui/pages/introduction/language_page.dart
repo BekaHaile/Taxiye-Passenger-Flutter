@@ -4,6 +4,7 @@ import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/widgets/logo_image.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _LanguagePageState extends State<LanguagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(kPagePadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,11 +81,10 @@ class _LanguagePageState extends State<LanguagePage> {
                 )
               ],
             ),
-            Align(
-              alignment: Alignment.center,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: RoundedButton(
                 text: 'continue'.tr,
-                width: Get.width * 0.65,
                 onPressed: () => Get.toNamed(Routes.introduction),
               ),
             )

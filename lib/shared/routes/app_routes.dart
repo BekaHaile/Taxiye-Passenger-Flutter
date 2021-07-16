@@ -8,10 +8,11 @@ abstract class Routes {
 
   // Auth Routes
   static const auth = '/auth';
-
-  static const signup = '/signup';
   static const verify = '/verify';
 
   // Profile Routes
   static const profile = '/profile';
+
+  // Home pages
+  static const home = '/home';
 }

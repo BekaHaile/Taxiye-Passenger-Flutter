@@ -14,15 +14,10 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarDividerColor: Colors.grey,
-      systemNavigationBarIconBrightness: Brightness.dark,
     ));
     return GetMaterialApp(
       title: 'app_name'.tr,
@@ -35,11 +30,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('en', 'US'),
       fallbackLocale: const Locale('en', 'US'),
       getPages: AppPages.pages,
-      theme: ThemeData(
-        primaryColor: AppTheme.primaryColor,
-        // primarySwatch: AppTheme.primaryColor,
-        // textTheme: AppTheme.textTheme,
-      ),
+      theme: AppTheme.themeData,
     );
   }
 }

@@ -15,9 +15,20 @@ class AppTheme {
   static const Color greyColor = Color(0xFF979797);
 
   static const String fontName = 'SegoeUi';
+  static ThemeData themeData = ThemeData(
+    primaryColor: primaryColor,
+    colorScheme: ThemeData().colorScheme.copyWith(
+          primary: primaryColor,
+          // primaryVariant: primaryColor,
+          // secondaryVariant: primaryColor,
+          secondary: yellowColor,
+        ),
+    fontFamily: fontName,
+    accentColor: primaryColor,
+    primarySwatch: Colors.purple,
+  );
 
   static const TextStyle title = TextStyle(
-    fontFamily: fontName,
     fontWeight: FontWeight.w600,
     fontSize: 24.0,
     letterSpacing: 0.27,
@@ -25,10 +36,24 @@ class AppTheme {
   );
 
   static const TextStyle subtitle = TextStyle(
-    fontFamily: fontName,
     fontWeight: FontWeight.w400,
     fontSize: 14.0,
     letterSpacing: 0.27,
     color: greyColor,
+  );
+
+  static const TextStyle body = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 14.0,
+    letterSpacing: 0.27,
+    color: darkTextColor,
+  );
+
+  static final textFieldDecoration = InputDecoration(
+    alignLabelWithHint: true,
+    contentPadding: const EdgeInsets.all(20.0),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
   );
 }
