@@ -1,0 +1,20 @@
+stages:
+  - build
+
+build_debug_release:
+  stage: build
+  image: mingc/android-build-box
+
+  script:
+    - flutter build apk
+    - flutter build apk --release
+    - mkdir build
+    - mv "build/app/outputs/apk/release/app-release.apk" build/taxiye-passenger-release.apk
+    - mv "build/app/outputs/apk/release/app-debug.apk" build/taxiye-passenger-debug.apk
+
+  artifacts:
+    paths:
+      - build
+
+  only:
+    - develop
