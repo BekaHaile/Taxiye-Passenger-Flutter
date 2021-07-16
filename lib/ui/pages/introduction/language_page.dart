@@ -48,25 +48,45 @@ class _LanguagePageState extends State<LanguagePage> {
                 ),
                 const SizedBox(height: 16.0),
                 Wrap(
-                  spacing: 25.0,
-                  runSpacing: 16.0,
+                  spacing: 24.0,
+                  runSpacing: 12.0,
                   children: [
-                    for (var i = 0; i < languages.length; i++)
-                      Chip(
+                    ...languages.map(
+                      (language) => GestureDetector(
+                        onTap: () => setState(() {
+                          selectedLanguage = language;
+                        }),
+                        child: Chip(
                           backgroundColor: AppTheme.lightSilverColor,
-                          avatar: const Icon(
-                            Icons.check,
-                            size: 20.0,
+                          side: BorderSide(
+                            color: selectedLanguage == language
+                                ? Theme.of(context).primaryColor
+                                : Colors.transparent,
+                            width: 2.0,
                           ),
-                          label: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              languages[i],
-                              style: AppTheme.title.copyWith(
-                                  fontSize: 14.0,
-                                  color: AppTheme.darkTextColor),
-                            ),
-                          ))
+                          // avatar: ,
+                          label: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (selectedLanguage == language)
+                                const Icon(
+                                  Icons.check,
+                                  size: 20.0,
+                                ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  language,
+                                  style: AppTheme.title.copyWith(
+                                      fontSize: 16.0,
+                                      color: AppTheme.darkTextColor),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     // LanguagePill(
                     //   isActive: selectedLanguage == languages[i],
                     //   language: languages[i],
