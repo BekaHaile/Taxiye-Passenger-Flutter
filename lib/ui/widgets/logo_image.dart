@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LogoImage extends StatelessWidget {
   const LogoImage({
     Key? key,
-    this.width = 75.0,
-    this.height = 25.0,
+    this.width,
+    this.height,
   }) : super(key: key);
 
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
-    double width = this.width;
-    double height = this.height;
+    double width = this.width ?? Get.width * 0.4;
+    double height = this.height ?? Get.height * 0.12;
     if (width / height != 3) {
       if (width == 75) {
         width = height * 3;

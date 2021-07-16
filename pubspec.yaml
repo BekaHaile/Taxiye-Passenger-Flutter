@@ -52,6 +52,9 @@ dependencies:
   # For sharing 
   share: ^2.0.4
 
+  # For smooth dot page indicator 
+  smooth_page_indicator: ^0.3.0-nullsafety.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
