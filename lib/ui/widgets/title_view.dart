@@ -17,7 +17,6 @@ class TitleView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 4.0),

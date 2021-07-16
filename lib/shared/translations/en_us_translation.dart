@@ -17,8 +17,24 @@ final Map<String, String> enUs = {
   'intro3_title': 'Messenger Delivery',
   'intro3_info': 'Send packages, Pick up food and much more.',
 
-  'get_started': 'Get Started',
-
   // Auth Strings
-  'login': 'Login',
+  'signup': 'Sign up',
+  'signin': 'Sign in',
+  'passcode': 'Passcode',
+  'forgot_passcode': 'Forgot Passcode?',
+
+  'get_started': 'Get Started',
+  'let_get_started': 'Let’s get started!',
+  'signup_info': 'Enter your phone number and start your journey!',
+  'phone_number': 'Phone Number',
+
+  'welcome_back': 'Welcome Back!',
+  'signin_info': 'Enter your phone number and passcode.',
+
+  'terms_conditions': 'Terms and Conditions',
+  'terms_info': 'By continuing, you agree to Taxiye’s',
+  'signup_with': '- Or sign up with -',
+  'already_have_account': 'Already have an account?',
+
+  'not_regeitered': 'Not registered yet?',
 };

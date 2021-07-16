@@ -1,6 +1,9 @@
 import 'package:get/route_manager.dart';
+import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
+import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/pages/auth/auth_page.dart';
-import 'package:taxiye_passenger/ui/pages/auth/signup_page.dart';
+import 'package:taxiye_passenger/ui/pages/auth/verify_page.dart';
+import 'package:taxiye_passenger/ui/pages/home/home_page.dart';
 import 'package:taxiye_passenger/ui/pages/introduction/introduction_page.dart';
 import 'package:taxiye_passenger/ui/pages/introduction/language_page.dart';
 import 'package:taxiye_passenger/ui/pages/introduction/splash_page.dart';
@@ -29,12 +32,20 @@ abstract class AppPages {
     GetPage(
       name: Routes.auth,
       page: () => const AuthPage(),
-      // binding: AuthBinding(),
+      binding: AuthBinding(),
     ),
 
     GetPage(
-      name: Routes.signup,
-      page: () => const SignUpPage(),
+      name: Routes.verify,
+      page: () => const VerifyPage(),
+      // binding: AuthBinding(),
+    ),
+
+    // Home page
+    GetPage(
+      name: Routes.home,
+      page: () => const HomePage(),
+      binding: HomeBinding(),
     ),
 
     // Profile Pages
