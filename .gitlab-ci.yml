@@ -8,13 +8,13 @@ build_debug_release:
   script:
     - flutter build apk
     - flutter build apk --release
-    - mkdir build
-    - mv "build/app/outputs/apk/release/app-release.apk" build/taxiye-passenger-release.apk
-    - mv "build/app/outputs/apk/release/app-debug.apk" build/taxiye-passenger-debug.apk
+    - mkdir output
+    - mv "build/app/outputs/apk/release/app-release.apk" output/taxiye-passenger-release.apk
+    - mv "build/app/outputs/apk/release/app-debug.apk" output/taxiye-passenger-debug.apk
 
   artifacts:
     paths:
-      - build
+      - output
 
   only:
     - develop
