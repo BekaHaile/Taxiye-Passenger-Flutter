@@ -191,3 +191,339 @@ abstract class _User implements User {
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;
 }
+
+Files _$FilesFromJson(Map<String, dynamic> json) {
+  return _Files.fromJson(json);
+}
+
+/// @nodoc
+class _$FilesTearOff {
+  const _$FilesTearOff();
+
+  _Files call(@JsonKey(name: '_id') String id, String userId, String url,
+      {String? name,
+      String? originalName,
+      String? contentType,
+      int? size,
+      DateTime? createdAt,
+      DateTime? updatedAt}) {
+    return _Files(
+      id,
+      userId,
+      url,
+      name: name,
+      originalName: originalName,
+      contentType: contentType,
+      size: size,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    );
+  }
+
+  Files fromJson(Map<String, Object> json) {
+    return Files.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Files = _$FilesTearOff();
+
+/// @nodoc
+mixin _$Files {
+  @JsonKey(name: '_id')
+  String get id => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get originalName => throw _privateConstructorUsedError;
+  String? get contentType => throw _privateConstructorUsedError;
+  int? get size => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FilesCopyWith<Files> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FilesCopyWith<$Res> {
+  factory $FilesCopyWith(Files value, $Res Function(Files) then) =
+      _$FilesCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: '_id') String id,
+      String userId,
+      String url,
+      String? name,
+      String? originalName,
+      String? contentType,
+      int? size,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+}
+
+/// @nodoc
+class _$FilesCopyWithImpl<$Res> implements $FilesCopyWith<$Res> {
+  _$FilesCopyWithImpl(this._value, this._then);
+
+  final Files _value;
+  // ignore: unused_field
+  final $Res Function(Files) _then;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? userId = freezed,
+    Object? url = freezed,
+    Object? name = freezed,
+    Object? originalName = freezed,
+    Object? contentType = freezed,
+    Object? size = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      originalName: originalName == freezed
+          ? _value.originalName
+          : originalName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      contentType: contentType == freezed
+          ? _value.contentType
+          : contentType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      size: size == freezed
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$FilesCopyWith<$Res> implements $FilesCopyWith<$Res> {
+  factory _$FilesCopyWith(_Files value, $Res Function(_Files) then) =
+      __$FilesCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: '_id') String id,
+      String userId,
+      String url,
+      String? name,
+      String? originalName,
+      String? contentType,
+      int? size,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+}
+
+/// @nodoc
+class __$FilesCopyWithImpl<$Res> extends _$FilesCopyWithImpl<$Res>
+    implements _$FilesCopyWith<$Res> {
+  __$FilesCopyWithImpl(_Files _value, $Res Function(_Files) _then)
+      : super(_value, (v) => _then(v as _Files));
+
+  @override
+  _Files get _value => super._value as _Files;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? userId = freezed,
+    Object? url = freezed,
+    Object? name = freezed,
+    Object? originalName = freezed,
+    Object? contentType = freezed,
+    Object? size = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_Files(
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      originalName: originalName == freezed
+          ? _value.originalName
+          : originalName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      contentType: contentType == freezed
+          ? _value.contentType
+          : contentType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      size: size == freezed
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Files implements _Files {
+  _$_Files(@JsonKey(name: '_id') this.id, this.userId, this.url,
+      {this.name,
+      this.originalName,
+      this.contentType,
+      this.size,
+      this.createdAt,
+      this.updatedAt});
+
+  factory _$_Files.fromJson(Map<String, dynamic> json) =>
+      _$_$_FilesFromJson(json);
+
+  @override
+  @JsonKey(name: '_id')
+  final String id;
+  @override
+  final String userId;
+  @override
+  final String url;
+  @override
+  final String? name;
+  @override
+  final String? originalName;
+  @override
+  final String? contentType;
+  @override
+  final int? size;
+  @override
+  final DateTime? createdAt;
+  @override
+  final DateTime? updatedAt;
+
+  @override
+  String toString() {
+    return 'Files(id: $id, userId: $userId, url: $url, name: $name, originalName: $originalName, contentType: $contentType, size: $size, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Files &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.originalName, originalName) ||
+                const DeepCollectionEquality()
+                    .equals(other.originalName, originalName)) &&
+            (identical(other.contentType, contentType) ||
+                const DeepCollectionEquality()
+                    .equals(other.contentType, contentType)) &&
+            (identical(other.size, size) ||
+                const DeepCollectionEquality().equals(other.size, size)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(url) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(originalName) ^
+      const DeepCollectionEquality().hash(contentType) ^
+      const DeepCollectionEquality().hash(size) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FilesCopyWith<_Files> get copyWith =>
+      __$FilesCopyWithImpl<_Files>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_FilesToJson(this);
+  }
+}
+
+abstract class _Files implements Files {
+  factory _Files(@JsonKey(name: '_id') String id, String userId, String url,
+      {String? name,
+      String? originalName,
+      String? contentType,
+      int? size,
+      DateTime? createdAt,
+      DateTime? updatedAt}) = _$_Files;
+
+  factory _Files.fromJson(Map<String, dynamic> json) = _$_Files.fromJson;
+
+  @override
+  @JsonKey(name: '_id')
+  String get id => throw _privateConstructorUsedError;
+  @override
+  String get userId => throw _privateConstructorUsedError;
+  @override
+  String get url => throw _privateConstructorUsedError;
+  @override
+  String? get name => throw _privateConstructorUsedError;
+  @override
+  String? get originalName => throw _privateConstructorUsedError;
+  @override
+  String? get contentType => throw _privateConstructorUsedError;
+  @override
+  int? get size => throw _privateConstructorUsedError;
+  @override
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @override
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$FilesCopyWith<_Files> get copyWith => throw _privateConstructorUsedError;
+}

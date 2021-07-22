@@ -1,65 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/ui/widgets/box_ui.dart';
 import 'package:taxiye_passenger/ui/widgets/phone_input.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/ui/widgets/title_view.dart';
 import 'package:get/get.dart';
 
-class SignUpForm extends StatelessWidget {
-  const SignUpForm({
-    Key? key,
-    required this.onSignUp,
-  }) : super(key: key);
+class SignUpForm extends GetView<AuthController> {
+  const SignUpForm({Key? key}) : super(key: key);
 
-  final VoidCallback onSignUp;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: Column(
-        children: [
-          TitleView(
-            title: 'let_get_started'.tr,
-            subTitle: 'signup_info'.tr,
-          ),
-          const SizedBox(height: 48.0),
-          const PhoneInput(),
-          const SizedBox(height: 30.0),
-          RoundedButton(
-            text: 'signup'.tr,
-            onPressed: () {
-              // sign up validation
-            },
-          ),
-          const SizedBox(height: 10.0),
-          Text(
-            'terms_info'.tr,
-            style: AppTheme.subtitle.copyWith(fontSize: 12.0),
-          ),
-          Text(
-            'terms_conditions'.tr,
-            style: AppTheme.subtitle.copyWith(
-              fontSize: 12.0,
-              color: AppTheme.primaryColor,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-          const SizedBox(height: 45.0),
-          Text(
-            'signup_with'.tr,
-            style: AppTheme.subtitle.copyWith(fontSize: 14.0),
-          ),
-          const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              BoxUI(icon: Icons.facebook),
-              BoxUI(icon: Icons.facebook),
-              BoxUI(icon: Icons.facebook),
+    final _formKey = GlobalKey<FormState>();
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TitleView(
+                title: 'let_get_started'.tr,
+                subTitle: 'signup_info'.tr,
+              ),
+              const SizedBox(height: 48.0),
+              PhoneInput(
+                onChanged: (value) => controller.phoneNumber = value,
+              ),
+              const SizedBox(height: 30.0),
+              RoundedButton(
+                text: 'signup'.tr,
+                onPressed: () {
+                  final form = _formKey.currentState;
+                  if (form?.validate() ?? false) {
+                    form?.save();
+                    controller.signup();
+                  }
+                },
+              ),
+              const SizedBox(height: 10.0),
+              Text(
+                'terms_info'.tr,
+                style: AppTheme.subtitle.copyWith(fontSize: 12.0),
+              ),
+              Text(
+                'terms_conditions'.tr,
+                style: AppTheme.subtitle.copyWith(
+                  fontSize: 12.0,
+                  color: AppTheme.primaryColor,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+              const SizedBox(height: 45.0),
+              Text(
+                'signup_with'.tr,
+                style: AppTheme.subtitle.copyWith(fontSize: 14.0),
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  BoxUI(icon: SvgPicture.asset('assets/icons/google.svg')),
+                  BoxUI(icon: SvgPicture.asset('assets/icons/facebook.svg')),
+                  BoxUI(icon: SvgPicture.asset('assets/icons/twitter.svg')),
+                ],
+              )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

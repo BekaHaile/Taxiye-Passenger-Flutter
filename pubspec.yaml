@@ -54,6 +54,18 @@ dependencies:
 
   # For smooth dot page indicator 
   smooth_page_indicator: ^0.3.0-nullsafety.0
+  # For OTP pin input 
+  pinput: ^1.2.0
+  # for image cropper
+  image_cropper: ^1.4.1
+
+
+
+  # For google maps 
+  google_maps_flutter: ^2.0.6
+  # For svg images
+  flutter_svg: ^0.22.0
+  
 
 dev_dependencies:
   flutter_test:
@@ -98,3 +110,6 @@ flutter:
       fonts:
         - asset: assets/fonts/SegoeUI-Regular.ttf
           weight: 400
+    - family:  CustomIcons
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf

@@ -22,12 +22,14 @@ class TitleView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 4.0),
             child: Text(
               title.tr,
+              textAlign: TextAlign.center,
               style: AppTheme.title.copyWith(fontSize: 28.0),
             ),
           ),
           if (subTitle != null)
             Text(
               subTitle!.tr,
+              textAlign: TextAlign.center,
               style: AppTheme.subtitle,
             )
         ],

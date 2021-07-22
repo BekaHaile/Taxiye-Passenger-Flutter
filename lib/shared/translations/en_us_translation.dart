@@ -35,6 +35,44 @@ final Map<String, String> enUs = {
   'terms_info': 'By continuing, you agree to Taxiye’s',
   'signup_with': '- Or sign up with -',
   'already_have_account': 'Already have an account?',
-
   'not_regeitered': 'Not registered yet?',
+
+  // verify
+  'verify_title': 'Verify your\nPhone number',
+  'verify_info': 'Enter the 4-digit verification code sent to +251911399631.',
+  'reset_code_in': 'Reset code in',
+  'didnt_recieve_code': 'Didn’t recieve any code?',
+
+  'resend_code': 'Resend Code',
+  'call_me': 'Call me',
+
+  // setup profile
+  'setup_profile': 'Setup your profile\ninformation',
+  'setup_profile_info':
+      'Please make sure you provide the correct\ninformation.',
+  'full_name': 'Full Name',
+  'email_address': 'Email Address',
+
+  'gender': 'Gender',
+  'crop_image': 'Crop Image',
+  'pick_image_from': 'Pick image from',
+
+  'camera': 'Camera',
+  'gallery': 'Gallery',
+
+  // setup passcode
+  'setup_passcode': 'Setup your\nLogin pass code',
+  'setup_passcode_info':
+      'Please enter a 4 digit pass code for future logins.\nMake sure to remember the code.',
+  'confirm_passcode': 'Confirm Passcode',
+  'finish': 'Finish',
+
+  // Error messages
+  'invalid_passcode': 'Invalid Passcode',
+  'password_match_error': 'Password don\'t match.',
+  'error_name': 'Please add full name',
+  'error_email': 'Invalid email address',
+
+  'error_phone': 'Please enter phone number',
+  'invalid_phone': 'Please enter valid phone number',
 };

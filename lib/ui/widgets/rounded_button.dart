@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
-import 'package:get/get.dart';
 
 class RoundedButton extends StatelessWidget {
   const RoundedButton({
@@ -25,13 +24,13 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? double.maxFinite,
-      height: 45.0,
+      height: 50.0,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(45.0),
-            side: const BorderSide(color: AppTheme.primaryColor),
+            // side: const BorderSide(color: AppTheme.primaryColor),
           ),
         ),
         onPressed: onPressed,
@@ -46,7 +45,7 @@ class RoundedButton extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'SegoeUi',
                   fontSize: 16.0,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   color: textColor,
                 ),
               ),

@@ -21,6 +21,13 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+// set googles map api key 
+// remmember to put it on CI/CD variables too.
+def localPropertyApiToken = localProperties['GOOGLE_MAPS_API_KEY']
+def systemEnvApiToken = System.getenv('GOOGLE_MAPS_API_KEY')
+def GOOGLE_MAPS_API_KEY = localPropertyApiToken != null ? localPropertyApiToken : systemEnvApiToken
+
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -48,6 +55,7 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders = [GOOGLE_MAPS_API_KEY: GOOGLE_MAPS_API_KEY]
     }
 
     buildTypes {

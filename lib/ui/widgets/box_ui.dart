@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BoxUI extends StatelessWidget {
   const BoxUI({
@@ -8,7 +9,7 @@ class BoxUI extends StatelessWidget {
   }) : super(key: key);
 
   final VoidCallback? onTapCallback;
-  final IconData? icon;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class BoxUI extends StatelessWidget {
           child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 35.0, vertical: 10.0),
-              child: Icon(icon)),
+              child: icon ?? SvgPicture.asset('assets/icons/facebook.svg')),
         ),
       ),
     );

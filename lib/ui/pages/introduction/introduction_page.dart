@@ -14,20 +14,8 @@ class IntroductionPage extends StatefulWidget {
 
 class _IntroductionPageState extends State<IntroductionPage>
     with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<Offset> offset;
   int _infoStep = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this)
-      ..forward();
-
-    offset = Tween<Offset>(begin: const Offset(-0.2, 0.0), end: Offset.zero)
-        .animate(_animationController);
-  }
+  final PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -50,19 +38,22 @@ class _IntroductionPageState extends State<IntroductionPage>
             Align(
               alignment: Alignment.center,
               child: Container(
-                width: Get.width * 0.75,
-                height: Get.width * 0.75,
+                width: Get.width * 0.7,
+                height: Get.width * 0.7,
                 decoration: const BoxDecoration(
                   color: AppTheme.lightSilverColor,
                   shape: BoxShape.circle,
                 ),
-                child: SlideTransition(
-                  position: offset,
-                  textDirection: TextDirection.rtl,
-                  child: Image.asset(
-                    'assets/images/intro$_infoStep.png',
-                    scale: 2.1,
-                  ),
+                child: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    for (int i = 0; i < 4; i++)
+                      Image.asset(
+                        'assets/images/intro$i.png',
+                        scale: 2.4,
+                      ),
+                  ],
                 ),
               ),
             ),
@@ -110,7 +101,9 @@ class _IntroductionPageState extends State<IntroductionPage>
                         setState(() {
                           _infoStep++;
                         });
-                        _animationController.forward(from: 0);
+                        _pageController.animateToPage(_infoStep,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeIn);
                       } else {
                         Get.toNamed(Routes.auth);
                       }

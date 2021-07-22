@@ -5,7 +5,16 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
 class PhoneInput extends StatefulWidget {
-  const PhoneInput({Key? key}) : super(key: key);
+  const PhoneInput({
+    Key? key,
+    this.onSaved,
+    this.onChanged,
+    this.validator,
+  }) : super(key: key);
+
+  final Function(String? value)? onSaved;
+  final Function(String value)? onChanged;
+  final FormFieldValidator<String>? validator;
 
   @override
   State<PhoneInput> createState() => _PhoneInputState();
@@ -20,7 +29,9 @@ class _PhoneInputState extends State<PhoneInput> {
     return TextFormField(
       controller: phoneController,
       keyboardType: TextInputType.phone,
-      style: AppTheme.subtitle.copyWith(fontSize: 16.0),
+      onChanged: widget.onChanged,
+      onSaved: widget.onSaved,
+      style: AppTheme.title.copyWith(fontSize: 16.0),
       decoration: AppTheme.textFieldDecoration.copyWith(
         hintText: 'phone_number'.tr,
         prefixIconConstraints: const BoxConstraints(maxWidth: 100.0),
@@ -54,6 +65,8 @@ class _PhoneInputState extends State<PhoneInput> {
           ),
         ),
       ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: widget.validator ?? (value) => validateMobile(value ?? ''),
     );
   }
 }

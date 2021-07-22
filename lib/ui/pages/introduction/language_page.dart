@@ -61,7 +61,7 @@ class _LanguagePageState extends State<LanguagePage> {
                           backgroundColor: AppTheme.lightSilverColor,
                           side: BorderSide(
                             color: selectedLanguage == language
-                                ? Theme.of(context).primaryColor
+                                ? AppTheme.primaryColor
                                 : Colors.transparent,
                             width: 2.0,
                           ),
@@ -88,15 +88,6 @@ class _LanguagePageState extends State<LanguagePage> {
                         ),
                       ),
                     ),
-                    // LanguagePill(
-                    //   isActive: selectedLanguage == languages[i],
-                    //   language: languages[i],
-                    //   onTap: () {
-                    //     setState(() {
-                    //       selectedLanguage = languages[i];
-                    //     });
-                    //   },
-                    // ),
                   ],
                 )
               ],

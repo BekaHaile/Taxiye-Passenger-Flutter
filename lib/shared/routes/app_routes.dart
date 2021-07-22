@@ -9,6 +9,8 @@ abstract class Routes {
   // Auth Routes
   static const auth = '/auth';
   static const verify = '/verify';
+  static const setProfile = '/setProfile';
+  static const setPasscode = '/setPasscode';
 
   // Profile Routes
   static const profile = '/profile';

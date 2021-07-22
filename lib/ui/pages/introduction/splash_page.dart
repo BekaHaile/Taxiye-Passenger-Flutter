@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/ui/pages/introduction/language_page.dart';
 import 'package:taxiye_passenger/ui/widgets/logo_image.dart';
-import 'package:get/get.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);

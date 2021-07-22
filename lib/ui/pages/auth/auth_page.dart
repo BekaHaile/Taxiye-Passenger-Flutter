@@ -10,72 +10,77 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
 class AuthPage extends GetView<AuthController> {
-  const AuthPage({Key? key}) : super(key: key);
+  AuthPage({Key? key}) : super(key: key);
 
+  final PageController _pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
-    final PageController _pageController = PageController(initialPage: 0);
+    controller.authStep = AuthStep.signup;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: kPagePadding),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: Get.height * 0.08),
-              const LogoImage(),
-              const SizedBox(height: 24.0),
-              SizedBox(
-                height: Get.height * 0.67,
-                child: Obx(() => PageView(
-                      reverse: !(controller.authStep == AuthStep.signup),
-                      controller: _pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        SignUpForm(
-                          onSignUp: controller.signup(),
-                        ),
-                        SignInForm(),
-                      ],
-                    )),
-              ),
-              Obx(
-                () =>
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text(
-                    controller.authStep == AuthStep.signup
-                        ? 'already_have_account'.tr
-                        : 'not_regeitered'.tr,
-                    style: AppTheme.subtitle
-                        .copyWith(color: AppTheme.darkTextColor),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                    onPressed: () {
-                      controller.authStep =
-                          controller.authStep == AuthStep.signup
-                              ? AuthStep.signin
-                              : AuthStep.signup;
-
-                      _pageController.animateToPage(
-                          controller.authStep == AuthStep.signup ? 1 : 0,
-                          duration: const Duration(milliseconds: 400),
-                          curve: Curves.easeIn);
-                    },
-                    child: Text(
-                      controller.authStep == AuthStep.signup
-                          ? 'signin'.tr
-                          : 'signup'.tr,
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
-                        color: AppTheme.primaryColor,
+        physics: const BouncingScrollPhysics(),
+        child: SizedBox(
+          height: Get.height,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: kPagePadding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(height: 50.0),
+                const LogoImage(),
+                const SizedBox(height: 20.0),
+                Expanded(
+                  child: Obx(() => PageView(
+                        reverse: controller.authStep == AuthStep.signup,
+                        controller: _pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: const [
+                          SignUpForm(),
+                          SignInForm(),
+                        ],
+                      )),
+                ),
+                const SizedBox(height: 10.0),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        controller.authStep == AuthStep.signup
+                            ? 'already_have_account'.tr
+                            : 'not_regeitered'.tr,
+                        style: AppTheme.subtitle
+                            .copyWith(color: AppTheme.darkTextColor),
                       ),
-                    ),
+                      const SizedBox(width: 4.0),
+                      GestureDetector(
+                        onTap: () {
+                          controller.authStep =
+                              controller.authStep == AuthStep.signup
+                                  ? AuthStep.signin
+                                  : AuthStep.signup;
+
+                          _pageController.animateToPage(
+                              controller.authStep == AuthStep.signin ? 1 : 0,
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeIn);
+                        },
+                        child: Text(
+                          controller.authStep == AuthStep.signup
+                              ? 'signin'.tr
+                              : 'signup'.tr,
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                            color: AppTheme.primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ]),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
