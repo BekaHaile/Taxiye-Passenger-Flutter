@@ -70,13 +70,11 @@ class ProfileAvatar extends StatelessWidget {
                     : name?.isNotEmpty ?? false
                         ? CircleAvatar(
                             radius: radius,
-                            backgroundColor: AppTheme.primaryColor,
+                            backgroundColor: Colors.white,
                             child: Text(
                               getInitials(name),
-                              style: TextStyle(
-                                  fontSize: initialsFontSize,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                              style: AppTheme.title
+                                  .copyWith(fontSize: initialsFontSize),
                             ),
                           )
                         : CircleAvatar(

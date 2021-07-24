@@ -16,9 +16,9 @@ class CircleNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 42.0, left: kPagePadding),
+      padding: const EdgeInsets.only(top: 40.0, left: kPagePadding),
       child: GestureDetector(
-        onTap: () => onTap ?? Get.back(),
+        onTap: onTap ?? () => Get.back(),
         child: Container(
           width: 50.0,
           height: 50.0,

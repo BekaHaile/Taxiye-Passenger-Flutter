@@ -7,6 +7,7 @@ import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/auth_enums.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
 
 /*
   Handles any business logic and data binding related to authentication

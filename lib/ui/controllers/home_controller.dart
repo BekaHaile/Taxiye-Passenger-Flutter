@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 
 /*
   Handles any business logic and data binding with Home flow
@@ -11,6 +12,10 @@ class HomeController extends GetxService {
   HomeController({required this.repository});
 
   final status = Status.success.obs;
+
+  final _selectedService = HomeServiceIndex.ride.obs;
+  get selectedService => _selectedService.value;
+  set selectedService(value) => _selectedService.value = value;
 
   @override
   void onInit() async {

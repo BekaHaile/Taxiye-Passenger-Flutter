@@ -67,6 +67,33 @@ final Map<String, String> enUs = {
   'confirm_passcode': 'Confirm Passcode',
   'finish': 'Finish',
 
+  // Drawer items
+  'my_wallet': 'My Wallet',
+  'manage_your_wallet': 'Manage your wallet',
+  'promotions': 'Promotions',
+  'promotions_info': 'You can win stuff here',
+
+  'my_orders': 'My Orders',
+  'riview_orders': 'Review your ride orders',
+  'my_drivers': 'My Drivers',
+  'drivers_info': 'Your favorite drivers',
+
+  'payment_method': 'Payment Method',
+  'payment_info': 'Pay with different types',
+  'legals': 'Legals',
+  'legals_info': 'Important info to read',
+
+  'speak_real_person': 'Speak to a real person.',
+  'speak_person_info': 'Just to talk or book a cab.',
+
+  // home strings
+  'where_to': 'Where to?',
+  'now': 'Now',
+  'ride': 'Ride',
+  'delivery': 'Delivery',
+  'rental': 'Rental',
+  'outStation': 'Out Station',
+
   // Error messages
   'invalid_passcode': 'Invalid Passcode',
   'password_match_error': 'Password don\'t match.',
