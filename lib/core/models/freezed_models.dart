@@ -36,3 +36,35 @@ abstract class Files with _$Files {
   factory Files.build({Files? file}) => file ?? Files('', '', '');
   factory Files.fromJson(Map<String, dynamic> json) => _$FilesFromJson(json);
 }
+
+@freezed
+class Vehicle with _$Vehicle {
+  factory Vehicle({
+    String? name,
+    String? liscensePlate,
+    double? price,
+  }) = _Vehicle;
+
+  factory Vehicle.fromJson(Map<String, dynamic> json) =>
+      _$VehicleFromJson(json);
+}
+
+@freezed
+class Driver with _$Driver {
+  factory Driver({
+    String? name,
+    double? rating,
+  }) = _Driver;
+
+  factory Driver.fromJson(Map<String, dynamic> json) => _$DriverFromJson(json);
+}
+
+@freezed
+class Payment with _$Payment {
+  factory Payment({
+    String? name,
+  }) = _Payment;
+
+  factory Payment.fromJson(Map<String, dynamic> json) =>
+      _$PaymentFromJson(json);
+}

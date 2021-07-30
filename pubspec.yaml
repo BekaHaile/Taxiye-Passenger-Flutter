@@ -65,7 +65,8 @@ dependencies:
   google_maps_flutter: ^2.0.6
   # For svg images
   flutter_svg: ^0.22.0
-  
+  # for star rating
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:

@@ -6,16 +6,19 @@ class RoundedButton extends StatelessWidget {
     Key? key,
     required this.text,
     this.width,
+    this.height = 45.0,
+    this.textStyle,
     this.color = AppTheme.primaryColor,
     this.leadingIcon,
     this.trailingIcon,
-    this.textColor = Colors.white,
     required this.onPressed,
   }) : super(key: key);
 
   final String text;
   final double? width;
-  final Color color, textColor;
+  final double height;
+  final Color? color;
+  final TextStyle? textStyle;
   final IconData? leadingIcon;
   final IconData? trailingIcon;
   final VoidCallback onPressed;
@@ -24,7 +27,7 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? double.maxFinite,
-      height: 50.0,
+      height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: color,
@@ -42,12 +45,13 @@ class RoundedButton extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 text,
-                style: TextStyle(
-                  fontFamily: 'SegoeUi',
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
-                  color: textColor,
-                ),
+                style: textStyle ??
+                    const TextStyle(
+                      fontFamily: 'SegoeUi',
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
               ),
             ),
             if (trailingIcon != null)

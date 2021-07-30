@@ -1,15 +1,8 @@
 import 'package:get/route_manager.dart';
 import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
-import 'package:taxiye_passenger/ui/pages/auth/auth_page.dart';
-import 'package:taxiye_passenger/ui/pages/auth/set_passcode_page.dart';
-import 'package:taxiye_passenger/ui/pages/auth/set_profile_page.dart';
-import 'package:taxiye_passenger/ui/pages/auth/verify_page.dart';
-import 'package:taxiye_passenger/ui/pages/home/home_page.dart';
-import 'package:taxiye_passenger/ui/pages/introduction/introduction_page.dart';
-import 'package:taxiye_passenger/ui/pages/introduction/language_page.dart';
-import 'package:taxiye_passenger/ui/pages/introduction/splash_page.dart';
-import 'package:taxiye_passenger/ui/pages/profile/profile_page.dart';
+import 'package:taxiye_passenger/ui/pages/pages.dart';
+import 'package:taxiye_passenger/ui/pages/payment/payment_page.dart';
 part 'app_routes.dart';
 
 abstract class AppPages {
@@ -59,10 +52,21 @@ abstract class AppPages {
       binding: HomeBinding(),
     ),
 
+    GetPage(
+      name: Routes.pickLocation,
+      page: () => PickLocationPage(),
+    ),
+
     // Profile Pages
     GetPage(
       name: Routes.profile,
       page: () => const ProfilePage(),
+    ),
+
+    // Payment Pages
+    GetPage(
+      name: Routes.payment,
+      page: () => const PaymentPage(),
     ),
   ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 
 class BoxUI extends StatelessWidget {
   const BoxUI({
@@ -23,9 +24,11 @@ class BoxUI extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(6.0)),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  offset: const Offset(1.1, 1.1),
-                  blurRadius: 8.0),
+                color: AppTheme.shadowColor.withOpacity(0.12),
+                blurRadius: 10.0,
+                spreadRadius: 0.0,
+                offset: const Offset(2, 2),
+              ),
             ],
           ),
           child: Padding(

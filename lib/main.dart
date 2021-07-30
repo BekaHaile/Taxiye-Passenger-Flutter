@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       enableLog: true,
       logWriterCallback: Logger.write,
-      initialRoute: '/',
+      initialRoute: '/home',
       defaultTransition: Transition.fade,
       translations: AppTranslations(),
       locale: const Locale('en', 'US'),

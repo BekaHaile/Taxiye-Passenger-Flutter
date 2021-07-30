@@ -15,3 +15,19 @@ enum HomeServiceIndex {
   rental,
   outStation,
 }
+
+enum VehicleType {
+  normal,
+  shared,
+  corporate,
+}
+
+enum TripStep {
+  locationSearch,
+  pickVehicle,
+  lookingDrivers,
+  driverDetail,
+  tripStarted,
+  tripDetail,
+  tripFeedback,
+}

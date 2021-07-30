@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
-import 'package:taxiye_passenger/ui/pages/auth/components/shadow_button.dart';
+import 'package:taxiye_passenger/ui/widgets/shadow_button.dart';
 import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/ui/widgets/title_view.dart';
@@ -74,6 +74,10 @@ class VerifyPage extends GetView<AuthController> {
                                       children: [
                                         ShadowButton(
                                           text: 'resend_code'.tr,
+                                          textStyle: AppTheme.title.copyWith(
+                                            fontSize: 14.0,
+                                            color: AppTheme.primaryColor,
+                                          ),
                                           onPressed: () {
                                             controller.startTimer();
                                             controller.resendCode();
@@ -82,6 +86,10 @@ class VerifyPage extends GetView<AuthController> {
                                         const SizedBox(width: 20.0),
                                         ShadowButton(
                                           text: 'call_me'.tr,
+                                          textStyle: AppTheme.title.copyWith(
+                                            fontSize: 14.0,
+                                            color: AppTheme.primaryColor,
+                                          ),
                                           onPressed: () => controller.callMe(),
                                         ),
                                       ],

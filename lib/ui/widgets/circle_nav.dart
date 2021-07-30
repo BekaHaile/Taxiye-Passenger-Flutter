@@ -27,10 +27,10 @@ class CircleNav extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: AppTheme.shadowColor,
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 1),
+                color: AppTheme.shadowColor.withOpacity(0.2),
+                spreadRadius: 0,
+                blurRadius: 6,
+                offset: const Offset(1, 3),
               ),
             ],
           ),

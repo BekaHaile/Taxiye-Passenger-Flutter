@@ -101,10 +101,11 @@ class HomeDrawer extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 boxShadow: <BoxShadow>[
                                   BoxShadow(
-                                      color: AppTheme.shadowColor
-                                          .withOpacity(0.25),
-                                      offset: const Offset(0.0, 4.0),
-                                      blurRadius: 8),
+                                    color: Colors.black.withOpacity(0.25),
+                                    spreadRadius: 0,
+                                    blurRadius: 10,
+                                    offset: const Offset(0.0, 4.0),
+                                  ),
                                 ],
                                 border:
                                     Border.all(color: AppTheme.primaryColor),

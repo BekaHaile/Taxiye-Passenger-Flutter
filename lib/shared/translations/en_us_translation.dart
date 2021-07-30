@@ -94,6 +94,74 @@ final Map<String, String> enUs = {
   'rental': 'Rental',
   'outStation': 'Out Station',
 
+  // pick locations string
+  'drop_off_location': 'Drop off location',
+  'enter_location': 'Enter drop off location here...',
+  'choose_on_map': 'Choose on map',
+  'add': 'Add',
+  'home': 'Home',
+
+  'work': 'Work',
+  'bf_house': 'BF\'s House',
+
+  // Location detail strings
+  'your_location': 'Your location,',
+  'add_more_stops': 'Add more stops',
+  'choose_vehicles': 'Choose Vehicles',
+  'km': 'km',
+  'min': 'min',
+
+  // select car strings
+  'available_vehicles': 'Available Vehicles',
+  'normal': 'Normal',
+  'shared': 'Shared',
+  'corporate': 'Corporate',
+
+  'birr': 'Birr',
+  'cash': 'Cash',
+  'offers': 'Offers',
+  'notes': 'Notes',
+  'book_now': 'Book Now',
+
+  // vehicle detail
+  'fare_details': 'Fare Details',
+  'close': 'Close',
+  'base_fare': 'Base Fare',
+
+  'per_kilometer': 'Per Kilometer',
+  'per_minute': 'Per Minute',
+  'congestion_change': 'Congestion changes per minutes',
+
+  // Looking drivers string
+  'looking_for_drivers': 'We are looking for drivers...',
+  'ride_starts_soon': 'Your ride will start soon.',
+  'side_to_cancel': 'Slide to Cancel',
+
+  'driver_on_route': 'Driver on route!',
+  'ride_started': 'Your ride has started!',
+
+  // Trip details strings
+  'arrived_destination': 'You’ve arrived at your destination.',
+  'pay_with_cash': 'Pay With Cash',
+  'distance': 'Distance',
+  'duration': 'Duration',
+
+  'inc_tax': 'Incl. TAX',
+  'cash_payment': 'Cash Payment',
+  'cbe_bank': 'CBE Bank',
+  'kms': 'kms',
+  'mins': 'mins',
+
+  // trip feedback strings
+  'block': 'Block',
+  'add_to_favourites': 'Add to favourites',
+  'submit': 'Submit',
+  'how_was_trip': 'How was your Trip?',
+
+  'feadback_info':
+      'Your feedback will help us improve your next driving experience.',
+  'additional_comments': 'Additional comments here...',
+
   // Error messages
   'invalid_passcode': 'Invalid Passcode',
   'password_match_error': 'Password don\'t match.',

@@ -1,13 +1,21 @@
 // import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
+import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/location_search.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/looking_drivers.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/pick_service.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/pick_vehicle.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/service_list.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/trip_detail.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/trip_feedback.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/trip_progress.dart';
 import 'package:taxiye_passenger/ui/pages/profile/profile_page.dart';
 import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:get/get.dart';
@@ -46,57 +54,73 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          key: _scaffoldKey,
-          body: Stack(
-            children: [
-              const Center(
-                child: Text('Home page', style: AppTheme.title),
-              ),
-              CircleNav(
-                icon: Icons.menu_rounded,
-                onTap: () => _scaffoldKey.currentState?.openDrawer(),
-              ),
-              Positioned(
-                bottom: 0.0,
-                child: SizedBox(
-                  width: Get.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const LocationSearch(),
-                      Obx(() => ServiceList(
-                            services: homeServices,
-                            selectedService: controller.selectedService,
-                            onSelectService: (selectedService) =>
-                                controller.selectedService = selectedService,
-                          )),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-          drawer: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(10.0),
-              bottomRight: Radius.circular(10.0),
+    return Scaffold(
+        key: _scaffoldKey,
+        body: Stack(
+          children: [
+            const Center(
+              child: Text('Home page', style: AppTheme.title),
             ),
-            child: Drawer(
-              child: HomeDrawer(
-                screenIndex: drawerIndex,
-                iconAnimationController: iconAnimationController,
-                callBackIndex: (DrawerIndex indexType) {
-                  changeIndex(indexType);
-                },
-              ),
+            CircleNav(
+              icon: CustomIcons.menu,
+              onTap: () => _scaffoldKey.currentState?.openDrawer(),
+            ),
+            // tripViews(),
+          ],
+        ),
+        drawer: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(10.0),
+            bottomRight: Radius.circular(10.0),
+          ),
+          child: Drawer(
+            child: HomeDrawer(
+              screenIndex: drawerIndex,
+              iconAnimationController: iconAnimationController,
+              callBackIndex: (DrawerIndex indexType) {
+                changeIndex(indexType);
+              },
             ),
           ),
         ),
-      ],
-    );
+        bottomSheet: Obx(() => tripViews())
+        //   TripFeadback(
+        //     driver: Driver(name: 'Cameron Williamson', rating: 4.9),
+        //     vehicle: Vehicle(
+        //         name: 'Taxiye - Sedan', liscensePlate: 'B12345', price: 128.0),
+        //   ),
+        );
+  }
+
+  Widget tripViews() {
+    switch (controller.tripStep) {
+      case TripStep.locationSearch:
+        return PickService(homeServices: homeServices);
+      case TripStep.pickVehicle:
+        return const PickVehicle();
+      case TripStep.lookingDrivers:
+        return LookingDrivers(
+          onDriverFound: () => controller.onDriverFound(),
+          onCancelDriverSearch: () => controller.onCancelDriverSearch(),
+        );
+      case TripStep.driverDetail:
+        return DriverDetail(
+          driver: controller.driver,
+          vehicle: controller.vehicle,
+          onDriverAprroved: () => controller.onDriverApproved(),
+        );
+      case TripStep.tripStarted:
+        return TripProgress(
+          onTripEnded: () => controller.onTripEnded(),
+        );
+      case TripStep.tripDetail:
+        return const TripDetail();
+      case TripStep.tripFeedback:
+        return TripFeadback(
+            driver: controller.driver, vehicle: controller.vehicle);
+      default:
+        return const Text('pick vehicle');
+    }
   }
 
   void changeIndex(DrawerIndex drawerIndexdata) {
@@ -123,6 +147,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
   }
 }
+
+// const TripDetail(),
+//     DriverDetail(
+//   driver: Driver(name: 'Cameron Williamson', rating: 4.9),
+//   vehicle: Vehicle(
+//       name: 'Taxiye - Sedan', liscensePlate: 'B12345', price: 128.0),
+// ),
 
 class HomeService {
   HomeService({

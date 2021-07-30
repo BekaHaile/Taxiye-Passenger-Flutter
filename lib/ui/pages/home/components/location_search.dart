@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +19,7 @@ class LocationSearch extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(50.0)),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,8 +32,11 @@ class LocationSearch extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0)),
+                  onPressed: () => Get.toNamed(Routes.pickLocation),
                   child: Text(
                     'where_to'.tr,
                     style: AppTheme.title

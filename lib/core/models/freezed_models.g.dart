@@ -49,3 +49,41 @@ Map<String, dynamic> _$_$_FilesToJson(_$_Files instance) => <String, dynamic>{
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
     };
+
+_$_Vehicle _$_$_VehicleFromJson(Map<String, dynamic> json) {
+  return _$_Vehicle(
+    name: json['name'] as String?,
+    liscensePlate: json['liscensePlate'] as String?,
+    price: (json['price'] as num?)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$_$_VehicleToJson(_$_Vehicle instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'liscensePlate': instance.liscensePlate,
+      'price': instance.price,
+    };
+
+_$_Driver _$_$_DriverFromJson(Map<String, dynamic> json) {
+  return _$_Driver(
+    name: json['name'] as String?,
+    rating: (json['rating'] as num?)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$_$_DriverToJson(_$_Driver instance) => <String, dynamic>{
+      'name': instance.name,
+      'rating': instance.rating,
+    };
+
+_$_Payment _$_$_PaymentFromJson(Map<String, dynamic> json) {
+  return _$_Payment(
+    name: json['name'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_PaymentToJson(_$_Payment instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };

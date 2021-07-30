@@ -17,4 +17,8 @@ abstract class Routes {
 
   // Home pages
   static const home = '/home';
+  static const pickLocation = '/pickLocation';
+
+  // Payment pages
+  static const payment = '/payment';
 }

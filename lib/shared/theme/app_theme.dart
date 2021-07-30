@@ -15,7 +15,12 @@ class AppTheme {
   static const Color greyColor = Color(0xFF979797);
 
   static const Color greyColor2 = Color(0xFFC1C9D2);
-  static Color shadowColor = const Color(0xFF123E77).withOpacity(0.12);
+  static const Color greyColor3 = Color(0xFFABABAB);
+  static const Color lightGrey = Color(0xFFF1F1F1);
+  static const Color greyBorder = Color(0xFFC1C9D2);
+  static Color shadowColor = const Color(0xFF123E77);
+
+  static const Color greenColor = Color(0xFF31C631);
 
   static const String fontName = 'SegoeUi';
   static ThemeData themeData = ThemeData(
@@ -25,6 +30,10 @@ class AppTheme {
           secondary: yellowColor,
         ),
     fontFamily: fontName,
+    scaffoldBackgroundColor: Colors.white,
+    iconTheme: const IconThemeData(
+      color: darkColor,
+    ),
   );
 
   static const TextStyle title = TextStyle(
@@ -61,5 +70,21 @@ class AppTheme {
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),
+  );
+
+  static final bottomSheetDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(20.0),
+      topRight: Radius.circular(20.0),
+    ),
+    boxShadow: [
+      BoxShadow(
+        color: shadowColor.withOpacity(0.1),
+        spreadRadius: 0,
+        blurRadius: 20,
+        offset: const Offset(1, 0),
+      ),
+    ],
   );
 }
