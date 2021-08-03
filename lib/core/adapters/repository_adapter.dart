@@ -19,3 +19,11 @@ abstract class IFileRepository {
   Future<File> getMedia(ImageSource imageSource, String mediaType);
   Future<File?> getCroppedImage(File imageFile);
 }
+
+abstract class IProfileRepository {
+  // Todo: Add profile request class signitures (interfaces) here.
+}
+
+abstract class IPaymentRepository {
+  // Todo: Add profile request class signitures (interfaces) here.
+}

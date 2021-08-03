@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
-import 'package:taxiye_passenger/ui/pages/home/components/payment_list.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/home_payment_list.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 
 class TripDetail extends GetView<HomeController> {
@@ -100,7 +100,7 @@ class TripDetail extends GetView<HomeController> {
               ),
             ),
             const SizedBox(height: 30.0),
-            Obx(() => PaymentList(
+            Obx(() => HomePaymentList(
                 paymentMethods: controller.paymentMethods,
                 selectedPayment: controller.selectedPayment,
                 onItemSelected: (selectedPayment) {

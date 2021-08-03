@@ -1,18 +1,16 @@
 // import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
-import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
-import 'package:taxiye_passenger/ui/pages/home/components/location_search.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/looking_drivers.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/pick_service.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/pick_vehicle.dart';
-import 'package:taxiye_passenger/ui/pages/home/components/service_list.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_feedback.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_progress.dart';
@@ -124,6 +122,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void changeIndex(DrawerIndex drawerIndexdata) {
+    Get.back();
     switch (drawerIndexdata) {
       case DrawerIndex.myWallet:
         // Todo: nav to wallets page
@@ -138,7 +137,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         // Todo: nav to drivers page
         break;
       case DrawerIndex.paymentMethod:
-        // Todo: nav to payment method page
+        // nav to payment method page
+        Get.toNamed(Routes.payment);
         break;
       case DrawerIndex.legals:
         // Todo: nav to legals page

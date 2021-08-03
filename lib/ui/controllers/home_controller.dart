@@ -76,8 +76,10 @@ class HomeController extends GetxService {
   getPaymentMethods() {
     //Todo: Get payment Methods
     paymentMethods = [
-      Payment(name: 'cash_payment'),
-      Payment(name: 'cbe_bank'),
+      Payment(name: 'cash'),
+      Payment(name: 'cbe'),
+      Payment(name: 'mpessa'),
+      Payment(name: 'telebirr'),
     ];
   }
 

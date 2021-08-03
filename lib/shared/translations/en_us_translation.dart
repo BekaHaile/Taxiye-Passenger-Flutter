@@ -162,6 +162,19 @@ final Map<String, String> enUs = {
       'Your feedback will help us improve your next driving experience.',
   'additional_comments': 'Additional comments here...',
 
+  // Payment strings
+  'payment_methods': 'Payment Methods',
+  'add_new_method': 'Add new method',
+  'default_method': 'Default Method',
+  'cbe': 'Commercial Bank of Ethiopia',
+  'mpessa': 'M-PESSA',
+  'telebirr': 'Tele Birr',
+
+  'new_payment_method': 'Select new payment method',
+  'edit': 'Edit',
+  'remove': 'Remove',
+  'setDefault': 'Set as default method',
+
   // Error messages
   'invalid_passcode': 'Invalid Passcode',
   'password_match_error': 'Password don\'t match.',

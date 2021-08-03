@@ -3,3 +3,9 @@ enum Status {
   success,
   error,
 }
+
+enum UpdateOption {
+  edit,
+  remove,
+  setDefault,
+}

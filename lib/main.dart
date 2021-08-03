@@ -18,13 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarDividerColor: Colors.grey,
+      systemNavigationBarIconBrightness: Brightness.dark,
     ));
     return GetMaterialApp(
       title: 'app_name'.tr,
       debugShowCheckedModeBanner: false,
       enableLog: true,
       logWriterCallback: Logger.write,
-      initialRoute: '/home',
+      initialRoute: '/',
       defaultTransition: Transition.fade,
       translations: AppTranslations(),
       locale: const Locale('en', 'US'),

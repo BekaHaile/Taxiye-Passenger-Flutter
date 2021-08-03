@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 
-class PaymentList extends StatelessWidget {
-  const PaymentList({
+class HomePaymentList extends StatelessWidget {
+  const HomePaymentList({
     Key? key,
     required this.paymentMethods,
     required this.selectedPayment,
@@ -57,7 +57,6 @@ class PaymentTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 170.0,
         height: 56.0,
         decoration: BoxDecoration(
           color: Colors.white,
