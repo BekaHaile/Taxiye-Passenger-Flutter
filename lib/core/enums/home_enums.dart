@@ -6,6 +6,7 @@ enum DrawerIndex {
   myOrders,
   myDrivers,
   paymentMethod,
+  settings,
   legals,
 }
 

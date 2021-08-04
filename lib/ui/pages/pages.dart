@@ -8,4 +8,6 @@ export 'package:taxiye_passenger/ui/pages/introduction/introduction_page.dart';
 export 'package:taxiye_passenger/ui/pages/introduction/language_page.dart';
 export 'package:taxiye_passenger/ui/pages/introduction/splash_page.dart';
 export 'package:taxiye_passenger/ui/pages/profile/profile_page.dart';
-import 'package:taxiye_passenger/ui/pages/payment/payment_page.dart';
+export 'package:taxiye_passenger/ui/pages/payment/payment_page.dart';
+export 'package:taxiye_passenger/ui/pages/settings/settings_page.dart';
+export 'package:taxiye_passenger/ui/pages/legals/legals_page.dart';

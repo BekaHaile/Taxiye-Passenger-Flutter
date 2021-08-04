@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
-import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
-import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
 import 'package:taxiye_passenger/ui/widgets/logo_image.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
 
@@ -52,6 +50,12 @@ class HomeDrawer extends StatelessWidget {
         title: 'payment_method',
         subtitle: 'payment_info',
         icon: CustomIcons.payment,
+      ),
+      DrawerList(
+        index: DrawerIndex.settings,
+        title: 'app_settings'.tr,
+        subtitle: 'adjut_preferences',
+        icon: Icons.settings,
       ),
       DrawerList(
         index: DrawerIndex.legals,
@@ -212,6 +216,7 @@ class HomeDrawer extends StatelessWidget {
       children: [
         ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+          dense: true,
           horizontalTitleGap: 0.0,
           leading: Align(
             widthFactor: 1.0,

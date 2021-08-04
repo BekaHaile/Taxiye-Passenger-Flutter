@@ -140,8 +140,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         // nav to payment method page
         Get.toNamed(Routes.payment);
         break;
+      case DrawerIndex.settings:
+        // nav to legals page
+        Get.toNamed(Routes.settings);
+        break;
       case DrawerIndex.legals:
-        // Todo: nav to legals page
+        // nav to legals page
+        Get.toNamed(Routes.legals);
         break;
       default:
     }

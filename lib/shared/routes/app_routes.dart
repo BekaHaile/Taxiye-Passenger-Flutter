@@ -21,4 +21,10 @@ abstract class Routes {
 
   // Payment pages
   static const payment = '/payment';
+
+  // Settings pages
+  static const settings = '/settings';
+
+  // Legals page
+  static const legals = '/legals';
 }

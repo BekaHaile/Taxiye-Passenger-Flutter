@@ -80,9 +80,11 @@ final Map<String, String> enUs = {
 
   'payment_method': 'Payment Method',
   'payment_info': 'Pay with different types',
+  'app_settings': 'App Settings',
+  'adjust_preference': 'Adjust to your preference',
+
   'legals': 'Legals',
   'legals_info': 'Important info to read',
-
   'speak_real_person': 'Speak to a real person.',
   'speak_person_info': 'Just to talk or book a cab.',
 
@@ -174,6 +176,29 @@ final Map<String, String> enUs = {
   'edit': 'Edit',
   'remove': 'Remove',
   'setDefault': 'Set as default method',
+
+  // app settings strings
+  'sound_voice': 'Sound & Voice',
+  'customize_sounds': 'Customize app sounds and more',
+  'navigation': 'Navigation',
+  'google_maps': 'Google Maps',
+
+  'night_mode': 'Night Mode',
+  'night_mode_info': 'Enable or disable night mode',
+  'follow_my_ride': 'Follow My Ride',
+  'follow_my_ride_info': 'Easily share trips with family & friends',
+
+  'language': 'Language',
+  'english': 'English',
+  'privacy_settings': 'Privacy Settings',
+  'customize_privacy': 'Customize what you share with us',
+
+  // Legals strings
+  'view_terms_conditions': 'View app usage terms & conditions',
+  'privacy_policy': 'Privacy Policy',
+  'privacy_info': 'See how we use your data',
+  'about_us': 'About Us',
+  'know_us': 'Know us a little better',
 
   // Error messages
   'invalid_passcode': 'Invalid Passcode',

@@ -4,7 +4,6 @@ import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
-import 'package:taxiye_passenger/ui/pages/payment/payment_page.dart';
 part 'app_routes.dart';
 
 abstract class AppPages {
@@ -71,6 +70,18 @@ abstract class AppPages {
       name: Routes.payment,
       page: () => const PaymentPage(),
       binding: PaymentBinding(),
+    ),
+
+    // Settings page
+    GetPage(
+      name: Routes.settings,
+      page: () => SettingsPage(),
+    ),
+
+    // Legals Pages
+    GetPage(
+      name: Routes.legals,
+      page: () => LegalsPage(),
     ),
   ];
 }
