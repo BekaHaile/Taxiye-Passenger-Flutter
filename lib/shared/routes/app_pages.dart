@@ -3,6 +3,7 @@ import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
+import 'package:taxiye_passenger/ui/pages/drivers/drivers_page.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
 part 'app_routes.dart';
 
@@ -82,6 +83,12 @@ abstract class AppPages {
     GetPage(
       name: Routes.legals,
       page: () => LegalsPage(),
+    ),
+
+    // Drivers Page
+    GetPage(
+      name: Routes.drivers,
+      page: () => DriversPage(),
     ),
   ];
 }

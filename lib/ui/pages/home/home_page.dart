@@ -5,6 +5,7 @@ import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/drivers/components/driver_tile.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
@@ -134,7 +135,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         // Todo: nav to orders page
         break;
       case DrawerIndex.myDrivers:
-        // Todo: nav to drivers page
+        // nav to drivers page
+        Get.toNamed(Routes.drivers);
         break;
       case DrawerIndex.paymentMethod:
         // nav to payment method page

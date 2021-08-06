@@ -9,3 +9,8 @@ enum UpdateOption {
   remove,
   setDefault,
 }
+
+enum DriverPreference {
+  favourite,
+  blocked,
+}

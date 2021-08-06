@@ -14,6 +14,10 @@ abstract class IHomeRepository {
   // Todo: Add Home request class signitures (interfaces) here.
 }
 
+abstract class ICommonRepository {
+  // Todo: Add common request class signitures (interfaces) here.
+}
+
 abstract class IFileRepository {
   // Todo: Add file/media requests here.
   Future<File> getMedia(ImageSource imageSource, String mediaType);

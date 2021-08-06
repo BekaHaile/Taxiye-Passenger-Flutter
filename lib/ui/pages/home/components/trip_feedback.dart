@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
-import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
+import 'package:taxiye_passenger/ui/pages/drivers/components/driver_tile.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/widgets/shadow_button.dart';

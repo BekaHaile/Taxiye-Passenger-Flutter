@@ -10,6 +10,7 @@ class ShadowButton extends StatelessWidget {
     this.color = Colors.white,
     this.borderColor,
     this.textStyle,
+    this.decoration,
     this.leadingIcon,
     this.trailingIcon,
     required this.onPressed,
@@ -21,38 +22,39 @@ class ShadowButton extends StatelessWidget {
   final Color color;
   final Color? borderColor;
   final TextStyle? textStyle;
-  final IconData? leadingIcon;
-  final IconData? trailingIcon;
+  final BoxDecoration? decoration;
+  final Widget? leadingIcon;
+  final Widget? trailingIcon;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-        border: Border.all(color: borderColor ?? Colors.transparent),
-        boxShadow: [
-          BoxShadow(
-            color: AppTheme.shadowColor.withOpacity(0.12),
-            spreadRadius: 0,
-            blurRadius: 10,
-            offset: const Offset(1, 0),
+      decoration: decoration ??
+          BoxDecoration(
+            color: color,
+            borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+            border: Border.all(color: borderColor ?? Colors.transparent),
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.shadowColor.withOpacity(0.12),
+                spreadRadius: 0,
+                blurRadius: 10,
+                offset: const Offset(1, 0),
+              ),
+            ],
           ),
-        ],
-      ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onPressed,
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (leadingIcon != null) Icon(leadingIcon),
+                if (leadingIcon != null) leadingIcon!,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
@@ -63,11 +65,7 @@ class ShadowButton extends StatelessWidget {
                         ),
                   ),
                 ),
-                if (trailingIcon != null)
-                  Icon(
-                    trailingIcon,
-                    size: 20.0,
-                  )
+                if (trailingIcon != null) trailingIcon!
               ],
             ),
           ),

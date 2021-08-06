@@ -164,6 +164,11 @@ final Map<String, String> enUs = {
       'Your feedback will help us improve your next driving experience.',
   'additional_comments': 'Additional comments here...',
 
+  // Drivers strings
+  'your_drivers': 'Your Drivers',
+  'favourites': 'Favourites',
+  'blocked': 'Blocked',
+
   // Payment strings
   'payment_methods': 'Payment Methods',
   'add_new_method': 'Add new method',

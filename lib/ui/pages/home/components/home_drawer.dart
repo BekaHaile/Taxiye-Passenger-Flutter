@@ -34,15 +34,15 @@ class HomeDrawer extends StatelessWidget {
         icon: CustomIcons.promotions,
       ),
       DrawerList(
-        index: DrawerIndex.myDrivers,
+        index: DrawerIndex.myOrders,
         title: 'my_orders',
         subtitle: 'riview_orders',
         icon: CustomIcons.orders,
       ),
       DrawerList(
-        index: DrawerIndex.myOrders,
-        title: 'my_orders',
-        subtitle: 'riview_orders',
+        index: DrawerIndex.myDrivers,
+        title: 'my_drivers',
+        subtitle: 'drivers_info',
         icon: CustomIcons.driver,
       ),
       DrawerList(
@@ -54,7 +54,7 @@ class HomeDrawer extends StatelessWidget {
       DrawerList(
         index: DrawerIndex.settings,
         title: 'app_settings'.tr,
-        subtitle: 'adjut_preferences',
+        subtitle: 'adjust_preference',
         icon: Icons.settings,
       ),
       DrawerList(

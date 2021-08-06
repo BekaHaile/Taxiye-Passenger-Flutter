@@ -25,6 +25,9 @@ abstract class Routes {
   // Settings pages
   static const settings = '/settings';
 
-  // Legals page
+  // Legals pages
   static const legals = '/legals';
+
+  // drivers pages
+  static const drivers = '/drivers';
 }
