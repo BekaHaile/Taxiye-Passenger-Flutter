@@ -6,6 +6,7 @@ import 'package:taxiye_passenger/core/repository/home_repository.dart';
 import 'package:taxiye_passenger/core/services/api/api_client.dart';
 import 'package:taxiye_passenger/ui/controllers/drivers_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/orders_controller.dart';
 
 /*
   Binding and DI for home flow.
@@ -22,5 +23,6 @@ class HomeBinding implements Bindings {
         fenix: true);
     Get.lazyPut(() => HomeController(repository: Get.find()));
     Get.lazyPut(() => DriversController(repository: Get.find()));
+    Get.lazyPut(() => OrdersController(repository: Get.find()));
   }
 }

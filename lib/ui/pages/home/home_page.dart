@@ -132,7 +132,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         // Todo: nav to promotions page
         break;
       case DrawerIndex.myOrders:
-        // Todo: nav to orders page
+        //nav to orders page
+        Get.toNamed(Routes.orders);
         break;
       case DrawerIndex.myDrivers:
         // nav to drivers page

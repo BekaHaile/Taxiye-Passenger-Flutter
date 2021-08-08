@@ -5,7 +5,7 @@ import 'package:taxiye_passenger/core/models/freezed_models.dart';
 
 /*
   Handles any business logic and data binding with drivers flow
-  any druvers api requests are made here
+  any drivers api requests are made here
 */
 class DriversController extends GetxController {
   final ICommonRepository repository;
@@ -25,10 +25,10 @@ class DriversController extends GetxController {
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
-    getMydrivers();
+    getMyDrivers();
   }
 
-  getMydrivers() {
+  getMyDrivers() {
     // Todo: Get my drivers.
     drivers = [
       Driver(name: 'Cameron Williamson', rating: 4.9),

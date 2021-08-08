@@ -14,3 +14,9 @@ enum DriverPreference {
   favourite,
   blocked,
 }
+
+enum OrderStatus {
+  completed,
+  canceled,
+  scheduled,
+}

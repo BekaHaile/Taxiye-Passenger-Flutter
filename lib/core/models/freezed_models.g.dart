@@ -77,6 +77,24 @@ Map<String, dynamic> _$_$_DriverToJson(_$_Driver instance) => <String, dynamic>{
       'rating': instance.rating,
     };
 
+_$_Order _$_$_OrderFromJson(Map<String, dynamic> json) {
+  return _$_Order(
+    driver: json['driver'] == null
+        ? null
+        : Driver.fromJson(json['driver'] as Map<String, dynamic>),
+    amount: (json['amount'] as num?)?.toDouble(),
+    orderTime: json['orderTime'] == null
+        ? null
+        : DateTime.parse(json['orderTime'] as String),
+  );
+}
+
+Map<String, dynamic> _$_$_OrderToJson(_$_Order instance) => <String, dynamic>{
+      'driver': instance.driver,
+      'amount': instance.amount,
+      'orderTime': instance.orderTime?.toIso8601String(),
+    };
+
 _$_Payment _$_$_PaymentFromJson(Map<String, dynamic> json) {
   return _$_Payment(
     name: json['name'] as String?,

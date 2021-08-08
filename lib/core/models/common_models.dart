@@ -13,3 +13,13 @@ class Option {
   IconData leadingIcon;
   bool? toggleValue;
 }
+
+class TabTitle {
+  const TabTitle({
+    required this.text,
+    required this.icon,
+  });
+
+  final String text;
+  final IconData icon;
+}

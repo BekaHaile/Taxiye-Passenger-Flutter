@@ -3,7 +3,10 @@ import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/ui/pages/drivers/components/driver_tile.dart';
 
 class DriversList extends StatelessWidget {
-  const DriversList({Key? key, required this.drivers}) : super(key: key);
+  const DriversList({
+    Key? key,
+    required this.drivers,
+  }) : super(key: key);
 
   final List<Driver> drivers;
 
@@ -15,7 +18,7 @@ class DriversList extends StatelessWidget {
       itemBuilder: (context, index) {
         final Driver driver = drivers[index];
         return Padding(
-          padding: const EdgeInsets.fromLTRB(4.0, 20.0, 4.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
           child: DriverTile(
             driver: driver,
             vehicle: Vehicle(

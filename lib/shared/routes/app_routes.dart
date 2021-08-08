@@ -30,4 +30,8 @@ abstract class Routes {
 
   // drivers pages
   static const drivers = '/drivers';
+
+  // orders pages
+  static const orders = '/orders';
+  static const orderDetails = '/orderDetails';
 }

@@ -60,6 +60,17 @@ class Driver with _$Driver {
 }
 
 @freezed
+class Order with _$Order {
+  factory Order({
+    Driver? driver,
+    double? amount,
+    DateTime? orderTime,
+  }) = _Order;
+
+  factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+}
+
+@freezed
 class Payment with _$Payment {
   factory Payment({
     String? name,

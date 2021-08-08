@@ -870,6 +870,203 @@ abstract class _Driver implements Driver {
   _$DriverCopyWith<_Driver> get copyWith => throw _privateConstructorUsedError;
 }
 
+Order _$OrderFromJson(Map<String, dynamic> json) {
+  return _Order.fromJson(json);
+}
+
+/// @nodoc
+class _$OrderTearOff {
+  const _$OrderTearOff();
+
+  _Order call({Driver? driver, double? amount, DateTime? orderTime}) {
+    return _Order(
+      driver: driver,
+      amount: amount,
+      orderTime: orderTime,
+    );
+  }
+
+  Order fromJson(Map<String, Object> json) {
+    return Order.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Order = _$OrderTearOff();
+
+/// @nodoc
+mixin _$Order {
+  Driver? get driver => throw _privateConstructorUsedError;
+  double? get amount => throw _privateConstructorUsedError;
+  DateTime? get orderTime => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OrderCopyWith<Order> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OrderCopyWith<$Res> {
+  factory $OrderCopyWith(Order value, $Res Function(Order) then) =
+      _$OrderCopyWithImpl<$Res>;
+  $Res call({Driver? driver, double? amount, DateTime? orderTime});
+
+  $DriverCopyWith<$Res>? get driver;
+}
+
+/// @nodoc
+class _$OrderCopyWithImpl<$Res> implements $OrderCopyWith<$Res> {
+  _$OrderCopyWithImpl(this._value, this._then);
+
+  final Order _value;
+  // ignore: unused_field
+  final $Res Function(Order) _then;
+
+  @override
+  $Res call({
+    Object? driver = freezed,
+    Object? amount = freezed,
+    Object? orderTime = freezed,
+  }) {
+    return _then(_value.copyWith(
+      driver: driver == freezed
+          ? _value.driver
+          : driver // ignore: cast_nullable_to_non_nullable
+              as Driver?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      orderTime: orderTime == freezed
+          ? _value.orderTime
+          : orderTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+
+  @override
+  $DriverCopyWith<$Res>? get driver {
+    if (_value.driver == null) {
+      return null;
+    }
+
+    return $DriverCopyWith<$Res>(_value.driver!, (value) {
+      return _then(_value.copyWith(driver: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
+  factory _$OrderCopyWith(_Order value, $Res Function(_Order) then) =
+      __$OrderCopyWithImpl<$Res>;
+  @override
+  $Res call({Driver? driver, double? amount, DateTime? orderTime});
+
+  @override
+  $DriverCopyWith<$Res>? get driver;
+}
+
+/// @nodoc
+class __$OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res>
+    implements _$OrderCopyWith<$Res> {
+  __$OrderCopyWithImpl(_Order _value, $Res Function(_Order) _then)
+      : super(_value, (v) => _then(v as _Order));
+
+  @override
+  _Order get _value => super._value as _Order;
+
+  @override
+  $Res call({
+    Object? driver = freezed,
+    Object? amount = freezed,
+    Object? orderTime = freezed,
+  }) {
+    return _then(_Order(
+      driver: driver == freezed
+          ? _value.driver
+          : driver // ignore: cast_nullable_to_non_nullable
+              as Driver?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      orderTime: orderTime == freezed
+          ? _value.orderTime
+          : orderTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Order implements _Order {
+  _$_Order({this.driver, this.amount, this.orderTime});
+
+  factory _$_Order.fromJson(Map<String, dynamic> json) =>
+      _$_$_OrderFromJson(json);
+
+  @override
+  final Driver? driver;
+  @override
+  final double? amount;
+  @override
+  final DateTime? orderTime;
+
+  @override
+  String toString() {
+    return 'Order(driver: $driver, amount: $amount, orderTime: $orderTime)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Order &&
+            (identical(other.driver, driver) ||
+                const DeepCollectionEquality().equals(other.driver, driver)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.orderTime, orderTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.orderTime, orderTime)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(driver) ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(orderTime);
+
+  @JsonKey(ignore: true)
+  @override
+  _$OrderCopyWith<_Order> get copyWith =>
+      __$OrderCopyWithImpl<_Order>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_OrderToJson(this);
+  }
+}
+
+abstract class _Order implements Order {
+  factory _Order({Driver? driver, double? amount, DateTime? orderTime}) =
+      _$_Order;
+
+  factory _Order.fromJson(Map<String, dynamic> json) = _$_Order.fromJson;
+
+  @override
+  Driver? get driver => throw _privateConstructorUsedError;
+  @override
+  double? get amount => throw _privateConstructorUsedError;
+  @override
+  DateTime? get orderTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$OrderCopyWith<_Order> get copyWith => throw _privateConstructorUsedError;
+}
+
 Payment _$PaymentFromJson(Map<String, dynamic> json) {
   return _Payment.fromJson(json);
 }

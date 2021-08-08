@@ -16,6 +16,7 @@ class AppTheme {
 
   static const Color greyColor2 = Color(0xFFC1C9D2);
   static const Color greyColor3 = Color(0xFFABABAB);
+  static const Color greyColor4 = Color(0xFFDFDFDF);
   static const Color lightGrey = Color(0xFFF1F1F1);
   static const Color greyBorder = Color(0xFFC1C9D2);
   static Color shadowColor = const Color(0xFF123E77);
