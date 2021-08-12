@@ -15,23 +15,28 @@ abstract class Routes {
   // Profile Routes
   static const profile = '/profile';
 
-  // Home pages
+  // Home routes
   static const home = '/home';
   static const pickLocation = '/pickLocation';
 
-  // Payment pages
+  // wallet routes
+  static const wallet = '/wallet';
+  static const walletTransfer = '/walletTransfer';
+  static const walletHistory = '/walletHistory';
+
+  // Payment routes
   static const payment = '/payment';
 
-  // Settings pages
+  // Settings routes
   static const settings = '/settings';
 
-  // Legals pages
+  // Legals routes
   static const legals = '/legals';
 
-  // drivers pages
+  // drivers routes
   static const drivers = '/drivers';
 
-  // orders pages
+  // orders routes
   static const orders = '/orders';
   static const orderDetails = '/orderDetails';
 }

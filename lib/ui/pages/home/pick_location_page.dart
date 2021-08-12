@@ -80,7 +80,7 @@ class PickLocationPage extends GetView<HomeController> {
             ),
           ),
           SizedBox(
-            height: 92.0,
+            height: 95.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),

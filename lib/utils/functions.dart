@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 bool isPasswordValid(String password) {
   /*
@@ -49,4 +50,16 @@ String getInitials(fullName) {
     initials += names[i][0].toUpperCase();
   }
   return initials;
+}
+
+String formatDate(DateTime date) {
+  final DateFormat format = DateFormat("MMMM dd, yyyy");
+  return format.format(date);
+}
+
+String formatTime(DateTime date) {
+//   String formattedTime = DateFormat.Hms().format(now);
+//   String formattedTime = DateFormat.jm().format(now);           //5:08 PM
+// String formattedTime = DateFormat.Hm().format(now);
+  return DateFormat.jm().format(date);
 }

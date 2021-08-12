@@ -56,6 +56,7 @@ class TabTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShadowButton(
         height: 40,
+        horzontalPadding: 10.0,
         color: isActive ? AppTheme.primaryColor : Colors.transparent,
         decoration: !isActive
             ? const BoxDecoration(

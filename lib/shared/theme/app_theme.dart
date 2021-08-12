@@ -18,10 +18,10 @@ class AppTheme {
   static const Color greyColor3 = Color(0xFFABABAB);
   static const Color greyColor4 = Color(0xFFDFDFDF);
   static const Color lightGrey = Color(0xFFF1F1F1);
-  static const Color greyBorder = Color(0xFFC1C9D2);
   static Color shadowColor = const Color(0xFF123E77);
 
   static const Color greenColor = Color(0xFF31C631);
+  static const Color redColor = Color(0xFFFC476E);
 
   static const String fontName = 'SegoeUi';
   static ThemeData themeData = ThemeData(
@@ -35,6 +35,7 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: darkColor,
     ),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
   );
 
   static const TextStyle title = TextStyle(
@@ -42,6 +43,13 @@ class AppTheme {
     fontSize: 24.0,
     letterSpacing: 0.27,
     color: darkColor,
+  );
+
+  static const TextStyle titleWhite = TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 18.0,
+    letterSpacing: 0.27,
+    color: Colors.white,
   );
 
   static const TextStyle subtitle = TextStyle(
@@ -86,6 +94,13 @@ class AppTheme {
         blurRadius: 20,
         offset: const Offset(1, 0),
       ),
+    ],
+  );
+
+  static const walletGradient = LinearGradient(
+    colors: [
+      Color(0xFF41295A),
+      Color(0xFFA02167),
     ],
   );
 }

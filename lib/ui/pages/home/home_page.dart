@@ -1,13 +1,13 @@
 // import 'dart:async';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
-import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
-import 'package:taxiye_passenger/ui/pages/drivers/components/driver_tile.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/looking_drivers.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/pick_service.dart';
@@ -15,6 +15,7 @@ import 'package:taxiye_passenger/ui/pages/home/components/pick_vehicle.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_feedback.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_progress.dart';
+import 'package:taxiye_passenger/ui/pages/home/map/map.dart';
 import 'package:taxiye_passenger/ui/pages/profile/profile_page.dart';
 import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:get/get.dart';
@@ -34,6 +35,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late AnimationController iconAnimationController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late List<HomeService> homeServices;
+
+  // For map
+  final Completer<GoogleMapController> _controller = Completer();
+
+  final CameraPosition _kGooglePlex = const CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+
+  final CameraPosition _kLake = const CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
 
   @override
   void initState() {
@@ -55,11 +70,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
+        // floatingActionButton: FloatingActionButton.extended(
+        //   onPressed: _goToTheLake,
+        //   label: const Text('To the lake!'),
+        //   icon: const Icon(Icons.directions_boat),
+        // ),
         body: Stack(
           children: [
-            const Center(
-              child: Text('Home page', style: AppTheme.title),
-            ),
+            MapScreen(),
+            // GoogleMap(
+            //   mapType: MapType.hybrid,
+            //   initialCameraPosition: _kGooglePlex,
+            //   onMapCreated: (GoogleMapController controller) {
+            //     _controller.complete(controller);
+            //   },
+            // ),
             CircleNav(
               icon: CustomIcons.menu,
               onTap: () => _scaffoldKey.currentState?.openDrawer(),
@@ -126,7 +151,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     Get.back();
     switch (drawerIndexdata) {
       case DrawerIndex.myWallet:
-        // Todo: nav to wallets page
+        //nav to wallets page
+        Get.toNamed(Routes.wallet);
         break;
       case DrawerIndex.promotions:
         // Todo: nav to promotions page
@@ -153,6 +179,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         break;
       default:
     }
+  }
+
+  Future<void> _goToTheLake() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }
 
@@ -199,7 +230,8 @@ class HomeService {
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       body: GoogleMap(
+//       body: 
+//       GoogleMap(
 //         mapType: MapType.hybrid,
 //         initialCameraPosition: _kGooglePlex,
 //         onMapCreated: (GoogleMapController controller) {

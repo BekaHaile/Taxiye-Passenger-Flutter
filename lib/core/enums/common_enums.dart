@@ -20,3 +20,13 @@ enum OrderStatus {
   canceled,
   scheduled,
 }
+
+enum TransactionType {
+  withdrawal,
+  deposit,
+}
+
+enum WalletTransferTo {
+  driver,
+  customer,
+}

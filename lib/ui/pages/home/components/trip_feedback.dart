@@ -72,7 +72,7 @@ class TripFeadback extends GetView<HomeController> {
                       }),
                   const SizedBox(width: 20.0),
                   RoundedButton(
-                      width: 165.0,
+                      width: 170.0,
                       height: 40.0,
                       text: 'add_to_favourites'.tr,
                       textStyle: AppTheme.title.copyWith(

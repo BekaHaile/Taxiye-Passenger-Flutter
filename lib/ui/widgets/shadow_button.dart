@@ -13,6 +13,7 @@ class ShadowButton extends StatelessWidget {
     this.decoration,
     this.leadingIcon,
     this.trailingIcon,
+    this.horzontalPadding,
     required this.onPressed,
   }) : super(key: key);
 
@@ -25,6 +26,7 @@ class ShadowButton extends StatelessWidget {
   final BoxDecoration? decoration;
   final Widget? leadingIcon;
   final Widget? trailingIcon;
+  final double? horzontalPadding;
   final VoidCallback onPressed;
 
   @override
@@ -50,7 +52,7 @@ class ShadowButton extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: horzontalPadding ?? 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

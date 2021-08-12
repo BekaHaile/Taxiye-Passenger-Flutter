@@ -149,7 +149,7 @@ class DistancePill extends StatelessWidget {
             offset: const Offset(1, 1),
           ),
         ],
-        border: Border.all(color: AppTheme.greyBorder),
+        border: Border.all(color: AppTheme.greyColor2),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

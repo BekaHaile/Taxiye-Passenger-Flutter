@@ -79,3 +79,16 @@ class Payment with _$Payment {
   factory Payment.fromJson(Map<String, dynamic> json) =>
       _$PaymentFromJson(json);
 }
+
+@freezed
+class Transaction with _$Transaction {
+  factory Transaction({
+    String? type,
+    DateTime? date,
+    double? amount,
+    String? reason,
+  }) = _Transaction;
+
+  factory Transaction.fromJson(Map<String, dynamic> json) =>
+      _$TransactionFromJson(json);
+}

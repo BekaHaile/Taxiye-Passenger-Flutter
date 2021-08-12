@@ -105,3 +105,20 @@ Map<String, dynamic> _$_$_PaymentToJson(_$_Payment instance) =>
     <String, dynamic>{
       'name': instance.name,
     };
+
+_$_Transaction _$_$_TransactionFromJson(Map<String, dynamic> json) {
+  return _$_Transaction(
+    type: json['type'] as String?,
+    date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
+    amount: (json['amount'] as num?)?.toDouble(),
+    reason: json['reason'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_TransactionToJson(_$_Transaction instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'date': instance.date?.toIso8601String(),
+      'amount': instance.amount,
+      'reason': instance.reason,
+    };

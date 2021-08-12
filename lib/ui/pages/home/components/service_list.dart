@@ -20,14 +20,14 @@ class ServiceList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 62.0,
+      height: 55.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           final HomeService service = services[index];
           return Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0.0, 10.0, 20.0),
+            padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 15.0),
             child: ServiceTile(
               service: service,
               isActive: selectedService == service.title,
@@ -75,7 +75,7 @@ class ServiceTile extends StatelessWidget {
               width: 2.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 4.0),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

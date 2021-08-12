@@ -11,3 +11,7 @@ export 'package:taxiye_passenger/ui/pages/profile/profile_page.dart';
 export 'package:taxiye_passenger/ui/pages/payment/payment_page.dart';
 export 'package:taxiye_passenger/ui/pages/settings/settings_page.dart';
 export 'package:taxiye_passenger/ui/pages/legals/legals_page.dart';
+export 'package:taxiye_passenger/ui/pages/wallet/wallet_page.dart';
+export 'package:taxiye_passenger/ui/pages/drivers/drivers_page.dart';
+export 'package:taxiye_passenger/ui/pages/orders/order_details_page.dart';
+export 'package:taxiye_passenger/ui/pages/orders/orders_page.dart';

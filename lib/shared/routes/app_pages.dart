@@ -3,10 +3,10 @@ import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
-import 'package:taxiye_passenger/ui/pages/drivers/drivers_page.dart';
-import 'package:taxiye_passenger/ui/pages/orders/order_details_page.dart';
-import 'package:taxiye_passenger/ui/pages/orders/orders_page.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
+import 'package:taxiye_passenger/ui/pages/wallet/wallet_history_page.dart';
+import 'package:taxiye_passenger/ui/pages/wallet/wallet_transfer_page.dart';
+
 part 'app_routes.dart';
 
 abstract class AppPages {
@@ -49,7 +49,7 @@ abstract class AppPages {
       page: () => const SetPasscodePage(),
     ),
 
-    // Home page
+    // Home pages
     GetPage(
       name: Routes.home,
       page: () => const HomePage(),
@@ -59,6 +59,22 @@ abstract class AppPages {
     GetPage(
       name: Routes.pickLocation,
       page: () => PickLocationPage(),
+    ),
+
+    // wallet Pages
+    GetPage(
+      name: Routes.wallet,
+      page: () => WalletPage(),
+    ),
+
+    GetPage(
+      name: Routes.walletTransfer,
+      page: () => WalletTransferPage(),
+    ),
+
+    GetPage(
+      name: Routes.walletHistory,
+      page: () => WalletHistoryPage(),
     ),
 
     // Profile Pages
@@ -75,7 +91,7 @@ abstract class AppPages {
       binding: PaymentBinding(),
     ),
 
-    // Settings page
+    // Settings pages
     GetPage(
       name: Routes.settings,
       page: () => SettingsPage(),
@@ -87,13 +103,13 @@ abstract class AppPages {
       page: () => LegalsPage(),
     ),
 
-    // Drivers Page
+    // Drivers Pages
     GetPage(
       name: Routes.drivers,
       page: () => DriversPage(),
     ),
 
-    // Drivers Page
+    // Drivers Pages
     GetPage(
       name: Routes.orders,
       page: () => OrdersPage(),

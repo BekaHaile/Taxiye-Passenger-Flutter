@@ -164,6 +164,27 @@ final Map<String, String> enUs = {
       'Your feedback will help us improve your next driving experience.',
   'additional_comments': 'Additional comments here...',
 
+  // Wallet strings
+  'your_wallet': 'Your Wallet',
+  'taxiye_cash': 'Taxiye Cash',
+  'tc_apply': 'T&C apply',
+  'balance': 'Balance',
+
+  'expires': 'Expires',
+  'history': 'History',
+  'transfer': 'Transfer',
+  'recent_transactions': 'Recent Transactions',
+
+  'wallet_history': 'Wallet History',
+  'wallet_transfer': 'Wallet Transfer',
+  'transfer_to': 'Transfer to',
+  'driver': 'Driver',
+
+  'customer': 'Customer',
+  'amount': 'Amount',
+  'reason': 'Reason',
+  'send': 'Send',
+
   // Orders strings
   'your_orders': 'Your Orders',
   'completed': 'Completed',
@@ -221,4 +242,5 @@ final Map<String, String> enUs = {
 
   'error_phone': 'Please enter phone number',
   'invalid_phone': 'Please enter valid phone number',
+  'error_amount': 'Invalid amount',
 };

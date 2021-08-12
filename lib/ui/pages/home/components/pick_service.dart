@@ -15,7 +15,17 @@ class PickService extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.white,
+            Colors.white.withOpacity(0),
+          ],
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+        ),
+      ),
       width: Get.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,

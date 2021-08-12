@@ -34,7 +34,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   # For state, route Management
-  get: ^4.1.4
+  get: ^4.3.6
   # For network requests
   dio: ^4.0.0
 
@@ -63,10 +63,14 @@ dependencies:
 
   # For google maps 
   google_maps_flutter: ^2.0.6
+  flutter_polyline_points: ^1.0.0
   # For svg images
   flutter_svg: ^0.22.0
   # for star rating
   flutter_rating_bar: ^4.0.0
+
+  
+  
 
 dev_dependencies:
   flutter_test:
