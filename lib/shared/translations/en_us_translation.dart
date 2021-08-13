@@ -185,6 +185,33 @@ final Map<String, String> enUs = {
   'reason': 'Reason',
   'send': 'Send',
 
+  // Promotions String
+  'enter_promocode': 'Enter Promocode Here...',
+  'apply': 'Apply',
+  'current_points': 'Current Points',
+  'expires_on': 'Expires on',
+
+  'exchange_points': 'Exchange Points',
+  'my_coupons': 'My Coupons',
+  'refer_friend': 'Refer a friend',
+  'ride_rewards': 'Ride Rewards',
+
+  'delivery_rewards': 'Delivery Rewards',
+  'convert_to_mobile_card': 'Convert to Mobile card',
+  'transfer_points': 'Transfer Points',
+  'book_ride_with_points': 'Book Ride with Points',
+  'donate_points': 'Donate Points',
+
+  'your_coupons': 'Your Coupons',
+  'points': 'points',
+  'refer_friend_info':
+      'Invite your friends and family to use this app and earn points!',
+  'your_referal_code': 'Your Referral Code',
+  'share': 'Share',
+
+  'promo_details': 'Promo Details',
+  'detail': 'Detail',
+
   // Orders strings
   'your_orders': 'Your Orders',
   'completed': 'Completed',

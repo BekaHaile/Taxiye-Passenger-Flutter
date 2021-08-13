@@ -1417,3 +1417,183 @@ abstract class _Transaction implements Transaction {
   _$TransactionCopyWith<_Transaction> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+Coupon _$CouponFromJson(Map<String, dynamic> json) {
+  return _Coupon.fromJson(json);
+}
+
+/// @nodoc
+class _$CouponTearOff {
+  const _$CouponTearOff();
+
+  _Coupon call({String? name, int? point, DateTime? expireDate}) {
+    return _Coupon(
+      name: name,
+      point: point,
+      expireDate: expireDate,
+    );
+  }
+
+  Coupon fromJson(Map<String, Object> json) {
+    return Coupon.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Coupon = _$CouponTearOff();
+
+/// @nodoc
+mixin _$Coupon {
+  String? get name => throw _privateConstructorUsedError;
+  int? get point => throw _privateConstructorUsedError;
+  DateTime? get expireDate => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CouponCopyWith<Coupon> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CouponCopyWith<$Res> {
+  factory $CouponCopyWith(Coupon value, $Res Function(Coupon) then) =
+      _$CouponCopyWithImpl<$Res>;
+  $Res call({String? name, int? point, DateTime? expireDate});
+}
+
+/// @nodoc
+class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
+  _$CouponCopyWithImpl(this._value, this._then);
+
+  final Coupon _value;
+  // ignore: unused_field
+  final $Res Function(Coupon) _then;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? point = freezed,
+    Object? expireDate = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      point: point == freezed
+          ? _value.point
+          : point // ignore: cast_nullable_to_non_nullable
+              as int?,
+      expireDate: expireDate == freezed
+          ? _value.expireDate
+          : expireDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
+  factory _$CouponCopyWith(_Coupon value, $Res Function(_Coupon) then) =
+      __$CouponCopyWithImpl<$Res>;
+  @override
+  $Res call({String? name, int? point, DateTime? expireDate});
+}
+
+/// @nodoc
+class __$CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
+    implements _$CouponCopyWith<$Res> {
+  __$CouponCopyWithImpl(_Coupon _value, $Res Function(_Coupon) _then)
+      : super(_value, (v) => _then(v as _Coupon));
+
+  @override
+  _Coupon get _value => super._value as _Coupon;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? point = freezed,
+    Object? expireDate = freezed,
+  }) {
+    return _then(_Coupon(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      point: point == freezed
+          ? _value.point
+          : point // ignore: cast_nullable_to_non_nullable
+              as int?,
+      expireDate: expireDate == freezed
+          ? _value.expireDate
+          : expireDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Coupon implements _Coupon {
+  _$_Coupon({this.name, this.point, this.expireDate});
+
+  factory _$_Coupon.fromJson(Map<String, dynamic> json) =>
+      _$_$_CouponFromJson(json);
+
+  @override
+  final String? name;
+  @override
+  final int? point;
+  @override
+  final DateTime? expireDate;
+
+  @override
+  String toString() {
+    return 'Coupon(name: $name, point: $point, expireDate: $expireDate)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Coupon &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.point, point) ||
+                const DeepCollectionEquality().equals(other.point, point)) &&
+            (identical(other.expireDate, expireDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.expireDate, expireDate)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(point) ^
+      const DeepCollectionEquality().hash(expireDate);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CouponCopyWith<_Coupon> get copyWith =>
+      __$CouponCopyWithImpl<_Coupon>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CouponToJson(this);
+  }
+}
+
+abstract class _Coupon implements Coupon {
+  factory _Coupon({String? name, int? point, DateTime? expireDate}) = _$_Coupon;
+
+  factory _Coupon.fromJson(Map<String, dynamic> json) = _$_Coupon.fromJson;
+
+  @override
+  String? get name => throw _privateConstructorUsedError;
+  @override
+  int? get point => throw _privateConstructorUsedError;
+  @override
+  DateTime? get expireDate => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CouponCopyWith<_Coupon> get copyWith => throw _privateConstructorUsedError;
+}

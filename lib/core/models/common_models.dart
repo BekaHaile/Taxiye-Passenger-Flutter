@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taxiye_passenger/core/enums/common_enums.dart';
 
 class Option {
   Option({
@@ -22,4 +23,16 @@ class TabTitle {
 
   final String text;
   final IconData icon;
+}
+
+class ExchangePoint {
+  const ExchangePoint({
+    required this.text,
+    required this.icon,
+    required this.option,
+  });
+
+  final String text;
+  final IconData icon;
+  final ExchangePointOption option;
 }

@@ -4,6 +4,11 @@ import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
+import 'package:taxiye_passenger/ui/pages/promotion/coupons_page.dart';
+import 'package:taxiye_passenger/ui/pages/promotion/exchange_points_page.dart';
+import 'package:taxiye_passenger/ui/pages/promotion/promo_detail_page.dart';
+import 'package:taxiye_passenger/ui/pages/promotion/promotions_page.dart';
+import 'package:taxiye_passenger/ui/pages/promotion/refer_friend_page.dart';
 import 'package:taxiye_passenger/ui/pages/wallet/wallet_history_page.dart';
 import 'package:taxiye_passenger/ui/pages/wallet/wallet_transfer_page.dart';
 
@@ -69,12 +74,34 @@ abstract class AppPages {
 
     GetPage(
       name: Routes.walletTransfer,
-      page: () => WalletTransferPage(),
+      page: () => const WalletTransferPage(),
     ),
 
     GetPage(
       name: Routes.walletHistory,
-      page: () => WalletHistoryPage(),
+      page: () => const WalletHistoryPage(),
+    ),
+
+    // Promotions pages
+    GetPage(
+      name: Routes.promotions,
+      page: () => const PromotionsPage(),
+    ),
+    GetPage(
+      name: Routes.exchangePoints,
+      page: () => const ExchangePointsPage(),
+    ),
+    GetPage(
+      name: Routes.promoDetail,
+      page: () => const PromoDetailPage(),
+    ),
+    GetPage(
+      name: Routes.coupons,
+      page: () => const CouponsPage(),
+    ),
+    GetPage(
+      name: Routes.referFreind,
+      page: () => const ReferFriendPage(),
     ),
 
     // Profile Pages

@@ -92,3 +92,14 @@ class Transaction with _$Transaction {
   factory Transaction.fromJson(Map<String, dynamic> json) =>
       _$TransactionFromJson(json);
 }
+
+@freezed
+class Coupon with _$Coupon {
+  factory Coupon({
+    String? name,
+    int? point,
+    DateTime? expireDate,
+  }) = _Coupon;
+
+  factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
+}

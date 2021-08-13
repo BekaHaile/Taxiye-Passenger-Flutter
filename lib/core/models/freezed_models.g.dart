@@ -122,3 +122,19 @@ Map<String, dynamic> _$_$_TransactionToJson(_$_Transaction instance) =>
       'amount': instance.amount,
       'reason': instance.reason,
     };
+
+_$_Coupon _$_$_CouponFromJson(Map<String, dynamic> json) {
+  return _$_Coupon(
+    name: json['name'] as String?,
+    point: json['point'] as int?,
+    expireDate: json['expireDate'] == null
+        ? null
+        : DateTime.parse(json['expireDate'] as String),
+  );
+}
+
+Map<String, dynamic> _$_$_CouponToJson(_$_Coupon instance) => <String, dynamic>{
+      'name': instance.name,
+      'point': instance.point,
+      'expireDate': instance.expireDate?.toIso8601String(),
+    };

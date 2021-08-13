@@ -35,7 +35,8 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: darkColor,
     ),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
+    bottomSheetTheme:
+        const BottomSheetThemeData(backgroundColor: Colors.transparent),
   );
 
   static const TextStyle title = TextStyle(
@@ -90,6 +91,19 @@ class AppTheme {
     boxShadow: [
       BoxShadow(
         color: shadowColor.withOpacity(0.1),
+        spreadRadius: 0,
+        blurRadius: 20,
+        offset: const Offset(1, 0),
+      ),
+    ],
+  );
+
+  static final boxDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+    boxShadow: [
+      BoxShadow(
+        color: AppTheme.shadowColor.withOpacity(0.1),
         spreadRadius: 0,
         blurRadius: 20,
         offset: const Offset(1, 0),

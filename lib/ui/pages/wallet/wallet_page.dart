@@ -29,18 +29,7 @@ class WalletPage extends GetView<WalletController> {
                 ),
                 const SizedBox(height: 30.0),
                 Container(
-                  decoration: BoxDecoration(
-                    gradient: AppTheme.walletGradient,
-                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppTheme.shadowColor.withOpacity(0.1),
-                        spreadRadius: 0,
-                        blurRadius: 20,
-                        offset: const Offset(1, 0),
-                      ),
-                    ],
-                  ),
+                  decoration: AppTheme.boxDecoration,
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(

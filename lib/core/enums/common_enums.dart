@@ -30,3 +30,10 @@ enum WalletTransferTo {
   driver,
   customer,
 }
+
+enum ExchangePointOption {
+  mobileCard,
+  transfer,
+  bookRide,
+  donate,
+}

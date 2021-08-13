@@ -24,6 +24,13 @@ abstract class Routes {
   static const walletTransfer = '/walletTransfer';
   static const walletHistory = '/walletHistory';
 
+  // Promotions Routes
+  static const promotions = '/promotions';
+  static const exchangePoints = '/exchangePoints';
+  static const promoDetail = '/promoDetail';
+  static const coupons = '/coupons';
+  static const referFreind = '/referFreind';
+
   // Payment routes
   static const payment = '/payment';
 

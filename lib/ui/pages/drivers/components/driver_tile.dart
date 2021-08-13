@@ -19,18 +19,7 @@ class DriverTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-        boxShadow: [
-          BoxShadow(
-            color: AppTheme.shadowColor.withOpacity(0.1),
-            spreadRadius: 0,
-            blurRadius: 20,
-            offset: const Offset(1, 0),
-          ),
-        ],
-      ),
+      decoration: AppTheme.bottomSheetDecoration,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         child: Row(
