@@ -54,6 +54,8 @@ final Map<String, String> enUs = {
   'email_address': 'Email Address',
 
   'gender': 'Gender',
+  'male': 'Male',
+  'female': 'Female',
   'crop_image': 'Crop Image',
   'pick_image_from': 'Pick image from',
 
@@ -261,6 +263,10 @@ final Map<String, String> enUs = {
   'about_us': 'About Us',
   'know_us': 'Know us a little better',
 
+  // common texts
+  'add_phone_number': 'Please add your phone number',
+  'done': 'Done',
+
   // Error messages
   'invalid_passcode': 'Invalid Passcode',
   'password_match_error': 'Password don\'t match.',
@@ -270,4 +276,6 @@ final Map<String, String> enUs = {
   'error_phone': 'Please enter phone number',
   'invalid_phone': 'Please enter valid phone number',
   'error_amount': 'Invalid amount',
+
+  'api_error': 'Api Error',
 };

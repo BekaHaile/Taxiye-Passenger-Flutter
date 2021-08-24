@@ -1,4 +1,4 @@
-package com.elnet.taxiye_passenger
+package com.taxiye
 
 import io.flutter.embedding.android.FlutterActivity
 

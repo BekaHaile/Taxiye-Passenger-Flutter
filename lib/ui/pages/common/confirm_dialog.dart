@@ -26,6 +26,7 @@ class ConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      insetPadding: const EdgeInsets.all(0),
       title: Text(
         title,
         textAlign: TextAlign.center,

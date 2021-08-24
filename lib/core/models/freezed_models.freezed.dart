@@ -20,11 +20,56 @@ User _$UserFromJson(Map<String, dynamic> json) {
 class _$UserTearOff {
   const _$UserTearOff();
 
-  _User call({String? fullName, String? email, String? phone}) {
+  _User call(
+      @JsonKey(name: 'user_name')
+          String userName,
+      {int? flag,
+      String? erorr,
+      int? gender,
+      @JsonKey(name: 'user_email')
+          String? email,
+      @JsonKey(name: 'user_image')
+          String? userImage,
+      @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+          String? countryCode,
+      @JsonKey(name: 'phone_no')
+          String? phoneNo,
+      @JsonKey(name: 'date_of_birth')
+          String? dateOfBirth,
+      @JsonKey(name: 'auth_key')
+          String? authKey,
+      @JsonKey(name: 'email_verification_status')
+          int? emailVerificationStatus,
+      @JsonKey(name: 'operator_id')
+          int? operatorId,
+      @JsonKey(name: 'city')
+          String? city,
+      @JsonKey(name: 'city_id')
+          int? cityId,
+      @JsonKey(name: 'referral_code')
+          String? referralCode,
+      @JsonKey(name: 'user_id')
+          int? userId,
+      @JsonKey(name: 'default_client_id')
+          String? defaultClientId}) {
     return _User(
-      fullName: fullName,
+      userName,
+      flag: flag,
+      erorr: erorr,
+      gender: gender,
       email: email,
-      phone: phone,
+      userImage: userImage,
+      countryCode: countryCode,
+      phoneNo: phoneNo,
+      dateOfBirth: dateOfBirth,
+      authKey: authKey,
+      emailVerificationStatus: emailVerificationStatus,
+      operatorId: operatorId,
+      city: city,
+      cityId: cityId,
+      referralCode: referralCode,
+      userId: userId,
+      defaultClientId: defaultClientId,
     );
   }
 
@@ -38,9 +83,37 @@ const $User = _$UserTearOff();
 
 /// @nodoc
 mixin _$User {
-  String? get fullName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_name')
+  String get userName => throw _privateConstructorUsedError;
+  int? get flag => throw _privateConstructorUsedError;
+  String? get erorr => throw _privateConstructorUsedError;
+  int? get gender => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_email')
   String? get email => throw _privateConstructorUsedError;
-  String? get phone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_image')
+  String? get userImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+  String? get countryCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'date_of_birth')
+  String? get dateOfBirth => throw _privateConstructorUsedError;
+  @JsonKey(name: 'auth_key')
+  String? get authKey => throw _privateConstructorUsedError;
+  @JsonKey(name: 'email_verification_status')
+  int? get emailVerificationStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: 'operator_id')
+  int? get operatorId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'city')
+  String? get city => throw _privateConstructorUsedError;
+  @JsonKey(name: 'city_id')
+  int? get cityId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'referral_code')
+  String? get referralCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'default_client_id')
+  String? get defaultClientId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +124,38 @@ mixin _$User {
 abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
-  $Res call({String? fullName, String? email, String? phone});
+  $Res call(
+      {@JsonKey(name: 'user_name')
+          String userName,
+      int? flag,
+      String? erorr,
+      int? gender,
+      @JsonKey(name: 'user_email')
+          String? email,
+      @JsonKey(name: 'user_image')
+          String? userImage,
+      @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+          String? countryCode,
+      @JsonKey(name: 'phone_no')
+          String? phoneNo,
+      @JsonKey(name: 'date_of_birth')
+          String? dateOfBirth,
+      @JsonKey(name: 'auth_key')
+          String? authKey,
+      @JsonKey(name: 'email_verification_status')
+          int? emailVerificationStatus,
+      @JsonKey(name: 'operator_id')
+          int? operatorId,
+      @JsonKey(name: 'city')
+          String? city,
+      @JsonKey(name: 'city_id')
+          int? cityId,
+      @JsonKey(name: 'referral_code')
+          String? referralCode,
+      @JsonKey(name: 'user_id')
+          int? userId,
+      @JsonKey(name: 'default_client_id')
+          String? defaultClientId});
 }
 
 /// @nodoc
@@ -64,22 +168,92 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? fullName = freezed,
+    Object? userName = freezed,
+    Object? flag = freezed,
+    Object? erorr = freezed,
+    Object? gender = freezed,
     Object? email = freezed,
-    Object? phone = freezed,
+    Object? userImage = freezed,
+    Object? countryCode = freezed,
+    Object? phoneNo = freezed,
+    Object? dateOfBirth = freezed,
+    Object? authKey = freezed,
+    Object? emailVerificationStatus = freezed,
+    Object? operatorId = freezed,
+    Object? city = freezed,
+    Object? cityId = freezed,
+    Object? referralCode = freezed,
+    Object? userId = freezed,
+    Object? defaultClientId = freezed,
   }) {
     return _then(_value.copyWith(
-      fullName: fullName == freezed
-          ? _value.fullName
-          : fullName // ignore: cast_nullable_to_non_nullable
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int?,
+      erorr: erorr == freezed
+          ? _value.erorr
+          : erorr // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as int?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+      userImage: userImage == freezed
+          ? _value.userImage
+          : userImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      countryCode: countryCode == freezed
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateOfBirth: dateOfBirth == freezed
+          ? _value.dateOfBirth
+          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      authKey: authKey == freezed
+          ? _value.authKey
+          : authKey // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emailVerificationStatus: emailVerificationStatus == freezed
+          ? _value.emailVerificationStatus
+          : emailVerificationStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      operatorId: operatorId == freezed
+          ? _value.operatorId
+          : operatorId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      city: city == freezed
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cityId: cityId == freezed
+          ? _value.cityId
+          : cityId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      referralCode: referralCode == freezed
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      defaultClientId: defaultClientId == freezed
+          ? _value.defaultClientId
+          : defaultClientId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -90,7 +264,38 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) then) =
       __$UserCopyWithImpl<$Res>;
   @override
-  $Res call({String? fullName, String? email, String? phone});
+  $Res call(
+      {@JsonKey(name: 'user_name')
+          String userName,
+      int? flag,
+      String? erorr,
+      int? gender,
+      @JsonKey(name: 'user_email')
+          String? email,
+      @JsonKey(name: 'user_image')
+          String? userImage,
+      @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+          String? countryCode,
+      @JsonKey(name: 'phone_no')
+          String? phoneNo,
+      @JsonKey(name: 'date_of_birth')
+          String? dateOfBirth,
+      @JsonKey(name: 'auth_key')
+          String? authKey,
+      @JsonKey(name: 'email_verification_status')
+          int? emailVerificationStatus,
+      @JsonKey(name: 'operator_id')
+          int? operatorId,
+      @JsonKey(name: 'city')
+          String? city,
+      @JsonKey(name: 'city_id')
+          int? cityId,
+      @JsonKey(name: 'referral_code')
+          String? referralCode,
+      @JsonKey(name: 'user_id')
+          int? userId,
+      @JsonKey(name: 'default_client_id')
+          String? defaultClientId});
 }
 
 /// @nodoc
@@ -104,22 +309,92 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? fullName = freezed,
+    Object? userName = freezed,
+    Object? flag = freezed,
+    Object? erorr = freezed,
+    Object? gender = freezed,
     Object? email = freezed,
-    Object? phone = freezed,
+    Object? userImage = freezed,
+    Object? countryCode = freezed,
+    Object? phoneNo = freezed,
+    Object? dateOfBirth = freezed,
+    Object? authKey = freezed,
+    Object? emailVerificationStatus = freezed,
+    Object? operatorId = freezed,
+    Object? city = freezed,
+    Object? cityId = freezed,
+    Object? referralCode = freezed,
+    Object? userId = freezed,
+    Object? defaultClientId = freezed,
   }) {
     return _then(_User(
-      fullName: fullName == freezed
-          ? _value.fullName
-          : fullName // ignore: cast_nullable_to_non_nullable
+      userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int?,
+      erorr: erorr == freezed
+          ? _value.erorr
+          : erorr // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as int?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+      userImage: userImage == freezed
+          ? _value.userImage
+          : userImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      countryCode: countryCode == freezed
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateOfBirth: dateOfBirth == freezed
+          ? _value.dateOfBirth
+          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      authKey: authKey == freezed
+          ? _value.authKey
+          : authKey // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emailVerificationStatus: emailVerificationStatus == freezed
+          ? _value.emailVerificationStatus
+          : emailVerificationStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+      operatorId: operatorId == freezed
+          ? _value.operatorId
+          : operatorId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      city: city == freezed
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cityId: cityId == freezed
+          ? _value.cityId
+          : cityId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      referralCode: referralCode == freezed
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      defaultClientId: defaultClientId == freezed
+          ? _value.defaultClientId
+          : defaultClientId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -128,42 +403,167 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_User implements _User {
-  _$_User({this.fullName, this.email, this.phone});
+  _$_User(
+      @JsonKey(name: 'user_name')
+          this.userName,
+      {this.flag,
+      this.erorr,
+      this.gender,
+      @JsonKey(name: 'user_email')
+          this.email,
+      @JsonKey(name: 'user_image')
+          this.userImage,
+      @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+          this.countryCode,
+      @JsonKey(name: 'phone_no')
+          this.phoneNo,
+      @JsonKey(name: 'date_of_birth')
+          this.dateOfBirth,
+      @JsonKey(name: 'auth_key')
+          this.authKey,
+      @JsonKey(name: 'email_verification_status')
+          this.emailVerificationStatus,
+      @JsonKey(name: 'operator_id')
+          this.operatorId,
+      @JsonKey(name: 'city')
+          this.city,
+      @JsonKey(name: 'city_id')
+          this.cityId,
+      @JsonKey(name: 'referral_code')
+          this.referralCode,
+      @JsonKey(name: 'user_id')
+          this.userId,
+      @JsonKey(name: 'default_client_id')
+          this.defaultClientId});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
 
   @override
-  final String? fullName;
+  @JsonKey(name: 'user_name')
+  final String userName;
   @override
+  final int? flag;
+  @override
+  final String? erorr;
+  @override
+  final int? gender;
+  @override
+  @JsonKey(name: 'user_email')
   final String? email;
   @override
-  final String? phone;
+  @JsonKey(name: 'user_image')
+  final String? userImage;
+  @override
+  @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+  final String? countryCode;
+  @override
+  @JsonKey(name: 'phone_no')
+  final String? phoneNo;
+  @override
+  @JsonKey(name: 'date_of_birth')
+  final String? dateOfBirth;
+  @override
+  @JsonKey(name: 'auth_key')
+  final String? authKey;
+  @override
+  @JsonKey(name: 'email_verification_status')
+  final int? emailVerificationStatus;
+  @override
+  @JsonKey(name: 'operator_id')
+  final int? operatorId;
+  @override
+  @JsonKey(name: 'city')
+  final String? city;
+  @override
+  @JsonKey(name: 'city_id')
+  final int? cityId;
+  @override
+  @JsonKey(name: 'referral_code')
+  final String? referralCode;
+  @override
+  @JsonKey(name: 'user_id')
+  final int? userId;
+  @override
+  @JsonKey(name: 'default_client_id')
+  final String? defaultClientId;
 
   @override
   String toString() {
-    return 'User(fullName: $fullName, email: $email, phone: $phone)';
+    return 'User(userName: $userName, flag: $flag, erorr: $erorr, gender: $gender, email: $email, userImage: $userImage, countryCode: $countryCode, phoneNo: $phoneNo, dateOfBirth: $dateOfBirth, authKey: $authKey, emailVerificationStatus: $emailVerificationStatus, operatorId: $operatorId, city: $city, cityId: $cityId, referralCode: $referralCode, userId: $userId, defaultClientId: $defaultClientId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _User &&
-            (identical(other.fullName, fullName) ||
+            (identical(other.userName, userName) ||
                 const DeepCollectionEquality()
-                    .equals(other.fullName, fullName)) &&
+                    .equals(other.userName, userName)) &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.erorr, erorr) ||
+                const DeepCollectionEquality().equals(other.erorr, erorr)) &&
+            (identical(other.gender, gender) ||
+                const DeepCollectionEquality().equals(other.gender, gender)) &&
             (identical(other.email, email) ||
                 const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.phone, phone) ||
-                const DeepCollectionEquality().equals(other.phone, phone)));
+            (identical(other.userImage, userImage) ||
+                const DeepCollectionEquality()
+                    .equals(other.userImage, userImage)) &&
+            (identical(other.countryCode, countryCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.countryCode, countryCode)) &&
+            (identical(other.phoneNo, phoneNo) ||
+                const DeepCollectionEquality()
+                    .equals(other.phoneNo, phoneNo)) &&
+            (identical(other.dateOfBirth, dateOfBirth) ||
+                const DeepCollectionEquality()
+                    .equals(other.dateOfBirth, dateOfBirth)) &&
+            (identical(other.authKey, authKey) ||
+                const DeepCollectionEquality()
+                    .equals(other.authKey, authKey)) &&
+            (identical(
+                    other.emailVerificationStatus, emailVerificationStatus) ||
+                const DeepCollectionEquality().equals(
+                    other.emailVerificationStatus, emailVerificationStatus)) &&
+            (identical(other.operatorId, operatorId) ||
+                const DeepCollectionEquality()
+                    .equals(other.operatorId, operatorId)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)) &&
+            (identical(other.cityId, cityId) ||
+                const DeepCollectionEquality().equals(other.cityId, cityId)) &&
+            (identical(other.referralCode, referralCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.referralCode, referralCode)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.defaultClientId, defaultClientId) ||
+                const DeepCollectionEquality()
+                    .equals(other.defaultClientId, defaultClientId)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(fullName) ^
+      const DeepCollectionEquality().hash(userName) ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(erorr) ^
+      const DeepCollectionEquality().hash(gender) ^
       const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(phone);
+      const DeepCollectionEquality().hash(userImage) ^
+      const DeepCollectionEquality().hash(countryCode) ^
+      const DeepCollectionEquality().hash(phoneNo) ^
+      const DeepCollectionEquality().hash(dateOfBirth) ^
+      const DeepCollectionEquality().hash(authKey) ^
+      const DeepCollectionEquality().hash(emailVerificationStatus) ^
+      const DeepCollectionEquality().hash(operatorId) ^
+      const DeepCollectionEquality().hash(city) ^
+      const DeepCollectionEquality().hash(cityId) ^
+      const DeepCollectionEquality().hash(referralCode) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(defaultClientId);
 
   @JsonKey(ignore: true)
   @override
@@ -177,16 +577,89 @@ class _$_User implements _User {
 }
 
 abstract class _User implements User {
-  factory _User({String? fullName, String? email, String? phone}) = _$_User;
+  factory _User(
+      @JsonKey(name: 'user_name')
+          String userName,
+      {int? flag,
+      String? erorr,
+      int? gender,
+      @JsonKey(name: 'user_email')
+          String? email,
+      @JsonKey(name: 'user_image')
+          String? userImage,
+      @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+          String? countryCode,
+      @JsonKey(name: 'phone_no')
+          String? phoneNo,
+      @JsonKey(name: 'date_of_birth')
+          String? dateOfBirth,
+      @JsonKey(name: 'auth_key')
+          String? authKey,
+      @JsonKey(name: 'email_verification_status')
+          int? emailVerificationStatus,
+      @JsonKey(name: 'operator_id')
+          int? operatorId,
+      @JsonKey(name: 'city')
+          String? city,
+      @JsonKey(name: 'city_id')
+          int? cityId,
+      @JsonKey(name: 'referral_code')
+          String? referralCode,
+      @JsonKey(name: 'user_id')
+          int? userId,
+      @JsonKey(name: 'default_client_id')
+          String? defaultClientId}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
-  String? get fullName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_name')
+  String get userName => throw _privateConstructorUsedError;
   @override
+  int? get flag => throw _privateConstructorUsedError;
+  @override
+  String? get erorr => throw _privateConstructorUsedError;
+  @override
+  int? get gender => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_email')
   String? get email => throw _privateConstructorUsedError;
   @override
-  String? get phone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_image')
+  String? get userImage => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+  String? get countryCode => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'date_of_birth')
+  String? get dateOfBirth => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'auth_key')
+  String? get authKey => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'email_verification_status')
+  int? get emailVerificationStatus => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'operator_id')
+  int? get operatorId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'city')
+  String? get city => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'city_id')
+  int? get cityId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'referral_code')
+  String? get referralCode => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'default_client_id')
+  String? get defaultClientId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;
@@ -1596,4 +2069,608 @@ abstract class _Coupon implements Coupon {
   @override
   @JsonKey(ignore: true)
   _$CouponCopyWith<_Coupon> get copyWith => throw _privateConstructorUsedError;
+}
+
+BasicResponse _$BasicResponseFromJson(Map<String, dynamic> json) {
+  return _BasicResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$BasicResponseTearOff {
+  const _$BasicResponseTearOff();
+
+  _BasicResponse call(int flag, {String? message, String? error}) {
+    return _BasicResponse(
+      flag,
+      message: message,
+      error: error,
+    );
+  }
+
+  BasicResponse fromJson(Map<String, Object> json) {
+    return BasicResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $BasicResponse = _$BasicResponseTearOff();
+
+/// @nodoc
+mixin _$BasicResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $BasicResponseCopyWith<BasicResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BasicResponseCopyWith<$Res> {
+  factory $BasicResponseCopyWith(
+          BasicResponse value, $Res Function(BasicResponse) then) =
+      _$BasicResponseCopyWithImpl<$Res>;
+  $Res call({int flag, String? message, String? error});
+}
+
+/// @nodoc
+class _$BasicResponseCopyWithImpl<$Res>
+    implements $BasicResponseCopyWith<$Res> {
+  _$BasicResponseCopyWithImpl(this._value, this._then);
+
+  final BasicResponse _value;
+  // ignore: unused_field
+  final $Res Function(BasicResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$BasicResponseCopyWith<$Res>
+    implements $BasicResponseCopyWith<$Res> {
+  factory _$BasicResponseCopyWith(
+          _BasicResponse value, $Res Function(_BasicResponse) then) =
+      __$BasicResponseCopyWithImpl<$Res>;
+  @override
+  $Res call({int flag, String? message, String? error});
+}
+
+/// @nodoc
+class __$BasicResponseCopyWithImpl<$Res>
+    extends _$BasicResponseCopyWithImpl<$Res>
+    implements _$BasicResponseCopyWith<$Res> {
+  __$BasicResponseCopyWithImpl(
+      _BasicResponse _value, $Res Function(_BasicResponse) _then)
+      : super(_value, (v) => _then(v as _BasicResponse));
+
+  @override
+  _BasicResponse get _value => super._value as _BasicResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_BasicResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_BasicResponse implements _BasicResponse {
+  _$_BasicResponse(this.flag, {this.message, this.error});
+
+  factory _$_BasicResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_BasicResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+
+  @override
+  String toString() {
+    return 'BasicResponse(flag: $flag, message: $message, error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _BasicResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error);
+
+  @JsonKey(ignore: true)
+  @override
+  _$BasicResponseCopyWith<_BasicResponse> get copyWith =>
+      __$BasicResponseCopyWithImpl<_BasicResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_BasicResponseToJson(this);
+  }
+}
+
+abstract class _BasicResponse implements BasicResponse {
+  factory _BasicResponse(int flag, {String? message, String? error}) =
+      _$_BasicResponse;
+
+  factory _BasicResponse.fromJson(Map<String, dynamic> json) =
+      _$_BasicResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$BasicResponseCopyWith<_BasicResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SignUpResponse _$SignUpResponseFromJson(Map<String, dynamic> json) {
+  return _SignUpResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$SignUpResponseTearOff {
+  const _$SignUpResponseTearOff();
+
+  _SignUpResponse call(int flag,
+      {String? message, @JsonKey(name: 'otp_length') int? otpLength}) {
+    return _SignUpResponse(
+      flag,
+      message: message,
+      otpLength: otpLength,
+    );
+  }
+
+  SignUpResponse fromJson(Map<String, Object> json) {
+    return SignUpResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $SignUpResponse = _$SignUpResponseTearOff();
+
+/// @nodoc
+mixin _$SignUpResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: 'otp_length')
+  int? get otpLength => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SignUpResponseCopyWith<SignUpResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SignUpResponseCopyWith<$Res> {
+  factory $SignUpResponseCopyWith(
+          SignUpResponse value, $Res Function(SignUpResponse) then) =
+      _$SignUpResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag, String? message, @JsonKey(name: 'otp_length') int? otpLength});
+}
+
+/// @nodoc
+class _$SignUpResponseCopyWithImpl<$Res>
+    implements $SignUpResponseCopyWith<$Res> {
+  _$SignUpResponseCopyWithImpl(this._value, this._then);
+
+  final SignUpResponse _value;
+  // ignore: unused_field
+  final $Res Function(SignUpResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? otpLength = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      otpLength: otpLength == freezed
+          ? _value.otpLength
+          : otpLength // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$SignUpResponseCopyWith<$Res>
+    implements $SignUpResponseCopyWith<$Res> {
+  factory _$SignUpResponseCopyWith(
+          _SignUpResponse value, $Res Function(_SignUpResponse) then) =
+      __$SignUpResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag, String? message, @JsonKey(name: 'otp_length') int? otpLength});
+}
+
+/// @nodoc
+class __$SignUpResponseCopyWithImpl<$Res>
+    extends _$SignUpResponseCopyWithImpl<$Res>
+    implements _$SignUpResponseCopyWith<$Res> {
+  __$SignUpResponseCopyWithImpl(
+      _SignUpResponse _value, $Res Function(_SignUpResponse) _then)
+      : super(_value, (v) => _then(v as _SignUpResponse));
+
+  @override
+  _SignUpResponse get _value => super._value as _SignUpResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? otpLength = freezed,
+  }) {
+    return _then(_SignUpResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      otpLength: otpLength == freezed
+          ? _value.otpLength
+          : otpLength // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_SignUpResponse implements _SignUpResponse {
+  _$_SignUpResponse(this.flag,
+      {this.message, @JsonKey(name: 'otp_length') this.otpLength});
+
+  factory _$_SignUpResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_SignUpResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  @JsonKey(name: 'otp_length')
+  final int? otpLength;
+
+  @override
+  String toString() {
+    return 'SignUpResponse(flag: $flag, message: $message, otpLength: $otpLength)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _SignUpResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.otpLength, otpLength) ||
+                const DeepCollectionEquality()
+                    .equals(other.otpLength, otpLength)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(otpLength);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SignUpResponseCopyWith<_SignUpResponse> get copyWith =>
+      __$SignUpResponseCopyWithImpl<_SignUpResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_SignUpResponseToJson(this);
+  }
+}
+
+abstract class _SignUpResponse implements SignUpResponse {
+  factory _SignUpResponse(int flag,
+      {String? message,
+      @JsonKey(name: 'otp_length') int? otpLength}) = _$_SignUpResponse;
+
+  factory _SignUpResponse.fromJson(Map<String, dynamic> json) =
+      _$_SignUpResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'otp_length')
+  int? get otpLength => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$SignUpResponseCopyWith<_SignUpResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+VerifyResponse _$VerifyResponseFromJson(Map<String, dynamic> json) {
+  return _VerifyResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$VerifyResponseTearOff {
+  const _$VerifyResponseTearOff();
+
+  _VerifyResponse call(int flag,
+      {String? message, @JsonKey(name: 'user_data') User? userData}) {
+    return _VerifyResponse(
+      flag,
+      message: message,
+      userData: userData,
+    );
+  }
+
+  VerifyResponse fromJson(Map<String, Object> json) {
+    return VerifyResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $VerifyResponse = _$VerifyResponseTearOff();
+
+/// @nodoc
+mixin _$VerifyResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_data')
+  User? get userData => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VerifyResponseCopyWith<VerifyResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VerifyResponseCopyWith<$Res> {
+  factory $VerifyResponseCopyWith(
+          VerifyResponse value, $Res Function(VerifyResponse) then) =
+      _$VerifyResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag, String? message, @JsonKey(name: 'user_data') User? userData});
+
+  $UserCopyWith<$Res>? get userData;
+}
+
+/// @nodoc
+class _$VerifyResponseCopyWithImpl<$Res>
+    implements $VerifyResponseCopyWith<$Res> {
+  _$VerifyResponseCopyWithImpl(this._value, this._then);
+
+  final VerifyResponse _value;
+  // ignore: unused_field
+  final $Res Function(VerifyResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? userData = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userData: userData == freezed
+          ? _value.userData
+          : userData // ignore: cast_nullable_to_non_nullable
+              as User?,
+    ));
+  }
+
+  @override
+  $UserCopyWith<$Res>? get userData {
+    if (_value.userData == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.userData!, (value) {
+      return _then(_value.copyWith(userData: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$VerifyResponseCopyWith<$Res>
+    implements $VerifyResponseCopyWith<$Res> {
+  factory _$VerifyResponseCopyWith(
+          _VerifyResponse value, $Res Function(_VerifyResponse) then) =
+      __$VerifyResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag, String? message, @JsonKey(name: 'user_data') User? userData});
+
+  @override
+  $UserCopyWith<$Res>? get userData;
+}
+
+/// @nodoc
+class __$VerifyResponseCopyWithImpl<$Res>
+    extends _$VerifyResponseCopyWithImpl<$Res>
+    implements _$VerifyResponseCopyWith<$Res> {
+  __$VerifyResponseCopyWithImpl(
+      _VerifyResponse _value, $Res Function(_VerifyResponse) _then)
+      : super(_value, (v) => _then(v as _VerifyResponse));
+
+  @override
+  _VerifyResponse get _value => super._value as _VerifyResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? userData = freezed,
+  }) {
+    return _then(_VerifyResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userData: userData == freezed
+          ? _value.userData
+          : userData // ignore: cast_nullable_to_non_nullable
+              as User?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_VerifyResponse implements _VerifyResponse {
+  _$_VerifyResponse(this.flag,
+      {this.message, @JsonKey(name: 'user_data') this.userData});
+
+  factory _$_VerifyResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_VerifyResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  @JsonKey(name: 'user_data')
+  final User? userData;
+
+  @override
+  String toString() {
+    return 'VerifyResponse(flag: $flag, message: $message, userData: $userData)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _VerifyResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.userData, userData) ||
+                const DeepCollectionEquality()
+                    .equals(other.userData, userData)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(userData);
+
+  @JsonKey(ignore: true)
+  @override
+  _$VerifyResponseCopyWith<_VerifyResponse> get copyWith =>
+      __$VerifyResponseCopyWithImpl<_VerifyResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_VerifyResponseToJson(this);
+  }
+}
+
+abstract class _VerifyResponse implements VerifyResponse {
+  factory _VerifyResponse(int flag,
+      {String? message,
+      @JsonKey(name: 'user_data') User? userData}) = _$_VerifyResponse;
+
+  factory _VerifyResponse.fromJson(Map<String, dynamic> json) =
+      _$_VerifyResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_data')
+  User? get userData => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$VerifyResponseCopyWith<_VerifyResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }

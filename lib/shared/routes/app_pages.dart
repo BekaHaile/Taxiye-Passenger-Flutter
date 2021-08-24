@@ -20,6 +20,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.splash,
       page: () => const SplashPage(),
+      binding: AuthBinding(),
     ),
 
     GetPage(
@@ -36,7 +37,6 @@ abstract class AppPages {
     GetPage(
       name: Routes.auth,
       page: () => AuthPage(),
-      binding: AuthBinding(),
     ),
 
     GetPage(
@@ -144,7 +144,7 @@ abstract class AppPages {
 
     GetPage(
       name: Routes.orderDetails,
-      page: () => OrderDetailsPage(),
+      page: () => const OrderDetailsPage(),
     ),
   ];
 }

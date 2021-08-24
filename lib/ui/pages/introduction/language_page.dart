@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/widgets/logo_image.dart';
@@ -14,14 +16,8 @@ class LanguagePage extends StatefulWidget {
 }
 
 class _LanguagePageState extends State<LanguagePage> {
-  String selectedLanguage = "English";
-  List<String> languages = [
-    "English",
-    "Swahili",
-    "Arabic",
-    "Oromiffa",
-    "Amharic"
-  ];
+  Language selectedLanguage = kLanguages.first;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,11 +48,15 @@ class _LanguagePageState extends State<LanguagePage> {
                   spacing: 24.0,
                   runSpacing: 12.0,
                   children: [
-                    ...languages.map(
+                    ...kLanguages.map(
                       (language) => GestureDetector(
-                        onTap: () => setState(() {
-                          selectedLanguage = language;
-                        }),
+                        onTap: () {
+                          setState(() {
+                            selectedLanguage = language;
+                          });
+
+                          Get.updateLocale(Locale(language.code));
+                        },
                         child: Chip(
                           backgroundColor: AppTheme.lightSilverColor,
                           side: BorderSide(
@@ -77,7 +77,7 @@ class _LanguagePageState extends State<LanguagePage> {
                               Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: Text(
-                                  language,
+                                  language.name,
                                   style: AppTheme.title.copyWith(
                                       fontSize: 16.0,
                                       color: AppTheme.darkTextColor),
@@ -96,7 +96,10 @@ class _LanguagePageState extends State<LanguagePage> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: RoundedButton(
                 text: 'continue'.tr,
-                onPressed: () => Get.toNamed(Routes.introduction),
+                onPressed: () {
+                  Get.toNamed(Routes.introduction);
+                  GetStorage().write('locale', selectedLanguage.code);
+                },
               ),
             )
           ],

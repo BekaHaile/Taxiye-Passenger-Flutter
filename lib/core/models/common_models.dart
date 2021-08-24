@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 
+class Language {
+  const Language({
+    required this.name,
+    required this.code,
+  });
+
+  final String name;
+  final String code;
+}
+
+class Country {
+  const Country({
+    required this.name,
+    required this.code,
+    required this.isoCode,
+  });
+
+  final String name;
+  final String code;
+  final String isoCode;
+}
+
 class Option {
   Option({
     required this.title,

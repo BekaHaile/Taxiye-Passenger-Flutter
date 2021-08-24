@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "813634269297",
+    "firebase_url": "https://taxiye.firebaseio.com",
+    "project_id": "taxiye",
+    "storage_bucket": "taxiye.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813634269297:android:2d9376c37e9142f0a6abd0",
+        "android_client_info": {
+          "package_name": "com.taxiye"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813634269297-1o2bogh251laqquptf2dpfl1fkpfaorp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiye",
+            "certificate_hash": "2cebc86158c9be84fb59825a014fdc9b7e9a5f24"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKs1I_e16I4wocQUNQLHM7X_Bhif1WSbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

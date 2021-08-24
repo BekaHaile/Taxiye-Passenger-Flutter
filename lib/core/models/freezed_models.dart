@@ -14,12 +14,28 @@ part 'freezed_models.g.dart';
 
 @freezed
 class User with _$User {
-  factory User({
-    String? fullName,
-    String? email,
-    String? phone,
+  factory User(
+    @JsonKey(name: 'user_name') String userName, {
+    int? flag,
+    String? erorr,
+    int? gender,
+    @JsonKey(name: 'user_email') String? email,
+    @JsonKey(name: 'user_image') String? userImage,
+    @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)
+        String? countryCode,
+    @JsonKey(name: 'phone_no') String? phoneNo,
+    @JsonKey(name: 'date_of_birth') String? dateOfBirth,
+    @JsonKey(name: 'auth_key') String? authKey,
+    @JsonKey(name: 'email_verification_status') int? emailVerificationStatus,
+    @JsonKey(name: 'operator_id') int? operatorId,
+    @JsonKey(name: 'city') String? city,
+    @JsonKey(name: 'city_id') int? cityId,
+    @JsonKey(name: 'referral_code') String? referralCode,
+    @JsonKey(name: 'user_id') int? userId,
+    @JsonKey(name: 'default_client_id') String? defaultClientId,
   }) = _User;
 
+  factory User.build({User? user}) => user ?? User('');
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
 
@@ -102,4 +118,45 @@ class Coupon with _$Coupon {
   }) = _Coupon;
 
   factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
+}
+
+// response models
+@freezed
+abstract class BasicResponse with _$BasicResponse {
+  factory BasicResponse(
+    int flag, {
+    String? message,
+    String? error,
+  }) = _BasicResponse;
+
+  factory BasicResponse.fromJson(Map<String, dynamic> json) =>
+      _$BasicResponseFromJson(json);
+}
+
+@freezed
+abstract class SignUpResponse with _$SignUpResponse {
+  factory SignUpResponse(
+    int flag, {
+    String? message,
+    @JsonKey(name: 'otp_length') int? otpLength,
+  }) = _SignUpResponse;
+
+  factory SignUpResponse.fromJson(Map<String, dynamic> json) =>
+      _$SignUpResponseFromJson(json);
+}
+
+@freezed
+abstract class VerifyResponse with _$VerifyResponse {
+  factory VerifyResponse(
+    int flag, {
+    String? message,
+    @JsonKey(name: 'user_data') User? userData,
+  }) = _VerifyResponse;
+
+  factory VerifyResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerifyResponseFromJson(json);
+}
+
+String _countryCodeConverter(dynamic val) {
+  return val is int ? '+$val' : val;
 }

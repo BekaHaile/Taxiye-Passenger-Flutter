@@ -1,13 +1,21 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/auth_enums.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
+import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
-import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
+import 'package:taxiye_passenger/ui/pages/common/phone_input_dialog.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 
 /*
   Handles any business logic and data binding related to authentication
@@ -21,11 +29,18 @@ class AuthController extends GetxService {
   // holds request status
   final status = Status.success.obs;
 
+  User? _user;
   final _authStep = AuthStep.signup.obs;
   get authStep => _authStep.value;
   set authStep(value) => _authStep.value = value;
 
+  // General user, device info
+  late Map<String, dynamic> deviceInfo;
+  late Position currentLocation;
+  String? deviceToken;
+
   // sign up info
+  Country country = kCountries.first;
   String phoneNumber = '';
   String passcode = '';
   String confirmPassCode = '';
@@ -39,16 +54,34 @@ class AuthController extends GetxService {
   // for profile info
   String fullName = '';
   String email = '';
-  String gender = '';
+  int gender = 1;
 
   final _profileImage = File('').obs;
   get profileImage => _profileImage.value;
   set profileImage(value) => _profileImage.value = value;
 
+  final GetStorage _storage = GetStorage();
+  late Map<String, dynamic> defaultParams;
+
   @override
   void onInit() async {
     // Todo: initialize values and get any auth values here.
     super.onInit();
+
+    setLocale();
+  }
+
+  setGeneralInfo() async {
+    await Future.wait([
+      getDeviceInfo().then((value) => deviceInfo = value),
+      getCurrentLocation().then((value) => currentLocation = value),
+      repository.getDeviceToken().then((value) => deviceToken = value),
+    ]);
+  }
+
+  setLocale() {
+    String locale = _storage.read<String>('locale') ?? 'en';
+    Get.updateLocale(Locale(locale));
   }
 
   void signin() {
@@ -58,14 +91,129 @@ class AuthController extends GetxService {
   }
 
   signup() async {
-    // Todo: sign up user logic
-    // repository.signup(signupPayload)
-    Get.toNamed(Routes.verify);
+    final downloadSource = Platform.isAndroid ? 'playstore' : 'appstore';
+    final signupPayload = {
+      'phone_no': '${country.code}$phoneNumber',
+      'country_code': country.code,
+      'unique_device_id': deviceInfo['id'],
+      'longitude': currentLocation.longitude.toString(),
+      'latitude': currentLocation.latitude.toString(),
+      'country': country.name,
+      'last_opened_client_id': kClientId,
+      'os_version': deviceInfo['version'],
+      'source': 'download_source = $downloadSource',
+      'device_rooted': '0',
+      'device_name': deviceInfo['name'],
+      'device_token': deviceToken,
+      'last_push_time_diff': '-1'
+    };
+
+    status(Status.loading);
+    repository.signup(signupPayload).then(
+      (signupResponse) => onsignUpSuccess,
+      onError: (err) {
+        print("$err");
+        status(Status.error);
+      },
+    );
   }
 
+  onsignUpSuccess(SignUpResponse signupResponse) {
+    if (signupResponse.flag == SuccessFlags.signUp.successCode) {
+      status(Status.success);
+      if (Get.currentRoute != Routes.verify) {
+        Get.toNamed(Routes.verify);
+      }
+    } else {
+      print(signupResponse.message);
+      toast('error', signupResponse.message ?? '');
+      status(Status.error);
+    }
+  }
+
+  signInWithGoogle() async {
+    repository.signInWithGoogle(
+      {
+        'longitude': currentLocation.longitude.toString(),
+        'latitude': currentLocation.latitude.toString(),
+      },
+      showPhoneInput: () async => await Get.dialog(
+        const PhoneInputDialog(),
+      ),
+      serverRequestStarted: () => status(Status.loading),
+    ).then(
+      (signupResponse) => onsignUpSuccess,
+      onError: (err) {
+        print('$err');
+        status(Status.error);
+      },
+    );
+  }
+
+  signInWithFacebook() async {
+    repository.signInWithFacebook(
+      {
+        'longitude': currentLocation.longitude.toString(),
+        'latitude': currentLocation.latitude.toString(),
+      },
+      showPhoneInput: () async => await Get.dialog(
+        const PhoneInputDialog(),
+      ),
+      serverRequestStarted: () => status(Status.loading),
+    ).then(
+      (value) => onsignUpSuccess,
+      onError: (err) {
+        print('$err');
+        status(Status.error);
+      },
+    );
+  }
+
+  signInWithTwitter() async {
+    repository.signInWithTwitter().then((value) {
+      // signed in with google
+      print(value);
+    }, onError: (err) {
+      print('$err');
+    });
+  }
+
+  // verify with otp
   verify(String pin) {
-    // Todo: Verify code logic here.
-    Get.toNamed(Routes.setProfile);
+    final verifyPayload = {
+      'phone_no': '${country.code}$phoneNumber',
+      'country': country.name,
+      'reg_wallet_type': "0",
+      'os_version': deviceInfo['version'],
+      'longitude': currentLocation.longitude.toString(),
+      'latitude': currentLocation.latitude.toString(),
+      "device_rooted": "0",
+      'country_code': country.code,
+      'device_name': deviceInfo['name'],
+      'device_token': deviceToken,
+      'unique_device_id': deviceInfo['id'],
+      'login_otp': pin,
+    };
+
+    status(Status.loading);
+    repository.verifyOtp(verifyPayload).then(
+      (data) {
+        if (data.flag == SuccessFlags.verify.successCode) {
+          status(Status.success);
+          if (data.userData != null) _persistUser(data.userData!);
+          _user = data.userData;
+          Get.toNamed(Routes.setProfile);
+        } else {
+          print(data.message);
+          toast('error', data.message ?? 'api_error'.tr);
+          status(Status.error);
+        }
+      },
+      onError: (err) {
+        print("$err");
+        status(Status.error);
+      },
+    );
   }
 
   startTimer() {
@@ -85,7 +233,8 @@ class AuthController extends GetxService {
 
   resendCode() {
     // Todo: resend code logic here
-    print('resend code');
+    startTimer();
+    signup();
   }
 
   callMe() {
@@ -93,9 +242,37 @@ class AuthController extends GetxService {
     print('call me');
   }
 
-  setProfile() {
-    // Todo: set Profile logic here
-    Get.toNamed(Routes.setPasscode);
+  setProfile() async {
+    Map<String, dynamic> userPayload = {
+      'updated_user_name': fullName,
+      'gender': gender
+    };
+    if (email.isNotEmpty) userPayload['updated_user_email'] = email;
+
+    status(Status.loading);
+    repository
+        .updateUser(
+            profileImage.path.isNotEmpty ? profileImage : null, userPayload)
+        .then(
+      (data) {
+        if (data.flag == SuccessFlags.updateProfile.successCode) {
+          status(Status.success);
+          _persistUser(data);
+          _user = data;
+          Get.toNamed(Routes.home);
+        } else {
+          print(data.erorr);
+          toast('error', data.erorr ?? 'api_error'.tr);
+          status(Status.error);
+        }
+      },
+      onError: (err) {
+        print("$err");
+        status(Status.error);
+      },
+    );
+
+    // Get.toNamed(Routes.setPasscode);
   }
 
   setPasscode() {
@@ -126,6 +303,79 @@ class AuthController extends GetxService {
     } on Exception catch (e) {
       // print(Future.error(e.toString()));
     }
+  }
+
+  determineNextRoute() async {
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
+    if (_user == null) {
+      //Get current user if the user already loged in and route accordingly
+      //else show welcome screen
+      final userString = _storage.read('user');
+      final isFirstTime = _storage.read<bool>('isFirstTime');
+      if (userString != null) {
+        _user = User.fromJson(jsonDecode(userString));
+        if (_user != null) {
+          getUser();
+          _navigateUser();
+        }
+      } else {
+        setGeneralInfo();
+        if (isFirstTime ?? true) {
+          Future.delayed(Duration.zero, () {
+            Get.offAllNamed(Routes.language);
+          });
+        } else {
+          Future.delayed(Duration.zero, () {
+            Get.offAllNamed(Routes.auth);
+          });
+        }
+      }
+    } else {
+      _navigateUser();
+    }
+  }
+
+  _navigateUser() {
+    // check if user has setup profile, if not nav to set profile page
+    // else to home page
+    // for now check for gender and username
+    if (_user?.gender == null ||
+        (_user?.userName.isEmpty ?? true) ||
+        _user!.userName == 'User') {
+      Future.delayed(Duration.zero, () {
+        Get.offAllNamed(Routes.setProfile);
+      });
+    } else {
+      Future.delayed(Duration.zero, () {
+        Get.offAllNamed(Routes.home);
+      });
+    }
+  }
+
+  getUser() {
+    final accessToken = _storage.read<String>('accessToken');
+    if (accessToken != null) {
+      repository.loginUsingToken({}).then((value) {
+        print('login with access token request here');
+        print('success value: $value');
+        _user = value;
+        _persistUser(value);
+      }, onError: (err) {
+        print('error here $err');
+      });
+    }
+  }
+
+  _persistUser(User user) {
+    _storage.write('user', json.encode(user));
+    if (user.authKey != null) {
+      _storage.write('accessToken', _hashAccessToken(user.authKey!));
+    }
+  }
+
+  String _hashAccessToken(String authKey) {
+    String authSecret = authKey + kAuthKeyPart;
+    return sha256.convert(utf8.encode(authSecret)).toString();
   }
 
   void logout() {

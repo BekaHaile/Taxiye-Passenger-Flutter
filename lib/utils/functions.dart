@@ -1,5 +1,12 @@
+import 'dart:io';
+
+import 'package:device_info/device_info.dart';
+import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get_utils/get_utils.dart';
 
 bool isPasswordValid(String password) {
   /*
@@ -62,4 +69,76 @@ String formatTime(DateTime date) {
 //   String formattedTime = DateFormat.jm().format(now);           //5:08 PM
 // String formattedTime = DateFormat.Hm().format(now);
   return DateFormat.jm().format(date);
+}
+
+// to show toasts
+void toast(String title, String message) {
+  Get.snackbar(title.tr, message.tr, snackPosition: SnackPosition.BOTTOM);
+}
+
+Future<Map<String, dynamic>> getDeviceInfo() async {
+  final Map<String, dynamic> deviceInfo = {};
+
+  final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  try {
+    if (Platform.isAndroid) {
+      var androidInfo = await deviceInfoPlugin.androidInfo;
+      deviceInfo['id'] = androidInfo.androidId; //UUID for Android
+      deviceInfo['version'] = androidInfo.version.release;
+      deviceInfo['model'] = androidInfo.model;
+      deviceInfo['name'] = '${androidInfo.manufacturer} ${androidInfo.model}';
+    } else if (Platform.isIOS) {
+      var iosInfo = await deviceInfoPlugin.iosInfo;
+      deviceInfo['id'] = iosInfo.identifierForVendor; //UUID for iOS
+      deviceInfo['version'] = iosInfo.systemVersion;
+      deviceInfo['model'] = iosInfo.model;
+      deviceInfo['name'] = iosInfo.name;
+    }
+  } on PlatformException {
+    print('Failed to get platform version');
+  }
+
+//if (!mounted) return;
+  return deviceInfo;
+}
+
+/// Determine the current position of the device.
+/// When the location services are not enabled or permissions
+/// are denied the `Future` will return an error.
+Future<Position> getCurrentLocation() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    // Location services are not enabled don't continue
+    // accessing the position and request users of the
+    // App to enable the location services.
+    // Geolocator.openLocationSettings();
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      // Permissions are denied, next time you could try
+      // requesting permissions again (this is also where
+      // Android's shouldShowRequestPermissionRationale
+      // returned true. According to Android guidelines
+      // your App should show an explanatory UI now.
+      return Future.error('Location permissions are denied');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are denied forever, handle appropriately.
+    return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.');
+  }
+
+  // When we reach here, permissions are granted and we can
+  // continue accessing the position of the device.
+  return await Geolocator.getCurrentPosition();
 }

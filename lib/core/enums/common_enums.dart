@@ -1,3 +1,11 @@
+enum RequestType {
+  get,
+  post,
+  patch,
+  put,
+  delete,
+}
+
 enum Status {
   loading,
   success,
@@ -36,4 +44,25 @@ enum ExchangePointOption {
   transfer,
   bookRide,
   donate,
+}
+
+enum Gender {
+  male,
+  female,
+}
+
+enum SuccessFlags {
+  signUp,
+  verify,
+  updateProfile,
+}
+
+extension SuccessFlagsExtension on SuccessFlags {
+  static const successCodes = {
+    SuccessFlags.signUp: 143,
+    SuccessFlags.verify: 407,
+    SuccessFlags.updateProfile: 416,
+  };
+
+  int? get successCode => successCodes[this];
 }
