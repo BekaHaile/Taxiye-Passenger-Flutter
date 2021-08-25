@@ -3,6 +3,7 @@ import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
+import 'package:taxiye_passenger/ui/pages/home/simple_map.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/coupons_page.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/exchange_points_page.dart';

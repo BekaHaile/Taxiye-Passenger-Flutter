@@ -1,13 +1,9 @@
-// import 'dart:async';
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/looking_drivers.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/pick_service.dart';
@@ -16,6 +12,7 @@ import 'package:taxiye_passenger/ui/pages/home/components/trip_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_feedback.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_progress.dart';
 import 'package:taxiye_passenger/ui/pages/home/map/map.dart';
+import 'package:taxiye_passenger/ui/pages/home/simple_map.dart';
 import 'package:taxiye_passenger/ui/pages/profile/profile_page.dart';
 import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:get/get.dart';
@@ -35,20 +32,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late AnimationController iconAnimationController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late List<HomeService> homeServices;
-
-  // For map
-  final Completer<GoogleMapController> _controller = Completer();
-
-  final CameraPosition _kGooglePlex = const CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  final CameraPosition _kLake = const CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
 
   @override
   void initState() {
@@ -70,26 +53,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        // floatingActionButton: FloatingActionButton.extended(
-        //   onPressed: _goToTheLake,
-        //   label: const Text('To the lake!'),
-        //   icon: const Icon(Icons.directions_boat),
-        // ),
         body: Stack(
           children: [
-            MapScreen(),
-            // GoogleMap(
-            //   mapType: MapType.hybrid,
-            //   initialCameraPosition: _kGooglePlex,
-            //   onMapCreated: (GoogleMapController controller) {
-            //     _controller.complete(controller);
-            //   },
-            // ),
+            // MapScreen(),
+            const SimpleMap(),
             CircleNav(
               icon: CustomIcons.menu,
               onTap: () => _scaffoldKey.currentState?.openDrawer(),
             ),
-            // tripViews(),
           ],
         ),
         drawer: ClipRRect(
@@ -107,13 +78,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
         ),
-        bottomSheet: Obx(() => tripViews())
-        //   TripFeadback(
-        //     driver: Driver(name: 'Cameron Williamson', rating: 4.9),
-        //     vehicle: Vehicle(
-        //         name: 'Taxiye - Sedan', liscensePlate: 'B12345', price: 128.0),
-        //   ),
-        );
+        bottomSheet: Obx(() => tripViews()));
   }
 
   Widget tripViews() {
@@ -181,19 +146,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       default:
     }
   }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
 }
-
-// const TripDetail(),
-//     DriverDetail(
-//   driver: Driver(name: 'Cameron Williamson', rating: 4.9),
-//   vehicle: Vehicle(
-//       name: 'Taxiye - Sedan', liscensePlate: 'B12345', price: 128.0),
-// ),
 
 class HomeService {
   HomeService({
@@ -204,51 +157,3 @@ class HomeService {
   HomeServiceIndex title;
   IconData icon;
 }
-
-
-
-
-// class HomePage extends StatefulWidget {
-//   const HomePage({Key? key}) : super(key: key);
-//   @override
-//   State<HomePage> createState() => HomePageState();
-// }
-
-// class HomePageState extends State<HomePage> {
-//   final Completer<GoogleMapController> _controller = Completer();
-
-//   final CameraPosition _kGooglePlex = const CameraPosition(
-//     target: LatLng(37.42796133580664, -122.085749655962),
-//     zoom: 14.4746,
-//   );
-
-//   final CameraPosition _kLake = const CameraPosition(
-//       bearing: 192.8334901395799,
-//       target: LatLng(37.43296265331129, -122.08832357078792),
-//       tilt: 59.440717697143555,
-//       zoom: 19.151926040649414);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: 
-//       GoogleMap(
-//         mapType: MapType.hybrid,
-//         initialCameraPosition: _kGooglePlex,
-//         onMapCreated: (GoogleMapController controller) {
-//           _controller.complete(controller);
-//         },
-//       ),
-//       floatingActionButton: FloatingActionButton.extended(
-//         onPressed: _goToTheLake,
-//         label: const Text('To the lake!'),
-//         icon: const Icon(Icons.directions_boat),
-//       ),
-//     );
-//   }
-
-//   Future<void> _goToTheLake() async {
-//     final GoogleMapController controller = await _controller.future;
-//     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-//   }
-// }

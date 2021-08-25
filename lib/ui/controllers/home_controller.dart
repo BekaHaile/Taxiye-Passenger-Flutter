@@ -1,8 +1,12 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 
 /*
   Handles any business logic and data binding with Home flow
@@ -13,6 +17,7 @@ class HomeController extends GetxService {
   HomeController({required this.repository});
 
   final status = Status.success.obs;
+  final AuthController authController = Get.find();
 
   final _selectedService = HomeServiceIndex.ride.obs;
   get selectedService => _selectedService.value;
@@ -54,9 +59,12 @@ class HomeController extends GetxService {
   Vehicle vehicle =
       Vehicle(name: 'Taxiye - Sedan', liscensePlate: 'B12345', price: 128.0);
 
+  // late Position currentLocation;
+
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
+
     getVehicles();
     getPaymentMethods();
     super.onInit();

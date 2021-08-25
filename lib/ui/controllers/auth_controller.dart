@@ -110,7 +110,7 @@ class AuthController extends GetxService {
 
     status(Status.loading);
     repository.signup(signupPayload).then(
-      (signupResponse) => onsignUpSuccess,
+      (signupResponse) => onsignUpSuccess(signupResponse),
       onError: (err) {
         print("$err");
         status(Status.error);
@@ -120,6 +120,7 @@ class AuthController extends GetxService {
 
   onsignUpSuccess(SignUpResponse signupResponse) {
     if (signupResponse.flag == SuccessFlags.signUp.successCode) {
+      print('this called here');
       status(Status.success);
       if (Get.currentRoute != Routes.verify) {
         Get.toNamed(Routes.verify);
@@ -142,7 +143,7 @@ class AuthController extends GetxService {
       ),
       serverRequestStarted: () => status(Status.loading),
     ).then(
-      (signupResponse) => onsignUpSuccess,
+      (signupResponse) => onsignUpSuccess(signupResponse),
       onError: (err) {
         print('$err');
         status(Status.error);
@@ -161,7 +162,7 @@ class AuthController extends GetxService {
       ),
       serverRequestStarted: () => status(Status.loading),
     ).then(
-      (value) => onsignUpSuccess,
+      (signupResponse) => onsignUpSuccess(signupResponse),
       onError: (err) {
         print('$err');
         status(Status.error);

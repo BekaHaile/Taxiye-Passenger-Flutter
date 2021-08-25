@@ -2,12 +2,15 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:get/instance_manager.dart';
 // import 'package:flutter_gmaps/directions_model.dart';
 // import 'package:flutter_gmaps/directions_repository.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'dart:ui' as ui;
-
+import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/pages/home/map/directions_model.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 // import 'package:taxiye_passenger/ui/pages/home/map/directions_repository.dart';
 
 class MapScreen extends StatefulWidget {
@@ -16,11 +19,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  static const _initialCameraPosition = CameraPosition(
-    //8.9806, 38.7578
-    target: LatLng(8.9806, 38.7578),
-    zoom: 11.5,
-  );
+  HomeController controller = Get.find();
 
   GoogleMapController? _googleMapController;
   late Marker _origin;
@@ -29,18 +28,58 @@ class _MapScreenState extends State<MapScreen> {
   Marker? _destination;
   Directions? _info;
 
-  @override
-  void dispose() {
-    _googleMapController?.dispose();
-    super.dispose();
-  }
+  late CameraPosition _initialCameraPosition;
 
   @override
   void initState() {
     super.initState();
+    _initialCameraPosition = const CameraPosition(
+      //8.9806, 38.7578
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      zoom: 11.5,
+    );
     _addCars(9.026695, 38.746654, 9.016695, 38.726654);
     _addMarkerOrgin(9.029695, 38.742654);
     _addMarkerDec(8.990463, 38.771456);
+  }
+
+  _onMapCreated(GoogleMapController mapController) {
+    _googleMapController = mapController;
+    getCurrentLocation().then((currentLocation) {
+      print('this called');
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          const CameraPosition(
+              target: LatLng(8.9806, 38.7578),
+              //     LatLng(currentLocation.latitude, currentLocation.longitude),
+              zoom: 11.5),
+        ),
+      );
+    });
+  }
+
+  // Future<void> _onMapCreated(GoogleMapController controller) async {
+  //   final googleOffices = await locations.getGoogleOffices();
+  //   setState(() {
+  //     _markers.clear();
+  //     for (final office in googleOffices.offices) {
+  //       final marker = Marker(
+  //         markerId: MarkerId(office.name),
+  //         position: LatLng(office.lat, office.lng),
+  //         infoWindow: InfoWindow(
+  //           title: office.name,
+  //           snippet: office.address,
+  //         ),
+  //       );
+  //       _markers[office.name] = marker;
+  //     }
+  //   });
+  // }
+
+  @override
+  void dispose() {
+    _googleMapController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,7 +91,7 @@ class _MapScreenState extends State<MapScreen> {
           myLocationButtonEnabled: false,
           zoomControlsEnabled: false,
           initialCameraPosition: _initialCameraPosition,
-          onMapCreated: (controller) => _googleMapController = controller,
+          onMapCreated: (controller) => _onMapCreated(controller),
           markers: {
             if (_origin != null) _origin,
             if (_destination != null) _destination!,
