@@ -11,8 +11,7 @@ import 'package:taxiye_passenger/ui/pages/home/components/pick_vehicle.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_feedback.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_progress.dart';
-import 'package:taxiye_passenger/ui/pages/home/map/map.dart';
-import 'package:taxiye_passenger/ui/pages/home/simple_map.dart';
+import 'package:taxiye_passenger/ui/pages/home/map/ride_map.dart';
 import 'package:taxiye_passenger/ui/pages/profile/profile_page.dart';
 import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:get/get.dart';
@@ -56,7 +55,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         body: Stack(
           children: [
             // MapScreen(),
-            const SimpleMap(),
+            const RideMap(),
+            // SimpleMarkerAnimationExample(),
+
             CircleNav(
               icon: CustomIcons.menu,
               onTap: () => _scaffoldKey.currentState?.openDrawer(),

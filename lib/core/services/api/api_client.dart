@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get/utils.dart';
+import 'package:get_storage/get_storage.dart';
 import 'dart:io';
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
@@ -15,15 +16,13 @@ import 'package:taxiye_passenger/utils/functions.dart';
 
 class ApiClient {
   late DioClient dioClient;
-  // final String _apiKey = <apikey>;
   final Dio dio;
-  late Map<String, dynamic> defaultParams;
+  Map<String, dynamic> defaultParams = {};
 
   ApiClient({required this.dio}) {
-    // dio.options = baseOptions;
     dioClient = DioClient(dio);
 
-    PackageInfo.fromPlatform().then((packageInfo) => defaultParams = {
+    PackageInfo.fromPlatform().then((packageInfo) => defaultParams.addAll({
           'app_version': packageInfo.version,
           'device_type': '0',
           'login_type': '0',
@@ -31,7 +30,7 @@ class ApiClient {
           'customer_package_name': packageInfo.packageName,
           'locale': Get.locale?.languageCode ?? 'en',
           'client_id': kClientId,
-        });
+        }));
   }
 
   Future<Map<String, dynamic>> request(
@@ -47,8 +46,9 @@ class ApiClient {
         data.addAll(defaultParams);
         data['locale'] = Get.locale?.languageCode ?? 'en';
       }
-      dynamic response;
 
+      // log('sent payload: $data');
+      dynamic response;
       switch (requestType) {
         case RequestType.get:
           response =
@@ -70,22 +70,21 @@ class ApiClient {
           throw "Request type not found.";
       }
 
-      log('raw response: $response');
+      // log('raw response: $response');
       return (response is String) ? jsonDecode(response) : response;
     } on DioError catch (e) {
       final errorMessage = NetworkExceptions.getErrorMessage(
           NetworkExceptions.getDioException(e));
+      log('$e');
       log('Api Error: $errorMessage');
       toast('error', e.response?.data['message']);
       return Future.error(errorMessage);
     }
   }
 
-  Future<dynamic> updateProfile(
+  Future<User> updateProfile(
       File profileImage, Map<String, dynamic>? userPayload) async {
     try {
-      // await dioClient.addAuthorizationInterceptor();
-
       String? mimeType = lookupMimeType(profileImage.path);
       List<String> splitMimeTypes = mimeType?.split('/') ?? [];
 
@@ -94,9 +93,12 @@ class ApiClient {
           contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1]));
 
       final Map<String, dynamic> profilePayload = {
-        'updated_user_profile': multipartFile,
+        'updated_user_image': multipartFile,
       };
+
       profilePayload.addAll(defaultParams);
+      final accessToken = GetStorage().read('accessToken');
+      profilePayload['access_token'] = accessToken;
       if (userPayload != null) profilePayload.addAll(userPayload);
       var formData = FormData.fromMap(profilePayload);
 
@@ -129,7 +131,7 @@ class ApiClient {
 
   Future<List<Files>> uploadFiles(List<File> files, String userId) async {
     try {
-      await dioClient.addAuthorizationInterceptor();
+      // await dioClient.addAuthorizationInterceptor();
 
       List<MultipartFile> multipartFiles = [];
       for (File file in files) {

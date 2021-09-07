@@ -113,7 +113,7 @@ class AuthRepository implements IAuthRepository {
       path: '/v3/customer/login_using_access_token',
       data: loginPayload,
     );
-    return User.fromJson(response);
+    return VerifyResponse.fromJson(response).userData ?? User('');
   }
 
   @override

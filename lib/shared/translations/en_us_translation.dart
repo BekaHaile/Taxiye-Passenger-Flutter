@@ -98,6 +98,9 @@ final Map<String, String> enUs = {
   'rental': 'Rental',
   'outStation': 'Out Station',
 
+  // Map Strings
+  'current_location': 'Current Location',
+
   // pick locations string
   'drop_off_location': 'Drop off location',
   'enter_location': 'Enter drop off location here...',

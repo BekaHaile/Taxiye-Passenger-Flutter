@@ -8,7 +8,7 @@ import 'package:taxiye_passenger/core/models/freezed_models.dart';
   any Wallet api requests are made here
 */
 class WalletController extends GetxController {
-  final ICommonRepository repository;
+  final IWalletRepository repository;
   WalletController({required this.repository});
 
   final status = Status.success.obs;

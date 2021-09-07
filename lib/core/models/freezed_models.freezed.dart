@@ -1191,10 +1191,26 @@ Driver _$DriverFromJson(Map<String, dynamic> json) {
 class _$DriverTearOff {
   const _$DriverTearOff();
 
-  _Driver call({String? name, double? rating}) {
+  _Driver call(
+      {@JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'user_name') String? userName,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      double? latitude,
+      double? longitude,
+      double? rating,
+      @JsonKey(name: 'city_id') int? cityId,
+      @JsonKey(name: 'driver_image') String? driverImage,
+      @JsonKey(name: 'vehicle_no') String? vehicleNo}) {
     return _Driver(
-      name: name,
+      driverId: driverId,
+      userName: userName,
+      phoneNo: phoneNo,
+      latitude: latitude,
+      longitude: longitude,
       rating: rating,
+      cityId: cityId,
+      driverImage: driverImage,
+      vehicleNo: vehicleNo,
     );
   }
 
@@ -1208,8 +1224,21 @@ const $Driver = _$DriverTearOff();
 
 /// @nodoc
 mixin _$Driver {
-  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_name')
+  String? get userName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'city_id')
+  int? get cityId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_image')
+  String? get driverImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_no')
+  String? get vehicleNo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1220,7 +1249,16 @@ mixin _$Driver {
 abstract class $DriverCopyWith<$Res> {
   factory $DriverCopyWith(Driver value, $Res Function(Driver) then) =
       _$DriverCopyWithImpl<$Res>;
-  $Res call({String? name, double? rating});
+  $Res call(
+      {@JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'user_name') String? userName,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      double? latitude,
+      double? longitude,
+      double? rating,
+      @JsonKey(name: 'city_id') int? cityId,
+      @JsonKey(name: 'driver_image') String? driverImage,
+      @JsonKey(name: 'vehicle_no') String? vehicleNo});
 }
 
 /// @nodoc
@@ -1233,18 +1271,53 @@ class _$DriverCopyWithImpl<$Res> implements $DriverCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? name = freezed,
+    Object? driverId = freezed,
+    Object? userName = freezed,
+    Object? phoneNo = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? rating = freezed,
+    Object? cityId = freezed,
+    Object? driverImage = freezed,
+    Object? vehicleNo = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
+      cityId: cityId == freezed
+          ? _value.cityId
+          : cityId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverImage: driverImage == freezed
+          ? _value.driverImage
+          : driverImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vehicleNo: vehicleNo == freezed
+          ? _value.vehicleNo
+          : vehicleNo // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1254,7 +1327,16 @@ abstract class _$DriverCopyWith<$Res> implements $DriverCopyWith<$Res> {
   factory _$DriverCopyWith(_Driver value, $Res Function(_Driver) then) =
       __$DriverCopyWithImpl<$Res>;
   @override
-  $Res call({String? name, double? rating});
+  $Res call(
+      {@JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'user_name') String? userName,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      double? latitude,
+      double? longitude,
+      double? rating,
+      @JsonKey(name: 'city_id') int? cityId,
+      @JsonKey(name: 'driver_image') String? driverImage,
+      @JsonKey(name: 'vehicle_no') String? vehicleNo});
 }
 
 /// @nodoc
@@ -1268,18 +1350,53 @@ class __$DriverCopyWithImpl<$Res> extends _$DriverCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? name = freezed,
+    Object? driverId = freezed,
+    Object? userName = freezed,
+    Object? phoneNo = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? rating = freezed,
+    Object? cityId = freezed,
+    Object? driverImage = freezed,
+    Object? vehicleNo = freezed,
   }) {
     return _then(_Driver(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
+      cityId: cityId == freezed
+          ? _value.cityId
+          : cityId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverImage: driverImage == freezed
+          ? _value.driverImage
+          : driverImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vehicleNo: vehicleNo == freezed
+          ? _value.vehicleNo
+          : vehicleNo // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1287,36 +1404,93 @@ class __$DriverCopyWithImpl<$Res> extends _$DriverCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Driver implements _Driver {
-  _$_Driver({this.name, this.rating});
+  _$_Driver(
+      {@JsonKey(name: 'driver_id') this.driverId,
+      @JsonKey(name: 'user_name') this.userName,
+      @JsonKey(name: 'phone_no') this.phoneNo,
+      this.latitude,
+      this.longitude,
+      this.rating,
+      @JsonKey(name: 'city_id') this.cityId,
+      @JsonKey(name: 'driver_image') this.driverImage,
+      @JsonKey(name: 'vehicle_no') this.vehicleNo});
 
   factory _$_Driver.fromJson(Map<String, dynamic> json) =>
       _$_$_DriverFromJson(json);
 
   @override
-  final String? name;
+  @JsonKey(name: 'driver_id')
+  final int? driverId;
+  @override
+  @JsonKey(name: 'user_name')
+  final String? userName;
+  @override
+  @JsonKey(name: 'phone_no')
+  final String? phoneNo;
+  @override
+  final double? latitude;
+  @override
+  final double? longitude;
   @override
   final double? rating;
+  @override
+  @JsonKey(name: 'city_id')
+  final int? cityId;
+  @override
+  @JsonKey(name: 'driver_image')
+  final String? driverImage;
+  @override
+  @JsonKey(name: 'vehicle_no')
+  final String? vehicleNo;
 
   @override
   String toString() {
-    return 'Driver(name: $name, rating: $rating)';
+    return 'Driver(driverId: $driverId, userName: $userName, phoneNo: $phoneNo, latitude: $latitude, longitude: $longitude, rating: $rating, cityId: $cityId, driverImage: $driverImage, vehicleNo: $vehicleNo)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Driver &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.driverId, driverId) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverId, driverId)) &&
+            (identical(other.userName, userName) ||
+                const DeepCollectionEquality()
+                    .equals(other.userName, userName)) &&
+            (identical(other.phoneNo, phoneNo) ||
+                const DeepCollectionEquality()
+                    .equals(other.phoneNo, phoneNo)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
             (identical(other.rating, rating) ||
-                const DeepCollectionEquality().equals(other.rating, rating)));
+                const DeepCollectionEquality().equals(other.rating, rating)) &&
+            (identical(other.cityId, cityId) ||
+                const DeepCollectionEquality().equals(other.cityId, cityId)) &&
+            (identical(other.driverImage, driverImage) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverImage, driverImage)) &&
+            (identical(other.vehicleNo, vehicleNo) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleNo, vehicleNo)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(rating);
+      const DeepCollectionEquality().hash(driverId) ^
+      const DeepCollectionEquality().hash(userName) ^
+      const DeepCollectionEquality().hash(phoneNo) ^
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(rating) ^
+      const DeepCollectionEquality().hash(cityId) ^
+      const DeepCollectionEquality().hash(driverImage) ^
+      const DeepCollectionEquality().hash(vehicleNo);
 
   @JsonKey(ignore: true)
   @override
@@ -1330,14 +1504,43 @@ class _$_Driver implements _Driver {
 }
 
 abstract class _Driver implements Driver {
-  factory _Driver({String? name, double? rating}) = _$_Driver;
+  factory _Driver(
+      {@JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'user_name') String? userName,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      double? latitude,
+      double? longitude,
+      double? rating,
+      @JsonKey(name: 'city_id') int? cityId,
+      @JsonKey(name: 'driver_image') String? driverImage,
+      @JsonKey(name: 'vehicle_no') String? vehicleNo}) = _$_Driver;
 
   factory _Driver.fromJson(Map<String, dynamic> json) = _$_Driver.fromJson;
 
   @override
-  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_name')
+  String? get userName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
+  @override
+  double? get latitude => throw _privateConstructorUsedError;
+  @override
+  double? get longitude => throw _privateConstructorUsedError;
   @override
   double? get rating => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'city_id')
+  int? get cityId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_image')
+  String? get driverImage => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'vehicle_no')
+  String? get vehicleNo => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DriverCopyWith<_Driver> get copyWith => throw _privateConstructorUsedError;
@@ -2672,5 +2875,176 @@ abstract class _VerifyResponse implements VerifyResponse {
   @override
   @JsonKey(ignore: true)
   _$VerifyResponseCopyWith<_VerifyResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FindDriversResponse _$FindDriversResponseFromJson(Map<String, dynamic> json) {
+  return _FindDriversResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$FindDriversResponseTearOff {
+  const _$FindDriversResponseTearOff();
+
+  _FindDriversResponse call(int flag, {List<Driver>? drivers}) {
+    return _FindDriversResponse(
+      flag,
+      drivers: drivers,
+    );
+  }
+
+  FindDriversResponse fromJson(Map<String, Object> json) {
+    return FindDriversResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $FindDriversResponse = _$FindDriversResponseTearOff();
+
+/// @nodoc
+mixin _$FindDriversResponse {
+  int get flag => throw _privateConstructorUsedError;
+  List<Driver>? get drivers => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FindDriversResponseCopyWith<FindDriversResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FindDriversResponseCopyWith<$Res> {
+  factory $FindDriversResponseCopyWith(
+          FindDriversResponse value, $Res Function(FindDriversResponse) then) =
+      _$FindDriversResponseCopyWithImpl<$Res>;
+  $Res call({int flag, List<Driver>? drivers});
+}
+
+/// @nodoc
+class _$FindDriversResponseCopyWithImpl<$Res>
+    implements $FindDriversResponseCopyWith<$Res> {
+  _$FindDriversResponseCopyWithImpl(this._value, this._then);
+
+  final FindDriversResponse _value;
+  // ignore: unused_field
+  final $Res Function(FindDriversResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? drivers = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      drivers: drivers == freezed
+          ? _value.drivers
+          : drivers // ignore: cast_nullable_to_non_nullable
+              as List<Driver>?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$FindDriversResponseCopyWith<$Res>
+    implements $FindDriversResponseCopyWith<$Res> {
+  factory _$FindDriversResponseCopyWith(_FindDriversResponse value,
+          $Res Function(_FindDriversResponse) then) =
+      __$FindDriversResponseCopyWithImpl<$Res>;
+  @override
+  $Res call({int flag, List<Driver>? drivers});
+}
+
+/// @nodoc
+class __$FindDriversResponseCopyWithImpl<$Res>
+    extends _$FindDriversResponseCopyWithImpl<$Res>
+    implements _$FindDriversResponseCopyWith<$Res> {
+  __$FindDriversResponseCopyWithImpl(
+      _FindDriversResponse _value, $Res Function(_FindDriversResponse) _then)
+      : super(_value, (v) => _then(v as _FindDriversResponse));
+
+  @override
+  _FindDriversResponse get _value => super._value as _FindDriversResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? drivers = freezed,
+  }) {
+    return _then(_FindDriversResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      drivers: drivers == freezed
+          ? _value.drivers
+          : drivers // ignore: cast_nullable_to_non_nullable
+              as List<Driver>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_FindDriversResponse implements _FindDriversResponse {
+  _$_FindDriversResponse(this.flag, {this.drivers});
+
+  factory _$_FindDriversResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_FindDriversResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final List<Driver>? drivers;
+
+  @override
+  String toString() {
+    return 'FindDriversResponse(flag: $flag, drivers: $drivers)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _FindDriversResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.drivers, drivers) ||
+                const DeepCollectionEquality().equals(other.drivers, drivers)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(drivers);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FindDriversResponseCopyWith<_FindDriversResponse> get copyWith =>
+      __$FindDriversResponseCopyWithImpl<_FindDriversResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_FindDriversResponseToJson(this);
+  }
+}
+
+abstract class _FindDriversResponse implements FindDriversResponse {
+  factory _FindDriversResponse(int flag, {List<Driver>? drivers}) =
+      _$_FindDriversResponse;
+
+  factory _FindDriversResponse.fromJson(Map<String, dynamic> json) =
+      _$_FindDriversResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  List<Driver>? get drivers => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$FindDriversResponseCopyWith<_FindDriversResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }

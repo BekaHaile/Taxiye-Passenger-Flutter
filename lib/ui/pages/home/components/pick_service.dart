@@ -31,7 +31,9 @@ class PickService extends GetView<HomeController> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const LocationSearch(),
+          LocationSearch(
+            onRoutePickLocation: controller.onRoutePickLocation,
+          ),
           Obx(() => ServiceList(
                 services: homeServices,
                 selectedService: controller.selectedService,

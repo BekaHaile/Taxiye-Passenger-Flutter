@@ -32,32 +32,32 @@ class OrdersController extends GetxController {
     // Todo: Get my ordes.
     orders = [
       Order(
-        driver: Driver(name: 'Cameron Williamson', rating: 4.9),
+        driver: Driver(userName: 'Cameron Williamson', rating: 4.9),
         orderTime: DateTime.now(),
         amount: 150.0,
       ),
       Order(
-        driver: Driver(name: 'Cameron Williamson', rating: 4.9),
+        driver: Driver(userName: 'Cameron Williamson', rating: 4.9),
         orderTime: DateTime.now(),
         amount: 150.0,
       ),
       Order(
-        driver: Driver(name: 'Cameron Williamson', rating: 4.9),
+        driver: Driver(userName: 'Cameron Williamson', rating: 4.9),
         orderTime: DateTime.now(),
         amount: 150.0,
       ),
       Order(
-        driver: Driver(name: 'Cameron Williamson', rating: 4.9),
+        driver: Driver(userName: 'Cameron Williamson', rating: 4.9),
         orderTime: DateTime.now(),
         amount: 150.0,
       ),
       Order(
-        driver: Driver(name: 'Cameron Williamson', rating: 4.9),
+        driver: Driver(userName: 'Cameron Williamson', rating: 4.9),
         orderTime: DateTime.now(),
         amount: 150.0,
       ),
       Order(
-        driver: Driver(name: 'Cameron Williamson', rating: 4.9),
+        driver: Driver(userName: 'Cameron Williamson', rating: 4.9),
         orderTime: DateTime.now(),
         amount: 150.0,
       ),

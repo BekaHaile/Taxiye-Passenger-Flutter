@@ -68,8 +68,15 @@ class Vehicle with _$Vehicle {
 @freezed
 class Driver with _$Driver {
   factory Driver({
-    String? name,
+    @JsonKey(name: 'driver_id') int? driverId,
+    @JsonKey(name: 'user_name') String? userName,
+    @JsonKey(name: 'phone_no') String? phoneNo,
+    double? latitude,
+    double? longitude,
     double? rating,
+    @JsonKey(name: 'city_id') int? cityId,
+    @JsonKey(name: 'driver_image') String? driverImage,
+    @JsonKey(name: 'vehicle_no') String? vehicleNo,
   }) = _Driver;
 
   factory Driver.fromJson(Map<String, dynamic> json) => _$DriverFromJson(json);
@@ -158,5 +165,20 @@ abstract class VerifyResponse with _$VerifyResponse {
 }
 
 String _countryCodeConverter(dynamic val) {
-  return val is int ? '+$val' : val;
+  return val != null
+      ? val is int
+          ? '+$val'
+          : val
+      : '';
+}
+
+@freezed
+abstract class FindDriversResponse with _$FindDriversResponse {
+  factory FindDriversResponse(
+    int flag, {
+    List<Driver>? drivers,
+  }) = _FindDriversResponse;
+
+  factory FindDriversResponse.fromJson(Map<String, dynamic> json) =>
+      _$FindDriversResponseFromJson(json);
 }

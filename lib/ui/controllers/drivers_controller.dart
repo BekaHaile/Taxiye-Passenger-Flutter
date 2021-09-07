@@ -31,12 +31,12 @@ class DriversController extends GetxController {
   getMyDrivers() {
     // Todo: Get my drivers.
     drivers = [
-      Driver(name: 'Cameron Williamson', rating: 4.9),
-      Driver(name: 'Cameron Williamson', rating: 4.9),
-      Driver(name: 'Cameron Williamson', rating: 4.9),
-      Driver(name: 'Cameron Williamson', rating: 4.9),
-      Driver(name: 'Cameron Williamson', rating: 4.9),
-      Driver(name: 'Cameron Williamson', rating: 4.9),
+      Driver(userName: 'Cameron Williamson', rating: 4.9),
+      Driver(userName: 'Cameron Williamson', rating: 4.9),
+      Driver(userName: 'Cameron Williamson', rating: 4.9),
+      Driver(userName: 'Cameron Williamson', rating: 4.9),
+      Driver(userName: 'Cameron Williamson', rating: 4.9),
+      Driver(userName: 'Cameron Williamson', rating: 4.9),
     ];
   }
 }

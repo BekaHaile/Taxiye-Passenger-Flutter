@@ -67,14 +67,12 @@ class AuthController extends GetxService {
   void onInit() async {
     // Todo: initialize values and get any auth values here.
     super.onInit();
-
     setLocale();
   }
 
   setGeneralInfo() async {
     await Future.wait([
       getDeviceInfo().then((value) => deviceInfo = value),
-      getCurrentLocation().then((value) => currentLocation = value),
       repository.getDeviceToken().then((value) => deviceToken = value),
     ]);
   }
@@ -307,7 +305,8 @@ class AuthController extends GetxService {
   }
 
   determineNextRoute() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
+    await getCurrentLocation().then((value) => currentLocation = value);
+    await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     if (_user == null) {
       //Get current user if the user already loged in and route accordingly
       //else show welcome screen
@@ -340,9 +339,10 @@ class AuthController extends GetxService {
     // check if user has setup profile, if not nav to set profile page
     // else to home page
     // for now check for gender and username
-    if (_user?.gender == null ||
-        (_user?.userName.isEmpty ?? true) ||
-        _user!.userName == 'User') {
+    // user?.gender == null ||
+
+    if ((_user?.userName.isEmpty ?? true) ||
+        _user!.userName.split('').length < 2) {
       Future.delayed(Duration.zero, () {
         Get.offAllNamed(Routes.setProfile);
       });
@@ -357,12 +357,10 @@ class AuthController extends GetxService {
     final accessToken = _storage.read<String>('accessToken');
     if (accessToken != null) {
       repository.loginUsingToken({}).then((value) {
-        print('login with access token request here');
-        print('success value: $value');
         _user = value;
         _persistUser(value);
       }, onError: (err) {
-        print('error here $err');
+        print('Login error: $err');
       });
     }
   }

@@ -95,14 +95,28 @@ Map<String, dynamic> _$_$_VehicleToJson(_$_Vehicle instance) =>
 
 _$_Driver _$_$_DriverFromJson(Map<String, dynamic> json) {
   return _$_Driver(
-    name: json['name'] as String?,
+    driverId: json['driver_id'] as int?,
+    userName: json['user_name'] as String?,
+    phoneNo: json['phone_no'] as String?,
+    latitude: (json['latitude'] as num?)?.toDouble(),
+    longitude: (json['longitude'] as num?)?.toDouble(),
     rating: (json['rating'] as num?)?.toDouble(),
+    cityId: json['city_id'] as int?,
+    driverImage: json['driver_image'] as String?,
+    vehicleNo: json['vehicle_no'] as String?,
   );
 }
 
 Map<String, dynamic> _$_$_DriverToJson(_$_Driver instance) => <String, dynamic>{
-      'name': instance.name,
+      'driver_id': instance.driverId,
+      'user_name': instance.userName,
+      'phone_no': instance.phoneNo,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'rating': instance.rating,
+      'city_id': instance.cityId,
+      'driver_image': instance.driverImage,
+      'vehicle_no': instance.vehicleNo,
     };
 
 _$_Order _$_$_OrderFromJson(Map<String, dynamic> json) {
@@ -212,4 +226,21 @@ Map<String, dynamic> _$_$_VerifyResponseToJson(_$_VerifyResponse instance) =>
       'flag': instance.flag,
       'message': instance.message,
       'user_data': instance.userData,
+    };
+
+_$_FindDriversResponse _$_$_FindDriversResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_FindDriversResponse(
+    json['flag'] as int,
+    drivers: (json['drivers'] as List<dynamic>?)
+        ?.map((e) => Driver.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$_$_FindDriversResponseToJson(
+        _$_FindDriversResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'drivers': instance.drivers,
     };

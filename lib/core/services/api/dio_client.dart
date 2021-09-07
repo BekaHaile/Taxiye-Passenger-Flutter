@@ -3,31 +3,32 @@ import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
-BaseOptions baseOptions = BaseOptions(
-  baseUrl: kBaseUrl,
-  connectTimeout: 50000,
-  receiveTimeout: 50000,
-  followRedirects: false,
-  // will not throw errors
-  // followRedirects: false,
-  // validateStatus: (status) {
-  //   return status != null ? status < 500 : false;
-  // },
-);
-
 class DioClient {
   late Dio _dio;
+  final String? baseUrl;
   final List<Interceptor>? interceptors;
 
   DioClient(
     Dio? dio, {
     this.interceptors,
+    this.baseUrl,
   }) {
     _dio = dio ?? Dio();
     _dio
-      ..options = baseOptions
+      ..options = BaseOptions(
+        baseUrl: baseUrl ?? kBaseUrl,
+        connectTimeout: 50000,
+        receiveTimeout: 50000,
+        followRedirects: false,
+        // will not throw errors
+        // followRedirects: false,
+        // validateStatus: (status) {
+        //   return status != null ? status < 500 : false;
+        // },
+      )
       ..httpClientAdapter
       ..options.headers = {'Content-Type': 'application/json; charset=UTF-8'};
+
     if (interceptors?.isNotEmpty ?? false) {
       _dio.interceptors.addAll(interceptors!);
     }
@@ -47,11 +48,12 @@ class DioClient {
     // final accessToken = _prefs.getString('accessToken');
 
     final accessToken = GetStorage().read('accessToken');
+
     // print('accessToken: $accessToken');
     if (accessToken != null) {
       _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
         // Do something before request is sent
-        options.headers['Authorization'] = accessToken;
+        // options.headers['Authorization'] = accessToken;
 
         // add the access token to the body too.
         if (options.data != null) {

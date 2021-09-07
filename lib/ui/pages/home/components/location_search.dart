@@ -7,7 +7,10 @@ import 'package:get/get.dart';
 class LocationSearch extends StatelessWidget {
   const LocationSearch({
     Key? key,
+    required this.onRoutePickLocation,
   }) : super(key: key);
+
+  final VoidCallback onRoutePickLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class LocationSearch extends StatelessWidget {
                   style: TextButton.styleFrom(
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.symmetric(horizontal: 16.0)),
-                  onPressed: () => Get.toNamed(Routes.pickLocation),
+                  onPressed: onRoutePickLocation,
                   child: Text(
                     'where_to'.tr,
                     style: AppTheme.title

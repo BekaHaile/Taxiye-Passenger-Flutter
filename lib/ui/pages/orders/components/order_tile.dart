@@ -115,7 +115,7 @@ class OrderTile extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
-                                  order.driver?.name ?? '',
+                                  order.driver?.userName ?? '',
                                   style: AppTheme.body.copyWith(fontSize: 12.0),
                                   textAlign: TextAlign.end,
                                 ),
@@ -132,7 +132,7 @@ class OrderTile extends StatelessWidget {
                               child: ProfileAvatar(
                                   canEdit: false,
                                   radius: 20.0,
-                                  name: order.driver?.name ?? ''),
+                                  name: order.driver?.userName ?? ''),
                             ),
                           ],
                         ),

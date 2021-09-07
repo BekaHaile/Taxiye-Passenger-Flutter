@@ -47,7 +47,7 @@ class DriverTile extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      driver.name ?? '',
+                      driver.userName ?? '',
                       style: AppTheme.title.copyWith(fontSize: 18.0),
                     ),
                     Padding(
@@ -184,7 +184,7 @@ class DriverAvator extends StatelessWidget {
           child: ProfileAvatar(
             canEdit: false,
             radius: 40.0,
-            name: driver.name,
+            name: driver.userName,
           ),
         ),
         Positioned(
