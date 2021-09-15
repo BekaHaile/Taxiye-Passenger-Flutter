@@ -29,7 +29,7 @@ class WalletPage extends GetView<WalletController> {
                 ),
                 const SizedBox(height: 30.0),
                 Container(
-                  decoration: AppTheme.boxDecoration,
+                  decoration: AppTheme.boxDecoration.copyWith(gradient: AppTheme.walletGradient),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
@@ -91,10 +91,10 @@ class WalletPage extends GetView<WalletController> {
                                   ),
                                 ),
                                 const SizedBox(height: 5.0),
-                                const Text(
-                                  '580.00 Birr',
+                                Obx(() => Text(
+                                  '${controller.walletBalance} Birr',
                                   style: AppTheme.titleWhite,
-                                )
+                                ),)
                               ],
                             ),
                             Column(

@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 
 /*
   Handles any business logic and data binding with Wallet flow
@@ -25,11 +27,44 @@ class WalletController extends GetxController {
   String phoneNumber = '';
   double? amount = 0.0;
 
+  final _walletBalance = 0.0.obs;
+  get walletBalance => _walletBalance.value;
+  set walletBalance(value) => _walletBalance.value = value;
+
+  final GetStorage _storage = GetStorage();
+
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
     getTransactions();
+    getWalletBalance();
+  }
+
+  getWalletBalance() {
+    final walletPayload = {
+      "latitude": _storage.read('latitude'),
+      "is_access_token_new": "1",
+      "longitude": _storage.read('longitude')
+    };
+
+    status(Status.loading);
+    repository.fetchWalletBalance(walletPayload).then(
+      (walletResponse) {
+        if (walletResponse.flag ==
+            SuccessFlags.fetchWalletBalance.successCode) {
+          walletBalance = walletResponse.walletBalance;
+          status(Status.success);
+        } else {
+          toast('error', walletResponse.message ?? walletResponse.error ?? '');
+          status(Status.error);
+        }
+      },
+      onError: (err) {
+        print("$err");
+        status(Status.error);
+      },
+    );
   }
 
   getTransactions() {

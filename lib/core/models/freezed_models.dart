@@ -182,3 +182,16 @@ abstract class FindDriversResponse with _$FindDriversResponse {
   factory FindDriversResponse.fromJson(Map<String, dynamic> json) =>
       _$FindDriversResponseFromJson(json);
 }
+
+@freezed
+abstract class WalletResponse with _$WalletResponse {
+  factory WalletResponse(
+    int flag, {
+    String? message,
+    String? error,
+    @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+  }) = _WalletResponse;
+
+  factory WalletResponse.fromJson(Map<String, dynamic> json) =>
+      _$WalletResponseFromJson(json);
+}

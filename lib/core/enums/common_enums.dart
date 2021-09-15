@@ -55,6 +55,7 @@ enum SuccessFlags {
   signUp,
   verify,
   updateProfile,
+  fetchWalletBalance
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
@@ -62,6 +63,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.signUp: 143,
     SuccessFlags.verify: 407,
     SuccessFlags.updateProfile: 416,
+    SuccessFlags.fetchWalletBalance: 143,
   };
 
   int? get successCode => successCodes[this];

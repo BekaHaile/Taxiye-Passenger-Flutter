@@ -244,3 +244,20 @@ Map<String, dynamic> _$_$_FindDriversResponseToJson(
       'flag': instance.flag,
       'drivers': instance.drivers,
     };
+
+_$_WalletResponse _$_$_WalletResponseFromJson(Map<String, dynamic> json) {
+  return _$_WalletResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    walletBalance: (json['jugnoo_balance'] as num?)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$_$_WalletResponseToJson(_$_WalletResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'jugnoo_balance': instance.walletBalance,
+    };

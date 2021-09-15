@@ -3048,3 +3048,233 @@ abstract class _FindDriversResponse implements FindDriversResponse {
   _$FindDriversResponseCopyWith<_FindDriversResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+WalletResponse _$WalletResponseFromJson(Map<String, dynamic> json) {
+  return _WalletResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$WalletResponseTearOff {
+  const _$WalletResponseTearOff();
+
+  _WalletResponse call(int flag,
+      {String? message,
+      String? error,
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance}) {
+    return _WalletResponse(
+      flag,
+      message: message,
+      error: error,
+      walletBalance: walletBalance,
+    );
+  }
+
+  WalletResponse fromJson(Map<String, Object> json) {
+    return WalletResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $WalletResponse = _$WalletResponseTearOff();
+
+/// @nodoc
+mixin _$WalletResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  @JsonKey(name: 'jugnoo_balance')
+  double? get walletBalance => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $WalletResponseCopyWith<WalletResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $WalletResponseCopyWith<$Res> {
+  factory $WalletResponseCopyWith(
+          WalletResponse value, $Res Function(WalletResponse) then) =
+      _$WalletResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance});
+}
+
+/// @nodoc
+class _$WalletResponseCopyWithImpl<$Res>
+    implements $WalletResponseCopyWith<$Res> {
+  _$WalletResponseCopyWithImpl(this._value, this._then);
+
+  final WalletResponse _value;
+  // ignore: unused_field
+  final $Res Function(WalletResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? walletBalance = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletBalance: walletBalance == freezed
+          ? _value.walletBalance
+          : walletBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$WalletResponseCopyWith<$Res>
+    implements $WalletResponseCopyWith<$Res> {
+  factory _$WalletResponseCopyWith(
+          _WalletResponse value, $Res Function(_WalletResponse) then) =
+      __$WalletResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance});
+}
+
+/// @nodoc
+class __$WalletResponseCopyWithImpl<$Res>
+    extends _$WalletResponseCopyWithImpl<$Res>
+    implements _$WalletResponseCopyWith<$Res> {
+  __$WalletResponseCopyWithImpl(
+      _WalletResponse _value, $Res Function(_WalletResponse) _then)
+      : super(_value, (v) => _then(v as _WalletResponse));
+
+  @override
+  _WalletResponse get _value => super._value as _WalletResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? walletBalance = freezed,
+  }) {
+    return _then(_WalletResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletBalance: walletBalance == freezed
+          ? _value.walletBalance
+          : walletBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_WalletResponse implements _WalletResponse {
+  _$_WalletResponse(this.flag,
+      {this.message,
+      this.error,
+      @JsonKey(name: 'jugnoo_balance') this.walletBalance});
+
+  factory _$_WalletResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_WalletResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  @JsonKey(name: 'jugnoo_balance')
+  final double? walletBalance;
+
+  @override
+  String toString() {
+    return 'WalletResponse(flag: $flag, message: $message, error: $error, walletBalance: $walletBalance)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _WalletResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.walletBalance, walletBalance) ||
+                const DeepCollectionEquality()
+                    .equals(other.walletBalance, walletBalance)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(walletBalance);
+
+  @JsonKey(ignore: true)
+  @override
+  _$WalletResponseCopyWith<_WalletResponse> get copyWith =>
+      __$WalletResponseCopyWithImpl<_WalletResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_WalletResponseToJson(this);
+  }
+}
+
+abstract class _WalletResponse implements WalletResponse {
+  factory _WalletResponse(int flag,
+          {String? message,
+          String? error,
+          @JsonKey(name: 'jugnoo_balance') double? walletBalance}) =
+      _$_WalletResponse;
+
+  factory _WalletResponse.fromJson(Map<String, dynamic> json) =
+      _$_WalletResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'jugnoo_balance')
+  double? get walletBalance => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$WalletResponseCopyWith<_WalletResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
