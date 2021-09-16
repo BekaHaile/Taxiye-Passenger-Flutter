@@ -37,8 +37,8 @@ class WalletController extends GetxController {
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
-    getTransactions();
     getWalletBalance();
+    getTransactions();
   }
 
   getWalletBalance() {
@@ -68,44 +68,69 @@ class WalletController extends GetxController {
   }
 
   getTransactions() {
-    transactions = [
-      Transaction(
-          type: 'withdrawal',
-          amount: 600,
-          date: DateTime.now(),
-          reason: 'Wallet Top Up'),
-      Transaction(
-          type: 'deposit',
-          amount: 500,
-          date: DateTime.now(),
-          reason: 'Ride Payment'),
-      Transaction(
-          type: 'withdrawal',
-          amount: 200,
-          date: DateTime.now(),
-          reason: 'Ride Payment'),
-      Transaction(
-          type: 'deposit',
-          amount: 5000,
-          date: DateTime.now(),
-          reason: 'Ride Payment'),
-      Transaction(
-          type: 'deposit',
-          amount: 650,
-          date: DateTime.now(),
-          reason: 'Ride Payment'),
-      Transaction(
-          type: 'withdrawal',
-          amount: 300,
-          date: DateTime.now(),
-          reason: 'Ride Payment'),
-      Transaction(
-          type: 'withdrawal',
-          amount: 200,
-          date: DateTime.now(),
-          reason: 'Ride Payment'),
-    ];
+    final Map<String, dynamic> transactionHistoryPayload = {
+      "start_from": "0",
+      "is_access_token_new": "1"
+    };
+
+    status(Status.loading);
+    repository.getTransactionHistory(transactionHistoryPayload).then(
+      (transactionHistoryResponse) {
+        if (transactionHistoryResponse.flag ==
+            SuccessFlags.getTransactionHistory.successCode) {
+          transactions = transactionHistoryResponse.transactions;
+          status(Status.success);
+        } else {
+          toast('error', transactionHistoryResponse.message ?? transactionHistoryResponse.error ?? '');
+          status(Status.error);
+        }
+      },
+      onError: (err) {
+        print("$err");
+        status(Status.error);
+      },
+    );
   }
+
+  // getTransactions() {
+  //   transactions = [
+  //     Transaction(
+  //         type: 'withdrawal',
+  //         amount: 600,
+  //         date: DateTime.now(),
+  //         reason: 'Wallet Top Up'),
+  //     Transaction(
+  //         type: 'deposit',
+  //         amount: 500,
+  //         date: DateTime.now(),
+  //         reason: 'Ride Payment'),
+  //     Transaction(
+  //         type: 'withdrawal',
+  //         amount: 200,
+  //         date: DateTime.now(),
+  //         reason: 'Ride Payment'),
+  //     Transaction(
+  //         type: 'deposit',
+  //         amount: 5000,
+  //         date: DateTime.now(),
+  //         reason: 'Ride Payment'),
+  //     Transaction(
+  //         type: 'deposit',
+  //         amount: 650,
+  //         date: DateTime.now(),
+  //         reason: 'Ride Payment'),
+  //     Transaction(
+  //         type: 'withdrawal',
+  //         amount: 300,
+  //         date: DateTime.now(),
+  //         reason: 'Ride Payment'),
+  //     Transaction(
+  //         type: 'withdrawal',
+  //         amount: 200,
+  //         date: DateTime.now(),
+  //         reason: 'Ride Payment'),
+  //   ];
+  // }
 
   transferWallet() {
     // Todo: send wallet transfer

@@ -21,5 +21,15 @@ class WalletRepository implements IWalletRepository {
     return WalletResponse.fromJson(response);
   }
 
+  @override
+  Future<TransactionHistoryResponse> getTransactionHistory(Map<String, dynamic> transactionHistoryPayload) async{
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/get_transaction_history',
+      data: transactionHistoryPayload,
+    );
+    return TransactionHistoryResponse.fromJson(response);
+  }
+
   
 }

@@ -37,7 +37,7 @@ class TransactionTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Row(
             children: [
-              transaction.type == describeEnum(TransactionType.withdrawal)
+              transaction.type?.toLowerCase() == describeEnum(TransactionType.debited)
                   ? const Icon(
                       Icons.arrow_upward,
                       color: AppTheme.redColor,
@@ -51,7 +51,7 @@ class TransactionTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    formatDate(transaction.date ?? DateTime.now()),
+                    transaction.transactionDate ?? '',
                     style: AppTheme.title.copyWith(
                       fontSize: 14.0,
                       color: AppTheme.darkTextColor,
@@ -59,7 +59,7 @@ class TransactionTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    formatTime(transaction.date ?? DateTime.now()),
+                    transaction.transactionDate ?? '',
                     style: AppTheme.body.copyWith(
                       fontSize: 12.0,
                       color: AppTheme.greyColor,
@@ -83,7 +83,7 @@ class TransactionTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      transaction.reason ?? '',
+                      transaction.comment ?? '',
                       style: AppTheme.body.copyWith(
                         fontSize: 12.0,
                         color: AppTheme.greyColor,

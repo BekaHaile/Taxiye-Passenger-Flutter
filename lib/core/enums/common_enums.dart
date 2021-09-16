@@ -30,8 +30,8 @@ enum OrderStatus {
 }
 
 enum TransactionType {
-  withdrawal,
-  deposit,
+  debited,
+  credited,
 }
 
 enum WalletTransferTo {
@@ -55,7 +55,8 @@ enum SuccessFlags {
   signUp,
   verify,
   updateProfile,
-  fetchWalletBalance
+  fetchWalletBalance,
+  getTransactionHistory
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
@@ -64,6 +65,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.verify: 407,
     SuccessFlags.updateProfile: 416,
     SuccessFlags.fetchWalletBalance: 143,
+    SuccessFlags.getTransactionHistory: 423,
   };
 
   int? get successCode => successCodes[this];
