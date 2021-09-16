@@ -56,7 +56,8 @@ enum SuccessFlags {
   verify,
   updateProfile,
   fetchWalletBalance,
-  getTransactionHistory
+  getTransactionHistory,
+  transfer
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
@@ -66,6 +67,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.updateProfile: 416,
     SuccessFlags.fetchWalletBalance: 143,
     SuccessFlags.getTransactionHistory: 423,
+    SuccessFlags.transfer: 143,
   };
 
   int? get successCode => successCodes[this];

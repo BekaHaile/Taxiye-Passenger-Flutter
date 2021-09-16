@@ -300,3 +300,21 @@ Map<String, dynamic> _$_$_TransactionHistoryResponseToJson(
       'error': instance.error,
       'transactions': instance.transactions,
     };
+
+_$_TransferResponse _$_$_TransferResponseFromJson(Map<String, dynamic> json) {
+  return _$_TransferResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    walletBalance: (json['credit_balance'] as num?)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$_$_TransferResponseToJson(
+        _$_TransferResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'credit_balance': instance.walletBalance,
+    };

@@ -57,6 +57,9 @@ abstract class IWalletRepository {
 
   Future<TransactionHistoryResponse> getTransactionHistory(
       Map<String, dynamic> transactionHistoryPayload);
+
+  Future<TransferResponse> transfer(
+  Map<String, dynamic> transferPayload);
 }
 
 abstract class IFileRepository {

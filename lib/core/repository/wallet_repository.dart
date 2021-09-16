@@ -31,5 +31,15 @@ class WalletRepository implements IWalletRepository {
     return TransactionHistoryResponse.fromJson(response);
   }
 
+  @override
+  Future<TransferResponse> transfer(Map<String, dynamic> transferPayload) async{
+   final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/driver/send_credits',
+      data: transferPayload,
+    );
+    return TransferResponse.fromJson(response);
+  }
+
   
 }

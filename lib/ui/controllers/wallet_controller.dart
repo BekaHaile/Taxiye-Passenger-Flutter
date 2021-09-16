@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
 /*
@@ -24,6 +26,7 @@ class WalletController extends GetxController {
   get transferTo => _transferTo.value;
   set transferTo(value) => _transferTo.value = value;
 
+  Country country = kCountries.first;
   String phoneNumber = '';
   double? amount = 0.0;
 
@@ -92,47 +95,36 @@ class WalletController extends GetxController {
     );
   }
 
-  // getTransactions() {
-  //   transactions = [
-  //     Transaction(
-  //         type: 'withdrawal',
-  //         amount: 600,
-  //         date: DateTime.now(),
-  //         reason: 'Wallet Top Up'),
-  //     Transaction(
-  //         type: 'deposit',
-  //         amount: 500,
-  //         date: DateTime.now(),
-  //         reason: 'Ride Payment'),
-  //     Transaction(
-  //         type: 'withdrawal',
-  //         amount: 200,
-  //         date: DateTime.now(),
-  //         reason: 'Ride Payment'),
-  //     Transaction(
-  //         type: 'deposit',
-  //         amount: 5000,
-  //         date: DateTime.now(),
-  //         reason: 'Ride Payment'),
-  //     Transaction(
-  //         type: 'deposit',
-  //         amount: 650,
-  //         date: DateTime.now(),
-  //         reason: 'Ride Payment'),
-  //     Transaction(
-  //         type: 'withdrawal',
-  //         amount: 300,
-  //         date: DateTime.now(),
-  //         reason: 'Ride Payment'),
-  //     Transaction(
-  //         type: 'withdrawal',
-  //         amount: 200,
-  //         date: DateTime.now(),
-  //         reason: 'Ride Payment'),
-  //   ];
-  // }
-
   transferWallet() {
-    // Todo: send wallet transfer
+     final Map<String, dynamic> transferPayload = {
+      "phone_no": '${country.code}$phoneNumber', 
+      "amount": amount, 
+      "latitude":_storage.read('latitude'), 
+      "receiver_type": transferTo == WalletTransferTo.customer ? "0" : "1", 
+      "country_code": country.code, 
+      "engagement_id": "", 
+      "longitude": _storage.read('longitude')
+    };
+
+    
+    status(Status.loading);
+    repository.transfer(transferPayload).then(
+      (transferResponse) {
+        if (transferResponse.flag ==
+            SuccessFlags.transfer.successCode) {
+            walletBalance = transferResponse.walletBalance;
+            status(Status.success);
+            getTransactions();
+            Get.back();
+        } else {
+          toast('error', transferResponse.message ?? transferResponse.error ?? '');
+          status(Status.error);
+        }
+      },
+      onError: (err) {
+        print("$err");
+        status(Status.error);
+      },
+    );
   }
 }

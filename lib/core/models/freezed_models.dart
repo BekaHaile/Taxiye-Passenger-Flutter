@@ -218,6 +218,19 @@ abstract class TransactionHistoryResponse with _$TransactionHistoryResponse {
       _$TransactionHistoryResponseFromJson(json);
 }
 
+@freezed
+abstract class TransferResponse with _$TransferResponse {
+  factory TransferResponse(
+    int flag, {
+    String? message,
+    String? error,
+    @JsonKey(name: 'credit_balance') double? walletBalance,
+  }) = _TransferResponse;
+
+  factory TransferResponse.fromJson(Map<String, dynamic> json) =>
+      _$TransferResponseFromJson(json);
+}
+
 class DateConverter implements JsonConverter<DateTime, dynamic> {
   const DateConverter();
 
