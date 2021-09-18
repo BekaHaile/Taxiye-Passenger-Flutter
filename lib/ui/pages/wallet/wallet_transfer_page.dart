@@ -8,6 +8,7 @@ import 'package:taxiye_passenger/ui/widgets/phone_input.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 
 class WalletTransferPage extends GetView<WalletController> {
   const WalletTransferPage({Key? key}) : super(key: key);
@@ -82,6 +83,7 @@ class WalletTransferPage extends GetView<WalletController> {
                         const SizedBox(height: 15.0),
                         PhoneInput(
                           onChanged: (value) => controller.phoneNumber = value,
+                          onCountryChange: (value) => controller.country = value ?? kCountries.first,
                         ),
                         const SizedBox(height: 20.0),
                         Text(
@@ -95,7 +97,7 @@ class WalletTransferPage extends GetView<WalletController> {
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             onChanged: (value) =>
-                                controller.amount = double.tryParse(value),
+                                controller.amount = value.isEmpty ? 0.0 : double.parse(value),
                             style: AppTheme.title.copyWith(fontSize: 16.0),
                             decoration: AppTheme.textFieldDecoration.copyWith(
                               labelText: 'amount'.tr,

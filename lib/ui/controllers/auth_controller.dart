@@ -305,7 +305,11 @@ class AuthController extends GetxService {
   }
 
   determineNextRoute() async {
-    await getCurrentLocation().then((value) => currentLocation = value);
+    await getCurrentLocation().then((value) {
+      currentLocation = value;
+      _storage.write('latitude', value.latitude);
+      _storage.write('longitude', value.longitude);
+    });
     await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     if (_user == null) {
       //Get current user if the user already loged in and route accordingly

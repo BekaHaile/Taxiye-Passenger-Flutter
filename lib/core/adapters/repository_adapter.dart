@@ -52,6 +52,14 @@ abstract class ICommonRepository {
 
 abstract class IWalletRepository {
   // Todo: Add wallet request class signitures (interfaces) here.
+  Future<WalletResponse> fetchWalletBalance(
+      Map<String, dynamic> walletPayload);
+
+  Future<TransactionHistoryResponse> getTransactionHistory(
+      Map<String, dynamic> transactionHistoryPayload);
+
+  Future<TransferResponse> transfer(
+  Map<String, dynamic> transferPayload);
 }
 
 abstract class IFileRepository {

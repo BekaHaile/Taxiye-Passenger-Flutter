@@ -106,10 +106,19 @@ class Payment with _$Payment {
 @freezed
 class Transaction with _$Transaction {
   factory Transaction({
-    String? type,
-    DateTime? date,
-    double? amount,
-    String? reason,
+    @JsonKey(name: 'txn_id') int? transactionId,
+    @JsonKey(name: 'txn_type') String? type,
+    @JsonKey(name: 'amount') int? amount,
+    @JsonKey(name: 'txn_date') String? transactionDate,
+    @JsonKey(name: 'txn_time') String? transactionTime,
+    @JsonKey(name: 'logged_on') String? loggedOn,
+    @JsonKey(name: 'wallet_txn') int? walletTxn,
+    @JsonKey(name: 'paytm') int? paytm,
+    @JsonKey(name: 'mobikwik') int? mobikwik,
+    @JsonKey(name: 'freecharge') int? freeCharge,
+    @JsonKey(name: 'reference_id') int? referenceId,
+    @JsonKey(name: 'event') int? event,
+    @JsonKey(name: 'comment') String? comment,
   }) = _Transaction;
 
   factory Transaction.fromJson(Map<String, dynamic> json) =>
@@ -181,4 +190,60 @@ abstract class FindDriversResponse with _$FindDriversResponse {
 
   factory FindDriversResponse.fromJson(Map<String, dynamic> json) =>
       _$FindDriversResponseFromJson(json);
+}
+
+@freezed
+abstract class WalletResponse with _$WalletResponse {
+  factory WalletResponse(
+    int flag, {
+    String? message,
+    String? error,
+    @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+  }) = _WalletResponse;
+
+  factory WalletResponse.fromJson(Map<String, dynamic> json) =>
+      _$WalletResponseFromJson(json);
+}
+
+@freezed
+abstract class TransactionHistoryResponse with _$TransactionHistoryResponse {
+  factory TransactionHistoryResponse(
+    int flag, {
+    String? message,
+    String? error,
+    @JsonKey(name: 'transactions') List<Transaction>? transactions,
+  }) = _TransactionHistoryResponse;
+
+  factory TransactionHistoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$TransactionHistoryResponseFromJson(json);
+}
+
+@freezed
+abstract class TransferResponse with _$TransferResponse {
+  factory TransferResponse(
+    int flag, {
+    String? message,
+    String? error,
+    @JsonKey(name: 'credit_balance') double? walletBalance,
+  }) = _TransferResponse;
+
+  factory TransferResponse.fromJson(Map<String, dynamic> json) =>
+      _$TransferResponseFromJson(json);
+}
+
+class DateConverter implements JsonConverter<DateTime, dynamic> {
+  const DateConverter();
+
+  @override
+  DateTime fromJson(dynamic date) {
+    if(date is String){
+      return DateTime.parse(date);
+    }
+    else{
+      return DateTime.now();
+    }
+  }
+
+  @override
+  String toJson(DateTime date) => date.toString();
 }

@@ -150,19 +150,37 @@ Map<String, dynamic> _$_$_PaymentToJson(_$_Payment instance) =>
 
 _$_Transaction _$_$_TransactionFromJson(Map<String, dynamic> json) {
   return _$_Transaction(
-    type: json['type'] as String?,
-    date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
-    amount: (json['amount'] as num?)?.toDouble(),
-    reason: json['reason'] as String?,
+    transactionId: json['txn_id'] as int?,
+    type: json['txn_type'] as String?,
+    amount: json['amount'] as int?,
+    transactionDate: json['txn_date'] as String?,
+    transactionTime: json['txn_time'] as String?,
+    loggedOn: json['logged_on'] as String?,
+    walletTxn: json['wallet_txn'] as int?,
+    paytm: json['paytm'] as int?,
+    mobikwik: json['mobikwik'] as int?,
+    freeCharge: json['freecharge'] as int?,
+    referenceId: json['reference_id'] as int?,
+    event: json['event'] as int?,
+    comment: json['comment'] as String?,
   );
 }
 
 Map<String, dynamic> _$_$_TransactionToJson(_$_Transaction instance) =>
     <String, dynamic>{
-      'type': instance.type,
-      'date': instance.date?.toIso8601String(),
+      'txn_id': instance.transactionId,
+      'txn_type': instance.type,
       'amount': instance.amount,
-      'reason': instance.reason,
+      'txn_date': instance.transactionDate,
+      'txn_time': instance.transactionTime,
+      'logged_on': instance.loggedOn,
+      'wallet_txn': instance.walletTxn,
+      'paytm': instance.paytm,
+      'mobikwik': instance.mobikwik,
+      'freecharge': instance.freeCharge,
+      'reference_id': instance.referenceId,
+      'event': instance.event,
+      'comment': instance.comment,
     };
 
 _$_Coupon _$_$_CouponFromJson(Map<String, dynamic> json) {
@@ -243,4 +261,60 @@ Map<String, dynamic> _$_$_FindDriversResponseToJson(
     <String, dynamic>{
       'flag': instance.flag,
       'drivers': instance.drivers,
+    };
+
+_$_WalletResponse _$_$_WalletResponseFromJson(Map<String, dynamic> json) {
+  return _$_WalletResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    walletBalance: (json['jugnoo_balance'] as num?)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$_$_WalletResponseToJson(_$_WalletResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'jugnoo_balance': instance.walletBalance,
+    };
+
+_$_TransactionHistoryResponse _$_$_TransactionHistoryResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_TransactionHistoryResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    transactions: (json['transactions'] as List<dynamic>?)
+        ?.map((e) => Transaction.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$_$_TransactionHistoryResponseToJson(
+        _$_TransactionHistoryResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'transactions': instance.transactions,
+    };
+
+_$_TransferResponse _$_$_TransferResponseFromJson(Map<String, dynamic> json) {
+  return _$_TransferResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    walletBalance: (json['credit_balance'] as num?)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$_$_TransferResponseToJson(
+        _$_TransferResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'credit_balance': instance.walletBalance,
     };
