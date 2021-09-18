@@ -2752,12 +2752,33 @@ class _$TransactionTearOff {
   const _$TransactionTearOff();
 
   _Transaction call(
-      {String? type, DateTime? date, double? amount, String? reason}) {
+      {@JsonKey(name: 'txn_id') int? transactionId,
+      @JsonKey(name: 'txn_type') String? type,
+      @JsonKey(name: 'amount') int? amount,
+      @JsonKey(name: 'txn_date') String? transactionDate,
+      @JsonKey(name: 'txn_time') String? transactionTime,
+      @JsonKey(name: 'logged_on') String? loggedOn,
+      @JsonKey(name: 'wallet_txn') int? walletTxn,
+      @JsonKey(name: 'paytm') int? paytm,
+      @JsonKey(name: 'mobikwik') int? mobikwik,
+      @JsonKey(name: 'freecharge') int? freeCharge,
+      @JsonKey(name: 'reference_id') int? referenceId,
+      @JsonKey(name: 'event') int? event,
+      @JsonKey(name: 'comment') String? comment}) {
     return _Transaction(
+      transactionId: transactionId,
       type: type,
-      date: date,
       amount: amount,
-      reason: reason,
+      transactionDate: transactionDate,
+      transactionTime: transactionTime,
+      loggedOn: loggedOn,
+      walletTxn: walletTxn,
+      paytm: paytm,
+      mobikwik: mobikwik,
+      freeCharge: freeCharge,
+      referenceId: referenceId,
+      event: event,
+      comment: comment,
     );
   }
 
@@ -2771,10 +2792,32 @@ const $Transaction = _$TransactionTearOff();
 
 /// @nodoc
 mixin _$Transaction {
+  @JsonKey(name: 'txn_id')
+  int? get transactionId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'txn_type')
   String? get type => throw _privateConstructorUsedError;
-  DateTime? get date => throw _privateConstructorUsedError;
-  double? get amount => throw _privateConstructorUsedError;
-  String? get reason => throw _privateConstructorUsedError;
+  @JsonKey(name: 'amount')
+  int? get amount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'txn_date')
+  String? get transactionDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'txn_time')
+  String? get transactionTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'logged_on')
+  String? get loggedOn => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wallet_txn')
+  int? get walletTxn => throw _privateConstructorUsedError;
+  @JsonKey(name: 'paytm')
+  int? get paytm => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mobikwik')
+  int? get mobikwik => throw _privateConstructorUsedError;
+  @JsonKey(name: 'freecharge')
+  int? get freeCharge => throw _privateConstructorUsedError;
+  @JsonKey(name: 'reference_id')
+  int? get referenceId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'event')
+  int? get event => throw _privateConstructorUsedError;
+  @JsonKey(name: 'comment')
+  String? get comment => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2787,7 +2830,20 @@ abstract class $TransactionCopyWith<$Res> {
   factory $TransactionCopyWith(
           Transaction value, $Res Function(Transaction) then) =
       _$TransactionCopyWithImpl<$Res>;
-  $Res call({String? type, DateTime? date, double? amount, String? reason});
+  $Res call(
+      {@JsonKey(name: 'txn_id') int? transactionId,
+      @JsonKey(name: 'txn_type') String? type,
+      @JsonKey(name: 'amount') int? amount,
+      @JsonKey(name: 'txn_date') String? transactionDate,
+      @JsonKey(name: 'txn_time') String? transactionTime,
+      @JsonKey(name: 'logged_on') String? loggedOn,
+      @JsonKey(name: 'wallet_txn') int? walletTxn,
+      @JsonKey(name: 'paytm') int? paytm,
+      @JsonKey(name: 'mobikwik') int? mobikwik,
+      @JsonKey(name: 'freecharge') int? freeCharge,
+      @JsonKey(name: 'reference_id') int? referenceId,
+      @JsonKey(name: 'event') int? event,
+      @JsonKey(name: 'comment') String? comment});
 }
 
 /// @nodoc
@@ -2800,27 +2856,72 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? transactionId = freezed,
     Object? type = freezed,
-    Object? date = freezed,
     Object? amount = freezed,
-    Object? reason = freezed,
+    Object? transactionDate = freezed,
+    Object? transactionTime = freezed,
+    Object? loggedOn = freezed,
+    Object? walletTxn = freezed,
+    Object? paytm = freezed,
+    Object? mobikwik = freezed,
+    Object? freeCharge = freezed,
+    Object? referenceId = freezed,
+    Object? event = freezed,
+    Object? comment = freezed,
   }) {
     return _then(_value.copyWith(
+      transactionId: transactionId == freezed
+          ? _value.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
+              as int?,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as double?,
-      reason: reason == freezed
-          ? _value.reason
-          : reason // ignore: cast_nullable_to_non_nullable
+              as int?,
+      transactionDate: transactionDate == freezed
+          ? _value.transactionDate
+          : transactionDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      transactionTime: transactionTime == freezed
+          ? _value.transactionTime
+          : transactionTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      loggedOn: loggedOn == freezed
+          ? _value.loggedOn
+          : loggedOn // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletTxn: walletTxn == freezed
+          ? _value.walletTxn
+          : walletTxn // ignore: cast_nullable_to_non_nullable
+              as int?,
+      paytm: paytm == freezed
+          ? _value.paytm
+          : paytm // ignore: cast_nullable_to_non_nullable
+              as int?,
+      mobikwik: mobikwik == freezed
+          ? _value.mobikwik
+          : mobikwik // ignore: cast_nullable_to_non_nullable
+              as int?,
+      freeCharge: freeCharge == freezed
+          ? _value.freeCharge
+          : freeCharge // ignore: cast_nullable_to_non_nullable
+              as int?,
+      referenceId: referenceId == freezed
+          ? _value.referenceId
+          : referenceId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      event: event == freezed
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as int?,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -2833,7 +2934,20 @@ abstract class _$TransactionCopyWith<$Res>
           _Transaction value, $Res Function(_Transaction) then) =
       __$TransactionCopyWithImpl<$Res>;
   @override
-  $Res call({String? type, DateTime? date, double? amount, String? reason});
+  $Res call(
+      {@JsonKey(name: 'txn_id') int? transactionId,
+      @JsonKey(name: 'txn_type') String? type,
+      @JsonKey(name: 'amount') int? amount,
+      @JsonKey(name: 'txn_date') String? transactionDate,
+      @JsonKey(name: 'txn_time') String? transactionTime,
+      @JsonKey(name: 'logged_on') String? loggedOn,
+      @JsonKey(name: 'wallet_txn') int? walletTxn,
+      @JsonKey(name: 'paytm') int? paytm,
+      @JsonKey(name: 'mobikwik') int? mobikwik,
+      @JsonKey(name: 'freecharge') int? freeCharge,
+      @JsonKey(name: 'reference_id') int? referenceId,
+      @JsonKey(name: 'event') int? event,
+      @JsonKey(name: 'comment') String? comment});
 }
 
 /// @nodoc
@@ -2848,27 +2962,72 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? transactionId = freezed,
     Object? type = freezed,
-    Object? date = freezed,
     Object? amount = freezed,
-    Object? reason = freezed,
+    Object? transactionDate = freezed,
+    Object? transactionTime = freezed,
+    Object? loggedOn = freezed,
+    Object? walletTxn = freezed,
+    Object? paytm = freezed,
+    Object? mobikwik = freezed,
+    Object? freeCharge = freezed,
+    Object? referenceId = freezed,
+    Object? event = freezed,
+    Object? comment = freezed,
   }) {
     return _then(_Transaction(
+      transactionId: transactionId == freezed
+          ? _value.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
+              as int?,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as double?,
-      reason: reason == freezed
-          ? _value.reason
-          : reason // ignore: cast_nullable_to_non_nullable
+              as int?,
+      transactionDate: transactionDate == freezed
+          ? _value.transactionDate
+          : transactionDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      transactionTime: transactionTime == freezed
+          ? _value.transactionTime
+          : transactionTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      loggedOn: loggedOn == freezed
+          ? _value.loggedOn
+          : loggedOn // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletTxn: walletTxn == freezed
+          ? _value.walletTxn
+          : walletTxn // ignore: cast_nullable_to_non_nullable
+              as int?,
+      paytm: paytm == freezed
+          ? _value.paytm
+          : paytm // ignore: cast_nullable_to_non_nullable
+              as int?,
+      mobikwik: mobikwik == freezed
+          ? _value.mobikwik
+          : mobikwik // ignore: cast_nullable_to_non_nullable
+              as int?,
+      freeCharge: freeCharge == freezed
+          ? _value.freeCharge
+          : freeCharge // ignore: cast_nullable_to_non_nullable
+              as int?,
+      referenceId: referenceId == freezed
+          ? _value.referenceId
+          : referenceId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      event: event == freezed
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as int?,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -2877,46 +3036,125 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Transaction implements _Transaction {
-  _$_Transaction({this.type, this.date, this.amount, this.reason});
+  _$_Transaction(
+      {@JsonKey(name: 'txn_id') this.transactionId,
+      @JsonKey(name: 'txn_type') this.type,
+      @JsonKey(name: 'amount') this.amount,
+      @JsonKey(name: 'txn_date') this.transactionDate,
+      @JsonKey(name: 'txn_time') this.transactionTime,
+      @JsonKey(name: 'logged_on') this.loggedOn,
+      @JsonKey(name: 'wallet_txn') this.walletTxn,
+      @JsonKey(name: 'paytm') this.paytm,
+      @JsonKey(name: 'mobikwik') this.mobikwik,
+      @JsonKey(name: 'freecharge') this.freeCharge,
+      @JsonKey(name: 'reference_id') this.referenceId,
+      @JsonKey(name: 'event') this.event,
+      @JsonKey(name: 'comment') this.comment});
 
   factory _$_Transaction.fromJson(Map<String, dynamic> json) =>
       _$_$_TransactionFromJson(json);
 
   @override
+  @JsonKey(name: 'txn_id')
+  final int? transactionId;
+  @override
+  @JsonKey(name: 'txn_type')
   final String? type;
   @override
-  final DateTime? date;
+  @JsonKey(name: 'amount')
+  final int? amount;
   @override
-  final double? amount;
+  @JsonKey(name: 'txn_date')
+  final String? transactionDate;
   @override
-  final String? reason;
+  @JsonKey(name: 'txn_time')
+  final String? transactionTime;
+  @override
+  @JsonKey(name: 'logged_on')
+  final String? loggedOn;
+  @override
+  @JsonKey(name: 'wallet_txn')
+  final int? walletTxn;
+  @override
+  @JsonKey(name: 'paytm')
+  final int? paytm;
+  @override
+  @JsonKey(name: 'mobikwik')
+  final int? mobikwik;
+  @override
+  @JsonKey(name: 'freecharge')
+  final int? freeCharge;
+  @override
+  @JsonKey(name: 'reference_id')
+  final int? referenceId;
+  @override
+  @JsonKey(name: 'event')
+  final int? event;
+  @override
+  @JsonKey(name: 'comment')
+  final String? comment;
 
   @override
   String toString() {
-    return 'Transaction(type: $type, date: $date, amount: $amount, reason: $reason)';
+    return 'Transaction(transactionId: $transactionId, type: $type, amount: $amount, transactionDate: $transactionDate, transactionTime: $transactionTime, loggedOn: $loggedOn, walletTxn: $walletTxn, paytm: $paytm, mobikwik: $mobikwik, freeCharge: $freeCharge, referenceId: $referenceId, event: $event, comment: $comment)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Transaction &&
+            (identical(other.transactionId, transactionId) ||
+                const DeepCollectionEquality()
+                    .equals(other.transactionId, transactionId)) &&
             (identical(other.type, type) ||
                 const DeepCollectionEquality().equals(other.type, type)) &&
-            (identical(other.date, date) ||
-                const DeepCollectionEquality().equals(other.date, date)) &&
             (identical(other.amount, amount) ||
                 const DeepCollectionEquality().equals(other.amount, amount)) &&
-            (identical(other.reason, reason) ||
-                const DeepCollectionEquality().equals(other.reason, reason)));
+            (identical(other.transactionDate, transactionDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.transactionDate, transactionDate)) &&
+            (identical(other.transactionTime, transactionTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.transactionTime, transactionTime)) &&
+            (identical(other.loggedOn, loggedOn) ||
+                const DeepCollectionEquality()
+                    .equals(other.loggedOn, loggedOn)) &&
+            (identical(other.walletTxn, walletTxn) ||
+                const DeepCollectionEquality()
+                    .equals(other.walletTxn, walletTxn)) &&
+            (identical(other.paytm, paytm) ||
+                const DeepCollectionEquality().equals(other.paytm, paytm)) &&
+            (identical(other.mobikwik, mobikwik) ||
+                const DeepCollectionEquality()
+                    .equals(other.mobikwik, mobikwik)) &&
+            (identical(other.freeCharge, freeCharge) ||
+                const DeepCollectionEquality()
+                    .equals(other.freeCharge, freeCharge)) &&
+            (identical(other.referenceId, referenceId) ||
+                const DeepCollectionEquality()
+                    .equals(other.referenceId, referenceId)) &&
+            (identical(other.event, event) ||
+                const DeepCollectionEquality().equals(other.event, event)) &&
+            (identical(other.comment, comment) ||
+                const DeepCollectionEquality().equals(other.comment, comment)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(transactionId) ^
       const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(amount) ^
-      const DeepCollectionEquality().hash(reason);
+      const DeepCollectionEquality().hash(transactionDate) ^
+      const DeepCollectionEquality().hash(transactionTime) ^
+      const DeepCollectionEquality().hash(loggedOn) ^
+      const DeepCollectionEquality().hash(walletTxn) ^
+      const DeepCollectionEquality().hash(paytm) ^
+      const DeepCollectionEquality().hash(mobikwik) ^
+      const DeepCollectionEquality().hash(freeCharge) ^
+      const DeepCollectionEquality().hash(referenceId) ^
+      const DeepCollectionEquality().hash(event) ^
+      const DeepCollectionEquality().hash(comment);
 
   @JsonKey(ignore: true)
   @override
@@ -2931,22 +3169,62 @@ class _$_Transaction implements _Transaction {
 
 abstract class _Transaction implements Transaction {
   factory _Transaction(
-      {String? type,
-      DateTime? date,
-      double? amount,
-      String? reason}) = _$_Transaction;
+      {@JsonKey(name: 'txn_id') int? transactionId,
+      @JsonKey(name: 'txn_type') String? type,
+      @JsonKey(name: 'amount') int? amount,
+      @JsonKey(name: 'txn_date') String? transactionDate,
+      @JsonKey(name: 'txn_time') String? transactionTime,
+      @JsonKey(name: 'logged_on') String? loggedOn,
+      @JsonKey(name: 'wallet_txn') int? walletTxn,
+      @JsonKey(name: 'paytm') int? paytm,
+      @JsonKey(name: 'mobikwik') int? mobikwik,
+      @JsonKey(name: 'freecharge') int? freeCharge,
+      @JsonKey(name: 'reference_id') int? referenceId,
+      @JsonKey(name: 'event') int? event,
+      @JsonKey(name: 'comment') String? comment}) = _$_Transaction;
 
   factory _Transaction.fromJson(Map<String, dynamic> json) =
       _$_Transaction.fromJson;
 
   @override
+  @JsonKey(name: 'txn_id')
+  int? get transactionId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'txn_type')
   String? get type => throw _privateConstructorUsedError;
   @override
-  DateTime? get date => throw _privateConstructorUsedError;
+  @JsonKey(name: 'amount')
+  int? get amount => throw _privateConstructorUsedError;
   @override
-  double? get amount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'txn_date')
+  String? get transactionDate => throw _privateConstructorUsedError;
   @override
-  String? get reason => throw _privateConstructorUsedError;
+  @JsonKey(name: 'txn_time')
+  String? get transactionTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'logged_on')
+  String? get loggedOn => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'wallet_txn')
+  int? get walletTxn => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'paytm')
+  int? get paytm => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'mobikwik')
+  int? get mobikwik => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'freecharge')
+  int? get freeCharge => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'reference_id')
+  int? get referenceId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'event')
+  int? get event => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'comment')
+  String? get comment => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TransactionCopyWith<_Transaction> get copyWith =>
@@ -5508,5 +5786,700 @@ abstract class _RequestRideResponse implements RequestRideResponse {
   @override
   @JsonKey(ignore: true)
   _$RequestRideResponseCopyWith<_RequestRideResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+WalletResponse _$WalletResponseFromJson(Map<String, dynamic> json) {
+  return _WalletResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$WalletResponseTearOff {
+  const _$WalletResponseTearOff();
+
+  _WalletResponse call(int flag,
+      {String? message,
+      String? error,
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance}) {
+    return _WalletResponse(
+      flag,
+      message: message,
+      error: error,
+      walletBalance: walletBalance,
+    );
+  }
+
+  WalletResponse fromJson(Map<String, Object> json) {
+    return WalletResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $WalletResponse = _$WalletResponseTearOff();
+
+/// @nodoc
+mixin _$WalletResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  @JsonKey(name: 'jugnoo_balance')
+  double? get walletBalance => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $WalletResponseCopyWith<WalletResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $WalletResponseCopyWith<$Res> {
+  factory $WalletResponseCopyWith(
+          WalletResponse value, $Res Function(WalletResponse) then) =
+      _$WalletResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance});
+}
+
+/// @nodoc
+class _$WalletResponseCopyWithImpl<$Res>
+    implements $WalletResponseCopyWith<$Res> {
+  _$WalletResponseCopyWithImpl(this._value, this._then);
+
+  final WalletResponse _value;
+  // ignore: unused_field
+  final $Res Function(WalletResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? walletBalance = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletBalance: walletBalance == freezed
+          ? _value.walletBalance
+          : walletBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$WalletResponseCopyWith<$Res>
+    implements $WalletResponseCopyWith<$Res> {
+  factory _$WalletResponseCopyWith(
+          _WalletResponse value, $Res Function(_WalletResponse) then) =
+      __$WalletResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance});
+}
+
+/// @nodoc
+class __$WalletResponseCopyWithImpl<$Res>
+    extends _$WalletResponseCopyWithImpl<$Res>
+    implements _$WalletResponseCopyWith<$Res> {
+  __$WalletResponseCopyWithImpl(
+      _WalletResponse _value, $Res Function(_WalletResponse) _then)
+      : super(_value, (v) => _then(v as _WalletResponse));
+
+  @override
+  _WalletResponse get _value => super._value as _WalletResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? walletBalance = freezed,
+  }) {
+    return _then(_WalletResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletBalance: walletBalance == freezed
+          ? _value.walletBalance
+          : walletBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_WalletResponse implements _WalletResponse {
+  _$_WalletResponse(this.flag,
+      {this.message,
+      this.error,
+      @JsonKey(name: 'jugnoo_balance') this.walletBalance});
+
+  factory _$_WalletResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_WalletResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  @JsonKey(name: 'jugnoo_balance')
+  final double? walletBalance;
+
+  @override
+  String toString() {
+    return 'WalletResponse(flag: $flag, message: $message, error: $error, walletBalance: $walletBalance)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _WalletResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.walletBalance, walletBalance) ||
+                const DeepCollectionEquality()
+                    .equals(other.walletBalance, walletBalance)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(walletBalance);
+
+  @JsonKey(ignore: true)
+  @override
+  _$WalletResponseCopyWith<_WalletResponse> get copyWith =>
+      __$WalletResponseCopyWithImpl<_WalletResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_WalletResponseToJson(this);
+  }
+}
+
+abstract class _WalletResponse implements WalletResponse {
+  factory _WalletResponse(int flag,
+          {String? message,
+          String? error,
+          @JsonKey(name: 'jugnoo_balance') double? walletBalance}) =
+      _$_WalletResponse;
+
+  factory _WalletResponse.fromJson(Map<String, dynamic> json) =
+      _$_WalletResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'jugnoo_balance')
+  double? get walletBalance => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$WalletResponseCopyWith<_WalletResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+TransactionHistoryResponse _$TransactionHistoryResponseFromJson(
+    Map<String, dynamic> json) {
+  return _TransactionHistoryResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$TransactionHistoryResponseTearOff {
+  const _$TransactionHistoryResponseTearOff();
+
+  _TransactionHistoryResponse call(int flag,
+      {String? message,
+      String? error,
+      @JsonKey(name: 'transactions') List<Transaction>? transactions}) {
+    return _TransactionHistoryResponse(
+      flag,
+      message: message,
+      error: error,
+      transactions: transactions,
+    );
+  }
+
+  TransactionHistoryResponse fromJson(Map<String, Object> json) {
+    return TransactionHistoryResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $TransactionHistoryResponse = _$TransactionHistoryResponseTearOff();
+
+/// @nodoc
+mixin _$TransactionHistoryResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  @JsonKey(name: 'transactions')
+  List<Transaction>? get transactions => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TransactionHistoryResponseCopyWith<TransactionHistoryResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TransactionHistoryResponseCopyWith<$Res> {
+  factory $TransactionHistoryResponseCopyWith(TransactionHistoryResponse value,
+          $Res Function(TransactionHistoryResponse) then) =
+      _$TransactionHistoryResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'transactions') List<Transaction>? transactions});
+}
+
+/// @nodoc
+class _$TransactionHistoryResponseCopyWithImpl<$Res>
+    implements $TransactionHistoryResponseCopyWith<$Res> {
+  _$TransactionHistoryResponseCopyWithImpl(this._value, this._then);
+
+  final TransactionHistoryResponse _value;
+  // ignore: unused_field
+  final $Res Function(TransactionHistoryResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? transactions = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      transactions: transactions == freezed
+          ? _value.transactions
+          : transactions // ignore: cast_nullable_to_non_nullable
+              as List<Transaction>?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$TransactionHistoryResponseCopyWith<$Res>
+    implements $TransactionHistoryResponseCopyWith<$Res> {
+  factory _$TransactionHistoryResponseCopyWith(
+          _TransactionHistoryResponse value,
+          $Res Function(_TransactionHistoryResponse) then) =
+      __$TransactionHistoryResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'transactions') List<Transaction>? transactions});
+}
+
+/// @nodoc
+class __$TransactionHistoryResponseCopyWithImpl<$Res>
+    extends _$TransactionHistoryResponseCopyWithImpl<$Res>
+    implements _$TransactionHistoryResponseCopyWith<$Res> {
+  __$TransactionHistoryResponseCopyWithImpl(_TransactionHistoryResponse _value,
+      $Res Function(_TransactionHistoryResponse) _then)
+      : super(_value, (v) => _then(v as _TransactionHistoryResponse));
+
+  @override
+  _TransactionHistoryResponse get _value =>
+      super._value as _TransactionHistoryResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? transactions = freezed,
+  }) {
+    return _then(_TransactionHistoryResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      transactions: transactions == freezed
+          ? _value.transactions
+          : transactions // ignore: cast_nullable_to_non_nullable
+              as List<Transaction>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_TransactionHistoryResponse implements _TransactionHistoryResponse {
+  _$_TransactionHistoryResponse(this.flag,
+      {this.message,
+      this.error,
+      @JsonKey(name: 'transactions') this.transactions});
+
+  factory _$_TransactionHistoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_TransactionHistoryResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  @JsonKey(name: 'transactions')
+  final List<Transaction>? transactions;
+
+  @override
+  String toString() {
+    return 'TransactionHistoryResponse(flag: $flag, message: $message, error: $error, transactions: $transactions)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _TransactionHistoryResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.transactions, transactions) ||
+                const DeepCollectionEquality()
+                    .equals(other.transactions, transactions)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(transactions);
+
+  @JsonKey(ignore: true)
+  @override
+  _$TransactionHistoryResponseCopyWith<_TransactionHistoryResponse>
+      get copyWith => __$TransactionHistoryResponseCopyWithImpl<
+          _TransactionHistoryResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_TransactionHistoryResponseToJson(this);
+  }
+}
+
+abstract class _TransactionHistoryResponse
+    implements TransactionHistoryResponse {
+  factory _TransactionHistoryResponse(int flag,
+          {String? message,
+          String? error,
+          @JsonKey(name: 'transactions') List<Transaction>? transactions}) =
+      _$_TransactionHistoryResponse;
+
+  factory _TransactionHistoryResponse.fromJson(Map<String, dynamic> json) =
+      _$_TransactionHistoryResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'transactions')
+  List<Transaction>? get transactions => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$TransactionHistoryResponseCopyWith<_TransactionHistoryResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+TransferResponse _$TransferResponseFromJson(Map<String, dynamic> json) {
+  return _TransferResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$TransferResponseTearOff {
+  const _$TransferResponseTearOff();
+
+  _TransferResponse call(int flag,
+      {String? message,
+      String? error,
+      @JsonKey(name: 'credit_balance') double? walletBalance}) {
+    return _TransferResponse(
+      flag,
+      message: message,
+      error: error,
+      walletBalance: walletBalance,
+    );
+  }
+
+  TransferResponse fromJson(Map<String, Object> json) {
+    return TransferResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $TransferResponse = _$TransferResponseTearOff();
+
+/// @nodoc
+mixin _$TransferResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  @JsonKey(name: 'credit_balance')
+  double? get walletBalance => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TransferResponseCopyWith<TransferResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TransferResponseCopyWith<$Res> {
+  factory $TransferResponseCopyWith(
+          TransferResponse value, $Res Function(TransferResponse) then) =
+      _$TransferResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'credit_balance') double? walletBalance});
+}
+
+/// @nodoc
+class _$TransferResponseCopyWithImpl<$Res>
+    implements $TransferResponseCopyWith<$Res> {
+  _$TransferResponseCopyWithImpl(this._value, this._then);
+
+  final TransferResponse _value;
+  // ignore: unused_field
+  final $Res Function(TransferResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? walletBalance = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletBalance: walletBalance == freezed
+          ? _value.walletBalance
+          : walletBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$TransferResponseCopyWith<$Res>
+    implements $TransferResponseCopyWith<$Res> {
+  factory _$TransferResponseCopyWith(
+          _TransferResponse value, $Res Function(_TransferResponse) then) =
+      __$TransferResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'credit_balance') double? walletBalance});
+}
+
+/// @nodoc
+class __$TransferResponseCopyWithImpl<$Res>
+    extends _$TransferResponseCopyWithImpl<$Res>
+    implements _$TransferResponseCopyWith<$Res> {
+  __$TransferResponseCopyWithImpl(
+      _TransferResponse _value, $Res Function(_TransferResponse) _then)
+      : super(_value, (v) => _then(v as _TransferResponse));
+
+  @override
+  _TransferResponse get _value => super._value as _TransferResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? walletBalance = freezed,
+  }) {
+    return _then(_TransferResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletBalance: walletBalance == freezed
+          ? _value.walletBalance
+          : walletBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_TransferResponse implements _TransferResponse {
+  _$_TransferResponse(this.flag,
+      {this.message,
+      this.error,
+      @JsonKey(name: 'credit_balance') this.walletBalance});
+
+  factory _$_TransferResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_TransferResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  @JsonKey(name: 'credit_balance')
+  final double? walletBalance;
+
+  @override
+  String toString() {
+    return 'TransferResponse(flag: $flag, message: $message, error: $error, walletBalance: $walletBalance)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _TransferResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.walletBalance, walletBalance) ||
+                const DeepCollectionEquality()
+                    .equals(other.walletBalance, walletBalance)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(walletBalance);
+
+  @JsonKey(ignore: true)
+  @override
+  _$TransferResponseCopyWith<_TransferResponse> get copyWith =>
+      __$TransferResponseCopyWithImpl<_TransferResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_TransferResponseToJson(this);
+  }
+}
+
+abstract class _TransferResponse implements TransferResponse {
+  factory _TransferResponse(int flag,
+          {String? message,
+          String? error,
+          @JsonKey(name: 'credit_balance') double? walletBalance}) =
+      _$_TransferResponse;
+
+  factory _TransferResponse.fromJson(Map<String, dynamic> json) =
+      _$_TransferResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'credit_balance')
+  double? get walletBalance => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$TransferResponseCopyWith<_TransferResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }

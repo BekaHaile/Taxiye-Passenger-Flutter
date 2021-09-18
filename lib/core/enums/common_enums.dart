@@ -30,8 +30,8 @@ enum OrderStatus {
 }
 
 enum TransactionType {
-  withdrawal,
-  deposit,
+  debited,
+  credited,
 }
 
 enum WalletTransferTo {
@@ -61,6 +61,9 @@ enum SuccessFlags {
   rideStarted,
   rideEnd,
   cancelRide,
+  fetchWalletBalance,
+  getTransactionHistory,
+  transfer,
   dummy
 }
 
@@ -76,6 +79,9 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.rideEnd: 4,
     SuccessFlags.cancelRide: 118,
     SuccessFlags.dummy: -1,
+    SuccessFlags.fetchWalletBalance: 143,
+    SuccessFlags.getTransactionHistory: 423,
+    SuccessFlags.transfer: 143,
   };
 
   int get successCode => successCodes[this]!;
