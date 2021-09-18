@@ -21,6 +21,18 @@
             "package_name": "com.taxiye",
             "certificate_hash": "2cebc86158c9be84fb59825a014fdc9b7e9a5f24"
           }
+        },
+        {
+          "client_id": "813634269297-etm5g6pnng9lved6jt4rbp0qhu88nfgu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiye",
+            "certificate_hash": "852fe999d292bfb307e9dff053207d6b75caed61"
+          }
+        },
+        {
+          "client_id": "813634269297-lcuq1d2tttiovr3oh9s20nc62lc590kn.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -30,7 +42,63 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813634269297-lcuq1d2tttiovr3oh9s20nc62lc590kn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "813634269297-4q7n4r66geca8coaa29b523d8l1e43ci.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.taxiye.client"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813634269297:android:13c6595b883b34ada6abd0",
+        "android_client_info": {
+          "package_name": "com.taxiye.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813634269297-s9orqm0lge0qi11lptmtmcvcn5h865bp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiye.driver",
+            "certificate_hash": "2cebc86158c9be84fb59825a014fdc9b7e9a5f24"
+          }
+        },
+        {
+          "client_id": "813634269297-lcuq1d2tttiovr3oh9s20nc62lc590kn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKs1I_e16I4wocQUNQLHM7X_Bhif1WSbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813634269297-lcuq1d2tttiovr3oh9s20nc62lc590kn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "813634269297-4q7n4r66geca8coaa29b523d8l1e43ci.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.taxiye.client"
+              }
+            }
+          ]
         }
       }
     }

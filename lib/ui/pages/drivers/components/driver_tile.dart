@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -30,11 +31,11 @@ class DriverTile extends StatelessWidget {
                 DriverAvator(driver: driver, vehicle: vehicle),
                 const SizedBox(height: 20.0),
                 Text(
-                  vehicle.name ?? '',
+                  vehicle.regionName ?? '',
                   style: AppTheme.body.copyWith(color: AppTheme.darkColor),
                 ),
                 Text(
-                  vehicle.liscensePlate ?? '',
+                  vehicle.vehicleNumber ?? '',
                   style: AppTheme.body.copyWith(fontWeight: FontWeight.w700),
                 )
               ],
@@ -56,8 +57,8 @@ class DriverTile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           RatingBar.builder(
-                            initialRating: 4.9,
-                            minRating: 1,
+                            initialRating: driver.rating ?? 0,
+                            minRating: 0,
                             itemSize: 20,
                             direction: Axis.horizontal,
                             itemCount: 5,
@@ -185,16 +186,27 @@ class DriverAvator extends StatelessWidget {
             canEdit: false,
             radius: 40.0,
             name: driver.userName,
+            imageUrl: driver.driverImage,
           ),
         ),
         Positioned(
           bottom: -15.0,
-          child: Image.asset(
-            'assets/images/${vehicle.name}.png',
-            width: 80.0,
-            height: 40.0,
-          ),
-        ),
+          child: vehicle.images?.tabNormal?.isNotEmpty ?? false
+              ? CachedNetworkImage(
+                  imageUrl: vehicle.images!.tabNormal!,
+                  width: 80.0,
+                  height: 40.0,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      const SizedBox(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                )
+              : // Todo: get default asset image based on the category name
+              Image.asset(
+                  'assets/images/Taxiye - Sedan.png',
+                  width: 80.0,
+                  height: 40.0,
+                ),
+        )
       ],
     );
   }

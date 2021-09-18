@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_payment_list.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 
 class TripDetail extends GetView<HomeController> {
-  const TripDetail({Key? key}) : super(key: key);
+  const TripDetail({
+    Key? key,
+    required this.rideDetail,
+  }) : super(key: key);
+
+  final RideDetail rideDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,7 @@ class TripDetail extends GetView<HomeController> {
       width: Get.width,
       decoration: AppTheme.bottomSheetDecoration,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -37,7 +43,7 @@ class TripDetail extends GetView<HomeController> {
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -48,21 +54,23 @@ class TripDetail extends GetView<HomeController> {
                             const BorderRadius.all(Radius.circular(8.0)),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 25.0),
                         child: Column(
                           children: [
-                            Text(
-                              '128.00 ' + 'birr'.tr,
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                                color: AppTheme.yellowColor,
-                                decoration: TextDecoration.lineThrough,
+                            if (rideDetail.fare != rideDetail.toPay)
+                              Text(
+                                '${rideDetail.fare?.round()} ${'birr'.tr}',
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppTheme.yellowColor,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
                               ),
-                            ),
                             const SizedBox(height: 5.0),
                             Text(
-                              '110.00 ' + 'birr'.tr,
+                              '${rideDetail.toPay?.round()} ${'birr'.tr}',
                               style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.w700,
@@ -83,15 +91,15 @@ class TripDetail extends GetView<HomeController> {
                       ),
                     ),
                     Column(
-                      children: const [
+                      children: [
                         DistanceInfo(
                           title: 'distance',
-                          value: 12,
+                          value: rideDetail.distanceTraveled ?? 0,
                         ),
-                        SizedBox(height: 20.0),
+                        const SizedBox(height: 20.0),
                         DistanceInfo(
                           title: 'duration',
-                          value: 34,
+                          value: rideDetail.rideTime ?? 0,
                         ),
                       ],
                     )
@@ -125,7 +133,7 @@ class DistanceInfo extends StatelessWidget {
   }) : super(key: key);
 
   final String title;
-  final double value;
+  final dynamic value;
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +148,7 @@ class DistanceInfo extends StatelessWidget {
           ),
         ),
         Text(
-          value.toStringAsFixed(0) +
-              ' ' +
-              (title == 'distance' ? 'kms'.tr : 'mins'.tr),
+          '$value ${title == 'distance' ? 'kms'.tr : 'mins'.tr}',
           style: const TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.w700,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,10 @@ class AuthController extends GetxService {
   setGeneralInfo() async {
     await Future.wait([
       getDeviceInfo().then((value) => deviceInfo = value),
-      repository.getDeviceToken().then((value) => deviceToken = value),
+      repository.getDeviceToken().then((value) {
+        // print('device token $value');
+        deviceToken = value;
+      }),
     ]);
   }
 
@@ -306,7 +310,8 @@ class AuthController extends GetxService {
 
   determineNextRoute() async {
     await getCurrentLocation().then((value) => currentLocation = value);
-    await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+    await setGeneralInfo();
+    // await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     if (_user == null) {
       //Get current user if the user already loged in and route accordingly
       //else show welcome screen
@@ -319,7 +324,6 @@ class AuthController extends GetxService {
           _navigateUser();
         }
       } else {
-        setGeneralInfo();
         if (isFirstTime ?? true) {
           Future.delayed(Duration.zero, () {
             Get.offAllNamed(Routes.language);
@@ -356,6 +360,10 @@ class AuthController extends GetxService {
   getUser() {
     final accessToken = _storage.read<String>('accessToken');
     if (accessToken != null) {
+      final loginPayload = {
+        'device_token': deviceToken,
+      };
+
       repository.loginUsingToken({}).then((value) {
         _user = value;
         _persistUser(value);

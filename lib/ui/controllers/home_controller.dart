@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,7 +15,9 @@ import 'package:taxiye_passenger/core/models/map_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 import 'package:uuid/uuid.dart';
+import 'dart:math' show cos, sqrt, asin;
 
 /*
   Handles any business logic and data binding with Home flow
@@ -44,7 +47,7 @@ class HomeController extends GetxService {
   get drivers => _drivers.value;
   set drivers(value) => _drivers.value = value;
 
-  final _selectedVehicle = Vehicle(name: 'Taxiye - Sedan', price: 128.0).obs;
+  final _selectedVehicle = Vehicle().obs;
   get selectedVehicle => _selectedVehicle.value;
   set selectedVehicle(value) => _selectedVehicle.value = value;
 
@@ -62,16 +65,6 @@ class HomeController extends GetxService {
   get tripStep => _tripStep.value;
   set tripStep(value) => _tripStep.value = value;
 
-  // mock datas
-  Driver driver = Driver(userName: 'Cameron Williamson', rating: 4.9);
-  Vehicle vehicle =
-      Vehicle(name: 'Taxiye - Sedan', liscensePlate: 'B12345', price: 128.0);
-
-  // Location search
-  Position? currentLocation;
-  LatLng testLocation = const LatLng(9.0035674, 38.8013713);
-  late String sessionToken;
-
   final _locationSearch = ''.obs;
   get locationSearch => _locationSearch.value;
   set locationSearch(value) => _locationSearch.value = value;
@@ -80,9 +73,9 @@ class HomeController extends GetxService {
   get locationSuggestions => _locationSuggestions.value;
   set locationSuggestions(value) => _locationSuggestions.assignAll(value);
 
-  final _pickedLocation = Place().obs;
-  get pickedLocation => _pickedLocation.value;
-  set pickedLocation(value) => _pickedLocation.value = value;
+  final _driverOnRouteCounter = 0.obs;
+  get driverOnRouteCounter => _driverOnRouteCounter.value;
+  set driverOnRouteCounter(value) => _driverOnRouteCounter.value = value;
 
   final _markers = <Marker>{}.obs;
   get markers => _markers.value;
@@ -92,16 +85,40 @@ class HomeController extends GetxService {
   get polyLines => _polyLines.value;
   set polyLines(value) => _polyLines.value = value;
 
-  Timer? debounce;
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
-
   late GoogleMapController mapController;
+
+  // mock data
+  Driver driver = Driver(userName: 'Cameron Williamson');
+  Vehicle driverVehicle = Vehicle();
+
+  // Location search
+  Position? currentLocation;
+  Placemark? currentLocationPlace;
+  // Getu commercial
+  LatLng testLocation = const LatLng(9.003432689703812, 38.769641840207235);
+  // yemeru senay
+  // LatLng testLocation = const LatLng(9.003620646534136, 38.80093371322263);
+
+  late String sessionToken;
+  // trip started variables
+  int? sessionId;
+  int? engagementId;
+  // trid end variables
+  RideDetail? rideDetail;
+
+  Place? pickedLocation;
+  int paymentMode = 0;
+  Timer? debounce;
+  late Timer _resendTimer;
 
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
+
+    repository.registerFCM(onMessageRecieved: onMessageRescieved);
     // Todo: uncomment this for current location
     currentLocation = authController.currentLocation;
     // print('current location here: $currentLocation');
@@ -112,16 +129,108 @@ class HomeController extends GetxService {
     getPaymentMethods();
   }
 
-  _findDrivers() async {
-    await repository.findDrivers({
+  _startTimer() {
+    driverOnRouteCounter = 150; // in seconds
+    const oneSec = Duration(seconds: 1);
+    _resendTimer = Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (driverOnRouteCounter < 1) {
+          timer.cancel();
+        } else {
+          driverOnRouteCounter--;
+        }
+      },
+    );
+  }
+
+  onMessageRescieved(NotificationMessage notificationMessage) {
+    log("message recieved here $notificationMessage");
+
+    switch (SuccessFlagsExtension.getsuccessKey(notificationMessage.flag)) {
+      case SuccessFlags.rideAccepted:
+        // Ride accepted with driver payload
+        // set driver and driver detail
+        // Todo: set driver name here
+        driver = Driver(
+          userName: 'Cameron Williamson',
+          driverId: notificationMessage.driverId,
+          phoneNo: notificationMessage.phoneNo,
+          vehicleNo: notificationMessage.driverCarNo,
+          driverImage: notificationMessage.userImage,
+          rating: notificationMessage.rating,
+        );
+
+        driverVehicle = Vehicle(
+          vehicleType: notificationMessage.vehicleType,
+          regionName: notificationMessage.vehicleName,
+          images: VehicleImage(tabNormal: notificationMessage.driverCarImage),
+          vehicleNumber: notificationMessage.driverCarNo,
+        );
+
+        // set session and engagement ids
+        sessionId = notificationMessage.sessionId;
+        engagementId = int.tryParse(notificationMessage.engagementId ?? '0');
+
+        // change ride step to waiting driver
+        tripStep = TripStep.driverDetail;
+        _startTimer();
+        break;
+      case SuccessFlags.rideStarted:
+        // Ride started
+        tripStep = TripStep.tripStarted;
+        break;
+      case SuccessFlags.rideEnd:
+        // Ride ended
+        // set ride details
+        rideDetail = RideDetail(
+          fare: double.parse(notificationMessage.fare ?? '0'),
+          discount: double.parse(notificationMessage.discount ?? '0'),
+          toPay: double.parse(notificationMessage.toPay ?? '0'),
+          distanceTraveled:
+              double.parse(notificationMessage.distanceTravelled ?? '0'),
+          rideTime: int.parse(notificationMessage.rideTime ?? '0'),
+          distanceUnit: notificationMessage.distanceUnit,
+          paidUsingWallet:
+              double.parse(notificationMessage.paidUsingWallet ?? '0'),
+        );
+        tripStep = TripStep.tripDetail;
+        break;
+
+      default:
+    }
+  }
+
+  _findDrivers({LatLng? destination, double? routeDistance}) async {
+    Map<String, dynamic> findDriversPayload = {
       'latitude': '${testLocation.latitude}',
       'longitude': '${testLocation.longitude}',
-    }).then((findDriverResponse) {
-      // set drivers
+    };
 
-      if (findDriverResponse.drivers != null) {
-        drivers = findDriverResponse.drivers;
-        _addDriversMarker();
+    if (destination != null) {
+      findDriversPayload.addAll({
+        "op_drop_latitude": destination.latitude,
+        "op_drop_longitude": destination.longitude,
+        "ride_distance": routeDistance
+      });
+    }
+
+    await repository.findDrivers(findDriversPayload).then((findDriverResponse) {
+      if (findDriverResponse.flag == SuccessFlags.findDriver.successCode) {
+        if (destination == null && findDriverResponse.drivers != null) {
+          drivers = findDriverResponse.drivers;
+          _addDriversMarker();
+        }
+
+        if (findDriverResponse.regions != null) {
+          // add vehicles filteredby ride_type, show O || 2
+          final allwoedVehicleRideTyes = [0, 2];
+          vehicles = findDriverResponse.regions?.where(
+              (vehicle) => allwoedVehicleRideTyes.contains(vehicle.rideType));
+        }
+      } else {
+        print(findDriverResponse.error);
+        toast('error', findDriverResponse.error ?? '');
       }
     }, onError: (error) => print('Find Drivers error: $error'));
   }
@@ -170,11 +279,11 @@ class HomeController extends GetxService {
   getVehicles() {
     //Todo: Get vehicles
     vehicles = [
-      Vehicle(name: 'Taxiye - Sedan', price: 128.0),
-      Vehicle(name: 'Taxiye - Mini', price: 121.0),
-      Vehicle(name: 'Taxiye - Mini', price: 128.0),
-      Vehicle(name: 'Taxiye - Mini', price: 134.0),
-      Vehicle(name: 'Taxiye - Mini', price: 126.0),
+      Vehicle(regionName: 'Taxiye - Sedan', regionFare: VehicleFare(fare: 128)),
+      Vehicle(regionName: 'Taxiye - Mini', regionFare: VehicleFare(fare: 121)),
+      Vehicle(regionName: 'Taxiye - Mini', regionFare: VehicleFare(fare: 126)),
+      Vehicle(regionName: 'Taxiye - Mini', regionFare: VehicleFare(fare: 208)),
+      Vehicle(regionName: 'Taxiye - Mini', regionFare: VehicleFare(fare: 24)),
     ];
   }
 
@@ -195,7 +304,8 @@ class HomeController extends GetxService {
       repository
           .getPlaceDetailFromId(placeSuggetion.placeId, sessionToken)
           .then((place) {
-        print('picked location here $place');
+        // get vehicle Fare estimations
+        _findDrivers(destination: place.location);
         pickedLocation = place;
         Get.back();
         tripStep = TripStep.pickVehicle;
@@ -218,6 +328,11 @@ class HomeController extends GetxService {
           // Get & set the polyLines
           repository.getRoutePolylines(origin, destination).then(
               (polylineCoordinates) {
+            // get vehicles fare calculation
+            _findDrivers(
+                destination: place.location,
+                routeDistance: getRouteDistance(polylineCoordinates));
+
             Polyline polyline = Polyline(
                 polylineId: const PolylineId("poly"),
                 color: AppTheme.primaryColor,
@@ -239,22 +354,59 @@ class HomeController extends GetxService {
     }
   }
 
-  bookNow() {
-    // Todo: add logic here
-    tripStep = TripStep.lookingDrivers;
+  double getRouteDistance(List<LatLng> polylineCoordinates) {
+    double totalDistance = 0.0;
+
+// Calculating the total distance by adding the distance
+// between small segments
+    for (int i = 0; i < polylineCoordinates.length - 1; i++) {
+      totalDistance += _coordinateDistance(
+        polylineCoordinates[i].latitude,
+        polylineCoordinates[i].longitude,
+        polylineCoordinates[i + 1].latitude,
+        polylineCoordinates[i + 1].longitude,
+      );
+    }
+
+    return totalDistance;
   }
 
-  onDriverFound() {
-    // Todo: add logic here
-    tripStep = TripStep.driverDetail;
+  double _coordinateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a));
   }
 
-  onCancelDriverSearch() {
-    // Todo: on cancell loooking for drivers
-  }
+  onCancelRide() {
+    // Todo: cancell ride based on current ride step
 
-  onCancelDriver() {
-    // Todo: on cancell driver
+    final cancelPayload = tripStep == TripStep.lookingDrivers
+        ? {'session_id': '$sessionId'}
+        : {'reasons': ''};
+
+    status(Status.loading);
+    repository.cancelRide(cancelPayload).then(
+      (basicResponse) {
+        if (basicResponse.flag == SuccessFlags.cancelRide.successCode) {
+          status(Status.success);
+          toast('success', 'ride_cancel_success'.tr);
+          // back to ride first step
+          _resetValues();
+        } else {
+          status(Status.error);
+          toast(
+              'error',
+              basicResponse.error ??
+                  basicResponse.message ??
+                  basicResponse.log ??
+                  'api_error'.tr);
+        }
+      },
+      onError: (err) => status(Status.error),
+    );
   }
 
   onDriverApproved() {
@@ -311,24 +463,65 @@ class HomeController extends GetxService {
             position: LatLng(driver.latitude!, driver.longitude!),
           ),
         );
-
-        print('lat: ${driver.latitude} lng: ${driver.longitude}');
       }
     }
+  }
 
-    // markers.addAll({
-    //   Marker(
-    //     markerId: const MarkerId('yellow_car'),
-    //     infoWindow: const InfoWindow(title: 'Yellow Car'),
-    //     icon: yellowCarIcon,
-    //     position: const LatLng(8.982, 38.76),
-    //   ),
-    //   Marker(
-    //     markerId: const MarkerId('white_car'),
-    //     infoWindow: const InfoWindow(title: 'White Car'),
-    //     icon: whiteCarIcon,
-    //     position: const LatLng(8.9801, 38.756),
-    //   ),
-    // });
+  bookRide() {
+    // check if destination and vehicle is picked first
+    if (pickedLocation == null) {
+      Get.snackbar('error', 'destination_error');
+    } else if (selectedVehicle.regionId == null) {
+      Get.snackbar('error'.tr, 'vehicle_select_error'.tr);
+    } else {
+      Map<String, dynamic> ridePayload = {
+        'latitude': '${testLocation.latitude}',
+        'longitude': '${testLocation.longitude}',
+        'current_latitude': '${testLocation.latitude}',
+        'current_longitude': '${testLocation.longitude}',
+        'op_drop_latitude': '${pickedLocation?.location?.latitude}',
+        'op_drop_longitude': '${pickedLocation?.location?.longitude}',
+        'duplicate_flag': '0',
+        'preferred_payment_mode': '$paymentMode',
+        'vehicle_type': '${selectedVehicle.vehicleType}',
+        'region_id': '${selectedVehicle.regionId}',
+        'reverse_bid': '0',
+        'driver_fare_factor': '1.0',
+        'location_accuracy': '24.9',
+        'customer_fare_factor': '1.0',
+        'pickup_location_address': currentLocationPlace?.name ?? '',
+        'drop_location_address': '${pickedLocation?.placeName}',
+        'coupon_to_apply': '-1',
+        'is_bluetooth_tracker': '0',
+      };
+
+      status(Status.loading);
+      repository.requestRide(ridePayload).then((requestRideResponse) {
+        if (requestRideResponse.flag == SuccessFlags.requestRide.successCode) {
+          print('requestRide success here $requestRideResponse');
+          status(Status.success);
+
+          sessionId = requestRideResponse.sessionId;
+          // Go to looking for drivers step
+          tripStep = TripStep.lookingDrivers;
+        } else {
+          status(Status.error);
+          toast('error', requestRideResponse.error ?? '');
+        }
+      }, onError: (error) {
+        status(Status.error);
+        print('Find Drivers error: $error');
+      });
+    }
+  }
+
+  _resetValues() {
+    // Reset all values to there initial values
+    tripStep = TripStep.locationSearch;
+    sessionId = null;
+    engagementId = null;
+
+    driver = Driver(userName: 'Cameron Williamson');
+    driverVehicle = Vehicle();
   }
 }

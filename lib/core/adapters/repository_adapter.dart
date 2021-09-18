@@ -41,9 +41,19 @@ abstract class IHomeRepository {
   Future<List<LatLng>> getRoutePolylines(
       PointLatLng origin, PointLatLng destination);
 
+  // notification calls
+  registerFCM(
+      {required Function(NotificationMessage notificationMessage)
+          onMessageRecieved});
+
   // server call apis
   Future<FindDriversResponse> findDrivers(
       Map<String, dynamic> findDriversPayload);
+
+  Future<RequestRideResponse> requestRide(
+      Map<String, dynamic> findDriversPayload);
+
+  Future<BasicResponse> cancelRide(Map<String, dynamic> cancelPayload);
 }
 
 abstract class ICommonRepository {

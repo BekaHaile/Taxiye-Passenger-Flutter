@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
+import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
@@ -35,7 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     drawerIndex = DrawerIndex.myWallet;
-    screenView = const ProfilePage();
+    screenView = ProfilePage();
     iconAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 0));
 
@@ -50,36 +53,45 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        body: Stack(
-          children: [
-            // MapScreen(),
-            const RideMap(),
-            // SimpleMarkerAnimationExample(),
+    return Stack(
+      children: [
+        Scaffold(
+          key: _scaffoldKey,
+          body: Stack(
+            children: [
+              // MapScreen(),
+              const RideMap(),
+              // SimpleMarkerAnimationExample(),
 
-            CircleNav(
-              icon: CustomIcons.menu,
-              onTap: () => _scaffoldKey.currentState?.openDrawer(),
-            ),
-          ],
-        ),
-        drawer: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(10.0),
-            bottomRight: Radius.circular(10.0),
+              CircleNav(
+                icon: CustomIcons.menu,
+                onTap: () => _scaffoldKey.currentState?.openDrawer(),
+              ),
+            ],
           ),
-          child: Drawer(
-            child: HomeDrawer(
-              screenIndex: drawerIndex,
-              iconAnimationController: iconAnimationController,
-              callBackIndex: (DrawerIndex indexType) {
-                changeIndex(indexType);
-              },
+          drawer: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(10.0),
+              bottomRight: Radius.circular(10.0),
+            ),
+            child: Drawer(
+              child: HomeDrawer(
+                screenIndex: drawerIndex,
+                iconAnimationController: iconAnimationController,
+                callBackIndex: (DrawerIndex indexType) {
+                  changeIndex(indexType);
+                },
+              ),
             ),
           ),
+          bottomSheet: Obx(() => tripViews()),
         ),
-        bottomSheet: Obx(() => tripViews()));
+        Obx(() => ModalProgressHUD(
+              child: const SizedBox(),
+              inAsyncCall: controller.status.value == Status.loading,
+            )),
+      ],
+    );
   }
 
   Widget tripViews() {
@@ -90,24 +102,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return const PickVehicle();
       case TripStep.lookingDrivers:
         return LookingDrivers(
-          onDriverFound: () => controller.onDriverFound(),
-          onCancelDriverSearch: () => controller.onCancelDriverSearch(),
+          onCancelDriverSearch: () => controller.onCancelRide(),
         );
       case TripStep.driverDetail:
-        return DriverDetail(
-          driver: controller.driver,
-          vehicle: controller.vehicle,
-          onDriverAprroved: () => controller.onDriverApproved(),
-        );
+        return const DriverDetail();
       case TripStep.tripStarted:
         return TripProgress(
           onTripEnded: () => controller.onTripEnded(),
         );
       case TripStep.tripDetail:
-        return const TripDetail();
+        return TripDetail(
+          rideDetail: controller.rideDetail ?? RideDetail(),
+        );
       case TripStep.tripFeedback:
         return TripFeadback(
-            driver: controller.driver, vehicle: controller.vehicle);
+            driver: controller.driver, vehicle: controller.driverVehicle);
       default:
         return const Text('pick vehicle');
     }

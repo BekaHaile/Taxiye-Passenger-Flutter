@@ -12,7 +12,7 @@ class ProfileAvatar extends StatelessWidget {
     this.name,
     this.pickedFilePath,
     this.onPickCallback,
-    this.images,
+    this.imageUrl,
     this.radius = 40.0,
     this.initialsFontSize = 20.0,
     this.canEdit = true,
@@ -22,7 +22,7 @@ class ProfileAvatar extends StatelessWidget {
   final String? name;
   final String? pickedFilePath;
   final VoidCallback? onPickCallback;
-  final List<Files>? images;
+  final String? imageUrl;
   final double radius;
 
   final bool canEdit;
@@ -38,7 +38,7 @@ class ProfileAvatar extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if ((pickedFilePath?.isNotEmpty ?? false) ||
-                  (images?.isNotEmpty ?? false)) {
+                  (imageUrl?.isNotEmpty ?? false)) {
                 // Todo: Show full image or other logic
                 // Get.to(() => ShowFullImagePage(
                 //       pickedFilePath: pickedFilePath,
@@ -53,9 +53,9 @@ class ProfileAvatar extends StatelessWidget {
                     radius: radius,
                     backgroundImage: FileImage(File(pickedFilePath!)),
                   )
-                : images?.isNotEmpty ?? false
+                : imageUrl?.isNotEmpty ?? false
                     ? CachedNetworkImage(
-                        imageUrl: images![images!.length - 1].url,
+                        imageUrl: imageUrl!,
                         imageBuilder: (context, imageProvider) => CircleAvatar(
                           radius: radius,
                           backgroundImage: imageProvider,

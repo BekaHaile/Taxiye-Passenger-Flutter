@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
@@ -20,16 +21,31 @@ class VehicleDetail extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              'assets/images/${vehicle.name}.png',
-              width: 200.0,
-              height: 100,
-            ),
+            vehicle.images?.tabNormal?.isNotEmpty ?? false
+                ? CachedNetworkImage(
+                    imageUrl: vehicle.images!.tabNormal!,
+                    width: 100.0,
+                    height: 50.0,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  )
+                : // Todo: get default asset image based on the category name
+                Image.asset(
+                    'assets/images/Taxiye - Sedan.png',
+                    width: 100.0,
+                    height: 50.0,
+                  ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0, bottom: 5.0),
               child: Text(
-                vehicle.name ?? '',
+                vehicle.regionName ?? '',
                 style: AppTheme.title.copyWith(fontSize: 14.0),
               ),
             ),
@@ -42,7 +58,7 @@ class VehicleDetail extends StatelessWidget {
                 ),
                 const SizedBox(width: 4.0),
                 Text(
-                  '4',
+                  '${vehicle.maxPeople ?? 4}',
                   style: AppTheme.title.copyWith(fontSize: 14.0),
                 )
               ],
@@ -104,11 +120,7 @@ class VehicleDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20.0),
-            RoundedButton(
-                text: 'close'.tr,
-                onPressed: () {
-                  // Todo: choose vehicles
-                })
+            RoundedButton(text: 'close'.tr, onPressed: () => Get.back())
           ],
         ),
       ),

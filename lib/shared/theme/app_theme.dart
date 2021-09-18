@@ -22,6 +22,7 @@ class AppTheme {
 
   static const Color greenColor = Color(0xFF31C631);
   static const Color redColor = Color(0xFFFC476E);
+  static const Color whiteF8 = Color(0xFFF8F8F8);
 
   static const String fontName = 'SegoeUi';
   static ThemeData themeData = ThemeData(

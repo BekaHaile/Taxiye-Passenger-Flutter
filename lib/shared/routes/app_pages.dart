@@ -3,8 +3,8 @@ import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
-import 'package:taxiye_passenger/ui/pages/home/map/ride_map.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
+import 'package:taxiye_passenger/ui/pages/profile/profile_info_page.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/coupons_page.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/exchange_points_page.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/promo_detail_page.dart';
@@ -108,8 +108,12 @@ abstract class AppPages {
     // Profile Pages
     GetPage(
       name: Routes.profile,
-      page: () => const ProfilePage(),
+      page: () => ProfilePage(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Routes.profileInfo,
+      page: () => const ProfileInfoPage(),
     ),
 
     // Payment Pages

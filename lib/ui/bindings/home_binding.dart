@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/repository/common_repository.dart';
 import 'package:taxiye_passenger/core/repository/home_repository.dart';
 import 'package:taxiye_passenger/core/repository/wallet_repository.dart';
 import 'package:taxiye_passenger/core/services/api/api_client.dart';
-import 'package:taxiye_passenger/core/services/map_service.dart';
+import 'package:taxiye_passenger/core/services/google_map_service.dart';
+import 'package:taxiye_passenger/core/services/notification_service.dart';
 import 'package:taxiye_passenger/ui/controllers/drivers_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/orders_controller.dart';
@@ -18,10 +20,16 @@ import 'package:taxiye_passenger/ui/controllers/wallet_controller.dart';
 class HomeBinding implements Bindings {
   @override
   void dependencies() {
-    // Get.lazyPut(() => ApiClient(dio: Dio()), fenix: true);
-    Get.lazyPut(() => MapService());
+    Get.lazyPut(() => GoogleMapService());
+    Get.lazyPut(
+        () => NotificationService(messaging: FirebaseMessaging.instance));
+
     Get.lazyPut<IHomeRepository>(
-        () => HomeRepository(apiClient: Get.find(), mapService: Get.find()),
+        () => HomeRepository(
+              apiClient: Get.find(),
+              mapService: Get.find(),
+              notificationService: Get.find(),
+            ),
         fenix: true);
     Get.lazyPut<ICommonRepository>(
         () => CommonRepository(apiClient: Get.find()),

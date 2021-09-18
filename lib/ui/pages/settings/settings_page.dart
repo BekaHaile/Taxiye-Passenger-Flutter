@@ -42,9 +42,9 @@ class SettingsPage extends StatelessWidget {
                 final Option option = settingOptions[index];
                 return OptionTile(
                   option: option,
-                  onTap: (selectedOption) {
+                  onTap: () {
                     // Todo: nav based on option
-                    print('option selected ${selectedOption.title}');
+                    print('option selected ${option.title}');
                   },
                 );
               },

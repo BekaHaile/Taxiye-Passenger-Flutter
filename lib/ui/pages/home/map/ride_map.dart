@@ -54,8 +54,16 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
       // String value = await DefaultAssetBundle.of(context)
       //     .loadString('assets/map/map_style.json');
       // mapController.setMapStyle(value);
+
+      // currentLocation.toString
+
       LatLng locationCoordinate =
           LatLng(currentLocation.latitude, currentLocation.longitude);
+
+      // set current location place name
+      getPlaceNameFromCordinate(controller.testLocation).then((value) {
+        controller.currentLocationPlace = value;
+      }, onError: (error) => print(error));
 
       controller.mapController.animateCamera(
         CameraUpdate.newCameraPosition(CameraPosition(

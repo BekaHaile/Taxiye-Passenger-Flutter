@@ -56,13 +56,51 @@ abstract class Files with _$Files {
 @freezed
 class Vehicle with _$Vehicle {
   factory Vehicle({
-    String? name,
-    String? liscensePlate,
-    double? price,
+    @JsonKey(name: 'region_id') int? regionId,
+    @JsonKey(name: 'operator_id') int? operatorId,
+    @JsonKey(name: 'region_name') String? regionName,
+    @JsonKey(name: 'vehicle_type') int? vehicleType,
+    @JsonKey(name: 'icon_set') String? iconSet,
+    @JsonKey(name: 'ride_type') int? rideType,
+    @JsonKey(name: 'max_people') int? maxPeople,
+    @JsonKey(name: 'region_fare') VehicleFare? regionFare,
+    VehicleImage? images,
+    String? vehicleNumber,
   }) = _Vehicle;
 
   factory Vehicle.fromJson(Map<String, dynamic> json) =>
       _$VehicleFromJson(json);
+}
+
+@freezed
+class VehicleFare with _$VehicleFare {
+  factory VehicleFare({
+    int? fare,
+    @JsonKey(name: 'min_fare') int? minFare,
+    @JsonKey(name: 'max_fare') int? maxFare,
+    @JsonKey(name: 'original_fare') int? originalFare,
+    @JsonKey(name: 'ride_distance') double? rideDistance,
+    String? currency,
+    @JsonKey(name: 'currency_symbol') String? currencySymbol,
+    @JsonKey(name: 'fare_text') String? fareText,
+    @JsonKey(name: 'distance_unit') String? distanceUnit,
+  }) = _VehicleFare;
+
+  factory VehicleFare.fromJson(Map<String, dynamic> json) =>
+      _$VehicleFareFromJson(json);
+}
+
+@freezed
+class VehicleImage with _$VehicleImage {
+  factory VehicleImage({
+    @JsonKey(name: 'tab_normal') String? tabNormal,
+    @JsonKey(name: 'tab_highlighted') String? tabHighlighted,
+    @JsonKey(name: 'ride_now_normal') String? rideNowNormal,
+    @JsonKey(name: 'driver_icon') String? driverIcon,
+  }) = _VehicleImage;
+
+  factory VehicleImage.fromJson(Map<String, dynamic> json) =>
+      _$VehicleImageFromJson(json);
 }
 
 @freezed
@@ -127,6 +165,57 @@ class Coupon with _$Coupon {
   factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
 }
 
+@freezed
+class NotificationMessage with _$NotificationMessage {
+  factory NotificationMessage(
+    int flag, {
+    String? title,
+    String? message,
+    double? rating,
+    String? fare,
+    String? log,
+    String? error,
+    @JsonKey(name: 'phone_no') String? phoneNo,
+    @JsonKey(name: 'driver_id') int? driverId,
+    @JsonKey(name: 'driver_car_no') String? driverCarNo,
+    @JsonKey(name: 'user_image') String? userImage,
+    @JsonKey(name: 'title_ios') String? titleIos,
+    @JsonKey(name: 'message_ios') String? messageIos,
+    @JsonKey(name: 'vehicle_name') String? vehicleName,
+    @JsonKey(name: 'vehicle_type') int? vehicleType,
+    @JsonKey(name: 'session_id') int? sessionId,
+    @JsonKey(name: 'engagement_id') String? engagementId,
+    @JsonKey(name: 'driver_car_image') String? driverCarImage,
+    @JsonKey(name: 'to_pay') String? toPay,
+    @JsonKey(name: 'payment_mode') int? paymentMode,
+    @JsonKey(name: 'distance_travelled') String? distanceTravelled,
+    @JsonKey(name: 'ride_time') String? rideTime,
+    @JsonKey(name: 'distance_unit') String? distanceUnit,
+    @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
+    String? discount,
+  }) = _NotificationMessage;
+
+  factory NotificationMessage.fromJson(Map<String, dynamic> json) =>
+      _$NotificationMessageFromJson(json);
+}
+
+@freezed
+abstract class RideDetail with _$RideDetail {
+  factory RideDetail({
+    double? fare,
+    int? paymentMode,
+    double? distanceTraveled,
+    double? discount,
+    double? paidUsingWallet,
+    int? rideTime,
+    String? distanceUnit,
+    double? toPay,
+  }) = _RideDetail;
+
+  factory RideDetail.fromJson(Map<String, dynamic> json) =>
+      _$RideDetailFromJson(json);
+}
+
 // response models
 @freezed
 abstract class BasicResponse with _$BasicResponse {
@@ -134,6 +223,7 @@ abstract class BasicResponse with _$BasicResponse {
     int flag, {
     String? message,
     String? error,
+    String? log,
   }) = _BasicResponse;
 
   factory BasicResponse.fromJson(Map<String, dynamic> json) =>
@@ -176,9 +266,31 @@ String _countryCodeConverter(dynamic val) {
 abstract class FindDriversResponse with _$FindDriversResponse {
   factory FindDriversResponse(
     int flag, {
+    String? error,
     List<Driver>? drivers,
+    List<Vehicle>? regions,
   }) = _FindDriversResponse;
 
   factory FindDriversResponse.fromJson(Map<String, dynamic> json) =>
       _$FindDriversResponseFromJson(json);
+}
+
+@freezed
+abstract class RequestRideResponse with _$RequestRideResponse {
+  factory RequestRideResponse(
+    int flag, {
+    String? error,
+    String? message,
+    String? log,
+    @JsonKey(name: 'order_id') int? orderId,
+    @JsonKey(name: 'session_id') int? sessionId,
+    @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+    @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+    @JsonKey(name: 'start_time') String? startTime,
+    double? latitude,
+    double? longitude,
+  }) = _RequestRideResponse;
+
+  factory RequestRideResponse.fromJson(Map<String, dynamic> json) =>
+      _$RequestRideResponseFromJson(json);
 }

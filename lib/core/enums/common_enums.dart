@@ -55,14 +55,39 @@ enum SuccessFlags {
   signUp,
   verify,
   updateProfile,
+  findDriver,
+  requestRide,
+  rideAccepted,
+  rideStarted,
+  rideEnd,
+  cancelRide,
+  dummy
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
-  static const successCodes = {
+  static const Map<SuccessFlags, int> successCodes = {
     SuccessFlags.signUp: 143,
     SuccessFlags.verify: 407,
     SuccessFlags.updateProfile: 416,
+    SuccessFlags.findDriver: 175,
+    SuccessFlags.requestRide: 105,
+    SuccessFlags.rideAccepted: 5,
+    SuccessFlags.rideStarted: 3,
+    SuccessFlags.rideEnd: 4,
+    SuccessFlags.cancelRide: 118,
+    SuccessFlags.dummy: -1,
   };
 
-  int? get successCode => successCodes[this];
+  int get successCode => successCodes[this]!;
+
+  static SuccessFlags getsuccessKey(int successCode) {
+    try {
+      return successCodes.entries
+          .firstWhere((element) => element.value == successCode)
+          .key;
+    } catch (error) {
+      print('successFlag error: $error');
+      return SuccessFlags.dummy;
+    }
+  }
 }

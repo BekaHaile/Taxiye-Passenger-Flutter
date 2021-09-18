@@ -6,7 +6,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:get/state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/models/map_models.dart';
 import 'package:taxiye_passenger/core/services/api/dio_client.dart';
@@ -14,13 +13,13 @@ import 'package:taxiye_passenger/core/services/api/network_exceptions.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
-class MapService {
+class GoogleMapService {
   late DioClient dioClient;
   late Map<String, dynamic> defaultParams;
 
   final apiKey = dotenv.env['GOOGLE_MAP_KEY'];
 
-  MapService() {
+  GoogleMapService() {
     dioClient = DioClient(Dio(), baseUrl: kGooglePlacesUrl);
   }
 

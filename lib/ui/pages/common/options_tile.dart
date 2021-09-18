@@ -11,7 +11,7 @@ class OptionTile extends StatefulWidget {
   }) : super(key: key);
 
   final Option option;
-  final Function(Option selectedOption) onTap;
+  final VoidCallback onTap;
 
   @override
   State<OptionTile> createState() => _OptionTileState();
@@ -54,6 +54,7 @@ class _OptionTileState extends State<OptionTile> {
               Icons.chevron_right,
               color: AppTheme.darkTextColor,
             ),
+      onTap: widget.onTap,
     );
   }
 }

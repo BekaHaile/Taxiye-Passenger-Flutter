@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:flutter/foundation.dart';
@@ -76,20 +77,36 @@ class VehicleTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           child: Column(
             children: [
-              Image.asset(
-                'assets/images/${vehicle.name}.png',
-                width: 100.0,
-                height: 50.0,
-              ),
+              vehicle.images?.tabNormal?.isNotEmpty ?? false
+                  ? CachedNetworkImage(
+                      imageUrl: vehicle.images!.tabNormal!,
+                      width: 100.0,
+                      height: 50.0,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => Center(
+                        child: CircularProgressIndicator(
+                            value: downloadProgress.progress),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    )
+                  : // Todo: get default asset image based on the category name
+                  Image.asset(
+                      'assets/images/Taxiye - Sedan.png',
+                      width: 100.0,
+                      height: 50.0,
+                    ),
               Padding(
                 padding: const EdgeInsets.only(top: 15.0, bottom: 5.0),
                 child: Text(
-                  (vehicle.name ?? '').tr,
+                  (vehicle.regionName ?? '').tr,
                   style: AppTheme.title.copyWith(fontSize: 14.0),
                 ),
               ),
               Text(
-                '${vehicle.price.hashCode.toInt()} ' + 'birr'.tr,
+                vehicle.regionFare?.maxFare != null
+                    ? '${vehicle.regionFare?.maxFare} ${vehicle.regionFare?.currency}'
+                    : '',
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w700,

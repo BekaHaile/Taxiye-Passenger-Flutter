@@ -22,7 +22,9 @@ class DriversList extends StatelessWidget {
           child: DriverTile(
             driver: driver,
             vehicle: Vehicle(
-                name: 'Taxiye - Sedan', liscensePlate: 'B12345', price: 128.0),
+                regionName: 'Taxiye - Sedan',
+                vehicleNumber: 'B12345',
+                regionFare: VehicleFare(fare: 128)),
             onRemove: () {
               // Todo: on remove driver from list.
             },

@@ -7,11 +7,9 @@ import 'package:taxiye_passenger/ui/pages/home/components/slide_cancel.dart';
 class LookingDrivers extends StatelessWidget {
   const LookingDrivers({
     Key? key,
-    required this.onDriverFound,
     required this.onCancelDriverSearch,
   }) : super(key: key);
 
-  final VoidCallback onDriverFound;
   final VoidCallback onCancelDriverSearch;
 
   @override
@@ -35,13 +33,10 @@ class LookingDrivers extends StatelessWidget {
               style: AppTheme.body.copyWith(color: AppTheme.darkColor),
             ),
             const SizedBox(height: 15.0),
-            GestureDetector(
-              onTap: () => onDriverFound(),
-              child: Image.asset(
-                'assets/images/looking_drivers.png',
-                width: 168.0,
-                height: 72.0,
-              ),
+            Image.asset(
+              'assets/images/looking_drivers.png',
+              width: 168.0,
+              height: 72.0,
             ),
             const SizedBox(height: 15.0),
             Align(

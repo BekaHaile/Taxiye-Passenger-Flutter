@@ -11,6 +11,7 @@ class RoundedButton extends StatelessWidget {
     this.color = AppTheme.primaryColor,
     this.leadingIcon,
     this.trailingIcon,
+    this.elevation = 2.0,
     required this.onPressed,
   }) : super(key: key);
 
@@ -21,6 +22,7 @@ class RoundedButton extends StatelessWidget {
   final TextStyle? textStyle;
   final IconData? leadingIcon;
   final IconData? trailingIcon;
+  final double elevation;
   final VoidCallback onPressed;
 
   @override
@@ -30,6 +32,7 @@ class RoundedButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          elevation: elevation,
           primary: color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(45.0),

@@ -14,6 +14,7 @@ abstract class Routes {
 
   // Profile Routes
   static const profile = '/profile';
+  static const profileInfo = '/profileInfo';
 
   // Home routes
   static const home = '/home';

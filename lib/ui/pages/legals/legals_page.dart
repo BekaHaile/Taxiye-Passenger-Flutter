@@ -3,7 +3,6 @@ import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/pages/common/options_tile.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
-import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:get/get.dart';
 
 class LegalsPage extends StatelessWidget {
@@ -39,9 +38,9 @@ class LegalsPage extends StatelessWidget {
                 final Option option = legalsOptions[index];
                 return OptionTile(
                   option: option,
-                  onTap: (selectedOption) {
+                  onTap: () {
                     // Todo: nav based on option
-                    print('option selected ${selectedOption.title}');
+                    print('option selected ${option.title}');
                   },
                 );
               },

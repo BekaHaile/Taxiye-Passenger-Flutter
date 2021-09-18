@@ -62,6 +62,23 @@ final Map<String, String> enUs = {
   'camera': 'Camera',
   'gallery': 'Gallery',
 
+  // Profile Strings
+  'your_profile': 'Your Profile',
+  'your_info': 'Your Info',
+  'view_edit_your_details': 'View or edit your details',
+  'your_feedback': 'Your Feedback',
+  'customers_ride_feedback': 'Ride feedback from customers',
+  'emergency_contacts': 'Emergency Contacts',
+  'country': 'Country',
+
+  'saved_places': 'Saved Places',
+  'privacy_settings': 'Privacy Settings',
+  'enter_name': 'Enter Name',
+
+  'profile_picture': 'Profile Picture',
+  'cancel': 'Cancel',
+  'ok': 'Ok',
+
   // setup passcode
   'setup_passcode': 'Setup your\nLogin pass code',
   'setup_passcode_info':
@@ -97,6 +114,7 @@ final Map<String, String> enUs = {
   'delivery': 'Delivery',
   'rental': 'Rental',
   'outStation': 'Out Station',
+  'ride_cancel_success': 'The ride has been cancelled',
 
   // Map Strings
   'current_location': 'Current Location',
@@ -256,7 +274,6 @@ final Map<String, String> enUs = {
 
   'language': 'Language',
   'english': 'English',
-  'privacy_settings': 'Privacy Settings',
   'customize_privacy': 'Customize what you share with us',
 
   // Legals strings
@@ -270,6 +287,10 @@ final Map<String, String> enUs = {
   'add_phone_number': 'Please add your phone number',
   'done': 'Done',
 
+  //notification Strings
+  'ride_completed': 'Ride Completed',
+  'your_fare_was': 'your fare was',
+
   // Error messages
   'invalid_passcode': 'Invalid Passcode',
   'password_match_error': 'Password don\'t match.',
@@ -281,4 +302,6 @@ final Map<String, String> enUs = {
   'error_amount': 'Invalid amount',
 
   'api_error': 'Api Error',
+  'destination_error': 'Please pick your destination',
+  'vehicle_select_error': 'Please pick vehicle',
 };

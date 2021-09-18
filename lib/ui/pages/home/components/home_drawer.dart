@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/widgets/logo_image.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
@@ -81,72 +82,75 @@ class HomeDrawer extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 20.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AnimatedBuilder(
-                      animation: iconAnimationController,
-                      builder: (BuildContext context, Widget? child) {
-                        return ScaleTransition(
-                          scale: AlwaysStoppedAnimation<double>(
-                              1.0 - (iconAnimationController.value) * 0.2),
-                          child: RotationTransition(
-                            turns: AlwaysStoppedAnimation<double>(
-                                Tween<double>(begin: 0.0, end: 24.0)
-                                        .animate(CurvedAnimation(
-                                            parent: iconAnimationController,
-                                            curve: Curves.fastOutSlowIn))
-                                        .value /
-                                    360),
-                            child: Container(
-                              height: 55,
-                              width: 55,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.25),
-                                    spreadRadius: 0,
-                                    blurRadius: 10,
-                                    offset: const Offset(0.0, 4.0),
-                                  ),
-                                ],
-                                border:
-                                    Border.all(color: AppTheme.primaryColor),
+                child: GestureDetector(
+                  onTap: () => Get.toNamed(Routes.profile),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AnimatedBuilder(
+                        animation: iconAnimationController,
+                        builder: (BuildContext context, Widget? child) {
+                          return ScaleTransition(
+                            scale: AlwaysStoppedAnimation<double>(
+                                1.0 - (iconAnimationController.value) * 0.2),
+                            child: RotationTransition(
+                              turns: AlwaysStoppedAnimation<double>(
+                                  Tween<double>(begin: 0.0, end: 24.0)
+                                          .animate(CurvedAnimation(
+                                              parent: iconAnimationController,
+                                              curve: Curves.fastOutSlowIn))
+                                          .value /
+                                      360),
+                              child: Container(
+                                height: 55,
+                                width: 55,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  boxShadow: <BoxShadow>[
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      spreadRadius: 0,
+                                      blurRadius: 10,
+                                      offset: const Offset(0.0, 4.0),
+                                    ),
+                                  ],
+                                  border:
+                                      Border.all(color: AppTheme.primaryColor),
+                                ),
+                                child: const ProfileAvatar(
+                                    canEdit: false,
+                                    radius: 40.0,
+                                    name: 'Abel Girma'
+                                    // name: controller.profile.firstName +
+                                    //     ' ' +
+                                    //     controller.profile.lastName,
+                                    // pickedFilePath:
+                                    //     controller.profileImage?.path ??
+                                    //         '',
+                                    // images: controller
+                                    //     .profile?.profileImages,
+                                    ),
                               ),
-                              child: const ProfileAvatar(
-                                  canEdit: false,
-                                  radius: 40.0,
-                                  name: 'Abel Girma'
-                                  // name: controller.profile.firstName +
-                                  //     ' ' +
-                                  //     controller.profile.lastName,
-                                  // pickedFilePath:
-                                  //     controller.profileImage?.path ??
-                                  //         '',
-                                  // images: controller
-                                  //     .profile?.profileImages,
-                                  ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0, top: 4.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Diane Russel',
-                            style: AppTheme.title.copyWith(fontSize: 16.0),
-                          ),
-                          Text('+251911399631',
-                              style: AppTheme.body
-                                  .copyWith(color: AppTheme.darkColor)),
-                        ],
+                          );
+                        },
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0, top: 4.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Diane Russel',
+                              style: AppTheme.title.copyWith(fontSize: 16.0),
+                            ),
+                            Text('+251911399631',
+                                style: AppTheme.body
+                                    .copyWith(color: AppTheme.darkColor)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Divider(

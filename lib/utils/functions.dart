@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get_utils/get_utils.dart';
 
@@ -141,4 +143,21 @@ Future<Position> getCurrentLocation() async {
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
   return await Geolocator.getCurrentPosition();
+}
+
+Future<Placemark> getPlaceNameFromCordinate(LatLng placeCoordinate) async {
+  try {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      placeCoordinate.latitude,
+      placeCoordinate.longitude,
+    );
+
+    if (placemarks.isNotEmpty) {
+      return placemarks[0];
+    } else {
+      return Future.error("Place not found");
+    }
+  } catch (err) {
+    return Future.error("$err");
+  }
 }

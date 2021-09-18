@@ -52,7 +52,7 @@ dependencies:
   # For image picking
   image_picker: ^0.8.3+2
   # For caching images
-  cached_network_image: ^3.0.0
+  cached_network_image: ^3.1.0
   # For sharing 
   share: ^2.0.4
   
@@ -92,6 +92,8 @@ dependencies:
   package_info: ^2.0.2
   # For getting location
   geolocator: ^7.4.0
+  # For getting location names 
+  geocoding: ^2.0.1
 
 
   # progress hud with null safety support
@@ -119,6 +121,8 @@ dependencies:
   uuid: ^3.0.4
   # For storing environment variables
   flutter_dotenv: ^5.0.2
+  # for showing local notifications
+  flutter_local_notifications: ^8.2.0
 
   
   

@@ -1009,11 +1009,28 @@ Vehicle _$VehicleFromJson(Map<String, dynamic> json) {
 class _$VehicleTearOff {
   const _$VehicleTearOff();
 
-  _Vehicle call({String? name, String? liscensePlate, double? price}) {
+  _Vehicle call(
+      {@JsonKey(name: 'region_id') int? regionId,
+      @JsonKey(name: 'operator_id') int? operatorId,
+      @JsonKey(name: 'region_name') String? regionName,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'icon_set') String? iconSet,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'max_people') int? maxPeople,
+      @JsonKey(name: 'region_fare') VehicleFare? regionFare,
+      VehicleImage? images,
+      String? vehicleNumber}) {
     return _Vehicle(
-      name: name,
-      liscensePlate: liscensePlate,
-      price: price,
+      regionId: regionId,
+      operatorId: operatorId,
+      regionName: regionName,
+      vehicleType: vehicleType,
+      iconSet: iconSet,
+      rideType: rideType,
+      maxPeople: maxPeople,
+      regionFare: regionFare,
+      images: images,
+      vehicleNumber: vehicleNumber,
     );
   }
 
@@ -1027,9 +1044,24 @@ const $Vehicle = _$VehicleTearOff();
 
 /// @nodoc
 mixin _$Vehicle {
-  String? get name => throw _privateConstructorUsedError;
-  String? get liscensePlate => throw _privateConstructorUsedError;
-  double? get price => throw _privateConstructorUsedError;
+  @JsonKey(name: 'region_id')
+  int? get regionId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'operator_id')
+  int? get operatorId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'region_name')
+  String? get regionName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_type')
+  int? get vehicleType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'icon_set')
+  String? get iconSet => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_type')
+  int? get rideType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'max_people')
+  int? get maxPeople => throw _privateConstructorUsedError;
+  @JsonKey(name: 'region_fare')
+  VehicleFare? get regionFare => throw _privateConstructorUsedError;
+  VehicleImage? get images => throw _privateConstructorUsedError;
+  String? get vehicleNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1040,7 +1072,20 @@ mixin _$Vehicle {
 abstract class $VehicleCopyWith<$Res> {
   factory $VehicleCopyWith(Vehicle value, $Res Function(Vehicle) then) =
       _$VehicleCopyWithImpl<$Res>;
-  $Res call({String? name, String? liscensePlate, double? price});
+  $Res call(
+      {@JsonKey(name: 'region_id') int? regionId,
+      @JsonKey(name: 'operator_id') int? operatorId,
+      @JsonKey(name: 'region_name') String? regionName,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'icon_set') String? iconSet,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'max_people') int? maxPeople,
+      @JsonKey(name: 'region_fare') VehicleFare? regionFare,
+      VehicleImage? images,
+      String? vehicleNumber});
+
+  $VehicleFareCopyWith<$Res>? get regionFare;
+  $VehicleImageCopyWith<$Res>? get images;
 }
 
 /// @nodoc
@@ -1053,24 +1098,81 @@ class _$VehicleCopyWithImpl<$Res> implements $VehicleCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? name = freezed,
-    Object? liscensePlate = freezed,
-    Object? price = freezed,
+    Object? regionId = freezed,
+    Object? operatorId = freezed,
+    Object? regionName = freezed,
+    Object? vehicleType = freezed,
+    Object? iconSet = freezed,
+    Object? rideType = freezed,
+    Object? maxPeople = freezed,
+    Object? regionFare = freezed,
+    Object? images = freezed,
+    Object? vehicleNumber = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      regionId: regionId == freezed
+          ? _value.regionId
+          : regionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      operatorId: operatorId == freezed
+          ? _value.operatorId
+          : operatorId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionName: regionName == freezed
+          ? _value.regionName
+          : regionName // ignore: cast_nullable_to_non_nullable
               as String?,
-      liscensePlate: liscensePlate == freezed
-          ? _value.liscensePlate
-          : liscensePlate // ignore: cast_nullable_to_non_nullable
+      vehicleType: vehicleType == freezed
+          ? _value.vehicleType
+          : vehicleType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      iconSet: iconSet == freezed
+          ? _value.iconSet
+          : iconSet // ignore: cast_nullable_to_non_nullable
               as String?,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double?,
+      rideType: rideType == freezed
+          ? _value.rideType
+          : rideType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maxPeople: maxPeople == freezed
+          ? _value.maxPeople
+          : maxPeople // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionFare: regionFare == freezed
+          ? _value.regionFare
+          : regionFare // ignore: cast_nullable_to_non_nullable
+              as VehicleFare?,
+      images: images == freezed
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as VehicleImage?,
+      vehicleNumber: vehicleNumber == freezed
+          ? _value.vehicleNumber
+          : vehicleNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
+  }
+
+  @override
+  $VehicleFareCopyWith<$Res>? get regionFare {
+    if (_value.regionFare == null) {
+      return null;
+    }
+
+    return $VehicleFareCopyWith<$Res>(_value.regionFare!, (value) {
+      return _then(_value.copyWith(regionFare: value));
+    });
+  }
+
+  @override
+  $VehicleImageCopyWith<$Res>? get images {
+    if (_value.images == null) {
+      return null;
+    }
+
+    return $VehicleImageCopyWith<$Res>(_value.images!, (value) {
+      return _then(_value.copyWith(images: value));
+    });
   }
 }
 
@@ -1079,7 +1181,22 @@ abstract class _$VehicleCopyWith<$Res> implements $VehicleCopyWith<$Res> {
   factory _$VehicleCopyWith(_Vehicle value, $Res Function(_Vehicle) then) =
       __$VehicleCopyWithImpl<$Res>;
   @override
-  $Res call({String? name, String? liscensePlate, double? price});
+  $Res call(
+      {@JsonKey(name: 'region_id') int? regionId,
+      @JsonKey(name: 'operator_id') int? operatorId,
+      @JsonKey(name: 'region_name') String? regionName,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'icon_set') String? iconSet,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'max_people') int? maxPeople,
+      @JsonKey(name: 'region_fare') VehicleFare? regionFare,
+      VehicleImage? images,
+      String? vehicleNumber});
+
+  @override
+  $VehicleFareCopyWith<$Res>? get regionFare;
+  @override
+  $VehicleImageCopyWith<$Res>? get images;
 }
 
 /// @nodoc
@@ -1093,23 +1210,58 @@ class __$VehicleCopyWithImpl<$Res> extends _$VehicleCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? name = freezed,
-    Object? liscensePlate = freezed,
-    Object? price = freezed,
+    Object? regionId = freezed,
+    Object? operatorId = freezed,
+    Object? regionName = freezed,
+    Object? vehicleType = freezed,
+    Object? iconSet = freezed,
+    Object? rideType = freezed,
+    Object? maxPeople = freezed,
+    Object? regionFare = freezed,
+    Object? images = freezed,
+    Object? vehicleNumber = freezed,
   }) {
     return _then(_Vehicle(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      regionId: regionId == freezed
+          ? _value.regionId
+          : regionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      operatorId: operatorId == freezed
+          ? _value.operatorId
+          : operatorId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionName: regionName == freezed
+          ? _value.regionName
+          : regionName // ignore: cast_nullable_to_non_nullable
               as String?,
-      liscensePlate: liscensePlate == freezed
-          ? _value.liscensePlate
-          : liscensePlate // ignore: cast_nullable_to_non_nullable
+      vehicleType: vehicleType == freezed
+          ? _value.vehicleType
+          : vehicleType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      iconSet: iconSet == freezed
+          ? _value.iconSet
+          : iconSet // ignore: cast_nullable_to_non_nullable
               as String?,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double?,
+      rideType: rideType == freezed
+          ? _value.rideType
+          : rideType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maxPeople: maxPeople == freezed
+          ? _value.maxPeople
+          : maxPeople // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionFare: regionFare == freezed
+          ? _value.regionFare
+          : regionFare // ignore: cast_nullable_to_non_nullable
+              as VehicleFare?,
+      images: images == freezed
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as VehicleImage?,
+      vehicleNumber: vehicleNumber == freezed
+          ? _value.vehicleNumber
+          : vehicleNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1117,42 +1269,103 @@ class __$VehicleCopyWithImpl<$Res> extends _$VehicleCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Vehicle implements _Vehicle {
-  _$_Vehicle({this.name, this.liscensePlate, this.price});
+  _$_Vehicle(
+      {@JsonKey(name: 'region_id') this.regionId,
+      @JsonKey(name: 'operator_id') this.operatorId,
+      @JsonKey(name: 'region_name') this.regionName,
+      @JsonKey(name: 'vehicle_type') this.vehicleType,
+      @JsonKey(name: 'icon_set') this.iconSet,
+      @JsonKey(name: 'ride_type') this.rideType,
+      @JsonKey(name: 'max_people') this.maxPeople,
+      @JsonKey(name: 'region_fare') this.regionFare,
+      this.images,
+      this.vehicleNumber});
 
   factory _$_Vehicle.fromJson(Map<String, dynamic> json) =>
       _$_$_VehicleFromJson(json);
 
   @override
-  final String? name;
+  @JsonKey(name: 'region_id')
+  final int? regionId;
   @override
-  final String? liscensePlate;
+  @JsonKey(name: 'operator_id')
+  final int? operatorId;
   @override
-  final double? price;
+  @JsonKey(name: 'region_name')
+  final String? regionName;
+  @override
+  @JsonKey(name: 'vehicle_type')
+  final int? vehicleType;
+  @override
+  @JsonKey(name: 'icon_set')
+  final String? iconSet;
+  @override
+  @JsonKey(name: 'ride_type')
+  final int? rideType;
+  @override
+  @JsonKey(name: 'max_people')
+  final int? maxPeople;
+  @override
+  @JsonKey(name: 'region_fare')
+  final VehicleFare? regionFare;
+  @override
+  final VehicleImage? images;
+  @override
+  final String? vehicleNumber;
 
   @override
   String toString() {
-    return 'Vehicle(name: $name, liscensePlate: $liscensePlate, price: $price)';
+    return 'Vehicle(regionId: $regionId, operatorId: $operatorId, regionName: $regionName, vehicleType: $vehicleType, iconSet: $iconSet, rideType: $rideType, maxPeople: $maxPeople, regionFare: $regionFare, images: $images, vehicleNumber: $vehicleNumber)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Vehicle &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.liscensePlate, liscensePlate) ||
+            (identical(other.regionId, regionId) ||
                 const DeepCollectionEquality()
-                    .equals(other.liscensePlate, liscensePlate)) &&
-            (identical(other.price, price) ||
-                const DeepCollectionEquality().equals(other.price, price)));
+                    .equals(other.regionId, regionId)) &&
+            (identical(other.operatorId, operatorId) ||
+                const DeepCollectionEquality()
+                    .equals(other.operatorId, operatorId)) &&
+            (identical(other.regionName, regionName) ||
+                const DeepCollectionEquality()
+                    .equals(other.regionName, regionName)) &&
+            (identical(other.vehicleType, vehicleType) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleType, vehicleType)) &&
+            (identical(other.iconSet, iconSet) ||
+                const DeepCollectionEquality()
+                    .equals(other.iconSet, iconSet)) &&
+            (identical(other.rideType, rideType) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideType, rideType)) &&
+            (identical(other.maxPeople, maxPeople) ||
+                const DeepCollectionEquality()
+                    .equals(other.maxPeople, maxPeople)) &&
+            (identical(other.regionFare, regionFare) ||
+                const DeepCollectionEquality()
+                    .equals(other.regionFare, regionFare)) &&
+            (identical(other.images, images) ||
+                const DeepCollectionEquality().equals(other.images, images)) &&
+            (identical(other.vehicleNumber, vehicleNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleNumber, vehicleNumber)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(liscensePlate) ^
-      const DeepCollectionEquality().hash(price);
+      const DeepCollectionEquality().hash(regionId) ^
+      const DeepCollectionEquality().hash(operatorId) ^
+      const DeepCollectionEquality().hash(regionName) ^
+      const DeepCollectionEquality().hash(vehicleType) ^
+      const DeepCollectionEquality().hash(iconSet) ^
+      const DeepCollectionEquality().hash(rideType) ^
+      const DeepCollectionEquality().hash(maxPeople) ^
+      const DeepCollectionEquality().hash(regionFare) ^
+      const DeepCollectionEquality().hash(images) ^
+      const DeepCollectionEquality().hash(vehicleNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -1166,20 +1379,666 @@ class _$_Vehicle implements _Vehicle {
 }
 
 abstract class _Vehicle implements Vehicle {
-  factory _Vehicle({String? name, String? liscensePlate, double? price}) =
-      _$_Vehicle;
+  factory _Vehicle(
+      {@JsonKey(name: 'region_id') int? regionId,
+      @JsonKey(name: 'operator_id') int? operatorId,
+      @JsonKey(name: 'region_name') String? regionName,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'icon_set') String? iconSet,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'max_people') int? maxPeople,
+      @JsonKey(name: 'region_fare') VehicleFare? regionFare,
+      VehicleImage? images,
+      String? vehicleNumber}) = _$_Vehicle;
 
   factory _Vehicle.fromJson(Map<String, dynamic> json) = _$_Vehicle.fromJson;
 
   @override
-  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'region_id')
+  int? get regionId => throw _privateConstructorUsedError;
   @override
-  String? get liscensePlate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'operator_id')
+  int? get operatorId => throw _privateConstructorUsedError;
   @override
-  double? get price => throw _privateConstructorUsedError;
+  @JsonKey(name: 'region_name')
+  String? get regionName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'vehicle_type')
+  int? get vehicleType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'icon_set')
+  String? get iconSet => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_type')
+  int? get rideType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'max_people')
+  int? get maxPeople => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'region_fare')
+  VehicleFare? get regionFare => throw _privateConstructorUsedError;
+  @override
+  VehicleImage? get images => throw _privateConstructorUsedError;
+  @override
+  String? get vehicleNumber => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$VehicleCopyWith<_Vehicle> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+VehicleFare _$VehicleFareFromJson(Map<String, dynamic> json) {
+  return _VehicleFare.fromJson(json);
+}
+
+/// @nodoc
+class _$VehicleFareTearOff {
+  const _$VehicleFareTearOff();
+
+  _VehicleFare call(
+      {int? fare,
+      @JsonKey(name: 'min_fare') int? minFare,
+      @JsonKey(name: 'max_fare') int? maxFare,
+      @JsonKey(name: 'original_fare') int? originalFare,
+      @JsonKey(name: 'ride_distance') double? rideDistance,
+      String? currency,
+      @JsonKey(name: 'currency_symbol') String? currencySymbol,
+      @JsonKey(name: 'fare_text') String? fareText,
+      @JsonKey(name: 'distance_unit') String? distanceUnit}) {
+    return _VehicleFare(
+      fare: fare,
+      minFare: minFare,
+      maxFare: maxFare,
+      originalFare: originalFare,
+      rideDistance: rideDistance,
+      currency: currency,
+      currencySymbol: currencySymbol,
+      fareText: fareText,
+      distanceUnit: distanceUnit,
+    );
+  }
+
+  VehicleFare fromJson(Map<String, Object> json) {
+    return VehicleFare.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $VehicleFare = _$VehicleFareTearOff();
+
+/// @nodoc
+mixin _$VehicleFare {
+  int? get fare => throw _privateConstructorUsedError;
+  @JsonKey(name: 'min_fare')
+  int? get minFare => throw _privateConstructorUsedError;
+  @JsonKey(name: 'max_fare')
+  int? get maxFare => throw _privateConstructorUsedError;
+  @JsonKey(name: 'original_fare')
+  int? get originalFare => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_distance')
+  double? get rideDistance => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
+  @JsonKey(name: 'currency_symbol')
+  String? get currencySymbol => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fare_text')
+  String? get fareText => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_unit')
+  String? get distanceUnit => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VehicleFareCopyWith<VehicleFare> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VehicleFareCopyWith<$Res> {
+  factory $VehicleFareCopyWith(
+          VehicleFare value, $Res Function(VehicleFare) then) =
+      _$VehicleFareCopyWithImpl<$Res>;
+  $Res call(
+      {int? fare,
+      @JsonKey(name: 'min_fare') int? minFare,
+      @JsonKey(name: 'max_fare') int? maxFare,
+      @JsonKey(name: 'original_fare') int? originalFare,
+      @JsonKey(name: 'ride_distance') double? rideDistance,
+      String? currency,
+      @JsonKey(name: 'currency_symbol') String? currencySymbol,
+      @JsonKey(name: 'fare_text') String? fareText,
+      @JsonKey(name: 'distance_unit') String? distanceUnit});
+}
+
+/// @nodoc
+class _$VehicleFareCopyWithImpl<$Res> implements $VehicleFareCopyWith<$Res> {
+  _$VehicleFareCopyWithImpl(this._value, this._then);
+
+  final VehicleFare _value;
+  // ignore: unused_field
+  final $Res Function(VehicleFare) _then;
+
+  @override
+  $Res call({
+    Object? fare = freezed,
+    Object? minFare = freezed,
+    Object? maxFare = freezed,
+    Object? originalFare = freezed,
+    Object? rideDistance = freezed,
+    Object? currency = freezed,
+    Object? currencySymbol = freezed,
+    Object? fareText = freezed,
+    Object? distanceUnit = freezed,
+  }) {
+    return _then(_value.copyWith(
+      fare: fare == freezed
+          ? _value.fare
+          : fare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      minFare: minFare == freezed
+          ? _value.minFare
+          : minFare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maxFare: maxFare == freezed
+          ? _value.maxFare
+          : maxFare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      originalFare: originalFare == freezed
+          ? _value.originalFare
+          : originalFare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rideDistance: rideDistance == freezed
+          ? _value.rideDistance
+          : rideDistance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currencySymbol: currencySymbol == freezed
+          ? _value.currencySymbol
+          : currencySymbol // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fareText: fareText == freezed
+          ? _value.fareText
+          : fareText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$VehicleFareCopyWith<$Res>
+    implements $VehicleFareCopyWith<$Res> {
+  factory _$VehicleFareCopyWith(
+          _VehicleFare value, $Res Function(_VehicleFare) then) =
+      __$VehicleFareCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int? fare,
+      @JsonKey(name: 'min_fare') int? minFare,
+      @JsonKey(name: 'max_fare') int? maxFare,
+      @JsonKey(name: 'original_fare') int? originalFare,
+      @JsonKey(name: 'ride_distance') double? rideDistance,
+      String? currency,
+      @JsonKey(name: 'currency_symbol') String? currencySymbol,
+      @JsonKey(name: 'fare_text') String? fareText,
+      @JsonKey(name: 'distance_unit') String? distanceUnit});
+}
+
+/// @nodoc
+class __$VehicleFareCopyWithImpl<$Res> extends _$VehicleFareCopyWithImpl<$Res>
+    implements _$VehicleFareCopyWith<$Res> {
+  __$VehicleFareCopyWithImpl(
+      _VehicleFare _value, $Res Function(_VehicleFare) _then)
+      : super(_value, (v) => _then(v as _VehicleFare));
+
+  @override
+  _VehicleFare get _value => super._value as _VehicleFare;
+
+  @override
+  $Res call({
+    Object? fare = freezed,
+    Object? minFare = freezed,
+    Object? maxFare = freezed,
+    Object? originalFare = freezed,
+    Object? rideDistance = freezed,
+    Object? currency = freezed,
+    Object? currencySymbol = freezed,
+    Object? fareText = freezed,
+    Object? distanceUnit = freezed,
+  }) {
+    return _then(_VehicleFare(
+      fare: fare == freezed
+          ? _value.fare
+          : fare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      minFare: minFare == freezed
+          ? _value.minFare
+          : minFare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maxFare: maxFare == freezed
+          ? _value.maxFare
+          : maxFare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      originalFare: originalFare == freezed
+          ? _value.originalFare
+          : originalFare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rideDistance: rideDistance == freezed
+          ? _value.rideDistance
+          : rideDistance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currencySymbol: currencySymbol == freezed
+          ? _value.currencySymbol
+          : currencySymbol // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fareText: fareText == freezed
+          ? _value.fareText
+          : fareText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_VehicleFare implements _VehicleFare {
+  _$_VehicleFare(
+      {this.fare,
+      @JsonKey(name: 'min_fare') this.minFare,
+      @JsonKey(name: 'max_fare') this.maxFare,
+      @JsonKey(name: 'original_fare') this.originalFare,
+      @JsonKey(name: 'ride_distance') this.rideDistance,
+      this.currency,
+      @JsonKey(name: 'currency_symbol') this.currencySymbol,
+      @JsonKey(name: 'fare_text') this.fareText,
+      @JsonKey(name: 'distance_unit') this.distanceUnit});
+
+  factory _$_VehicleFare.fromJson(Map<String, dynamic> json) =>
+      _$_$_VehicleFareFromJson(json);
+
+  @override
+  final int? fare;
+  @override
+  @JsonKey(name: 'min_fare')
+  final int? minFare;
+  @override
+  @JsonKey(name: 'max_fare')
+  final int? maxFare;
+  @override
+  @JsonKey(name: 'original_fare')
+  final int? originalFare;
+  @override
+  @JsonKey(name: 'ride_distance')
+  final double? rideDistance;
+  @override
+  final String? currency;
+  @override
+  @JsonKey(name: 'currency_symbol')
+  final String? currencySymbol;
+  @override
+  @JsonKey(name: 'fare_text')
+  final String? fareText;
+  @override
+  @JsonKey(name: 'distance_unit')
+  final String? distanceUnit;
+
+  @override
+  String toString() {
+    return 'VehicleFare(fare: $fare, minFare: $minFare, maxFare: $maxFare, originalFare: $originalFare, rideDistance: $rideDistance, currency: $currency, currencySymbol: $currencySymbol, fareText: $fareText, distanceUnit: $distanceUnit)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _VehicleFare &&
+            (identical(other.fare, fare) ||
+                const DeepCollectionEquality().equals(other.fare, fare)) &&
+            (identical(other.minFare, minFare) ||
+                const DeepCollectionEquality()
+                    .equals(other.minFare, minFare)) &&
+            (identical(other.maxFare, maxFare) ||
+                const DeepCollectionEquality()
+                    .equals(other.maxFare, maxFare)) &&
+            (identical(other.originalFare, originalFare) ||
+                const DeepCollectionEquality()
+                    .equals(other.originalFare, originalFare)) &&
+            (identical(other.rideDistance, rideDistance) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideDistance, rideDistance)) &&
+            (identical(other.currency, currency) ||
+                const DeepCollectionEquality()
+                    .equals(other.currency, currency)) &&
+            (identical(other.currencySymbol, currencySymbol) ||
+                const DeepCollectionEquality()
+                    .equals(other.currencySymbol, currencySymbol)) &&
+            (identical(other.fareText, fareText) ||
+                const DeepCollectionEquality()
+                    .equals(other.fareText, fareText)) &&
+            (identical(other.distanceUnit, distanceUnit) ||
+                const DeepCollectionEquality()
+                    .equals(other.distanceUnit, distanceUnit)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(fare) ^
+      const DeepCollectionEquality().hash(minFare) ^
+      const DeepCollectionEquality().hash(maxFare) ^
+      const DeepCollectionEquality().hash(originalFare) ^
+      const DeepCollectionEquality().hash(rideDistance) ^
+      const DeepCollectionEquality().hash(currency) ^
+      const DeepCollectionEquality().hash(currencySymbol) ^
+      const DeepCollectionEquality().hash(fareText) ^
+      const DeepCollectionEquality().hash(distanceUnit);
+
+  @JsonKey(ignore: true)
+  @override
+  _$VehicleFareCopyWith<_VehicleFare> get copyWith =>
+      __$VehicleFareCopyWithImpl<_VehicleFare>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_VehicleFareToJson(this);
+  }
+}
+
+abstract class _VehicleFare implements VehicleFare {
+  factory _VehicleFare(
+      {int? fare,
+      @JsonKey(name: 'min_fare') int? minFare,
+      @JsonKey(name: 'max_fare') int? maxFare,
+      @JsonKey(name: 'original_fare') int? originalFare,
+      @JsonKey(name: 'ride_distance') double? rideDistance,
+      String? currency,
+      @JsonKey(name: 'currency_symbol') String? currencySymbol,
+      @JsonKey(name: 'fare_text') String? fareText,
+      @JsonKey(name: 'distance_unit') String? distanceUnit}) = _$_VehicleFare;
+
+  factory _VehicleFare.fromJson(Map<String, dynamic> json) =
+      _$_VehicleFare.fromJson;
+
+  @override
+  int? get fare => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'min_fare')
+  int? get minFare => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'max_fare')
+  int? get maxFare => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'original_fare')
+  int? get originalFare => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_distance')
+  double? get rideDistance => throw _privateConstructorUsedError;
+  @override
+  String? get currency => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'currency_symbol')
+  String? get currencySymbol => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'fare_text')
+  String? get fareText => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'distance_unit')
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$VehicleFareCopyWith<_VehicleFare> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+VehicleImage _$VehicleImageFromJson(Map<String, dynamic> json) {
+  return _VehicleImage.fromJson(json);
+}
+
+/// @nodoc
+class _$VehicleImageTearOff {
+  const _$VehicleImageTearOff();
+
+  _VehicleImage call(
+      {@JsonKey(name: 'tab_normal') String? tabNormal,
+      @JsonKey(name: 'tab_highlighted') String? tabHighlighted,
+      @JsonKey(name: 'ride_now_normal') String? rideNowNormal,
+      @JsonKey(name: 'driver_icon') String? driverIcon}) {
+    return _VehicleImage(
+      tabNormal: tabNormal,
+      tabHighlighted: tabHighlighted,
+      rideNowNormal: rideNowNormal,
+      driverIcon: driverIcon,
+    );
+  }
+
+  VehicleImage fromJson(Map<String, Object> json) {
+    return VehicleImage.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $VehicleImage = _$VehicleImageTearOff();
+
+/// @nodoc
+mixin _$VehicleImage {
+  @JsonKey(name: 'tab_normal')
+  String? get tabNormal => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tab_highlighted')
+  String? get tabHighlighted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_now_normal')
+  String? get rideNowNormal => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_icon')
+  String? get driverIcon => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VehicleImageCopyWith<VehicleImage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VehicleImageCopyWith<$Res> {
+  factory $VehicleImageCopyWith(
+          VehicleImage value, $Res Function(VehicleImage) then) =
+      _$VehicleImageCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: 'tab_normal') String? tabNormal,
+      @JsonKey(name: 'tab_highlighted') String? tabHighlighted,
+      @JsonKey(name: 'ride_now_normal') String? rideNowNormal,
+      @JsonKey(name: 'driver_icon') String? driverIcon});
+}
+
+/// @nodoc
+class _$VehicleImageCopyWithImpl<$Res> implements $VehicleImageCopyWith<$Res> {
+  _$VehicleImageCopyWithImpl(this._value, this._then);
+
+  final VehicleImage _value;
+  // ignore: unused_field
+  final $Res Function(VehicleImage) _then;
+
+  @override
+  $Res call({
+    Object? tabNormal = freezed,
+    Object? tabHighlighted = freezed,
+    Object? rideNowNormal = freezed,
+    Object? driverIcon = freezed,
+  }) {
+    return _then(_value.copyWith(
+      tabNormal: tabNormal == freezed
+          ? _value.tabNormal
+          : tabNormal // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tabHighlighted: tabHighlighted == freezed
+          ? _value.tabHighlighted
+          : tabHighlighted // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rideNowNormal: rideNowNormal == freezed
+          ? _value.rideNowNormal
+          : rideNowNormal // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverIcon: driverIcon == freezed
+          ? _value.driverIcon
+          : driverIcon // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$VehicleImageCopyWith<$Res>
+    implements $VehicleImageCopyWith<$Res> {
+  factory _$VehicleImageCopyWith(
+          _VehicleImage value, $Res Function(_VehicleImage) then) =
+      __$VehicleImageCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: 'tab_normal') String? tabNormal,
+      @JsonKey(name: 'tab_highlighted') String? tabHighlighted,
+      @JsonKey(name: 'ride_now_normal') String? rideNowNormal,
+      @JsonKey(name: 'driver_icon') String? driverIcon});
+}
+
+/// @nodoc
+class __$VehicleImageCopyWithImpl<$Res> extends _$VehicleImageCopyWithImpl<$Res>
+    implements _$VehicleImageCopyWith<$Res> {
+  __$VehicleImageCopyWithImpl(
+      _VehicleImage _value, $Res Function(_VehicleImage) _then)
+      : super(_value, (v) => _then(v as _VehicleImage));
+
+  @override
+  _VehicleImage get _value => super._value as _VehicleImage;
+
+  @override
+  $Res call({
+    Object? tabNormal = freezed,
+    Object? tabHighlighted = freezed,
+    Object? rideNowNormal = freezed,
+    Object? driverIcon = freezed,
+  }) {
+    return _then(_VehicleImage(
+      tabNormal: tabNormal == freezed
+          ? _value.tabNormal
+          : tabNormal // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tabHighlighted: tabHighlighted == freezed
+          ? _value.tabHighlighted
+          : tabHighlighted // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rideNowNormal: rideNowNormal == freezed
+          ? _value.rideNowNormal
+          : rideNowNormal // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverIcon: driverIcon == freezed
+          ? _value.driverIcon
+          : driverIcon // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_VehicleImage implements _VehicleImage {
+  _$_VehicleImage(
+      {@JsonKey(name: 'tab_normal') this.tabNormal,
+      @JsonKey(name: 'tab_highlighted') this.tabHighlighted,
+      @JsonKey(name: 'ride_now_normal') this.rideNowNormal,
+      @JsonKey(name: 'driver_icon') this.driverIcon});
+
+  factory _$_VehicleImage.fromJson(Map<String, dynamic> json) =>
+      _$_$_VehicleImageFromJson(json);
+
+  @override
+  @JsonKey(name: 'tab_normal')
+  final String? tabNormal;
+  @override
+  @JsonKey(name: 'tab_highlighted')
+  final String? tabHighlighted;
+  @override
+  @JsonKey(name: 'ride_now_normal')
+  final String? rideNowNormal;
+  @override
+  @JsonKey(name: 'driver_icon')
+  final String? driverIcon;
+
+  @override
+  String toString() {
+    return 'VehicleImage(tabNormal: $tabNormal, tabHighlighted: $tabHighlighted, rideNowNormal: $rideNowNormal, driverIcon: $driverIcon)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _VehicleImage &&
+            (identical(other.tabNormal, tabNormal) ||
+                const DeepCollectionEquality()
+                    .equals(other.tabNormal, tabNormal)) &&
+            (identical(other.tabHighlighted, tabHighlighted) ||
+                const DeepCollectionEquality()
+                    .equals(other.tabHighlighted, tabHighlighted)) &&
+            (identical(other.rideNowNormal, rideNowNormal) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideNowNormal, rideNowNormal)) &&
+            (identical(other.driverIcon, driverIcon) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverIcon, driverIcon)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(tabNormal) ^
+      const DeepCollectionEquality().hash(tabHighlighted) ^
+      const DeepCollectionEquality().hash(rideNowNormal) ^
+      const DeepCollectionEquality().hash(driverIcon);
+
+  @JsonKey(ignore: true)
+  @override
+  _$VehicleImageCopyWith<_VehicleImage> get copyWith =>
+      __$VehicleImageCopyWithImpl<_VehicleImage>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_VehicleImageToJson(this);
+  }
+}
+
+abstract class _VehicleImage implements VehicleImage {
+  factory _VehicleImage(
+      {@JsonKey(name: 'tab_normal') String? tabNormal,
+      @JsonKey(name: 'tab_highlighted') String? tabHighlighted,
+      @JsonKey(name: 'ride_now_normal') String? rideNowNormal,
+      @JsonKey(name: 'driver_icon') String? driverIcon}) = _$_VehicleImage;
+
+  factory _VehicleImage.fromJson(Map<String, dynamic> json) =
+      _$_VehicleImage.fromJson;
+
+  @override
+  @JsonKey(name: 'tab_normal')
+  String? get tabNormal => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'tab_highlighted')
+  String? get tabHighlighted => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_now_normal')
+  String? get rideNowNormal => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_icon')
+  String? get driverIcon => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$VehicleImageCopyWith<_VehicleImage> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2274,6 +3133,1130 @@ abstract class _Coupon implements Coupon {
   _$CouponCopyWith<_Coupon> get copyWith => throw _privateConstructorUsedError;
 }
 
+NotificationMessage _$NotificationMessageFromJson(Map<String, dynamic> json) {
+  return _NotificationMessage.fromJson(json);
+}
+
+/// @nodoc
+class _$NotificationMessageTearOff {
+  const _$NotificationMessageTearOff();
+
+  _NotificationMessage call(int flag,
+      {String? title,
+      String? message,
+      double? rating,
+      String? fare,
+      String? log,
+      String? error,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_car_no') String? driverCarNo,
+      @JsonKey(name: 'user_image') String? userImage,
+      @JsonKey(name: 'title_ios') String? titleIos,
+      @JsonKey(name: 'message_ios') String? messageIos,
+      @JsonKey(name: 'vehicle_name') String? vehicleName,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'session_id') int? sessionId,
+      @JsonKey(name: 'engagement_id') String? engagementId,
+      @JsonKey(name: 'driver_car_image') String? driverCarImage,
+      @JsonKey(name: 'to_pay') String? toPay,
+      @JsonKey(name: 'payment_mode') int? paymentMode,
+      @JsonKey(name: 'distance_travelled') String? distanceTravelled,
+      @JsonKey(name: 'ride_time') String? rideTime,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
+      String? discount}) {
+    return _NotificationMessage(
+      flag,
+      title: title,
+      message: message,
+      rating: rating,
+      fare: fare,
+      log: log,
+      error: error,
+      phoneNo: phoneNo,
+      driverId: driverId,
+      driverCarNo: driverCarNo,
+      userImage: userImage,
+      titleIos: titleIos,
+      messageIos: messageIos,
+      vehicleName: vehicleName,
+      vehicleType: vehicleType,
+      sessionId: sessionId,
+      engagementId: engagementId,
+      driverCarImage: driverCarImage,
+      toPay: toPay,
+      paymentMode: paymentMode,
+      distanceTravelled: distanceTravelled,
+      rideTime: rideTime,
+      distanceUnit: distanceUnit,
+      paidUsingWallet: paidUsingWallet,
+      discount: discount,
+    );
+  }
+
+  NotificationMessage fromJson(Map<String, Object> json) {
+    return NotificationMessage.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $NotificationMessage = _$NotificationMessageTearOff();
+
+/// @nodoc
+mixin _$NotificationMessage {
+  int get flag => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  double? get rating => throw _privateConstructorUsedError;
+  String? get fare => throw _privateConstructorUsedError;
+  String? get log => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_car_no')
+  String? get driverCarNo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_image')
+  String? get userImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'title_ios')
+  String? get titleIos => throw _privateConstructorUsedError;
+  @JsonKey(name: 'message_ios')
+  String? get messageIos => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_name')
+  String? get vehicleName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_type')
+  int? get vehicleType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'session_id')
+  int? get sessionId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'engagement_id')
+  String? get engagementId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_car_image')
+  String? get driverCarImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'to_pay')
+  String? get toPay => throw _privateConstructorUsedError;
+  @JsonKey(name: 'payment_mode')
+  int? get paymentMode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_travelled')
+  String? get distanceTravelled => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_time')
+  String? get rideTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_unit')
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  @JsonKey(name: 'paid_using_wallet')
+  String? get paidUsingWallet => throw _privateConstructorUsedError;
+  String? get discount => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $NotificationMessageCopyWith<NotificationMessage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $NotificationMessageCopyWith<$Res> {
+  factory $NotificationMessageCopyWith(
+          NotificationMessage value, $Res Function(NotificationMessage) then) =
+      _$NotificationMessageCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? title,
+      String? message,
+      double? rating,
+      String? fare,
+      String? log,
+      String? error,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_car_no') String? driverCarNo,
+      @JsonKey(name: 'user_image') String? userImage,
+      @JsonKey(name: 'title_ios') String? titleIos,
+      @JsonKey(name: 'message_ios') String? messageIos,
+      @JsonKey(name: 'vehicle_name') String? vehicleName,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'session_id') int? sessionId,
+      @JsonKey(name: 'engagement_id') String? engagementId,
+      @JsonKey(name: 'driver_car_image') String? driverCarImage,
+      @JsonKey(name: 'to_pay') String? toPay,
+      @JsonKey(name: 'payment_mode') int? paymentMode,
+      @JsonKey(name: 'distance_travelled') String? distanceTravelled,
+      @JsonKey(name: 'ride_time') String? rideTime,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
+      String? discount});
+}
+
+/// @nodoc
+class _$NotificationMessageCopyWithImpl<$Res>
+    implements $NotificationMessageCopyWith<$Res> {
+  _$NotificationMessageCopyWithImpl(this._value, this._then);
+
+  final NotificationMessage _value;
+  // ignore: unused_field
+  final $Res Function(NotificationMessage) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? title = freezed,
+    Object? message = freezed,
+    Object? rating = freezed,
+    Object? fare = freezed,
+    Object? log = freezed,
+    Object? error = freezed,
+    Object? phoneNo = freezed,
+    Object? driverId = freezed,
+    Object? driverCarNo = freezed,
+    Object? userImage = freezed,
+    Object? titleIos = freezed,
+    Object? messageIos = freezed,
+    Object? vehicleName = freezed,
+    Object? vehicleType = freezed,
+    Object? sessionId = freezed,
+    Object? engagementId = freezed,
+    Object? driverCarImage = freezed,
+    Object? toPay = freezed,
+    Object? paymentMode = freezed,
+    Object? distanceTravelled = freezed,
+    Object? rideTime = freezed,
+    Object? distanceUnit = freezed,
+    Object? paidUsingWallet = freezed,
+    Object? discount = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fare: fare == freezed
+          ? _value.fare
+          : fare // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverCarNo: driverCarNo == freezed
+          ? _value.driverCarNo
+          : driverCarNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userImage: userImage == freezed
+          ? _value.userImage
+          : userImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      titleIos: titleIos == freezed
+          ? _value.titleIos
+          : titleIos // ignore: cast_nullable_to_non_nullable
+              as String?,
+      messageIos: messageIos == freezed
+          ? _value.messageIos
+          : messageIos // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vehicleName: vehicleName == freezed
+          ? _value.vehicleName
+          : vehicleName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vehicleType: vehicleType == freezed
+          ? _value.vehicleType
+          : vehicleType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sessionId: sessionId == freezed
+          ? _value.sessionId
+          : sessionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      engagementId: engagementId == freezed
+          ? _value.engagementId
+          : engagementId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverCarImage: driverCarImage == freezed
+          ? _value.driverCarImage
+          : driverCarImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      toPay: toPay == freezed
+          ? _value.toPay
+          : toPay // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paymentMode: paymentMode == freezed
+          ? _value.paymentMode
+          : paymentMode // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distanceTravelled: distanceTravelled == freezed
+          ? _value.distanceTravelled
+          : distanceTravelled // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rideTime: rideTime == freezed
+          ? _value.rideTime
+          : rideTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paidUsingWallet: paidUsingWallet == freezed
+          ? _value.paidUsingWallet
+          : paidUsingWallet // ignore: cast_nullable_to_non_nullable
+              as String?,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$NotificationMessageCopyWith<$Res>
+    implements $NotificationMessageCopyWith<$Res> {
+  factory _$NotificationMessageCopyWith(_NotificationMessage value,
+          $Res Function(_NotificationMessage) then) =
+      __$NotificationMessageCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? title,
+      String? message,
+      double? rating,
+      String? fare,
+      String? log,
+      String? error,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_car_no') String? driverCarNo,
+      @JsonKey(name: 'user_image') String? userImage,
+      @JsonKey(name: 'title_ios') String? titleIos,
+      @JsonKey(name: 'message_ios') String? messageIos,
+      @JsonKey(name: 'vehicle_name') String? vehicleName,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'session_id') int? sessionId,
+      @JsonKey(name: 'engagement_id') String? engagementId,
+      @JsonKey(name: 'driver_car_image') String? driverCarImage,
+      @JsonKey(name: 'to_pay') String? toPay,
+      @JsonKey(name: 'payment_mode') int? paymentMode,
+      @JsonKey(name: 'distance_travelled') String? distanceTravelled,
+      @JsonKey(name: 'ride_time') String? rideTime,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
+      String? discount});
+}
+
+/// @nodoc
+class __$NotificationMessageCopyWithImpl<$Res>
+    extends _$NotificationMessageCopyWithImpl<$Res>
+    implements _$NotificationMessageCopyWith<$Res> {
+  __$NotificationMessageCopyWithImpl(
+      _NotificationMessage _value, $Res Function(_NotificationMessage) _then)
+      : super(_value, (v) => _then(v as _NotificationMessage));
+
+  @override
+  _NotificationMessage get _value => super._value as _NotificationMessage;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? title = freezed,
+    Object? message = freezed,
+    Object? rating = freezed,
+    Object? fare = freezed,
+    Object? log = freezed,
+    Object? error = freezed,
+    Object? phoneNo = freezed,
+    Object? driverId = freezed,
+    Object? driverCarNo = freezed,
+    Object? userImage = freezed,
+    Object? titleIos = freezed,
+    Object? messageIos = freezed,
+    Object? vehicleName = freezed,
+    Object? vehicleType = freezed,
+    Object? sessionId = freezed,
+    Object? engagementId = freezed,
+    Object? driverCarImage = freezed,
+    Object? toPay = freezed,
+    Object? paymentMode = freezed,
+    Object? distanceTravelled = freezed,
+    Object? rideTime = freezed,
+    Object? distanceUnit = freezed,
+    Object? paidUsingWallet = freezed,
+    Object? discount = freezed,
+  }) {
+    return _then(_NotificationMessage(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fare: fare == freezed
+          ? _value.fare
+          : fare // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverCarNo: driverCarNo == freezed
+          ? _value.driverCarNo
+          : driverCarNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userImage: userImage == freezed
+          ? _value.userImage
+          : userImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      titleIos: titleIos == freezed
+          ? _value.titleIos
+          : titleIos // ignore: cast_nullable_to_non_nullable
+              as String?,
+      messageIos: messageIos == freezed
+          ? _value.messageIos
+          : messageIos // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vehicleName: vehicleName == freezed
+          ? _value.vehicleName
+          : vehicleName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vehicleType: vehicleType == freezed
+          ? _value.vehicleType
+          : vehicleType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sessionId: sessionId == freezed
+          ? _value.sessionId
+          : sessionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      engagementId: engagementId == freezed
+          ? _value.engagementId
+          : engagementId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverCarImage: driverCarImage == freezed
+          ? _value.driverCarImage
+          : driverCarImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      toPay: toPay == freezed
+          ? _value.toPay
+          : toPay // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paymentMode: paymentMode == freezed
+          ? _value.paymentMode
+          : paymentMode // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distanceTravelled: distanceTravelled == freezed
+          ? _value.distanceTravelled
+          : distanceTravelled // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rideTime: rideTime == freezed
+          ? _value.rideTime
+          : rideTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paidUsingWallet: paidUsingWallet == freezed
+          ? _value.paidUsingWallet
+          : paidUsingWallet // ignore: cast_nullable_to_non_nullable
+              as String?,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_NotificationMessage implements _NotificationMessage {
+  _$_NotificationMessage(this.flag,
+      {this.title,
+      this.message,
+      this.rating,
+      this.fare,
+      this.log,
+      this.error,
+      @JsonKey(name: 'phone_no') this.phoneNo,
+      @JsonKey(name: 'driver_id') this.driverId,
+      @JsonKey(name: 'driver_car_no') this.driverCarNo,
+      @JsonKey(name: 'user_image') this.userImage,
+      @JsonKey(name: 'title_ios') this.titleIos,
+      @JsonKey(name: 'message_ios') this.messageIos,
+      @JsonKey(name: 'vehicle_name') this.vehicleName,
+      @JsonKey(name: 'vehicle_type') this.vehicleType,
+      @JsonKey(name: 'session_id') this.sessionId,
+      @JsonKey(name: 'engagement_id') this.engagementId,
+      @JsonKey(name: 'driver_car_image') this.driverCarImage,
+      @JsonKey(name: 'to_pay') this.toPay,
+      @JsonKey(name: 'payment_mode') this.paymentMode,
+      @JsonKey(name: 'distance_travelled') this.distanceTravelled,
+      @JsonKey(name: 'ride_time') this.rideTime,
+      @JsonKey(name: 'distance_unit') this.distanceUnit,
+      @JsonKey(name: 'paid_using_wallet') this.paidUsingWallet,
+      this.discount});
+
+  factory _$_NotificationMessage.fromJson(Map<String, dynamic> json) =>
+      _$_$_NotificationMessageFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? title;
+  @override
+  final String? message;
+  @override
+  final double? rating;
+  @override
+  final String? fare;
+  @override
+  final String? log;
+  @override
+  final String? error;
+  @override
+  @JsonKey(name: 'phone_no')
+  final String? phoneNo;
+  @override
+  @JsonKey(name: 'driver_id')
+  final int? driverId;
+  @override
+  @JsonKey(name: 'driver_car_no')
+  final String? driverCarNo;
+  @override
+  @JsonKey(name: 'user_image')
+  final String? userImage;
+  @override
+  @JsonKey(name: 'title_ios')
+  final String? titleIos;
+  @override
+  @JsonKey(name: 'message_ios')
+  final String? messageIos;
+  @override
+  @JsonKey(name: 'vehicle_name')
+  final String? vehicleName;
+  @override
+  @JsonKey(name: 'vehicle_type')
+  final int? vehicleType;
+  @override
+  @JsonKey(name: 'session_id')
+  final int? sessionId;
+  @override
+  @JsonKey(name: 'engagement_id')
+  final String? engagementId;
+  @override
+  @JsonKey(name: 'driver_car_image')
+  final String? driverCarImage;
+  @override
+  @JsonKey(name: 'to_pay')
+  final String? toPay;
+  @override
+  @JsonKey(name: 'payment_mode')
+  final int? paymentMode;
+  @override
+  @JsonKey(name: 'distance_travelled')
+  final String? distanceTravelled;
+  @override
+  @JsonKey(name: 'ride_time')
+  final String? rideTime;
+  @override
+  @JsonKey(name: 'distance_unit')
+  final String? distanceUnit;
+  @override
+  @JsonKey(name: 'paid_using_wallet')
+  final String? paidUsingWallet;
+  @override
+  final String? discount;
+
+  @override
+  String toString() {
+    return 'NotificationMessage(flag: $flag, title: $title, message: $message, rating: $rating, fare: $fare, log: $log, error: $error, phoneNo: $phoneNo, driverId: $driverId, driverCarNo: $driverCarNo, userImage: $userImage, titleIos: $titleIos, messageIos: $messageIos, vehicleName: $vehicleName, vehicleType: $vehicleType, sessionId: $sessionId, engagementId: $engagementId, driverCarImage: $driverCarImage, toPay: $toPay, paymentMode: $paymentMode, distanceTravelled: $distanceTravelled, rideTime: $rideTime, distanceUnit: $distanceUnit, paidUsingWallet: $paidUsingWallet, discount: $discount)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _NotificationMessage &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.title, title) ||
+                const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.rating, rating) ||
+                const DeepCollectionEquality().equals(other.rating, rating)) &&
+            (identical(other.fare, fare) ||
+                const DeepCollectionEquality().equals(other.fare, fare)) &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.phoneNo, phoneNo) ||
+                const DeepCollectionEquality()
+                    .equals(other.phoneNo, phoneNo)) &&
+            (identical(other.driverId, driverId) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverId, driverId)) &&
+            (identical(other.driverCarNo, driverCarNo) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverCarNo, driverCarNo)) &&
+            (identical(other.userImage, userImage) ||
+                const DeepCollectionEquality()
+                    .equals(other.userImage, userImage)) &&
+            (identical(other.titleIos, titleIos) ||
+                const DeepCollectionEquality()
+                    .equals(other.titleIos, titleIos)) &&
+            (identical(other.messageIos, messageIos) ||
+                const DeepCollectionEquality()
+                    .equals(other.messageIos, messageIos)) &&
+            (identical(other.vehicleName, vehicleName) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleName, vehicleName)) &&
+            (identical(other.vehicleType, vehicleType) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleType, vehicleType)) &&
+            (identical(other.sessionId, sessionId) ||
+                const DeepCollectionEquality()
+                    .equals(other.sessionId, sessionId)) &&
+            (identical(other.engagementId, engagementId) ||
+                const DeepCollectionEquality()
+                    .equals(other.engagementId, engagementId)) &&
+            (identical(other.driverCarImage, driverCarImage) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverCarImage, driverCarImage)) &&
+            (identical(other.toPay, toPay) ||
+                const DeepCollectionEquality().equals(other.toPay, toPay)) &&
+            (identical(other.paymentMode, paymentMode) ||
+                const DeepCollectionEquality()
+                    .equals(other.paymentMode, paymentMode)) &&
+            (identical(other.distanceTravelled, distanceTravelled) ||
+                const DeepCollectionEquality()
+                    .equals(other.distanceTravelled, distanceTravelled)) &&
+            (identical(other.rideTime, rideTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideTime, rideTime)) &&
+            (identical(other.distanceUnit, distanceUnit) ||
+                const DeepCollectionEquality()
+                    .equals(other.distanceUnit, distanceUnit)) &&
+            (identical(other.paidUsingWallet, paidUsingWallet) ||
+                const DeepCollectionEquality()
+                    .equals(other.paidUsingWallet, paidUsingWallet)) &&
+            (identical(other.discount, discount) ||
+                const DeepCollectionEquality()
+                    .equals(other.discount, discount)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(rating) ^
+      const DeepCollectionEquality().hash(fare) ^
+      const DeepCollectionEquality().hash(log) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(phoneNo) ^
+      const DeepCollectionEquality().hash(driverId) ^
+      const DeepCollectionEquality().hash(driverCarNo) ^
+      const DeepCollectionEquality().hash(userImage) ^
+      const DeepCollectionEquality().hash(titleIos) ^
+      const DeepCollectionEquality().hash(messageIos) ^
+      const DeepCollectionEquality().hash(vehicleName) ^
+      const DeepCollectionEquality().hash(vehicleType) ^
+      const DeepCollectionEquality().hash(sessionId) ^
+      const DeepCollectionEquality().hash(engagementId) ^
+      const DeepCollectionEquality().hash(driverCarImage) ^
+      const DeepCollectionEquality().hash(toPay) ^
+      const DeepCollectionEquality().hash(paymentMode) ^
+      const DeepCollectionEquality().hash(distanceTravelled) ^
+      const DeepCollectionEquality().hash(rideTime) ^
+      const DeepCollectionEquality().hash(distanceUnit) ^
+      const DeepCollectionEquality().hash(paidUsingWallet) ^
+      const DeepCollectionEquality().hash(discount);
+
+  @JsonKey(ignore: true)
+  @override
+  _$NotificationMessageCopyWith<_NotificationMessage> get copyWith =>
+      __$NotificationMessageCopyWithImpl<_NotificationMessage>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_NotificationMessageToJson(this);
+  }
+}
+
+abstract class _NotificationMessage implements NotificationMessage {
+  factory _NotificationMessage(int flag,
+      {String? title,
+      String? message,
+      double? rating,
+      String? fare,
+      String? log,
+      String? error,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_car_no') String? driverCarNo,
+      @JsonKey(name: 'user_image') String? userImage,
+      @JsonKey(name: 'title_ios') String? titleIos,
+      @JsonKey(name: 'message_ios') String? messageIos,
+      @JsonKey(name: 'vehicle_name') String? vehicleName,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'session_id') int? sessionId,
+      @JsonKey(name: 'engagement_id') String? engagementId,
+      @JsonKey(name: 'driver_car_image') String? driverCarImage,
+      @JsonKey(name: 'to_pay') String? toPay,
+      @JsonKey(name: 'payment_mode') int? paymentMode,
+      @JsonKey(name: 'distance_travelled') String? distanceTravelled,
+      @JsonKey(name: 'ride_time') String? rideTime,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
+      String? discount}) = _$_NotificationMessage;
+
+  factory _NotificationMessage.fromJson(Map<String, dynamic> json) =
+      _$_NotificationMessage.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get title => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  double? get rating => throw _privateConstructorUsedError;
+  @override
+  String? get fare => throw _privateConstructorUsedError;
+  @override
+  String? get log => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_car_no')
+  String? get driverCarNo => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_image')
+  String? get userImage => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'title_ios')
+  String? get titleIos => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'message_ios')
+  String? get messageIos => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'vehicle_name')
+  String? get vehicleName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'vehicle_type')
+  int? get vehicleType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'session_id')
+  int? get sessionId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'engagement_id')
+  String? get engagementId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_car_image')
+  String? get driverCarImage => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'to_pay')
+  String? get toPay => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'payment_mode')
+  int? get paymentMode => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'distance_travelled')
+  String? get distanceTravelled => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_time')
+  String? get rideTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'distance_unit')
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'paid_using_wallet')
+  String? get paidUsingWallet => throw _privateConstructorUsedError;
+  @override
+  String? get discount => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$NotificationMessageCopyWith<_NotificationMessage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+RideDetail _$RideDetailFromJson(Map<String, dynamic> json) {
+  return _RideDetail.fromJson(json);
+}
+
+/// @nodoc
+class _$RideDetailTearOff {
+  const _$RideDetailTearOff();
+
+  _RideDetail call(
+      {double? fare,
+      int? paymentMode,
+      double? distanceTraveled,
+      double? discount,
+      double? paidUsingWallet,
+      int? rideTime,
+      String? distanceUnit,
+      double? toPay}) {
+    return _RideDetail(
+      fare: fare,
+      paymentMode: paymentMode,
+      distanceTraveled: distanceTraveled,
+      discount: discount,
+      paidUsingWallet: paidUsingWallet,
+      rideTime: rideTime,
+      distanceUnit: distanceUnit,
+      toPay: toPay,
+    );
+  }
+
+  RideDetail fromJson(Map<String, Object> json) {
+    return RideDetail.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $RideDetail = _$RideDetailTearOff();
+
+/// @nodoc
+mixin _$RideDetail {
+  double? get fare => throw _privateConstructorUsedError;
+  int? get paymentMode => throw _privateConstructorUsedError;
+  double? get distanceTraveled => throw _privateConstructorUsedError;
+  double? get discount => throw _privateConstructorUsedError;
+  double? get paidUsingWallet => throw _privateConstructorUsedError;
+  int? get rideTime => throw _privateConstructorUsedError;
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  double? get toPay => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RideDetailCopyWith<RideDetail> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RideDetailCopyWith<$Res> {
+  factory $RideDetailCopyWith(
+          RideDetail value, $Res Function(RideDetail) then) =
+      _$RideDetailCopyWithImpl<$Res>;
+  $Res call(
+      {double? fare,
+      int? paymentMode,
+      double? distanceTraveled,
+      double? discount,
+      double? paidUsingWallet,
+      int? rideTime,
+      String? distanceUnit,
+      double? toPay});
+}
+
+/// @nodoc
+class _$RideDetailCopyWithImpl<$Res> implements $RideDetailCopyWith<$Res> {
+  _$RideDetailCopyWithImpl(this._value, this._then);
+
+  final RideDetail _value;
+  // ignore: unused_field
+  final $Res Function(RideDetail) _then;
+
+  @override
+  $Res call({
+    Object? fare = freezed,
+    Object? paymentMode = freezed,
+    Object? distanceTraveled = freezed,
+    Object? discount = freezed,
+    Object? paidUsingWallet = freezed,
+    Object? rideTime = freezed,
+    Object? distanceUnit = freezed,
+    Object? toPay = freezed,
+  }) {
+    return _then(_value.copyWith(
+      fare: fare == freezed
+          ? _value.fare
+          : fare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      paymentMode: paymentMode == freezed
+          ? _value.paymentMode
+          : paymentMode // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distanceTraveled: distanceTraveled == freezed
+          ? _value.distanceTraveled
+          : distanceTraveled // ignore: cast_nullable_to_non_nullable
+              as double?,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      paidUsingWallet: paidUsingWallet == freezed
+          ? _value.paidUsingWallet
+          : paidUsingWallet // ignore: cast_nullable_to_non_nullable
+              as double?,
+      rideTime: rideTime == freezed
+          ? _value.rideTime
+          : rideTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      toPay: toPay == freezed
+          ? _value.toPay
+          : toPay // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$RideDetailCopyWith<$Res> implements $RideDetailCopyWith<$Res> {
+  factory _$RideDetailCopyWith(
+          _RideDetail value, $Res Function(_RideDetail) then) =
+      __$RideDetailCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {double? fare,
+      int? paymentMode,
+      double? distanceTraveled,
+      double? discount,
+      double? paidUsingWallet,
+      int? rideTime,
+      String? distanceUnit,
+      double? toPay});
+}
+
+/// @nodoc
+class __$RideDetailCopyWithImpl<$Res> extends _$RideDetailCopyWithImpl<$Res>
+    implements _$RideDetailCopyWith<$Res> {
+  __$RideDetailCopyWithImpl(
+      _RideDetail _value, $Res Function(_RideDetail) _then)
+      : super(_value, (v) => _then(v as _RideDetail));
+
+  @override
+  _RideDetail get _value => super._value as _RideDetail;
+
+  @override
+  $Res call({
+    Object? fare = freezed,
+    Object? paymentMode = freezed,
+    Object? distanceTraveled = freezed,
+    Object? discount = freezed,
+    Object? paidUsingWallet = freezed,
+    Object? rideTime = freezed,
+    Object? distanceUnit = freezed,
+    Object? toPay = freezed,
+  }) {
+    return _then(_RideDetail(
+      fare: fare == freezed
+          ? _value.fare
+          : fare // ignore: cast_nullable_to_non_nullable
+              as double?,
+      paymentMode: paymentMode == freezed
+          ? _value.paymentMode
+          : paymentMode // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distanceTraveled: distanceTraveled == freezed
+          ? _value.distanceTraveled
+          : distanceTraveled // ignore: cast_nullable_to_non_nullable
+              as double?,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      paidUsingWallet: paidUsingWallet == freezed
+          ? _value.paidUsingWallet
+          : paidUsingWallet // ignore: cast_nullable_to_non_nullable
+              as double?,
+      rideTime: rideTime == freezed
+          ? _value.rideTime
+          : rideTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      toPay: toPay == freezed
+          ? _value.toPay
+          : toPay // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_RideDetail implements _RideDetail {
+  _$_RideDetail(
+      {this.fare,
+      this.paymentMode,
+      this.distanceTraveled,
+      this.discount,
+      this.paidUsingWallet,
+      this.rideTime,
+      this.distanceUnit,
+      this.toPay});
+
+  factory _$_RideDetail.fromJson(Map<String, dynamic> json) =>
+      _$_$_RideDetailFromJson(json);
+
+  @override
+  final double? fare;
+  @override
+  final int? paymentMode;
+  @override
+  final double? distanceTraveled;
+  @override
+  final double? discount;
+  @override
+  final double? paidUsingWallet;
+  @override
+  final int? rideTime;
+  @override
+  final String? distanceUnit;
+  @override
+  final double? toPay;
+
+  @override
+  String toString() {
+    return 'RideDetail(fare: $fare, paymentMode: $paymentMode, distanceTraveled: $distanceTraveled, discount: $discount, paidUsingWallet: $paidUsingWallet, rideTime: $rideTime, distanceUnit: $distanceUnit, toPay: $toPay)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _RideDetail &&
+            (identical(other.fare, fare) ||
+                const DeepCollectionEquality().equals(other.fare, fare)) &&
+            (identical(other.paymentMode, paymentMode) ||
+                const DeepCollectionEquality()
+                    .equals(other.paymentMode, paymentMode)) &&
+            (identical(other.distanceTraveled, distanceTraveled) ||
+                const DeepCollectionEquality()
+                    .equals(other.distanceTraveled, distanceTraveled)) &&
+            (identical(other.discount, discount) ||
+                const DeepCollectionEquality()
+                    .equals(other.discount, discount)) &&
+            (identical(other.paidUsingWallet, paidUsingWallet) ||
+                const DeepCollectionEquality()
+                    .equals(other.paidUsingWallet, paidUsingWallet)) &&
+            (identical(other.rideTime, rideTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideTime, rideTime)) &&
+            (identical(other.distanceUnit, distanceUnit) ||
+                const DeepCollectionEquality()
+                    .equals(other.distanceUnit, distanceUnit)) &&
+            (identical(other.toPay, toPay) ||
+                const DeepCollectionEquality().equals(other.toPay, toPay)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(fare) ^
+      const DeepCollectionEquality().hash(paymentMode) ^
+      const DeepCollectionEquality().hash(distanceTraveled) ^
+      const DeepCollectionEquality().hash(discount) ^
+      const DeepCollectionEquality().hash(paidUsingWallet) ^
+      const DeepCollectionEquality().hash(rideTime) ^
+      const DeepCollectionEquality().hash(distanceUnit) ^
+      const DeepCollectionEquality().hash(toPay);
+
+  @JsonKey(ignore: true)
+  @override
+  _$RideDetailCopyWith<_RideDetail> get copyWith =>
+      __$RideDetailCopyWithImpl<_RideDetail>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_RideDetailToJson(this);
+  }
+}
+
+abstract class _RideDetail implements RideDetail {
+  factory _RideDetail(
+      {double? fare,
+      int? paymentMode,
+      double? distanceTraveled,
+      double? discount,
+      double? paidUsingWallet,
+      int? rideTime,
+      String? distanceUnit,
+      double? toPay}) = _$_RideDetail;
+
+  factory _RideDetail.fromJson(Map<String, dynamic> json) =
+      _$_RideDetail.fromJson;
+
+  @override
+  double? get fare => throw _privateConstructorUsedError;
+  @override
+  int? get paymentMode => throw _privateConstructorUsedError;
+  @override
+  double? get distanceTraveled => throw _privateConstructorUsedError;
+  @override
+  double? get discount => throw _privateConstructorUsedError;
+  @override
+  double? get paidUsingWallet => throw _privateConstructorUsedError;
+  @override
+  int? get rideTime => throw _privateConstructorUsedError;
+  @override
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  @override
+  double? get toPay => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$RideDetailCopyWith<_RideDetail> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 BasicResponse _$BasicResponseFromJson(Map<String, dynamic> json) {
   return _BasicResponse.fromJson(json);
 }
@@ -2282,11 +4265,12 @@ BasicResponse _$BasicResponseFromJson(Map<String, dynamic> json) {
 class _$BasicResponseTearOff {
   const _$BasicResponseTearOff();
 
-  _BasicResponse call(int flag, {String? message, String? error}) {
+  _BasicResponse call(int flag, {String? message, String? error, String? log}) {
     return _BasicResponse(
       flag,
       message: message,
       error: error,
+      log: log,
     );
   }
 
@@ -2303,6 +4287,7 @@ mixin _$BasicResponse {
   int get flag => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  String? get log => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2315,7 +4300,7 @@ abstract class $BasicResponseCopyWith<$Res> {
   factory $BasicResponseCopyWith(
           BasicResponse value, $Res Function(BasicResponse) then) =
       _$BasicResponseCopyWithImpl<$Res>;
-  $Res call({int flag, String? message, String? error});
+  $Res call({int flag, String? message, String? error, String? log});
 }
 
 /// @nodoc
@@ -2332,6 +4317,7 @@ class _$BasicResponseCopyWithImpl<$Res>
     Object? flag = freezed,
     Object? message = freezed,
     Object? error = freezed,
+    Object? log = freezed,
   }) {
     return _then(_value.copyWith(
       flag: flag == freezed
@@ -2346,6 +4332,10 @@ class _$BasicResponseCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -2357,7 +4347,7 @@ abstract class _$BasicResponseCopyWith<$Res>
           _BasicResponse value, $Res Function(_BasicResponse) then) =
       __$BasicResponseCopyWithImpl<$Res>;
   @override
-  $Res call({int flag, String? message, String? error});
+  $Res call({int flag, String? message, String? error, String? log});
 }
 
 /// @nodoc
@@ -2376,6 +4366,7 @@ class __$BasicResponseCopyWithImpl<$Res>
     Object? flag = freezed,
     Object? message = freezed,
     Object? error = freezed,
+    Object? log = freezed,
   }) {
     return _then(_BasicResponse(
       flag == freezed
@@ -2390,6 +4381,10 @@ class __$BasicResponseCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -2397,7 +4392,7 @@ class __$BasicResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_BasicResponse implements _BasicResponse {
-  _$_BasicResponse(this.flag, {this.message, this.error});
+  _$_BasicResponse(this.flag, {this.message, this.error, this.log});
 
   factory _$_BasicResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_BasicResponseFromJson(json);
@@ -2408,10 +4403,12 @@ class _$_BasicResponse implements _BasicResponse {
   final String? message;
   @override
   final String? error;
+  @override
+  final String? log;
 
   @override
   String toString() {
-    return 'BasicResponse(flag: $flag, message: $message, error: $error)';
+    return 'BasicResponse(flag: $flag, message: $message, error: $error, log: $log)';
   }
 
   @override
@@ -2424,7 +4421,9 @@ class _$_BasicResponse implements _BasicResponse {
                 const DeepCollectionEquality()
                     .equals(other.message, message)) &&
             (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)));
   }
 
   @override
@@ -2432,7 +4431,8 @@ class _$_BasicResponse implements _BasicResponse {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(flag) ^
       const DeepCollectionEquality().hash(message) ^
-      const DeepCollectionEquality().hash(error);
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(log);
 
   @JsonKey(ignore: true)
   @override
@@ -2446,8 +4446,8 @@ class _$_BasicResponse implements _BasicResponse {
 }
 
 abstract class _BasicResponse implements BasicResponse {
-  factory _BasicResponse(int flag, {String? message, String? error}) =
-      _$_BasicResponse;
+  factory _BasicResponse(int flag,
+      {String? message, String? error, String? log}) = _$_BasicResponse;
 
   factory _BasicResponse.fromJson(Map<String, dynamic> json) =
       _$_BasicResponse.fromJson;
@@ -2458,6 +4458,8 @@ abstract class _BasicResponse implements BasicResponse {
   String? get message => throw _privateConstructorUsedError;
   @override
   String? get error => throw _privateConstructorUsedError;
+  @override
+  String? get log => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$BasicResponseCopyWith<_BasicResponse> get copyWith =>
@@ -2886,10 +4888,13 @@ FindDriversResponse _$FindDriversResponseFromJson(Map<String, dynamic> json) {
 class _$FindDriversResponseTearOff {
   const _$FindDriversResponseTearOff();
 
-  _FindDriversResponse call(int flag, {List<Driver>? drivers}) {
+  _FindDriversResponse call(int flag,
+      {String? error, List<Driver>? drivers, List<Vehicle>? regions}) {
     return _FindDriversResponse(
       flag,
+      error: error,
       drivers: drivers,
+      regions: regions,
     );
   }
 
@@ -2904,7 +4909,9 @@ const $FindDriversResponse = _$FindDriversResponseTearOff();
 /// @nodoc
 mixin _$FindDriversResponse {
   int get flag => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
   List<Driver>? get drivers => throw _privateConstructorUsedError;
+  List<Vehicle>? get regions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2917,7 +4924,8 @@ abstract class $FindDriversResponseCopyWith<$Res> {
   factory $FindDriversResponseCopyWith(
           FindDriversResponse value, $Res Function(FindDriversResponse) then) =
       _$FindDriversResponseCopyWithImpl<$Res>;
-  $Res call({int flag, List<Driver>? drivers});
+  $Res call(
+      {int flag, String? error, List<Driver>? drivers, List<Vehicle>? regions});
 }
 
 /// @nodoc
@@ -2932,17 +4940,27 @@ class _$FindDriversResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? flag = freezed,
+    Object? error = freezed,
     Object? drivers = freezed,
+    Object? regions = freezed,
   }) {
     return _then(_value.copyWith(
       flag: flag == freezed
           ? _value.flag
           : flag // ignore: cast_nullable_to_non_nullable
               as int,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
       drivers: drivers == freezed
           ? _value.drivers
           : drivers // ignore: cast_nullable_to_non_nullable
               as List<Driver>?,
+      regions: regions == freezed
+          ? _value.regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Vehicle>?,
     ));
   }
 }
@@ -2954,7 +4972,8 @@ abstract class _$FindDriversResponseCopyWith<$Res>
           $Res Function(_FindDriversResponse) then) =
       __$FindDriversResponseCopyWithImpl<$Res>;
   @override
-  $Res call({int flag, List<Driver>? drivers});
+  $Res call(
+      {int flag, String? error, List<Driver>? drivers, List<Vehicle>? regions});
 }
 
 /// @nodoc
@@ -2971,17 +4990,27 @@ class __$FindDriversResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? flag = freezed,
+    Object? error = freezed,
     Object? drivers = freezed,
+    Object? regions = freezed,
   }) {
     return _then(_FindDriversResponse(
       flag == freezed
           ? _value.flag
           : flag // ignore: cast_nullable_to_non_nullable
               as int,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
       drivers: drivers == freezed
           ? _value.drivers
           : drivers // ignore: cast_nullable_to_non_nullable
               as List<Driver>?,
+      regions: regions == freezed
+          ? _value.regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Vehicle>?,
     ));
   }
 }
@@ -2989,7 +5018,7 @@ class __$FindDriversResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_FindDriversResponse implements _FindDriversResponse {
-  _$_FindDriversResponse(this.flag, {this.drivers});
+  _$_FindDriversResponse(this.flag, {this.error, this.drivers, this.regions});
 
   factory _$_FindDriversResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_FindDriversResponseFromJson(json);
@@ -2997,11 +5026,15 @@ class _$_FindDriversResponse implements _FindDriversResponse {
   @override
   final int flag;
   @override
+  final String? error;
+  @override
   final List<Driver>? drivers;
+  @override
+  final List<Vehicle>? regions;
 
   @override
   String toString() {
-    return 'FindDriversResponse(flag: $flag, drivers: $drivers)';
+    return 'FindDriversResponse(flag: $flag, error: $error, drivers: $drivers, regions: $regions)';
   }
 
   @override
@@ -3010,15 +5043,22 @@ class _$_FindDriversResponse implements _FindDriversResponse {
         (other is _FindDriversResponse &&
             (identical(other.flag, flag) ||
                 const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
             (identical(other.drivers, drivers) ||
-                const DeepCollectionEquality().equals(other.drivers, drivers)));
+                const DeepCollectionEquality()
+                    .equals(other.drivers, drivers)) &&
+            (identical(other.regions, regions) ||
+                const DeepCollectionEquality().equals(other.regions, regions)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(flag) ^
-      const DeepCollectionEquality().hash(drivers);
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(drivers) ^
+      const DeepCollectionEquality().hash(regions);
 
   @JsonKey(ignore: true)
   @override
@@ -3033,8 +5073,10 @@ class _$_FindDriversResponse implements _FindDriversResponse {
 }
 
 abstract class _FindDriversResponse implements FindDriversResponse {
-  factory _FindDriversResponse(int flag, {List<Driver>? drivers}) =
-      _$_FindDriversResponse;
+  factory _FindDriversResponse(int flag,
+      {String? error,
+      List<Driver>? drivers,
+      List<Vehicle>? regions}) = _$_FindDriversResponse;
 
   factory _FindDriversResponse.fromJson(Map<String, dynamic> json) =
       _$_FindDriversResponse.fromJson;
@@ -3042,9 +5084,429 @@ abstract class _FindDriversResponse implements FindDriversResponse {
   @override
   int get flag => throw _privateConstructorUsedError;
   @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
   List<Driver>? get drivers => throw _privateConstructorUsedError;
+  @override
+  List<Vehicle>? get regions => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FindDriversResponseCopyWith<_FindDriversResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+RequestRideResponse _$RequestRideResponseFromJson(Map<String, dynamic> json) {
+  return _RequestRideResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$RequestRideResponseTearOff {
+  const _$RequestRideResponseTearOff();
+
+  _RequestRideResponse call(int flag,
+      {String? error,
+      String? message,
+      String? log,
+      @JsonKey(name: 'order_id') int? orderId,
+      @JsonKey(name: 'session_id') int? sessionId,
+      @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+      @JsonKey(name: 'start_time') String? startTime,
+      double? latitude,
+      double? longitude}) {
+    return _RequestRideResponse(
+      flag,
+      error: error,
+      message: message,
+      log: log,
+      orderId: orderId,
+      sessionId: sessionId,
+      pickupLocationAddress: pickupLocationAddress,
+      dropLocationAddress: dropLocationAddress,
+      startTime: startTime,
+      latitude: latitude,
+      longitude: longitude,
+    );
+  }
+
+  RequestRideResponse fromJson(Map<String, Object> json) {
+    return RequestRideResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $RequestRideResponse = _$RequestRideResponseTearOff();
+
+/// @nodoc
+mixin _$RequestRideResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get log => throw _privateConstructorUsedError;
+  @JsonKey(name: 'order_id')
+  int? get orderId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'session_id')
+  int? get sessionId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_location_address')
+  String? get pickupLocationAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_location_address')
+  String? get dropLocationAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'start_time')
+  String? get startTime => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RequestRideResponseCopyWith<RequestRideResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RequestRideResponseCopyWith<$Res> {
+  factory $RequestRideResponseCopyWith(
+          RequestRideResponse value, $Res Function(RequestRideResponse) then) =
+      _$RequestRideResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? error,
+      String? message,
+      String? log,
+      @JsonKey(name: 'order_id') int? orderId,
+      @JsonKey(name: 'session_id') int? sessionId,
+      @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+      @JsonKey(name: 'start_time') String? startTime,
+      double? latitude,
+      double? longitude});
+}
+
+/// @nodoc
+class _$RequestRideResponseCopyWithImpl<$Res>
+    implements $RequestRideResponseCopyWith<$Res> {
+  _$RequestRideResponseCopyWithImpl(this._value, this._then);
+
+  final RequestRideResponse _value;
+  // ignore: unused_field
+  final $Res Function(RequestRideResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? error = freezed,
+    Object? message = freezed,
+    Object? log = freezed,
+    Object? orderId = freezed,
+    Object? sessionId = freezed,
+    Object? pickupLocationAddress = freezed,
+    Object? dropLocationAddress = freezed,
+    Object? startTime = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+      orderId: orderId == freezed
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sessionId: sessionId == freezed
+          ? _value.sessionId
+          : sessionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      pickupLocationAddress: pickupLocationAddress == freezed
+          ? _value.pickupLocationAddress
+          : pickupLocationAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dropLocationAddress: dropLocationAddress == freezed
+          ? _value.dropLocationAddress
+          : dropLocationAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startTime: startTime == freezed
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$RequestRideResponseCopyWith<$Res>
+    implements $RequestRideResponseCopyWith<$Res> {
+  factory _$RequestRideResponseCopyWith(_RequestRideResponse value,
+          $Res Function(_RequestRideResponse) then) =
+      __$RequestRideResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? error,
+      String? message,
+      String? log,
+      @JsonKey(name: 'order_id') int? orderId,
+      @JsonKey(name: 'session_id') int? sessionId,
+      @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+      @JsonKey(name: 'start_time') String? startTime,
+      double? latitude,
+      double? longitude});
+}
+
+/// @nodoc
+class __$RequestRideResponseCopyWithImpl<$Res>
+    extends _$RequestRideResponseCopyWithImpl<$Res>
+    implements _$RequestRideResponseCopyWith<$Res> {
+  __$RequestRideResponseCopyWithImpl(
+      _RequestRideResponse _value, $Res Function(_RequestRideResponse) _then)
+      : super(_value, (v) => _then(v as _RequestRideResponse));
+
+  @override
+  _RequestRideResponse get _value => super._value as _RequestRideResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? error = freezed,
+    Object? message = freezed,
+    Object? log = freezed,
+    Object? orderId = freezed,
+    Object? sessionId = freezed,
+    Object? pickupLocationAddress = freezed,
+    Object? dropLocationAddress = freezed,
+    Object? startTime = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+  }) {
+    return _then(_RequestRideResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+      orderId: orderId == freezed
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sessionId: sessionId == freezed
+          ? _value.sessionId
+          : sessionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      pickupLocationAddress: pickupLocationAddress == freezed
+          ? _value.pickupLocationAddress
+          : pickupLocationAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dropLocationAddress: dropLocationAddress == freezed
+          ? _value.dropLocationAddress
+          : dropLocationAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startTime: startTime == freezed
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_RequestRideResponse implements _RequestRideResponse {
+  _$_RequestRideResponse(this.flag,
+      {this.error,
+      this.message,
+      this.log,
+      @JsonKey(name: 'order_id') this.orderId,
+      @JsonKey(name: 'session_id') this.sessionId,
+      @JsonKey(name: 'pickup_location_address') this.pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') this.dropLocationAddress,
+      @JsonKey(name: 'start_time') this.startTime,
+      this.latitude,
+      this.longitude});
+
+  factory _$_RequestRideResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_RequestRideResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? error;
+  @override
+  final String? message;
+  @override
+  final String? log;
+  @override
+  @JsonKey(name: 'order_id')
+  final int? orderId;
+  @override
+  @JsonKey(name: 'session_id')
+  final int? sessionId;
+  @override
+  @JsonKey(name: 'pickup_location_address')
+  final String? pickupLocationAddress;
+  @override
+  @JsonKey(name: 'drop_location_address')
+  final String? dropLocationAddress;
+  @override
+  @JsonKey(name: 'start_time')
+  final String? startTime;
+  @override
+  final double? latitude;
+  @override
+  final double? longitude;
+
+  @override
+  String toString() {
+    return 'RequestRideResponse(flag: $flag, error: $error, message: $message, log: $log, orderId: $orderId, sessionId: $sessionId, pickupLocationAddress: $pickupLocationAddress, dropLocationAddress: $dropLocationAddress, startTime: $startTime, latitude: $latitude, longitude: $longitude)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _RequestRideResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)) &&
+            (identical(other.orderId, orderId) ||
+                const DeepCollectionEquality()
+                    .equals(other.orderId, orderId)) &&
+            (identical(other.sessionId, sessionId) ||
+                const DeepCollectionEquality()
+                    .equals(other.sessionId, sessionId)) &&
+            (identical(other.pickupLocationAddress, pickupLocationAddress) ||
+                const DeepCollectionEquality().equals(
+                    other.pickupLocationAddress, pickupLocationAddress)) &&
+            (identical(other.dropLocationAddress, dropLocationAddress) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropLocationAddress, dropLocationAddress)) &&
+            (identical(other.startTime, startTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.startTime, startTime)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(log) ^
+      const DeepCollectionEquality().hash(orderId) ^
+      const DeepCollectionEquality().hash(sessionId) ^
+      const DeepCollectionEquality().hash(pickupLocationAddress) ^
+      const DeepCollectionEquality().hash(dropLocationAddress) ^
+      const DeepCollectionEquality().hash(startTime) ^
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude);
+
+  @JsonKey(ignore: true)
+  @override
+  _$RequestRideResponseCopyWith<_RequestRideResponse> get copyWith =>
+      __$RequestRideResponseCopyWithImpl<_RequestRideResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_RequestRideResponseToJson(this);
+  }
+}
+
+abstract class _RequestRideResponse implements RequestRideResponse {
+  factory _RequestRideResponse(int flag,
+      {String? error,
+      String? message,
+      String? log,
+      @JsonKey(name: 'order_id') int? orderId,
+      @JsonKey(name: 'session_id') int? sessionId,
+      @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+      @JsonKey(name: 'start_time') String? startTime,
+      double? latitude,
+      double? longitude}) = _$_RequestRideResponse;
+
+  factory _RequestRideResponse.fromJson(Map<String, dynamic> json) =
+      _$_RequestRideResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get log => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'order_id')
+  int? get orderId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'session_id')
+  int? get sessionId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_location_address')
+  String? get pickupLocationAddress => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_location_address')
+  String? get dropLocationAddress => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'start_time')
+  String? get startTime => throw _privateConstructorUsedError;
+  @override
+  double? get latitude => throw _privateConstructorUsedError;
+  @override
+  double? get longitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$RequestRideResponseCopyWith<_RequestRideResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }

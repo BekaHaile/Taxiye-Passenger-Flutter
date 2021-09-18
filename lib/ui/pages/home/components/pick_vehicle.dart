@@ -57,8 +57,6 @@ class PickVehicle extends GetView<HomeController> {
                   controller.selectedVehicle = selectedVehice;
                   Get.bottomSheet(VehicleDetail(vehicle: selectedVehice),
                       isScrollControlled: true);
-                  // on selecte vehicle
-                  // show vehicle detail
                 })),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -83,7 +81,7 @@ class PickVehicle extends GetView<HomeController> {
             const SizedBox(height: 16.0),
             RoundedButton(
               text: 'book_now'.tr,
-              onPressed: () => controller.bookNow(),
+              onPressed: () => controller.bookRide(),
             )
           ],
         ),
