@@ -26,7 +26,7 @@ class AddPaymentMethod extends StatelessWidget {
           children: [
             Text(
               'new_payment_method'.tr,
-              style: AppTheme.title.copyWith(fontSize: 16.0),
+              style: AppTheme.title2,
             ),
             const SizedBox(height: 20.0),
             Expanded(

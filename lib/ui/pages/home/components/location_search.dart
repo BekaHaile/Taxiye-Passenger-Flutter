@@ -1,81 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:taxiye_passenger/shared/custom_icons.dart';
-import 'package:taxiye_passenger/shared/routes/app_pages.dart';
+import 'package:get/state_manager.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:get/get.dart';
 
-class LocationSearch extends StatelessWidget {
+class LocationSearch extends GetView<HomeController> {
   const LocationSearch({
     Key? key,
-    required this.onRoutePickLocation,
   }) : super(key: key);
-
-  final VoidCallback onRoutePickLocation;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: AppTheme.primaryColor,
-          borderRadius: BorderRadius.all(Radius.circular(50.0)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0)),
-                  onPressed: onRoutePickLocation,
-                  child: Text(
-                    'where_to'.tr,
-                    style: AppTheme.title
-                        .copyWith(fontSize: 18.0, color: Colors.white),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
-                  child: Row(
-                    children: [
-                      const Icon(CustomIcons.clock,
-                          color: AppTheme.darkTextColor),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          'now'.tr,
-                          style: AppTheme.title.copyWith(fontSize: 14.0),
-                        ),
-                      ),
-                      const Icon(Icons.expand_more,
-                          color: AppTheme.darkTextColor),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      padding: const EdgeInsets.all(kPagePadding),
+      child: TextField(
+          controller: controller.searchController,
+          keyboardType: TextInputType.streetAddress,
+          onChanged: (value) => controller.getPlaceSugestions(value),
+          style: AppTheme.title2,
+          decoration: AppTheme.textFieldDecoration.copyWith(
+            filled: true,
+            fillColor: Colors.white,
+            hintText: 'enter_location'.tr,
+            hintStyle: AppTheme.subtitle
+                .copyWith(fontSize: 16.0, fontWeight: FontWeight.w600),
+            suffixIcon: Obx(
+              () => controller.searchLoading
+                  ? const Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 16.0),
+                        child: SizedBox(
+                            width: 20.0,
+                            height: 20.0,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                            )),
+                      ))
+                  : controller.locationSearch.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            controller.searchController.clear();
+                            controller.locationSearch = '';
+                          },
+                          icon: const Icon(Icons.cancel))
+                      : const SizedBox(),
+            ),
+          )),
     );
   }
 }

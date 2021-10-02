@@ -45,7 +45,7 @@ class TripDetail extends GetView<HomeController> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
                       decoration: BoxDecoration(

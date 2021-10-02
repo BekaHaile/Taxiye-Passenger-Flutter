@@ -15,6 +15,9 @@ abstract class Routes {
   // Profile Routes
   static const profile = '/profile';
   static const profileInfo = '/profileInfo';
+  static const emergencyContacts = '/emergencyContacts';
+  static const savedPlaces = '/savedPlaces';
+  static const privacySettings = '/privacySettings';
 
   // Home routes
   static const home = '/home';

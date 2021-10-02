@@ -8,6 +8,8 @@ import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/location_search.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/locations_list.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/looking_drivers.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/pick_service.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/pick_vehicle.dart';
@@ -18,6 +20,8 @@ import 'package:taxiye_passenger/ui/pages/home/map/ride_map.dart';
 import 'package:taxiye_passenger/ui/pages/profile/profile_page.dart';
 import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -57,6 +61,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       children: [
         Scaffold(
           key: _scaffoldKey,
+          resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
               // MapScreen(),
@@ -67,6 +72,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 icon: CustomIcons.menu,
                 onTap: () => _scaffoldKey.currentState?.openDrawer(),
               ),
+
+              Obx(() => controller.tripStep == TripStep.pickOnMap
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Column(
+                        children: [
+                          const LocationSearch(),
+                          getLocationLists(),
+                          const Spacer(),
+                          Padding(
+                              padding: const EdgeInsets.all(kPagePadding),
+                              child: RoundedButton(
+                                  text: 'confirm'.tr,
+                                  onPressed: () =>
+                                      controller.confirmPickedLocation()))
+                        ],
+                      ),
+                    )
+                  : const SizedBox()),
             ],
           ),
           drawer: ClipRRect(
@@ -94,10 +118,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  Widget getLocationLists() {
+    return Obx(() => controller.locationSuggestions.isEmpty ||
+            controller.locationSearch.isEmpty
+        ? const SizedBox()
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
+            child: SizedBox(
+              height: Get.height * 0.45,
+              child: LocationsList(
+                suggestions: controller.locationSuggestions,
+                onPickLocation: (suggestion) =>
+                    controller.onPickLocationFromSearch(suggestion),
+              ),
+            ),
+          ));
+  }
+
   Widget tripViews() {
     switch (controller.tripStep) {
-      case TripStep.locationSearch:
+      case TripStep.whereTo:
         return PickService(homeServices: homeServices);
+      case TripStep.pickOnMap:
+        return const SizedBox();
       case TripStep.pickVehicle:
         return const PickVehicle();
       case TripStep.lookingDrivers:
@@ -107,9 +150,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       case TripStep.driverDetail:
         return const DriverDetail();
       case TripStep.tripStarted:
-        return TripProgress(
-          onTripEnded: () => controller.onTripEnded(),
-        );
+        return const TripProgress();
       case TripStep.tripDetail:
         return TripDetail(
           rideDetail: controller.rideDetail ?? RideDetail(),

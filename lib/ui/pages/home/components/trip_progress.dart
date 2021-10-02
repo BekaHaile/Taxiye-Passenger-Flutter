@@ -3,12 +3,7 @@ import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 
 class TripProgress extends StatelessWidget {
-  const TripProgress({
-    Key? key,
-    required this.onTripEnded,
-  }) : super(key: key);
-
-  final VoidCallback onTripEnded;
+  const TripProgress({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +27,10 @@ class TripProgress extends StatelessWidget {
                   .copyWith(fontSize: 18.0, color: AppTheme.primaryColor),
             ),
             const SizedBox(height: 10.0),
-            GestureDetector(
-              onTap: () => onTripEnded(),
-              child: Image.asset(
-                'assets/images/trip_progress.png',
-                width: 200.0,
-                height: 85.0,
-              ),
+            Image.asset(
+              'assets/images/trip_progress.png',
+              width: 200.0,
+              height: 85.0,
             ),
             const SizedBox(height: 10.0),
             Container(

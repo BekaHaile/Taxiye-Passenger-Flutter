@@ -22,7 +22,7 @@ class DriverTile extends StatelessWidget {
     return Container(
       decoration: AppTheme.bottomSheetDecoration,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,13 +30,17 @@ class DriverTile extends StatelessWidget {
               children: [
                 DriverAvator(driver: driver, vehicle: vehicle),
                 const SizedBox(height: 20.0),
-                Text(
-                  vehicle.regionName ?? '',
-                  style: AppTheme.body.copyWith(color: AppTheme.darkColor),
-                ),
-                Text(
-                  vehicle.vehicleNumber ?? '',
-                  style: AppTheme.body.copyWith(fontWeight: FontWeight.w700),
+                // Text(
+                //   vehicle.regionName ?? '',
+                //   style: AppTheme.body.copyWith(color: AppTheme.darkColor),
+                // ),
+                SizedBox(
+                  width: 150.0,
+                  child: Text(
+                    vehicle.vehicleNumber ?? '',
+                    style: AppTheme.body
+                        .copyWith(fontWeight: FontWeight.w700, fontSize: 12.0),
+                  ),
                 )
               ],
             ),
@@ -56,19 +60,17 @@ class DriverTile extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          RatingBar.builder(
-                            initialRating: driver.rating ?? 0,
-                            minRating: 0,
-                            itemSize: 20,
-                            direction: Axis.horizontal,
-                            itemCount: 5,
-                            itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 1.0),
+                          RatingBarIndicator(
+                            rating: driver.rating ?? 0,
                             itemBuilder: (context, _) => const Icon(
                               Icons.star,
                               color: AppTheme.yellowColor,
                             ),
-                            onRatingUpdate: (rating) => {},
+                            itemCount: 5,
+                            itemSize: 20.0,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 1.0),
+                            direction: Axis.horizontal,
                           ),
                           const SizedBox(width: 5.0),
                           CircleAvatar(

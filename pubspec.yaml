@@ -102,6 +102,7 @@ dependencies:
   crypto: ^3.0.1
 
 
+
   # Social logins 
   # For firebase auth 
   firebase_auth: ^3.0.2
@@ -124,7 +125,9 @@ dependencies:
   # for showing local notifications
   flutter_local_notifications: ^8.2.0
 
-  
+  # for a spin kit 
+  flutter_spinkit: ^5.1.0
+
   
 
 dev_dependencies:

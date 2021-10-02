@@ -25,7 +25,7 @@ class UpdatePaymentMethod extends StatelessWidget {
           children: [
             Text(
               (payment.name ?? '').tr,
-              style: AppTheme.title.copyWith(fontSize: 16.0),
+              style: AppTheme.title2,
             ),
             const SizedBox(height: 10.0),
             ListView.builder(
@@ -82,7 +82,7 @@ class UpdatePaymentTile extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
               child: Text(
                 describeEnum(updateOption).tr,
-                style: AppTheme.title.copyWith(fontSize: 16.0),
+                style: AppTheme.title2,
               ),
             ),
           ),

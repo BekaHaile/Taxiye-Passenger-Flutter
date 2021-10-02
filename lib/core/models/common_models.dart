@@ -58,3 +58,13 @@ class ExchangePoint {
   final IconData icon;
   final ExchangePointOption option;
 }
+
+class SavedPlace {
+  const SavedPlace({
+    required this.placeTitle,
+    required this.placeAddress,
+  });
+
+  final String placeTitle;
+  final String placeAddress;
+}

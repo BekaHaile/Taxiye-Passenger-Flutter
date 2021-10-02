@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 enum DrawerIndex {
   myWallet,
   promotions,
@@ -24,7 +22,8 @@ enum VehicleType {
 }
 
 enum TripStep {
-  locationSearch,
+  whereTo,
+  pickOnMap,
   pickVehicle,
   lookingDrivers,
   driverDetail,

@@ -32,25 +32,23 @@ class TripFeadback extends GetView<HomeController> {
             children: [
               DriverAvator(driver: driver, vehicle: vehicle),
               const SizedBox(height: 25.0),
-              Text(
+              const Text(
                 'Cameron Williamson',
-                style: AppTheme.title.copyWith(fontSize: 16.0),
+                style: AppTheme.title2,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RatingBar.builder(
-                    initialRating: 4.9,
-                    minRating: 1,
-                    itemSize: 20,
-                    direction: Axis.horizontal,
-                    itemCount: 5,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                  RatingBarIndicator(
+                    rating: driver.rating ?? 0,
                     itemBuilder: (context, _) => const Icon(
                       Icons.star,
                       color: AppTheme.primaryColor,
                     ),
-                    onRatingUpdate: (rating) => {},
+                    itemCount: 5,
+                    itemSize: 20.0,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                    direction: Axis.horizontal,
                   ),
                   const SizedBox(width: 5.0),
                   Text(
@@ -97,8 +95,8 @@ class TripFeadback extends GetView<HomeController> {
                   style: AppTheme.body.copyWith(color: AppTheme.darkColor)),
               const SizedBox(height: 20.0),
               RatingBar.builder(
-                initialRating: 4,
-                minRating: 1,
+                initialRating: 0,
+                minRating: 0,
                 itemSize: 35,
                 direction: Axis.horizontal,
                 itemCount: 5,
@@ -107,12 +105,13 @@ class TripFeadback extends GetView<HomeController> {
                   Icons.star,
                   color: AppTheme.yellowColor,
                 ),
-                onRatingUpdate: (rating) => {},
+                onRatingUpdate: (rating) => controller.driverRating = rating,
               ),
               const SizedBox(height: 20.0),
               TextField(
                 keyboardType: TextInputType.streetAddress,
-                style: AppTheme.title.copyWith(fontSize: 16.0),
+                style: AppTheme.title2,
+                onChanged: (value) => controller.feedbackComment = value,
                 decoration: AppTheme.textFieldDecoration.copyWith(
                   hintText: 'additional_comments'.tr,
                   alignLabelWithHint: true,
@@ -137,14 +136,12 @@ class TripFeadback extends GetView<HomeController> {
                       height: 40.0,
                       text: 'skip'.tr,
                       borderColor: AppTheme.primaryColor,
-                      onPressed: () {
-                        //Todo: on block driver
-                      }),
+                      onPressed: () => controller.resetValues()),
                   const SizedBox(width: 10.0),
                   Expanded(
                     child: RoundedButton(
                         text: 'submit'.tr,
-                        onPressed: () => controller.submitFeedBack()),
+                        onPressed: () => controller.submitFeedback()),
                   ),
                 ],
               ),

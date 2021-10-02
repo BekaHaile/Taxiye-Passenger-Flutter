@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,11 @@ class AuthController extends GetxService {
   // holds request status
   final status = Status.success.obs;
 
-  User? _user;
+  final _user = User('').obs;
+  get user => _user.value;
+  set user(value) => _user.value = value;
+
+  // User? _user;
   final _authStep = AuthStep.signup.obs;
   get authStep => _authStep.value;
   set authStep(value) => _authStep.value = value;
@@ -203,8 +206,8 @@ class AuthController extends GetxService {
       (data) {
         if (data.flag == SuccessFlags.verify.successCode) {
           status(Status.success);
-          if (data.userData != null) _persistUser(data.userData!);
-          _user = data.userData;
+          if (data.userData != null) persistUser(data.userData!);
+          user = data.userData;
           Get.toNamed(Routes.setProfile);
         } else {
           print(data.message);
@@ -260,8 +263,8 @@ class AuthController extends GetxService {
       (data) {
         if (data.flag == SuccessFlags.updateProfile.successCode) {
           status(Status.success);
-          _persistUser(data);
-          _user = data;
+          persistUser(data);
+          user = data;
           Get.toNamed(Routes.home);
         } else {
           print(data.erorr);
@@ -317,14 +320,14 @@ class AuthController extends GetxService {
     });
     await setGeneralInfo();
     await Future<dynamic>.delayed(const Duration(milliseconds: 500));
-    if (_user == null) {
+    if (user.userName.isEmpty ?? true) {
       //Get current user if the user already loged in and route accordingly
       //else show welcome screen
       final userString = _storage.read('user');
       final isFirstTime = _storage.read<bool>('isFirstTime');
       if (userString != null) {
-        _user = User.fromJson(jsonDecode(userString));
-        if (_user != null) {
+        user = User.fromJson(jsonDecode(userString));
+        if (user.userName.isNotEmpty ?? false) {
           getUser();
           _navigateUser();
         }
@@ -350,8 +353,7 @@ class AuthController extends GetxService {
     // for now check for gender and username
     // user?.gender == null ||
 
-    if ((_user?.userName.isEmpty ?? true) ||
-        _user!.userName.split('').length < 2) {
+    if (user.userName.isEmpty || user.userName.split('').length < 2) {
       Future.delayed(Duration.zero, () {
         Get.offAllNamed(Routes.setProfile);
       });
@@ -365,20 +367,30 @@ class AuthController extends GetxService {
   getUser() {
     final accessToken = _storage.read<String>('accessToken');
     if (accessToken != null) {
-      final loginPayload = {
+      // login user
+      repository.loginUsingToken({
         'device_token': deviceToken,
-      };
-
-      repository.loginUsingToken({}).then((value) {
-        _user = value;
-        _persistUser(value);
-      }, onError: (err) {
+      }).then((value) {}, onError: (err) {
         print('Login error: $err');
+      });
+
+      // reload profile
+      repository.reloadProfile().then((profileResponse) {
+        if (profileResponse.flag == SuccessFlags.reloadProfile.successCode) {
+          print('reload profile success $profileResponse');
+          status(Status.success);
+          user = profileResponse;
+        } else {
+          print('reload profile error: ${profileResponse.erorr ?? ''}');
+          status(Status.error);
+        }
+      }, onError: (error) {
+        print('reload profile error: $error');
       });
     }
   }
 
-  _persistUser(User user) {
+  persistUser(User user) {
     _storage.write('user', json.encode(user));
     if (user.authKey != null) {
       _storage.write('accessToken', _hashAccessToken(user.authKey!));

@@ -4,10 +4,11 @@ import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/widgets/logo_image.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
 
-class HomeDrawer extends StatelessWidget {
+class HomeDrawer extends GetView<HomeController> {
   HomeDrawer(
       {Key? key,
       required this.screenIndex,
@@ -117,19 +118,14 @@ class HomeDrawer extends StatelessWidget {
                                   border:
                                       Border.all(color: AppTheme.primaryColor),
                                 ),
-                                child: const ProfileAvatar(
-                                    canEdit: false,
-                                    radius: 40.0,
-                                    name: 'Abel Girma'
-                                    // name: controller.profile.firstName +
-                                    //     ' ' +
-                                    //     controller.profile.lastName,
-                                    // pickedFilePath:
-                                    //     controller.profileImage?.path ??
-                                    //         '',
-                                    // images: controller
-                                    //     .profile?.profileImages,
-                                    ),
+                                child: Obx(() => ProfileAvatar(
+                                      canEdit: false,
+                                      radius: 40.0,
+                                      name: controller
+                                          .authController.user.userName,
+                                      imageUrl: controller
+                                          .authController.user.userImage,
+                                    )),
                               ),
                             ),
                           );
@@ -137,17 +133,20 @@ class HomeDrawer extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0, top: 4.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              'Diane Russel',
-                              style: AppTheme.title.copyWith(fontSize: 16.0),
-                            ),
-                            Text('+251911399631',
-                                style: AppTheme.body
-                                    .copyWith(color: AppTheme.darkColor)),
-                          ],
-                        ),
+                        child: Obx(() => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  controller.authController.user.userName,
+                                  style: AppTheme.title2,
+                                ),
+                                Text(
+                                    controller.authController.user.phoneNo ??
+                                        '',
+                                    style: AppTheme.body
+                                        .copyWith(color: AppTheme.darkColor)),
+                              ],
+                            )),
                       ),
                     ],
                   ),

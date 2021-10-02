@@ -47,8 +47,9 @@ enum ExchangePointOption {
 }
 
 enum Gender {
-  male,
-  female,
+  male, // 1
+  female, // 2
+  other, // 3
 }
 
 enum SuccessFlags {
@@ -61,9 +62,12 @@ enum SuccessFlags {
   rideStarted,
   rideEnd,
   cancelRide,
+  driversBusy,
+  rateDriver,
   fetchWalletBalance,
   getTransactionHistory,
   transfer,
+  reloadProfile,
   dummy
 }
 
@@ -78,10 +82,13 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.rideStarted: 3,
     SuccessFlags.rideEnd: 4,
     SuccessFlags.cancelRide: 118,
+    SuccessFlags.driversBusy: 8,
+    SuccessFlags.rateDriver: 143,
     SuccessFlags.dummy: -1,
     SuccessFlags.fetchWalletBalance: 143,
     SuccessFlags.getTransactionHistory: 423,
     SuccessFlags.transfer: 143,
+    SuccessFlags.reloadProfile: 416,
   };
 
   int get successCode => successCodes[this]!;

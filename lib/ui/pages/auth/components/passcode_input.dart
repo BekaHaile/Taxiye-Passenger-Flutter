@@ -30,7 +30,7 @@ class _PasscodeInputState extends State<PasscodeInput> {
       keyboardType: TextInputType.visiblePassword,
       onSaved: widget.onSaved,
       onChanged: widget.onChanged,
-      style: AppTheme.title.copyWith(fontSize: 16.0),
+      style: AppTheme.title2,
       decoration: AppTheme.textFieldDecoration.copyWith(
         labelText: widget.labelText,
         suffixIcon: IconButton(

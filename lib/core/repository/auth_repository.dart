@@ -151,9 +151,19 @@ class AuthRepository implements IAuthRepository {
         },
       );
     } else {
-      response = await apiClient.updateProfile(profileImage, userPayload);
+      return await apiClient.updateProfile(profileImage, userPayload);
     }
 
+    return User.fromJson(response);
+  }
+
+  @override
+  Future<User> reloadProfile() async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/reload_my_profile',
+      data: {},
+    );
     return User.fromJson(response);
   }
 }

@@ -64,7 +64,7 @@ class _IntroductionPageState extends State<IntroductionPage>
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: Text(
                     'intro${_infoStep}_title'.tr,
-                    style: AppTheme.title.copyWith(fontSize: 16.0),
+                    style: AppTheme.title2,
                   ),
                 ),
                 Text('intro${_infoStep}_info'.tr + '\n',

@@ -8,10 +8,12 @@ class OptionTile extends StatefulWidget {
     Key? key,
     required this.option,
     required this.onTap,
+    this.toggleColor = AppTheme.yellowColor,
   }) : super(key: key);
 
   final Option option;
   final VoidCallback onTap;
+  final Color toggleColor;
 
   @override
   State<OptionTile> createState() => _OptionTileState();
@@ -21,7 +23,7 @@ class _OptionTileState extends State<OptionTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+      contentPadding: EdgeInsets.zero,
       leading: Container(
         width: 40.0,
         height: 40.0,
@@ -36,7 +38,7 @@ class _OptionTileState extends State<OptionTile> {
       ),
       title: Text(
         widget.option.title.tr,
-        style: AppTheme.title.copyWith(fontSize: 16.0),
+        style: AppTheme.title2,
       ),
       subtitle: Text(
         widget.option.subtitle.tr,
@@ -48,7 +50,7 @@ class _OptionTileState extends State<OptionTile> {
               onChanged: (value) => setState(() {
                 widget.option.toggleValue = value;
               }),
-              activeColor: AppTheme.yellowColor,
+              activeColor: widget.toggleColor,
             )
           : const Icon(
               Icons.chevron_right,

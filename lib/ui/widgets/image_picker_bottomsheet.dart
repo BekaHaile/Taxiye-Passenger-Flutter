@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 
 class ImagePickerBottomsheet extends StatelessWidget {
   const ImagePickerBottomsheet({
@@ -14,54 +15,74 @@ class ImagePickerBottomsheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xff757575),
-      height: 180,
+      height: 190,
       child: Container(
-        padding: const EdgeInsets.only(
-          left: 20.0,
-          right: 20.0,
-          bottom: 20.0,
-        ),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-        ),
+        padding: const EdgeInsets.all(kPagePadding),
+        decoration: AppTheme.bottomSheetDecoration,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'pick_image_from'.tr,
-                textAlign: TextAlign.center,
-                style: AppTheme.title,
-              ),
+            Text(
+              'profile_picture'.tr,
+              textAlign: TextAlign.center,
+              style: AppTheme.title2,
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.camera,
-                color: AppTheme.primaryColor,
-              ),
-              title: Text('camera'.tr),
+            const SizedBox(height: 20.0),
+            ProfilePickerTile(
+              imageSource: ImageSource.camera,
               onTap: () {
                 Get.back();
                 onPickFromCallback(ImageSource.camera);
               },
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.photo_album,
-                color: AppTheme.primaryColor,
-              ),
-              title: Text('gallery'.tr),
-              onTap: () {
-                Get.back();
-                onPickFromCallback(ImageSource.gallery);
-              },
+            const SizedBox(height: 10.0),
+            ProfilePickerTile(
+              imageSource: ImageSource.gallery,
+              onTap: () => onPickFromCallback(ImageSource.gallery),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProfilePickerTile extends StatelessWidget {
+  const ProfilePickerTile({
+    Key? key,
+    required this.onTap,
+    required this.imageSource,
+  }) : super(key: key);
+
+  final ImageSource imageSource;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Get.back();
+        onTap();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.shadowColor.withOpacity(0.12),
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: const Offset(2, 2),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
+          child: Text(
+            imageSource == ImageSource.camera ? 'camera'.tr : 'gallery'.tr,
+            style: AppTheme.title2,
+          ),
         ),
       ),
     );

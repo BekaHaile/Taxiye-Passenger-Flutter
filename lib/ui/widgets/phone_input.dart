@@ -26,7 +26,7 @@ class PhoneInput extends StatelessWidget {
       keyboardType: TextInputType.phone,
       onChanged: onChanged,
       onSaved: onSaved,
-      style: AppTheme.title.copyWith(fontSize: 16.0),
+      style: AppTheme.title2,
       decoration: AppTheme.textFieldDecoration.copyWith(
         hintText: 'phone_number'.tr,
         prefixIconConstraints: const BoxConstraints(maxWidth: 100.0),

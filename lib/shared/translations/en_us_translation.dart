@@ -56,8 +56,8 @@ final Map<String, String> enUs = {
   'gender': 'Gender',
   'male': 'Male',
   'female': 'Female',
+  'other': 'Other',
   'crop_image': 'Crop Image',
-  'pick_image_from': 'Pick image from',
 
   'camera': 'Camera',
   'gallery': 'Gallery',
@@ -78,6 +78,20 @@ final Map<String, String> enUs = {
   'profile_picture': 'Profile Picture',
   'cancel': 'Cancel',
   'ok': 'Ok',
+
+  'add_new_contact': 'Add new contact',
+  'add_new_place': 'Add new place',
+  'home': 'Home',
+  'work': 'Work',
+  'pinned_on_map': 'Pinned on Map',
+
+  // privacy settings strings
+  'transaction_updates': 'Transaction Updates',
+  'transaction_updates_info': 'Confirmations, arrival, payment status and more',
+  'rides': 'Rides',
+  'rides_info': 'Exclusive discounts, city specific deals and more',
+  'delivery': 'Delivery',
+  'delivery_info': 'Receive price drop alerts and more',
 
   // setup passcode
   'setup_passcode': 'Setup your\nLogin pass code',
@@ -111,22 +125,20 @@ final Map<String, String> enUs = {
   'where_to': 'Where to?',
   'now': 'Now',
   'ride': 'Ride',
-  'delivery': 'Delivery',
+
   'rental': 'Rental',
   'outStation': 'Out Station',
   'ride_cancel_success': 'The ride has been cancelled',
 
   // Map Strings
   'current_location': 'Current Location',
+  'confirm': 'Confirm',
 
   // pick locations string
   'drop_off_location': 'Drop off location',
   'enter_location': 'Enter drop off location here...',
   'choose_on_map': 'Choose on map',
   'add': 'Add',
-  'home': 'Home',
-
-  'work': 'Work',
   'bf_house': 'BF\'s House',
 
   // Location detail strings
@@ -176,6 +188,8 @@ final Map<String, String> enUs = {
   'cbe_bank': 'CBE Bank',
   'kms': 'kms',
   'mins': 'mins',
+
+  'rate_driver_success': 'Driver rated successfully',
 
   // trip feedback strings
   'block': 'Block',

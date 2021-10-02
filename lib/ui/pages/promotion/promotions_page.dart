@@ -41,7 +41,7 @@ class PromotionsPage extends GetView<PromotionsController> {
                   Expanded(
                     child: TextField(
                       keyboardType: TextInputType.text,
-                      style: AppTheme.title.copyWith(fontSize: 16.0),
+                      style: AppTheme.title2,
                       decoration: InputDecoration(
                         hintText: 'enter_promocode'.tr,
                         filled: true,

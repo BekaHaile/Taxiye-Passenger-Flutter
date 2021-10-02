@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
@@ -119,6 +120,9 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
                   onMapCreated: (controller) => _onMapCreated(controller),
                   markers: controller.markers,
                   polylines: controller.polyLines,
+                  onTap: controller.tripStep == TripStep.pickOnMap
+                      ? (position) => controller.onPickLocationFromMap(position)
+                      : null,
                 )),
           ),
         ],

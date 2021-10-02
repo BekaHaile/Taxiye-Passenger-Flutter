@@ -30,7 +30,7 @@ class LocationInfo extends StatelessWidget {
                     children: [
                       TextField(
                         keyboardType: TextInputType.streetAddress,
-                        style: AppTheme.title.copyWith(fontSize: 16.0),
+                        style: AppTheme.title2,
                         decoration: AppTheme.textFieldDecoration.copyWith(
                           hintText: 'your_location'.tr,
                           contentPadding: const EdgeInsets.symmetric(
@@ -50,7 +50,7 @@ class LocationInfo extends StatelessWidget {
                       const SizedBox(height: 8.0),
                       TextField(
                         keyboardType: TextInputType.streetAddress,
-                        style: AppTheme.title.copyWith(fontSize: 16.0),
+                        style: AppTheme.title2,
                         decoration: AppTheme.textFieldDecoration.copyWith(
                           hintText: 'Destination'.tr,
                           contentPadding: const EdgeInsets.symmetric(
@@ -70,7 +70,7 @@ class LocationInfo extends StatelessWidget {
                       const SizedBox(height: 8.0),
                       TextField(
                         keyboardType: TextInputType.streetAddress,
-                        style: AppTheme.title.copyWith(fontSize: 16.0),
+                        style: AppTheme.title2,
                         decoration: AppTheme.textFieldDecoration.copyWith(
                           hintText: 'add_more_stops'.tr,
                           contentPadding: const EdgeInsets.symmetric(

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -61,13 +63,9 @@ class HomeController extends GetxService {
   set selectedPayment(value) => _selectedPayment.value = value;
 
   // Trip step
-  final _tripStep = TripStep.locationSearch.obs;
+  final _tripStep = TripStep.whereTo.obs;
   get tripStep => _tripStep.value;
   set tripStep(value) => _tripStep.value = value;
-
-  final _locationSearch = ''.obs;
-  get locationSearch => _locationSearch.value;
-  set locationSearch(value) => _locationSearch.value = value;
 
   final _locationSuggestions = List<Suggestion>.empty(growable: true).obs;
   get locationSuggestions => _locationSuggestions.value;
@@ -85,6 +83,16 @@ class HomeController extends GetxService {
   get polyLines => _polyLines.value;
   set polyLines(value) => _polyLines.value = value;
 
+  final _locationSearch = ''.obs;
+  get locationSearch => _locationSearch.value;
+  set locationSearch(value) => _locationSearch.value = value;
+
+  final _searchLoading = false.obs;
+  get searchLoading => _searchLoading.value;
+  set searchLoading(value) => _searchLoading.value = value;
+
+  final searchController = TextEditingController();
+
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   late GoogleMapController mapController;
@@ -98,8 +106,15 @@ class HomeController extends GetxService {
   Placemark? currentLocationPlace;
   // Getu commercial
   LatLng testLocation = const LatLng(9.003432689703812, 38.769641840207235);
+
   // yemeru senay
   // LatLng testLocation = const LatLng(9.003620646534136, 38.80093371322263);
+
+  // LatLng testLocation = const LatLng(8.985193131157347, 38.74934949834666);
+
+  // LatLng testLocation = const LatLng(9.065387872139096, 38.67130131804619);
+
+  // LatLng testLocation = const LatLng(37.4220371, -122.0841212);
 
   late String sessionToken;
   // trip started variables
@@ -113,21 +128,46 @@ class HomeController extends GetxService {
   Timer? debounce;
   late Timer _resendTimer;
 
+  String feedbackComment = '';
+  double driverRating = 0;
+
+  ReceivePort _port = ReceivePort();
+
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
 
     repository.registerFCM(onMessageRecieved: onMessageRescieved);
+
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'background_ride_notification');
+    _port.listen((dynamic notificationMessage) {
+      print('data from background notifcation: $notificationMessage');
+      // onMessageRescieved(notificationMessage);
+    });
+
     // Todo: uncomment this for current location
     currentLocation = authController.currentLocation;
-    // print('current location here: $currentLocation');
+    print('current location here: $currentLocation');
 
     _findDrivers();
     _setPinIcons();
     getVehicles();
     getPaymentMethods();
   }
+
+  @override
+  void onDetached() {}
+
+  @override
+  void onInactive() {}
+
+  @override
+  void onPaused() {}
+
+  @override
+  void onResumed() {}
 
   _startTimer() {
     driverOnRouteCounter = 150; // in seconds
@@ -195,6 +235,9 @@ class HomeController extends GetxService {
               double.parse(notificationMessage.paidUsingWallet ?? '0'),
         );
         tripStep = TripStep.tripDetail;
+        break;
+      case SuccessFlags.driversBusy:
+        resetValues();
         break;
 
       default:
@@ -297,60 +340,86 @@ class HomeController extends GetxService {
     ];
   }
 
-  // trip step methods
-  onLocationPicked(Suggestion placeSuggetion) {
+  onPickLocationFromSearch(Suggestion placeSuggetion) {
     // find place with place Id
     if (placeSuggetion.placeId.isNotEmpty) {
       repository
           .getPlaceDetailFromId(placeSuggetion.placeId, sessionToken)
-          .then((place) {
-        // get vehicle Fare estimations
-        _findDrivers(destination: place.location);
-        pickedLocation = place;
-        Get.back();
-        tripStep = TripStep.pickVehicle;
+          .then((place) => onLocationPicked(place),
+              onError: (error) => log('Place detail error: $error'));
+    }
+  }
 
-        // set the polylines
-        if (currentLocation != null) {
-          // final origin = PointLatLng(
-          //     currentLocation!.latitude, currentLocation!.longitude);
-          // final origin = PointLatLng(
-          //     currentLocation!.latitude, currentLocation!.longitude);
-          final origin =
-              PointLatLng(testLocation.latitude, testLocation.longitude);
-          final destination =
-              PointLatLng(place.location!.latitude, place.location!.longitude);
+  onPickLocationFromMap(LatLng position) async {
+    searchLoading = true;
+    getPlaceNameFromCordinate(position).then((value) {
+      // print(value);
+      searchLoading = false;
+      Place place = Place(
+          placeName:
+              '${value.name ?? ''}, ${value.subLocality ?? ''}, ${value.locality ?? ''}',
+          location: position);
+      searchController.text = place.placeName ?? '';
+      pickedLocation = place;
+    }, onError: (error) {
+      print(error);
+      searchLoading = false;
+    });
+  }
 
-          // set origin and destination markers
+  confirmPickedLocation() {
+    if (pickedLocation == null) {
+      Get.snackbar('error', 'destination_error');
+    } else {
+      onLocationPicked(pickedLocation!);
+    }
+  }
 
-          _setMapPins(testLocation, place.location!);
+  onLocationPicked(Place place) {
+    // get vehicle Fare estimations
+    _findDrivers(destination: place.location);
+    pickedLocation = place;
+    Get.back();
+    tripStep = TripStep.pickVehicle;
 
-          // Get & set the polyLines
-          repository.getRoutePolylines(origin, destination).then(
-              (polylineCoordinates) {
-            // get vehicles fare calculation
-            _findDrivers(
-                destination: place.location,
-                routeDistance: getRouteDistance(polylineCoordinates));
+    // set the polylines
+    if (currentLocation != null) {
+      // final origin = PointLatLng(
+      //     currentLocation!.latitude, currentLocation!.longitude);
+      // final origin = PointLatLng(
+      //     currentLocation!.latitude, currentLocation!.longitude);
+      final origin = PointLatLng(testLocation.latitude, testLocation.longitude);
+      final destination =
+          PointLatLng(place.location!.latitude, place.location!.longitude);
 
-            Polyline polyline = Polyline(
-                polylineId: const PolylineId("poly"),
-                color: AppTheme.primaryColor,
-                width: 3,
-                points: polylineCoordinates);
+      // set origin and destination markers
 
-            _polyLines.add(polyline);
+      _setMapPins(testLocation, place.location!);
 
-            // animate camera to destination
-            mapController.animateCamera(
-              CameraUpdate.newCameraPosition(CameraPosition(
-                target: place.location!,
-                zoom: 13,
-              )),
-            );
-          }, onError: (error) => log('Poly line error: $error'));
-        }
-      }, onError: (error) => log('Place detail error: $error'));
+      // Get & set the polyLines
+      repository.getRoutePolylines(origin, destination).then(
+          (polylineCoordinates) {
+        // get vehicles fare calculation
+        _findDrivers(
+            destination: place.location,
+            routeDistance: getRouteDistance(polylineCoordinates));
+
+        Polyline polyline = Polyline(
+            polylineId: const PolylineId("poly"),
+            color: AppTheme.primaryColor,
+            width: 3,
+            points: polylineCoordinates);
+
+        _polyLines.add(polyline);
+
+        // animate camera to destination
+        mapController.animateCamera(
+          CameraUpdate.newCameraPosition(CameraPosition(
+            target: place.location!,
+            zoom: 13,
+          )),
+        );
+      }, onError: (error) => log('Poly line error: $error'));
     }
   }
 
@@ -383,50 +452,28 @@ class HomeController extends GetxService {
   onCancelRide() {
     // Todo: cancell ride based on current ride step
 
-    final cancelPayload = tripStep == TripStep.lookingDrivers
+    Map<String, dynamic> cancelPayload = tripStep == TripStep.lookingDrivers
         ? {'session_id': '$sessionId'}
         : {'reasons': ''};
 
     status(Status.loading);
-    repository.cancelRide(cancelPayload).then(
+    repository.cancelRide(cancelPayload, tripStep).then(
       (basicResponse) {
-        if (basicResponse.flag == SuccessFlags.cancelRide.successCode) {
-          status(Status.success);
-          toast('success', 'ride_cancel_success'.tr);
-          // back to ride first step
-          _resetValues();
-        } else {
-          status(Status.error);
-          toast(
-              'error',
-              basicResponse.error ??
-                  basicResponse.message ??
-                  basicResponse.log ??
-                  'api_error'.tr);
-        }
+        status(Status.success);
+        Get.snackbar('success', 'ride_cancel_success'.tr);
+        // back to ride first step
+        resetValues();
       },
-      onError: (err) => status(Status.error),
+      onError: (err) {
+        print('Cancel Ride request error: $err');
+        status(Status.error);
+      },
     );
-  }
-
-  onDriverApproved() {
-    // Todo: on driver approved
-    tripStep = TripStep.tripStarted;
-  }
-
-  onTripEnded() {
-    // Todo: on trip ended
-    tripStep = TripStep.tripDetail;
   }
 
   onPaymentProcessed() {
     // Todo: o payment processed
     tripStep = TripStep.tripFeedback;
-  }
-
-  submitFeedBack() {
-    // Todo: on submit feed back
-    tripStep = TripStep.locationSearch;
   }
 
   _setMapPins(LatLng origin, LatLng destination) async {
@@ -506,22 +553,64 @@ class HomeController extends GetxService {
           tripStep = TripStep.lookingDrivers;
         } else {
           status(Status.error);
-          toast('error', requestRideResponse.error ?? '');
+          toast(
+              'error',
+              requestRideResponse.error ??
+                  requestRideResponse.log ??
+                  requestRideResponse.message ??
+                  '');
         }
       }, onError: (error) {
         status(Status.error);
-        print('Find Drivers error: $error');
       });
     }
   }
 
-  _resetValues() {
+  submitFeedback() {
+    final Map<String, dynamic> rateDriverPayload = {
+      'given_rating': '$driverRating',
+      'engagement_id': '$engagementId',
+      'driver_id': '${driver.driverId}',
+      'feedback': feedbackComment,
+      'feedback_reasons': 'performance'
+    };
+
+    status(Status.loading);
+    repository.rateDriver(rateDriverPayload).then((rateDriverResponse) {
+      if (rateDriverResponse.flag == SuccessFlags.rateDriver.successCode) {
+        status(Status.success);
+        Get.snackbar('succes'.tr, 'rate_driver_success'.tr);
+        resetValues();
+      } else {
+        print(rateDriverResponse.error ?? '');
+        status(Status.error);
+        toast(
+            'error',
+            rateDriverResponse.error ??
+                rateDriverResponse.log ??
+                rateDriverResponse.message ??
+                '');
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Rate driver error: $error');
+    });
+  }
+
+  resetValues() {
     // Reset all values to there initial values
-    tripStep = TripStep.locationSearch;
+
     sessionId = null;
     engagementId = null;
+    _polyLines.clear();
 
     driver = Driver(userName: 'Cameron Williamson');
     driverVehicle = Vehicle();
+
+    feedbackComment = '';
+    driverRating = 0;
+    tripStep = TripStep.whereTo;
+
+    pickedLocation = null;
   }
 }

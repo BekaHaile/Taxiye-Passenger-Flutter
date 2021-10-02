@@ -83,7 +83,8 @@ class WalletTransferPage extends GetView<WalletController> {
                         const SizedBox(height: 15.0),
                         PhoneInput(
                           onChanged: (value) => controller.phoneNumber = value,
-                          onCountryChange: (value) => controller.country = value ?? kCountries.first,
+                          onCountryChange: (value) =>
+                              controller.country = value ?? kCountries.first,
                         ),
                         const SizedBox(height: 20.0),
                         Text(
@@ -96,9 +97,9 @@ class WalletTransferPage extends GetView<WalletController> {
                           padding: const EdgeInsets.only(left: 4.0),
                           child: TextFormField(
                             keyboardType: TextInputType.number,
-                            onChanged: (value) =>
-                                controller.amount = value.isEmpty ? 0.0 : double.parse(value),
-                            style: AppTheme.title.copyWith(fontSize: 16.0),
+                            onChanged: (value) => controller.amount =
+                                value.isEmpty ? 0.0 : double.parse(value),
+                            style: AppTheme.title2,
                             decoration: AppTheme.textFieldDecoration.copyWith(
                               labelText: 'amount'.tr,
                             ),
@@ -126,7 +127,7 @@ class WalletTransferPage extends GetView<WalletController> {
                             keyboardType: TextInputType.number,
                             onChanged: (value) =>
                                 controller.amount = double.tryParse(value),
-                            style: AppTheme.title.copyWith(fontSize: 16.0),
+                            style: AppTheme.title2,
                             decoration: AppTheme.textFieldDecoration.copyWith(
                               labelText: 'reason'.tr,
                             ),

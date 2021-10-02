@@ -57,7 +57,7 @@ class PaymentPage extends GetView<PaymentController> {
                           const SizedBox(width: 10.0),
                           Text(
                             'add_new_method'.tr,
-                            style: AppTheme.title.copyWith(fontSize: 16.0),
+                            style: AppTheme.title2,
                           ),
                         ],
                       ),

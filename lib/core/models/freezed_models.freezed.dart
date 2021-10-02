@@ -26,6 +26,7 @@ class _$UserTearOff {
       {int? flag,
       String? erorr,
       int? gender,
+      String? locale,
       @JsonKey(name: 'user_email')
           String? email,
       @JsonKey(name: 'user_image')
@@ -57,6 +58,7 @@ class _$UserTearOff {
       flag: flag,
       erorr: erorr,
       gender: gender,
+      locale: locale,
       email: email,
       userImage: userImage,
       countryCode: countryCode,
@@ -88,6 +90,7 @@ mixin _$User {
   int? get flag => throw _privateConstructorUsedError;
   String? get erorr => throw _privateConstructorUsedError;
   int? get gender => throw _privateConstructorUsedError;
+  String? get locale => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_email')
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_image')
@@ -130,6 +133,7 @@ abstract class $UserCopyWith<$Res> {
       int? flag,
       String? erorr,
       int? gender,
+      String? locale,
       @JsonKey(name: 'user_email')
           String? email,
       @JsonKey(name: 'user_image')
@@ -172,6 +176,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? flag = freezed,
     Object? erorr = freezed,
     Object? gender = freezed,
+    Object? locale = freezed,
     Object? email = freezed,
     Object? userImage = freezed,
     Object? countryCode = freezed,
@@ -203,6 +208,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as int?,
+      locale: locale == freezed
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -270,6 +279,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       int? flag,
       String? erorr,
       int? gender,
+      String? locale,
       @JsonKey(name: 'user_email')
           String? email,
       @JsonKey(name: 'user_image')
@@ -313,6 +323,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? flag = freezed,
     Object? erorr = freezed,
     Object? gender = freezed,
+    Object? locale = freezed,
     Object? email = freezed,
     Object? userImage = freezed,
     Object? countryCode = freezed,
@@ -344,6 +355,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as int?,
+      locale: locale == freezed
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -409,6 +424,7 @@ class _$_User implements _User {
       {this.flag,
       this.erorr,
       this.gender,
+      this.locale,
       @JsonKey(name: 'user_email')
           this.email,
       @JsonKey(name: 'user_image')
@@ -448,6 +464,8 @@ class _$_User implements _User {
   final String? erorr;
   @override
   final int? gender;
+  @override
+  final String? locale;
   @override
   @JsonKey(name: 'user_email')
   final String? email;
@@ -490,7 +508,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(userName: $userName, flag: $flag, erorr: $erorr, gender: $gender, email: $email, userImage: $userImage, countryCode: $countryCode, phoneNo: $phoneNo, dateOfBirth: $dateOfBirth, authKey: $authKey, emailVerificationStatus: $emailVerificationStatus, operatorId: $operatorId, city: $city, cityId: $cityId, referralCode: $referralCode, userId: $userId, defaultClientId: $defaultClientId)';
+    return 'User(userName: $userName, flag: $flag, erorr: $erorr, gender: $gender, locale: $locale, email: $email, userImage: $userImage, countryCode: $countryCode, phoneNo: $phoneNo, dateOfBirth: $dateOfBirth, authKey: $authKey, emailVerificationStatus: $emailVerificationStatus, operatorId: $operatorId, city: $city, cityId: $cityId, referralCode: $referralCode, userId: $userId, defaultClientId: $defaultClientId)';
   }
 
   @override
@@ -506,6 +524,8 @@ class _$_User implements _User {
                 const DeepCollectionEquality().equals(other.erorr, erorr)) &&
             (identical(other.gender, gender) ||
                 const DeepCollectionEquality().equals(other.gender, gender)) &&
+            (identical(other.locale, locale) ||
+                const DeepCollectionEquality().equals(other.locale, locale)) &&
             (identical(other.email, email) ||
                 const DeepCollectionEquality().equals(other.email, email)) &&
             (identical(other.userImage, userImage) ||
@@ -551,6 +571,7 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(flag) ^
       const DeepCollectionEquality().hash(erorr) ^
       const DeepCollectionEquality().hash(gender) ^
+      const DeepCollectionEquality().hash(locale) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(userImage) ^
       const DeepCollectionEquality().hash(countryCode) ^
@@ -583,6 +604,7 @@ abstract class _User implements User {
       {int? flag,
       String? erorr,
       int? gender,
+      String? locale,
       @JsonKey(name: 'user_email')
           String? email,
       @JsonKey(name: 'user_image')
@@ -621,6 +643,8 @@ abstract class _User implements User {
   String? get erorr => throw _privateConstructorUsedError;
   @override
   int? get gender => throw _privateConstructorUsedError;
+  @override
+  String? get locale => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'user_email')
   String? get email => throw _privateConstructorUsedError;

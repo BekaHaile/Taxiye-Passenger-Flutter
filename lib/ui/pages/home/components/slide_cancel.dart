@@ -52,7 +52,7 @@ class SlideCancel extends StatelessWidget {
                 ),
               ),
               key: const Key('some key'),
-              onDismissed: (direction) => onCancel,
+              onDismissed: (direction) => onCancel(),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Container(

@@ -19,6 +19,7 @@ class User with _$User {
     int? flag,
     String? erorr,
     int? gender,
+    String? locale,
     @JsonKey(name: 'user_email') String? email,
     @JsonKey(name: 'user_image') String? userImage,
     @JsonKey(name: 'country_code', fromJson: _countryCodeConverter)

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/location_search.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/locations_list.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
@@ -34,29 +36,7 @@ class PickLocationPage extends GetView<HomeController> {
               style: AppTheme.title.copyWith(fontWeight: FontWeight.w400),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(kPagePadding),
-            child: TextField(
-                controller: _searchController,
-                keyboardType: TextInputType.streetAddress,
-                onChanged: (value) => controller.getPlaceSugestions(value),
-                style: AppTheme.title.copyWith(fontSize: 16.0),
-                decoration: AppTheme.textFieldDecoration.copyWith(
-                  hintText: 'enter_location'.tr,
-                  hintStyle: AppTheme.subtitle
-                      .copyWith(fontSize: 16.0, fontWeight: FontWeight.w600),
-                  suffixIcon: Obx(
-                    () => controller.locationSearch.isNotEmpty
-                        ? IconButton(
-                            onPressed: () {
-                              _searchController.clear();
-                              controller.locationSearch = '';
-                            },
-                            icon: const Icon(Icons.cancel))
-                        : const SizedBox(),
-                  ),
-                )),
-          ),
+          LocationSearch(),
           Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
             child: Row(
@@ -70,11 +50,18 @@ class PickLocationPage extends GetView<HomeController> {
                     color: AppTheme.primaryColor,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(
-                    'choose_on_map'.tr,
-                    style: AppTheme.body.copyWith(color: AppTheme.primaryColor),
+                GestureDetector(
+                  onTap: () {
+                    controller.tripStep = TripStep.pickOnMap;
+                    Get.back();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      'choose_on_map'.tr,
+                      style:
+                          AppTheme.body.copyWith(color: AppTheme.primaryColor),
+                    ),
                   ),
                 ),
               ],
@@ -140,7 +127,7 @@ class PickLocationPage extends GetView<HomeController> {
                     child: LocationsList(
                       suggestions: controller.locationSuggestions,
                       onPickLocation: (suggestion) =>
-                          controller.onLocationPicked(suggestion),
+                          controller.onPickLocationFromSearch(suggestion),
                     ),
                   ),
           ),

@@ -16,6 +16,9 @@ class ProfileBinding implements Bindings {
     Get.lazyPut<IProfileRepository>(
         () => ProfileRepository(apiClient: Get.find()),
         fenix: true);
-    Get.lazyPut(() => ProfileController(repository: Get.find()));
+    Get.lazyPut(
+        () => ProfileController(
+            repository: Get.find(), fileRepository: Get.find()),
+        fenix: true);
   }
 }

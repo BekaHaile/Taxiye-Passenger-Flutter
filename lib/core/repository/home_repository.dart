@@ -43,6 +43,14 @@ class HomeRepository implements IHomeRepository {
     return await mapService.getRoutePolylines(origin, destination);
   }
 
+  // notification requests
+  @override
+  registerFCM(
+      {required Function(NotificationMessage notificationMessage)
+          onMessageRecieved}) {
+    notificationService.registerFCM(onMessageRecieved: onMessageRecieved);
+  }
+
   // server requests
 
   // Ride requests
@@ -69,20 +77,28 @@ class HomeRepository implements IHomeRepository {
   }
 
   @override
-  Future<BasicResponse> cancelRide(Map<String, dynamic> cancelPayload) async {
+  Future<BasicResponse> cancelRide(
+      Map<String, dynamic> cancelPayload, TripStep tripStep) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
-      path: '/cancel_ride_by_customer',
+      path: tripStep == TripStep.lookingDrivers
+          ? '/cancel_the_request'
+          : '/cancel_ride_by_customer',
       data: cancelPayload,
     );
+
+    print('response here: $response');
     return BasicResponse.fromJson(response);
   }
 
-  // notification requests
   @override
-  registerFCM(
-      {required Function(NotificationMessage notificationMessage)
-          onMessageRecieved}) {
-    notificationService.registerFCM(onMessageRecieved: onMessageRecieved);
+  Future<BasicResponse> rateDriver(
+      Map<String, dynamic> rateDriverPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/rate_the_driver',
+      data: rateDriverPayload,
+    );
+    return BasicResponse.fromJson(response);
   }
 }

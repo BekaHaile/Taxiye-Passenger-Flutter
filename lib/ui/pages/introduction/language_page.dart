@@ -41,7 +41,7 @@ class _LanguagePageState extends State<LanguagePage> {
                 SizedBox(height: Get.height * 0.08),
                 Text(
                   'select_language'.tr,
-                  style: AppTheme.title.copyWith(fontSize: 16.0),
+                  style: AppTheme.title2,
                 ),
                 const SizedBox(height: 16.0),
                 Wrap(

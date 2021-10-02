@@ -47,6 +47,13 @@ class AppTheme {
     color: darkColor,
   );
 
+  static const TextStyle title2 = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 16.0,
+    letterSpacing: 0.27,
+    color: darkColor,
+  );
+
   static const TextStyle titleWhite = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 18.0,

@@ -4,14 +4,6 @@ import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
-import 'package:taxiye_passenger/ui/pages/profile/profile_info_page.dart';
-import 'package:taxiye_passenger/ui/pages/promotion/coupons_page.dart';
-import 'package:taxiye_passenger/ui/pages/promotion/exchange_points_page.dart';
-import 'package:taxiye_passenger/ui/pages/promotion/promo_detail_page.dart';
-import 'package:taxiye_passenger/ui/pages/promotion/promotions_page.dart';
-import 'package:taxiye_passenger/ui/pages/promotion/refer_friend_page.dart';
-import 'package:taxiye_passenger/ui/pages/wallet/wallet_history_page.dart';
-import 'package:taxiye_passenger/ui/pages/wallet/wallet_transfer_page.dart';
 
 part 'app_routes.dart';
 
@@ -114,6 +106,18 @@ abstract class AppPages {
     GetPage(
       name: Routes.profileInfo,
       page: () => const ProfileInfoPage(),
+    ),
+    GetPage(
+      name: Routes.emergencyContacts,
+      page: () => const EmergencyContactsPage(),
+    ),
+    GetPage(
+      name: Routes.savedPlaces,
+      page: () => const SavedPlacesPage(),
+    ),
+    GetPage(
+      name: Routes.privacySettings,
+      page: () => PrivacySettingsPage(),
     ),
 
     // Payment Pages

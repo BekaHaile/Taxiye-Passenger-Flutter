@@ -65,8 +65,7 @@ class SetProfilePage extends GetView<AuthController> {
                                     keyboardType: TextInputType.name,
                                     onChanged: (value) =>
                                         controller.fullName = value,
-                                    style:
-                                        AppTheme.title.copyWith(fontSize: 16.0),
+                                    style: AppTheme.title2,
                                     decoration:
                                         AppTheme.textFieldDecoration.copyWith(
                                       labelText: 'full_name'.tr,
@@ -89,8 +88,7 @@ class SetProfilePage extends GetView<AuthController> {
                                     keyboardType: TextInputType.emailAddress,
                                     onChanged: (value) =>
                                         controller.email = value,
-                                    style:
-                                        AppTheme.title.copyWith(fontSize: 16.0),
+                                    style: AppTheme.title2,
                                     decoration:
                                         AppTheme.textFieldDecoration.copyWith(
                                       labelText: 'email_address'.tr,
@@ -111,18 +109,19 @@ class SetProfilePage extends GetView<AuthController> {
                                   child: DropdownButtonFormField<int>(
                                     value: controller.gender,
                                     icon: const Icon(Icons.expand_more),
-                                    style:
-                                        AppTheme.title.copyWith(fontSize: 16.0),
+                                    style: AppTheme.title2,
                                     decoration:
                                         AppTheme.textFieldDecoration.copyWith(
                                       labelText: 'gender'.tr,
                                     ),
-                                    items: [0, 1]
+                                    items: [1, 2, 3]
                                         .map((gender) => DropdownMenuItem(
                                               child: Center(
-                                                  child: Text(gender == 0
-                                                      ? 'female'.tr
-                                                      : 'male'.tr)),
+                                                  child: Text(gender == 1
+                                                      ? 'male'.tr
+                                                      : gender == 2
+                                                          ? 'female'.tr
+                                                          : 'other'.tr)),
                                               value: gender,
                                             ))
                                         .toList(),
@@ -137,7 +136,7 @@ class SetProfilePage extends GetView<AuthController> {
                                 //   child: TextFormField(
                                 //     keyboardType: TextInputType.text,
                                 //     onChanged: (value) => controller.gender = value,
-                                //     style: AppTheme.title.copyWith(fontSize: 16.0),
+                                //     style: AppTheme.title2,
                                 //     decoration:
                                 //         AppTheme.textFieldDecoration.copyWith(
                                 //       labelText: 'gender'.tr,
