@@ -33,6 +33,7 @@ abstract class IAuthRepository {
   Future<User> updateUser(
       File? profileImage, Map<String, dynamic>? userPayload);
   Future<User> reloadProfile();
+  Future<BasicResponse> logoutUser();
 }
 
 abstract class IHomeRepository {
@@ -59,6 +60,12 @@ abstract class IHomeRepository {
       Map<String, dynamic> cancelPayload, TripStep tripStep);
 
   Future<BasicResponse> rateDriver(Map<String, dynamic> rateDriverPayload);
+  Future<BasicResponse> addFavouriteDriver(
+      Map<String, dynamic> favouriteDriverPayload);
+  Future<DriverLocationResponse> getCurrentDriverLocation(String driverId);
+
+  Future<SavedPlacesResponse> getSavedPlaces();
+  Future<SavedPlacesResponse> addNewPlace(Map<String, dynamic> addressPayload);
 }
 
 abstract class ICommonRepository {

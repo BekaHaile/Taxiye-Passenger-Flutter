@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
@@ -20,14 +21,14 @@ class VehicleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 160.0,
+      height: 170.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           final Vehicle vehicle = vehicles[index];
           return Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0.0, 10.0, 20.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 10.0, 10.0, 20.0),
             child: VehicleTile(
               vehicle: vehicle,
               isActive: selectedVehicle == vehicle,
@@ -83,9 +84,11 @@ class VehicleTile extends StatelessWidget {
                       width: 100.0,
                       height: 50.0,
                       progressIndicatorBuilder:
-                          (context, url, downloadProgress) => Center(
-                        child: CircularProgressIndicator(
-                            value: downloadProgress.progress),
+                          (context, url, downloadProgress) => const Center(
+                        child: SpinKitFadingCircle(
+                            color: AppTheme.primaryColor, size: 30),
+                        // CircularProgressIndicator(
+                        //     value: downloadProgress.progress),
                       ),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),

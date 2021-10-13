@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
@@ -112,21 +113,42 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
             useRotation: false,
             mapId: mapCompleter.future.then<int>((value) => value.mapId),
             markers: currentLocationMarker,
-            child: Obx(() => GoogleMap(
-                  initialCameraPosition: _initialCameraPosition,
-                  myLocationButtonEnabled: false,
-                  zoomControlsEnabled: false,
-                  compassEnabled: false,
-                  onMapCreated: (controller) => _onMapCreated(controller),
-                  markers: controller.markers,
-                  polylines: controller.polyLines,
-                  onTap: controller.tripStep == TripStep.pickOnMap
-                      ? (position) => controller.onPickLocationFromMap(position)
-                      : null,
+            child: Obx(() => Padding(
+                  padding: EdgeInsets.only(bottom: getMapBottomPadding()),
+                  child: GoogleMap(
+                    initialCameraPosition: _initialCameraPosition,
+                    myLocationButtonEnabled: false,
+                    zoomControlsEnabled: false,
+                    compassEnabled: false,
+                    onMapCreated: (controller) => _onMapCreated(controller),
+                    markers: controller.markers,
+                    polylines: controller.polyLines,
+                    onTap: controller.tripStep == TripStep.pickOnMap ||
+                            controller.tripStep == TripStep.addPlace ||
+                            controller.tripStep == TripStep.confirmPlace
+                        ? (position) =>
+                            controller.onPickLocationFromMap(position)
+                        : null,
+                  ),
                 )),
           ),
         ],
       ),
     );
+  }
+
+  double getMapBottomPadding() {
+    switch (controller.tripStep) {
+      case TripStep.driverDetail:
+      case TripStep.pickVehicle:
+      case TripStep.tripDetail:
+        return Get.height * 0.35;
+      case TripStep.lookingDrivers:
+      case TripStep.tripStarted:
+      case TripStep.confirmPlace:
+        return Get.height * 0.3;
+      default:
+        return 0.0;
+    }
   }
 }

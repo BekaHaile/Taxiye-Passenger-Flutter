@@ -1,14 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
-import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animarker/helpers/math_util.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
@@ -17,6 +20,7 @@ import 'package:taxiye_passenger/core/models/map_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:math' show cos, sqrt, asin;
@@ -36,10 +40,7 @@ class HomeController extends GetxService {
   get selectedService => _selectedService.value;
   set selectedService(value) => _selectedService.value = value;
 
-  // vehicles
-  final _vehicleType = VehicleType.normal.obs;
-  get vehicleType => _vehicleType.value;
-  set vehicleType(value) => _vehicleType.value = value;
+  List<Vehicle>? allVehicles;
 
   final _vehicles = List<Vehicle>.empty(growable: true).obs;
   get vehicles => _vehicles.value;
@@ -48,6 +49,14 @@ class HomeController extends GetxService {
   final _drivers = List<Driver>.empty(growable: true).obs;
   get drivers => _drivers.value;
   set drivers(value) => _drivers.value = value;
+
+  final _savedPlaces = List<Address>.empty(growable: true).obs;
+  get savedPlaces => _savedPlaces.value;
+  set savedPlaces(value) => _savedPlaces.value = value;
+
+  final _confirmedPlaces = List<Address>.empty(growable: true).obs;
+  get confirmedPlaces => _confirmedPlaces.value;
+  set confirmedPlaces(value) => _confirmedPlaces.value = value;
 
   final _selectedVehicle = Vehicle().obs;
   get selectedVehicle => _selectedVehicle.value;
@@ -75,6 +84,10 @@ class HomeController extends GetxService {
   get driverOnRouteCounter => _driverOnRouteCounter.value;
   set driverOnRouteCounter(value) => _driverOnRouteCounter.value = value;
 
+  final _rideCounter = 0.obs;
+  get rideCounter => _rideCounter.value;
+  set rideCounter(value) => _rideCounter.value = value;
+
   final _markers = <Marker>{}.obs;
   get markers => _markers.value;
   set markers(value) => _markers.value = value;
@@ -92,13 +105,15 @@ class HomeController extends GetxService {
   set searchLoading(value) => _searchLoading.value = value;
 
   final searchController = TextEditingController();
+  Polyline? ridePolyline;
 
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
-  late GoogleMapController mapController;
+  BitmapDescriptor yellowCarIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor whiteCarIcon = BitmapDescriptor.defaultMarker;
 
-  // mock data
-  Driver driver = Driver(userName: 'Cameron Williamson');
+  late GoogleMapController mapController;
+  Driver? driver;
   Vehicle driverVehicle = Vehicle();
 
   // Location search
@@ -131,118 +146,61 @@ class HomeController extends GetxService {
   String feedbackComment = '';
   double driverRating = 0;
 
-  ReceivePort _port = ReceivePort();
+  final GetStorage _storage = GetStorage();
+  late SharedPreferences prefs;
+  StreamSubscription<Position>? positionStream;
 
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
 
-    repository.registerFCM(onMessageRecieved: onMessageRescieved);
-
-    IsolateNameServer.registerPortWithName(
-        _port.sendPort, 'background_ride_notification');
-    _port.listen((dynamic notificationMessage) {
-      print('data from background notifcation: $notificationMessage');
-      // onMessageRescieved(notificationMessage);
-    });
-
+    prefs = await SharedPreferences.getInstance();
     // Todo: uncomment this for current location
+    // set current location
     currentLocation = authController.currentLocation;
     print('current location here: $currentLocation');
 
+    // register for notification message listner
+    repository.registerFCM(onMessageRecieved: onMessageRescieved);
+
     _findDrivers();
     _setPinIcons();
-    getVehicles();
+    // getVehicles();
     getPaymentMethods();
+    getSavedPlaces();
   }
 
-  @override
-  void onDetached() {}
+  onAppStateChange(AppLifecycleState appState) async {
+    // print('current app state: $appState');
+    // check if ride state has been changed while app is in background
+    if (appState == AppLifecycleState.resumed) {
+      // use sharedPreference for the ability of refreshing values changed in
+      // background.
+      await prefs.reload();
+      final storedNotification = prefs.getString('rideNotification');
 
-  @override
-  void onInactive() {}
-
-  @override
-  void onPaused() {}
-
-  @override
-  void onResumed() {}
-
-  _startTimer() {
-    driverOnRouteCounter = 150; // in seconds
-    const oneSec = Duration(seconds: 1);
-    _resendTimer = Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (driverOnRouteCounter < 1) {
-          timer.cancel();
-        } else {
-          driverOnRouteCounter--;
-        }
-      },
-    );
-  }
-
-  onMessageRescieved(NotificationMessage notificationMessage) {
-    log("message recieved here $notificationMessage");
-
-    switch (SuccessFlagsExtension.getsuccessKey(notificationMessage.flag)) {
-      case SuccessFlags.rideAccepted:
-        // Ride accepted with driver payload
-        // set driver and driver detail
-        // Todo: set driver name here
-        driver = Driver(
-          userName: 'Cameron Williamson',
-          driverId: notificationMessage.driverId,
-          phoneNo: notificationMessage.phoneNo,
-          vehicleNo: notificationMessage.driverCarNo,
-          driverImage: notificationMessage.userImage,
-          rating: notificationMessage.rating,
-        );
-
-        driverVehicle = Vehicle(
-          vehicleType: notificationMessage.vehicleType,
-          regionName: notificationMessage.vehicleName,
-          images: VehicleImage(tabNormal: notificationMessage.driverCarImage),
-          vehicleNumber: notificationMessage.driverCarNo,
-        );
-
-        // set session and engagement ids
-        sessionId = notificationMessage.sessionId;
-        engagementId = int.tryParse(notificationMessage.engagementId ?? '0');
-
-        // change ride step to waiting driver
-        tripStep = TripStep.driverDetail;
-        _startTimer();
-        break;
-      case SuccessFlags.rideStarted:
-        // Ride started
-        tripStep = TripStep.tripStarted;
-        break;
-      case SuccessFlags.rideEnd:
-        // Ride ended
-        // set ride details
-        rideDetail = RideDetail(
-          fare: double.parse(notificationMessage.fare ?? '0'),
-          discount: double.parse(notificationMessage.discount ?? '0'),
-          toPay: double.parse(notificationMessage.toPay ?? '0'),
-          distanceTraveled:
-              double.parse(notificationMessage.distanceTravelled ?? '0'),
-          rideTime: int.parse(notificationMessage.rideTime ?? '0'),
-          distanceUnit: notificationMessage.distanceUnit,
-          paidUsingWallet:
-              double.parse(notificationMessage.paidUsingWallet ?? '0'),
-        );
-        tripStep = TripStep.tripDetail;
-        break;
-      case SuccessFlags.driversBusy:
-        resetValues();
-        break;
-
-      default:
+      // check for notification message
+      if (storedNotification?.isNotEmpty ?? false) {
+        NotificationMessage notificationMessage =
+            NotificationMessage.fromJson(jsonDecode(storedNotification!));
+        onMessageRescieved(notificationMessage);
+        // clear rideNotification from shared preference
+        prefs.setString('rideNotification', '');
+      }
     }
   }
+
+  // FCM background isolate communication
+  // fcmIsolateCommunication() {
+  //   ReceivePort _port = ReceivePort();
+  //   IsolateNameServer.registerPortWithName(
+  //       _port.sendPort, 'background_ride_notification');
+  //   _port.listen((dynamic notificationMessage) {
+  //     print('data from background notifcation: $notificationMessage');
+  //     // onMessageRescieved(notificationMessage);
+  //   });
+  // }
 
   _findDrivers({LatLng? destination, double? routeDistance}) async {
     Map<String, dynamic> findDriversPayload = {
@@ -267,15 +225,164 @@ class HomeController extends GetxService {
 
         if (findDriverResponse.regions != null) {
           // add vehicles filteredby ride_type, show O || 2
-          final allwoedVehicleRideTyes = [0, 2];
-          vehicles = findDriverResponse.regions?.where(
-              (vehicle) => allwoedVehicleRideTyes.contains(vehicle.rideType));
+          allVehicles = findDriverResponse.regions;
+          filterVehicles(0);
         }
       } else {
         print(findDriverResponse.error);
         toast('error', findDriverResponse.error ?? '');
       }
     }, onError: (error) => print('Find Drivers error: $error'));
+  }
+
+  _startDriverOnRouteTimer(int mins) {
+    if ((mins * 60) != driverOnRouteCounter) {
+      driverOnRouteCounter = mins * 60; // in seconds
+      const oneSec = Duration(seconds: 1);
+      _resendTimer = Timer.periodic(
+        oneSec,
+        (Timer timer) {
+          if (driverOnRouteCounter < 1) {
+            timer.cancel();
+          } else {
+            driverOnRouteCounter--;
+          }
+        },
+      );
+    }
+  }
+
+  _startRideTimer() {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) => rideCounter++);
+  }
+
+  onMessageRescieved(NotificationMessage notificationMessage) {
+    log("message recieved here $notificationMessage");
+
+    switch (SuccessFlagsExtension.getsuccessKey(notificationMessage.flag)) {
+      case SuccessFlags.rideAccepted:
+        _onRideAccepted(notificationMessage);
+        break;
+      case SuccessFlags.rideStarted:
+        // Ride started
+        _onRideStarted();
+        break;
+      case SuccessFlags.rideEnd:
+        // Ride ended
+        positionStream?.cancel();
+        // set ride details
+        rideDetail = RideDetail(
+          fare: double.parse(notificationMessage.fare ?? '0'),
+          discount: double.parse(notificationMessage.discount ?? '0'),
+          toPay: double.parse(notificationMessage.toPay ?? '0'),
+          distanceTraveled:
+              double.parse(notificationMessage.distanceTravelled ?? '0'),
+          rideTime: int.parse(notificationMessage.rideTime ?? '0'),
+          distanceUnit: notificationMessage.distanceUnit,
+          paidUsingWallet:
+              double.parse(notificationMessage.paidUsingWallet ?? '0'),
+        );
+        tripStep = TripStep.tripDetail;
+        break;
+      case SuccessFlags.driversBusy:
+        resetValues();
+        break;
+      default:
+    }
+  }
+
+  _onRideAccepted(NotificationMessage notificationMessage) {
+    // Ride accepted with driver payload
+    // set driver and driver detail
+    driver = Driver(
+      userName: notificationMessage.userName ?? '',
+      driverId: notificationMessage.driverId,
+      phoneNo: notificationMessage.phoneNo,
+      vehicleNo: notificationMessage.driverCarNo,
+      driverImage: notificationMessage.userImage,
+      rating: notificationMessage.rating,
+    );
+
+    driverVehicle = Vehicle(
+      vehicleType: notificationMessage.vehicleType,
+      regionName: notificationMessage.vehicleName,
+      images: VehicleImage(tabNormal: notificationMessage.driverCarImage),
+      vehicleNumber: notificationMessage.driverCarNo,
+    );
+
+    // set session and engagement ids
+    sessionId = notificationMessage.sessionId;
+    engagementId = int.tryParse(notificationMessage.engagementId ?? '0');
+    // engagementId = notificationMessage.engagementId;
+
+    // change ride step to waiting driver
+    tripStep = TripStep.driverDetail;
+
+    // set driver route
+    // set origin to drivers current location
+    final origin = PointLatLng(
+        notificationMessage.currentLocationLatitude ?? testLocation.latitude,
+        notificationMessage.currentLocationLongitude ?? testLocation.longitude);
+    final destination =
+        PointLatLng(testLocation.latitude, testLocation.longitude);
+    // Get & set the polyLines
+    repository.getRoutePolylines(origin, destination).then(
+        (polylineCoordinates) {
+      Polyline polyline = Polyline(
+          polylineId: const PolylineId("poly"),
+          color: AppTheme.primaryColor,
+          width: 3,
+          points: polylineCoordinates);
+
+      _polyLines.clear();
+      _polyLines.add(polyline);
+
+      // animate camera to mid point between origin and destination
+      LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
+          (origin.longitude + destination.longitude) / 2);
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(
+          target: midPoint,
+          zoom: 15,
+        )),
+      );
+    }, onError: (error) => log('Poly line error: $error'));
+
+    updateDriverLocation();
+  }
+
+  _onRideStarted() {
+    tripStep = TripStep.tripStarted;
+    _setMapPins(testLocation, pickedLocation!.location!);
+    if (ridePolyline != null) {
+      _polyLines.clear();
+      _polyLines.add(ridePolyline!);
+
+      final origin = PointLatLng(testLocation.latitude, testLocation.longitude);
+      final destination = PointLatLng(pickedLocation!.location!.latitude,
+          pickedLocation!.location!.longitude);
+
+      // animate camera to mid point between origin and destination
+      LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
+          (origin.longitude + destination.longitude) / 2);
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(
+          target: midPoint,
+          zoom: 13,
+        )),
+      );
+    }
+    _startRideTimer();
+    liveTrackTrip();
+  }
+
+  filterVehicles(int rideType) {
+    // filter vehicles based on rideType
+    // 0 - normal
+    // 2 - shared
+    if (allVehicles?.isNotEmpty ?? false) {
+      vehicles = allVehicles?.where((vehicle) => vehicle.rideType == rideType);
+    }
   }
 
   _setPinIcons() async {
@@ -285,6 +392,13 @@ class HomeController extends GetxService {
     destinationIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(devicePixelRatio: 2.5),
         'assets/icons/dest_location.png');
+    yellowCarIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(devicePixelRatio: 2.5),
+        'assets/icons/yellow_car.png');
+
+    whiteCarIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(devicePixelRatio: 2.5),
+        'assets/icons/white_car.png');
   }
 
   onRoutePickLocation() {
@@ -298,7 +412,8 @@ class HomeController extends GetxService {
   // For location search
   getPlaceSugestions(String input) {
     locationSearch = input;
-    if (locationSearch.isNotEmpty) {
+    if (locationSearch.isNotEmpty &&
+        locationSearch != pickedLocation?.placeName) {
       // use 250 millisoconds as debouncing for throttling.
       if (debounce?.isActive ?? false) debounce?.cancel();
       debounce = Timer(const Duration(milliseconds: 250), () {
@@ -340,13 +455,41 @@ class HomeController extends GetxService {
     ];
   }
 
+  getSavedPlaces() {
+    repository.getSavedPlaces().then((getPlacesResponse) {
+      if (getPlacesResponse.flag == SuccessFlags.getSavedPlaces.successCode) {
+        if (getPlacesResponse.addresses?.isNotEmpty ?? false) {
+          // filter saved places which are confirmed and has type
+          savedPlaces = getPlacesResponse.addresses;
+          confirmedPlaces = getPlacesResponse.addresses
+              ?.where((address) =>
+                  address.isConfirmed == 1 &&
+                  (address.type?.isNotEmpty ?? false))
+              .toList();
+        }
+      } else {
+        toast('error',
+            getPlacesResponse.error ?? getPlacesResponse.message ?? '');
+      }
+    }, onError: (error) {
+      print('Fetch savedplaces error:  $error');
+    });
+  }
+
   onPickLocationFromSearch(Suggestion placeSuggetion) {
     // find place with place Id
     if (placeSuggetion.placeId.isNotEmpty) {
       repository
           .getPlaceDetailFromId(placeSuggetion.placeId, sessionToken)
-          .then((place) => onLocationPicked(place),
-              onError: (error) => log('Place detail error: $error'));
+          .then((place) {
+        pickedLocation = place;
+        searchController.text = place.placeName ?? '';
+        locationSuggestions.clear();
+        if (!(tripStep == TripStep.addPlace ||
+            tripStep == TripStep.confirmPlace)) {
+          onLocationPicked();
+        }
+      }, onError: (error) => log('Place detail error: $error'));
     }
   }
 
@@ -367,18 +510,25 @@ class HomeController extends GetxService {
     });
   }
 
+  onSavedLocationPicked(Address savedAddress) {
+    pickedLocation = Place(
+        placeName: savedAddress.addressName,
+        location: LatLng(double.parse(savedAddress.latitude ?? ''),
+            double.parse(savedAddress.longitude ?? '')));
+    onLocationPicked();
+  }
+
   confirmPickedLocation() {
     if (pickedLocation == null) {
       Get.snackbar('error', 'destination_error');
     } else {
-      onLocationPicked(pickedLocation!);
+      onLocationPicked();
     }
   }
 
-  onLocationPicked(Place place) {
+  onLocationPicked() {
     // get vehicle Fare estimations
-    _findDrivers(destination: place.location);
-    pickedLocation = place;
+    _findDrivers(destination: pickedLocation!.location);
     Get.back();
     tripStep = TripStep.pickVehicle;
 
@@ -388,34 +538,38 @@ class HomeController extends GetxService {
       //     currentLocation!.latitude, currentLocation!.longitude);
       // final origin = PointLatLng(
       //     currentLocation!.latitude, currentLocation!.longitude);
+
       final origin = PointLatLng(testLocation.latitude, testLocation.longitude);
-      final destination =
-          PointLatLng(place.location!.latitude, place.location!.longitude);
+      final destination = PointLatLng(pickedLocation!.location!.latitude,
+          pickedLocation!.location!.longitude);
 
       // set origin and destination markers
-
-      _setMapPins(testLocation, place.location!);
+      _setMapPins(testLocation, pickedLocation!.location!);
 
       // Get & set the polyLines
       repository.getRoutePolylines(origin, destination).then(
           (polylineCoordinates) {
         // get vehicles fare calculation
         _findDrivers(
-            destination: place.location,
+            destination: pickedLocation!.location,
             routeDistance: getRouteDistance(polylineCoordinates));
 
         Polyline polyline = Polyline(
-            polylineId: const PolylineId("poly"),
+            polylineId: const PolylineId("ride_polyline"),
             color: AppTheme.primaryColor,
             width: 3,
             points: polylineCoordinates);
 
+        ridePolyline = polyline;
+        _polyLines.clear();
         _polyLines.add(polyline);
 
-        // animate camera to destination
+        // animate camera to mid point between origin and destination
+        LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
+            (origin.longitude + destination.longitude) / 2);
         mapController.animateCamera(
           CameraUpdate.newCameraPosition(CameraPosition(
-            target: place.location!,
+            target: midPoint,
             zoom: 13,
           )),
         );
@@ -487,18 +641,11 @@ class HomeController extends GetxService {
         icon: destinationIcon));
   }
 
-  _addDriversMarker() async {
+  _addDriversMarker() {
     // final Uint8List? currentLocationIcon =
     //     await getBytesFromAsset('assets/icons/current_location_sm.png', 50);
-    final yellowCarIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/yellow_car.png');
-    final whiteCarIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/white_car.png');
 
     markers.clear();
-
     // add driver markers
     for (Driver driver in drivers) {
       if (driver.latitude != null && driver.longitude != null) {
@@ -570,7 +717,7 @@ class HomeController extends GetxService {
     final Map<String, dynamic> rateDriverPayload = {
       'given_rating': '$driverRating',
       'engagement_id': '$engagementId',
-      'driver_id': '${driver.driverId}',
+      'driver_id': '${driver?.driverId}',
       'feedback': feedbackComment,
       'feedback_reasons': 'performance'
     };
@@ -597,20 +744,171 @@ class HomeController extends GetxService {
     });
   }
 
+  addFavouriteDriver() {
+    final Map<String, dynamic> favouriteDriverPayload = {
+      'given_rating': '$driverRating',
+      'engagement_id': '$engagementId',
+      'driver_id': '${driver?.driverId}',
+      'feedback': feedbackComment,
+      'feedback_reasons': 'performance'
+    };
+
+    status(Status.loading);
+    repository.addFavouriteDriver(favouriteDriverPayload).then((basicResponse) {
+      if (basicResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        status(Status.success);
+        Get.snackbar('succes'.tr, 'add_favourite_driver_success'.tr);
+      } else {
+        print(basicResponse.error ?? '');
+        status(Status.error);
+        toast(
+            'error',
+            basicResponse.error ??
+                basicResponse.log ??
+                basicResponse.message ??
+                '');
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Add favourite driver error: $error');
+    });
+  }
+
   resetValues() {
     // Reset all values to there initial values
-
     sessionId = null;
     engagementId = null;
-    _polyLines.clear();
-
-    driver = Driver(userName: 'Cameron Williamson');
+    driver = null;
     driverVehicle = Vehicle();
 
     feedbackComment = '';
     driverRating = 0;
     tripStep = TripStep.whereTo;
 
+    driverOnRouteCounter = 0;
+    rideCounter = 0;
+
     pickedLocation = null;
+    _polyLines.clear();
+    _markers.clear();
+
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(CameraPosition(
+        target: testLocation,
+        zoom: kCameraZoom,
+      )),
+    );
+  }
+
+  addNewPlace(String addressLabel) {
+    if (pickedLocation != null) {
+      Map<String, dynamic> addressPayload = {
+        'address': pickedLocation!.placeName,
+        'latitude': pickedLocation!.location?.latitude,
+        'longitude': pickedLocation!.location?.longitude,
+        'type': addressLabel,
+        'is_confirmed': '1',
+        'google_place_id': '',
+        'keep_duplicate': '0',
+      };
+
+      status(Status.loading);
+      repository.addNewPlace(addressPayload).then((addressesResponse) {
+        if (addressesResponse.flag == SuccessFlags.addNewPlace.successCode) {
+          status(Status.success);
+          if (addressesResponse.addresses?.isNotEmpty ?? false) {
+            // filter saved places which are confirmed and has type
+            savedPlaces = addressesResponse.addresses;
+            confirmedPlaces = addressesResponse.addresses
+                ?.where((address) =>
+                    address.isConfirmed == 1 &&
+                    (address.type?.isNotEmpty ?? false))
+                .toList();
+            Get.snackbar('success', 'add_place_success'.tr);
+            resetValues();
+          }
+        } else {
+          status(Status.error);
+          toast('error',
+              addressesResponse.error ?? addressesResponse.message ?? '');
+        }
+      }, onError: (error) {
+        status(Status.error);
+        print('Add new place error:  $error');
+      });
+    } else {
+      Get.snackbar('error', 'place_not_picked_error');
+    }
+  }
+
+  updateDriverLocation() async {
+    // update drivers marker while arriving towards the user
+    // this is called every 10 sec to update drivers' location
+    // untill trip starts
+    _getDriverLocation();
+    Timer.periodic(const Duration(seconds: 10), (timer) {
+      if (tripStep != TripStep.driverDetail) {
+        timer.cancel();
+      }
+      _getDriverLocation();
+    });
+  }
+
+  _getDriverLocation() {
+    if (driver?.driverId != null) {
+      // get current driver location
+      repository
+          .getCurrentDriverLocation('${driver?.driverId}')
+          .then((driverLocationResponse) {
+        if (driverLocationResponse.flag ==
+            SuccessFlags.driverLocation.successCode) {
+          log('driver location response: $driverLocationResponse');
+          if (driverLocationResponse.eta != null) {
+            _startDriverOnRouteTimer(driverLocationResponse.eta!);
+          }
+          // update driver marker.
+          if (driverLocationResponse.latitude != null &&
+              driverLocationResponse.longitude != null) {
+            _updateDriverMarker(driverLocationResponse.latitude!,
+                driverLocationResponse.longitude!);
+          }
+        }
+      });
+    }
+  }
+
+  _updateDriverMarker(double latitude, double longitude) {
+    _markers.clear();
+
+    _markers.removeWhere((m) => m.markerId.value == 'driver_current_location');
+    _markers.add(Marker(
+        markerId: const MarkerId('driver_current_location'),
+        position: LatLng(latitude, longitude),
+        icon: yellowCarIcon));
+  }
+
+  liveTrackTrip() {
+    positionStream = Geolocator.getPositionStream(
+            intervalDuration: const Duration(seconds: 5))
+        .listen((Position? position) {
+      if (tripStep == TripStep.tripStarted && position != null) {
+        _updateDriverMarker(position.latitude, position.longitude);
+      }
+    });
+  }
+
+  onLogout() {
+    // Todo: check if there is pending operations
+    if (tripStep == TripStep.whereTo) {
+      authController.logout();
+    } else {
+      Get.snackbar('warning'.tr, 'check_pending_operations'.tr);
+    }
+  }
+
+  @override
+  void onClose() {
+    positionStream?.cancel();
+    super.onClose();
   }
 }

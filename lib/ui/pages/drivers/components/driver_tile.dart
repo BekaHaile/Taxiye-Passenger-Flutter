@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DriverTile extends StatelessWidget {
   const DriverTile({
@@ -24,7 +25,6 @@ class DriverTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
               children: [
@@ -38,6 +38,7 @@ class DriverTile extends StatelessWidget {
                   width: 150.0,
                   child: Text(
                     vehicle.vehicleNumber ?? '',
+                    textAlign: TextAlign.center,
                     style: AppTheme.body
                         .copyWith(fontWeight: FontWeight.w700, fontSize: 12.0),
                   ),
@@ -91,11 +92,12 @@ class DriverTile extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const CircularShadow(
-                          child: Icon(
-                            Icons.chat_bubble_outline,
+                        CircularShadow(
+                          child: const Icon(
+                            Icons.call,
                             color: AppTheme.darkTextColor,
                           ),
+                          onTap: () => launch('tel:${driver.phoneNo}'),
                         ),
                         const SizedBox(width: 20.0),
                         if (onRemove != null)
@@ -193,21 +195,22 @@ class DriverAvator extends StatelessWidget {
         ),
         Positioned(
           bottom: -15.0,
-          child: vehicle.images?.tabNormal?.isNotEmpty ?? false
-              ? CachedNetworkImage(
-                  imageUrl: vehicle.images!.tabNormal!,
-                  width: 80.0,
-                  height: 40.0,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      const SizedBox(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                )
-              : // Todo: get default asset image based on the category name
+          child:
+              // vehicle.images?.tabNormal?.isNotEmpty ?? false
+              //     ? CachedNetworkImage(
+              //         imageUrl: vehicle.images!.tabNormal!,
+              //         width: 80.0,
+              //         height: 40.0,
+              //         progressIndicatorBuilder: (context, url, downloadProgress) =>
+              //             const SizedBox(),
+              //         errorWidget: (context, url, error) => const Icon(Icons.error),
+              //       )
+              //     : // Todo: get default asset image based on the category name
               Image.asset(
-                  'assets/images/Taxiye - Sedan.png',
-                  width: 80.0,
-                  height: 40.0,
-                ),
+            'assets/images/Taxiye - Sedan.png',
+            width: 80.0,
+            height: 40.0,
+          ),
         )
       ],
     );

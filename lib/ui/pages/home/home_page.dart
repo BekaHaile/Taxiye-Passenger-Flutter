@@ -6,6 +6,7 @@ import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/confirm_place.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/location_search.dart';
@@ -30,7 +31,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   final HomeController controller = Get.find();
   late Widget screenView;
   late DrawerIndex drawerIndex;
@@ -41,6 +43,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    WidgetsBinding.instance?.addObserver(this);
     drawerIndex = DrawerIndex.myWallet;
     screenView = ProfilePage();
     iconAnimationController = AnimationController(
@@ -56,12 +59,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Scaffold(
           key: _scaffoldKey,
-          resizeToAvoidBottomInset: false,
+          // resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
               // MapScreen(),
@@ -73,20 +82,42 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 onTap: () => _scaffoldKey.currentState?.openDrawer(),
               ),
 
-              Obx(() => controller.tripStep == TripStep.pickOnMap
+              Obx(() => controller.tripStep == TripStep.pickOnMap ||
+                      controller.tripStep == TripStep.addPlace ||
+                      controller.tripStep == TripStep.confirmPlace
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Column(
                         children: [
-                          const LocationSearch(),
+                          const LocationSearch(
+                              locationType: LocationType.dropOff),
                           getLocationLists(),
                           const Spacer(),
                           Padding(
                               padding: const EdgeInsets.all(kPagePadding),
                               child: RoundedButton(
-                                  text: 'confirm'.tr,
-                                  onPressed: () =>
-                                      controller.confirmPickedLocation()))
+                                  text:
+                                      controller.tripStep == TripStep.pickOnMap
+                                          ? 'confirm'.tr
+                                          : 'next'.tr,
+                                  onPressed: () {
+                                    switch (controller.tripStep) {
+                                      case TripStep.pickOnMap:
+                                        controller.confirmPickedLocation();
+                                        break;
+                                      case TripStep.addPlace:
+                                        if (controller.pickedLocation != null) {
+                                          controller.tripStep =
+                                              TripStep.confirmPlace;
+                                        } else {
+                                          Get.snackbar('success',
+                                              'place_not_picked_error'.tr);
+                                        }
+
+                                        break;
+                                      default:
+                                    }
+                                  }))
                         ],
                       ),
                     )
@@ -116,6 +147,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             )),
       ],
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    controller.onAppStateChange(state);
   }
 
   Widget getLocationLists() {
@@ -157,7 +193,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         );
       case TripStep.tripFeedback:
         return TripFeadback(
-            driver: controller.driver, vehicle: controller.driverVehicle);
+            driver: controller.driver!, vehicle: controller.driverVehicle);
+      case TripStep.confirmPlace:
+        return const ConfirmPlace();
       default:
         return const Text('pick vehicle');
     }

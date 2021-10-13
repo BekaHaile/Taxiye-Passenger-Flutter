@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
@@ -165,5 +166,15 @@ class AuthRepository implements IAuthRepository {
       data: {},
     );
     return User.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> logoutUser() async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/logout_user',
+      data: {},
+    );
+    return BasicResponse.fromJson(response);
   }
 }

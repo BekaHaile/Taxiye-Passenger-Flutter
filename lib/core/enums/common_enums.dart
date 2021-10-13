@@ -53,6 +53,7 @@ enum Gender {
 }
 
 enum SuccessFlags {
+  basicSuccess,
   signUp,
   verify,
   updateProfile,
@@ -68,11 +69,16 @@ enum SuccessFlags {
   getTransactionHistory,
   transfer,
   reloadProfile,
+  getSavedPlaces,
+  addNewPlace,
+  driverLocation,
+  logout,
   dummy
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
   static const Map<SuccessFlags, int> successCodes = {
+    SuccessFlags.basicSuccess: 143,
     SuccessFlags.signUp: 143,
     SuccessFlags.verify: 407,
     SuccessFlags.updateProfile: 416,
@@ -89,6 +95,10 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.getTransactionHistory: 423,
     SuccessFlags.transfer: 143,
     SuccessFlags.reloadProfile: 416,
+    SuccessFlags.getSavedPlaces: 143,
+    SuccessFlags.addNewPlace: 143,
+    SuccessFlags.driverLocation: 117,
+    SuccessFlags.logout: 409,
   };
 
   int get successCode => successCodes[this]!;

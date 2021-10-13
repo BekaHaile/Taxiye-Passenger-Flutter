@@ -2,15 +2,14 @@
   Handles showing notifications
 */
 import 'dart:convert';
-import 'dart:isolate';
-import 'dart:ui';
-
+import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     as lNotification;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:get/get.dart';
 
@@ -172,6 +171,7 @@ showNotification(String title, String body) async {
   var platformChannelSpecifics = lNotification.NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics);
+
   await lNotification.FlutterLocalNotificationsPlugin().show(
     0,
     title,
@@ -181,19 +181,31 @@ showNotification(String title, String body) async {
   );
 }
 
-sendBackgroundNotification(NotificationMessage notificationMessage) {
-  final SendPort? send =
-      IsolateNameServer.lookupPortByName('background_ride_notification');
-
-  print('send notification called $send');
-  send?.send(notificationMessage);
-}
-
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-  print('Got notification message on background:: ${message.data['message']}');
 
-  handleNotification(message, sendBackgroundNotification);
+  // print('Got notification message on background:: ${message.data['message']}');
+
+  handleNotification(message, persistBackgroundNotification);
+}
+
+persistBackgroundNotification(NotificationMessage notificationMessage) async {
+  // set notification message on storage, so that app will read it on
+  // onResume.
+
+  switch (notificationMessage.flag) {
+    case 72:
+      // skip this notification
+      break;
+    default:
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('rideNotification', jsonEncode(notificationMessage));
+  }
+
+  // For communication with the main ui thread.
+  // final SendPort? send =
+  //     IsolateNameServer.lookupPortByName('background_ride_notification')
+  // send?.send(notificationMessage);
 }

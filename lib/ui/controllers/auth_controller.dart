@@ -13,6 +13,7 @@ import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
+import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/pages/common/phone_input_dialog.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
@@ -91,8 +92,8 @@ class AuthController extends GetxService {
 
   void signin() {
     // Todo: login user logic
-    // repository.login(email, password);
-    Get.toNamed(Routes.home);
+    signup();
+    // Get.toNamed(Routes.home);
   }
 
   signup() async {
@@ -208,7 +209,8 @@ class AuthController extends GetxService {
           status(Status.success);
           if (data.userData != null) persistUser(data.userData!);
           user = data.userData;
-          Get.toNamed(Routes.setProfile);
+          // Get.toNamed(Routes.setProfile);
+          _navigateUser();
         } else {
           print(data.message);
           toast('error', data.message ?? 'api_error'.tr);
@@ -312,7 +314,7 @@ class AuthController extends GetxService {
   }
 
   determineNextRoute() async {
-    // await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     await getCurrentLocation().then((value) {
       currentLocation = value;
       _storage.write('latitude', value.latitude);
@@ -402,7 +404,30 @@ class AuthController extends GetxService {
     return sha256.convert(utf8.encode(authSecret)).toString();
   }
 
-  void logout() {
-    // Todo: logout user and clear any saved values
+  logout() async {
+    // call server logout
+    status(Status.loading);
+    repository.logoutUser().then((basicResponse) {
+      if (basicResponse.flag == SuccessFlags.logout.successCode) {
+        status(Status.success);
+        // reset controllers values and rebind dependency injections
+        _storage.erase();
+        // Get.reset();
+        Get.offAllNamed(Routes.auth);
+        // Get.snackbar('success'.tr, 'logout_success'.tr);
+      } else {
+        print(basicResponse.error ?? '');
+        status(Status.error);
+        toast(
+            'error',
+            basicResponse.error ??
+                basicResponse.log ??
+                basicResponse.message ??
+                '');
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Logout error: $error');
+    });
   }
 }

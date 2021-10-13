@@ -6,6 +6,7 @@ final Map<String, String> enUs = {
   'next': 'Next',
   'select_language': 'Please Select Your Language',
   'skip': 'Skip',
+  'warning': 'Warning',
 
   'intro0_title': 'Taxi on Demand',
   'intro0_info': 'Fast and reliable ride hailing at your finger tips.',
@@ -36,6 +37,8 @@ final Map<String, String> enUs = {
   'signup_with': '- Or sign up with -',
   'already_have_account': 'Already have an account?',
   'not_regeitered': 'Not registered yet?',
+
+  'logout_success': 'You have successfully logged out',
 
   // verify
   'verify_title': 'Verify your\nPhone number',
@@ -190,6 +193,10 @@ final Map<String, String> enUs = {
   'mins': 'mins',
 
   'rate_driver_success': 'Driver rated successfully',
+  'address_label_hint': 'Labels e.g Friend\'s Home',
+  'address_name': 'Address name',
+
+  'add_place_success': 'Place saved successfully',
 
   // trip feedback strings
   'block': 'Block',
@@ -200,6 +207,7 @@ final Map<String, String> enUs = {
   'feadback_info':
       'Your feedback will help us improve your next driving experience.',
   'additional_comments': 'Additional comments here...',
+  'add_favourite_driver_success': 'Driver has been added as favourite',
 
   // Wallet strings
   'your_wallet': 'Your Wallet',
@@ -318,4 +326,8 @@ final Map<String, String> enUs = {
   'api_error': 'Api Error',
   'destination_error': 'Please pick your destination',
   'vehicle_select_error': 'Please pick vehicle',
+
+  'error_label': 'Please add address label',
+  'place_not_picked_error': 'Please pick a place',
+  'check_pending_operations': 'Please complete pending operations first',
 };

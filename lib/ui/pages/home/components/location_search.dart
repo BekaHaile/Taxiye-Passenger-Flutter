@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
@@ -8,7 +9,10 @@ import 'package:get/get.dart';
 class LocationSearch extends GetView<HomeController> {
   const LocationSearch({
     Key? key,
+    required this.locationType,
   }) : super(key: key);
+
+  final LocationType locationType;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,9 @@ class LocationSearch extends GetView<HomeController> {
           decoration: AppTheme.textFieldDecoration.copyWith(
             filled: true,
             fillColor: Colors.white,
-            hintText: 'enter_location'.tr,
+            hintText: locationType == LocationType.pickUp
+                ? 'pick_up_location'.tr
+                : 'drop_off_location'.tr,
             hintStyle: AppTheme.subtitle
                 .copyWith(fontSize: 16.0, fontWeight: FontWeight.w600),
             suffixIcon: Obx(

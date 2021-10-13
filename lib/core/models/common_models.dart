@@ -68,3 +68,13 @@ class SavedPlace {
   final String placeTitle;
   final String placeAddress;
 }
+
+class VehicleType {
+  const VehicleType({
+    required this.type,
+    required this.rideType,
+  });
+
+  final String type;
+  final int rideType;
+}

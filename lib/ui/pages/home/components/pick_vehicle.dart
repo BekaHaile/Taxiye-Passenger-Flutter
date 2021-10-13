@@ -2,11 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_list.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/vehicle_type_list.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 
 class PickVehicle extends GetView<HomeController> {
@@ -34,20 +36,12 @@ class PickVehicle extends GetView<HomeController> {
                 )
               ],
             ),
-            const SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                VehicleTypeChip(
-                  type: VehicleType.normal,
-                ),
-                VehicleTypeChip(
-                  type: VehicleType.shared,
-                ),
-                VehicleTypeChip(
-                  type: VehicleType.corporate,
-                ),
-              ],
+            const SizedBox(height: 10.0),
+            SizedBox(
+              height: 35.0,
+              child: VehicleTypeList(
+                  onFilterVehicle: (rideType) =>
+                      controller.filterVehicles(rideType)),
             ),
             const SizedBox(height: 16.0),
             Obx(() => VehicleList(
@@ -86,45 +80,6 @@ class PickVehicle extends GetView<HomeController> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class VehicleTypeChip extends GetView<HomeController> {
-  const VehicleTypeChip({
-    Key? key,
-    required this.type,
-  }) : super(key: key);
-
-  final VehicleType type;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => controller.vehicleType = type,
-      child: Obx(() => Container(
-            width: 100.0,
-            height: 35.0,
-            decoration: BoxDecoration(
-              color: type == controller.vehicleType
-                  ? AppTheme.primaryColor
-                  : AppTheme.lightSilverColor,
-              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-            ),
-            child: Center(
-              child: Text(
-                describeEnum(type).tr,
-                style: AppTheme.body.copyWith(
-                  color: type == controller.vehicleType
-                      ? Colors.white
-                      : AppTheme.darkTextColor,
-                  fontWeight: type == controller.vehicleType
-                      ? FontWeight.w600
-                      : FontWeight.w400,
-                ),
-              ),
-            ),
-          )),
     );
   }
 }

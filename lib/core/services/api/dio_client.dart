@@ -49,7 +49,7 @@ class DioClient {
 
     final accessToken = GetStorage().read('accessToken');
 
-    // print('accessToken: $accessToken');
+    print('accessToken: $accessToken');
     if (accessToken != null) {
       _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
         // Do something before request is sent

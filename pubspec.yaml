@@ -127,6 +127,10 @@ dependencies:
 
   # for a spin kit 
   flutter_spinkit: ^5.1.0
+  # for local storage
+  shared_preferences: ^2.0.8
+  # for launching a URL
+  url_launcher: ^6.0.12
 
   
 

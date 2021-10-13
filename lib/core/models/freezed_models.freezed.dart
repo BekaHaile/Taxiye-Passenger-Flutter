@@ -3443,46 +3443,83 @@ NotificationMessage _$NotificationMessageFromJson(Map<String, dynamic> json) {
 class _$NotificationMessageTearOff {
   const _$NotificationMessageTearOff();
 
-  _NotificationMessage call(int flag,
+  _NotificationMessage call(
+      int flag,
       {String? title,
       String? message,
       double? rating,
       String? fare,
+      double? bearing,
+      String? timeTillDisplay,
+      String? discount,
       String? log,
       String? error,
-      @JsonKey(name: 'phone_no') String? phoneNo,
-      @JsonKey(name: 'driver_id') int? driverId,
-      @JsonKey(name: 'driver_car_no') String? driverCarNo,
-      @JsonKey(name: 'user_image') String? userImage,
-      @JsonKey(name: 'title_ios') String? titleIos,
-      @JsonKey(name: 'message_ios') String? messageIos,
-      @JsonKey(name: 'vehicle_name') String? vehicleName,
-      @JsonKey(name: 'vehicle_type') int? vehicleType,
-      @JsonKey(name: 'session_id') int? sessionId,
-      @JsonKey(name: 'engagement_id') String? engagementId,
-      @JsonKey(name: 'driver_car_image') String? driverCarImage,
-      @JsonKey(name: 'to_pay') String? toPay,
-      @JsonKey(name: 'payment_mode') int? paymentMode,
-      @JsonKey(name: 'distance_travelled') String? distanceTravelled,
-      @JsonKey(name: 'ride_time') String? rideTime,
-      @JsonKey(name: 'distance_unit') String? distanceUnit,
-      @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
-      String? discount}) {
+      @JsonKey(name: 'phone_no')
+          String? phoneNo,
+      @JsonKey(name: 'driver_id')
+          int? driverId,
+      @JsonKey(name: 'driver_car_no')
+          String? driverCarNo,
+      @JsonKey(name: 'vehicle_name')
+          String? vehicleName,
+      @JsonKey(name: 'user_name')
+          String? userName,
+      @JsonKey(name: 'vehicle_model')
+          String? vehicleModel,
+      @JsonKey(name: 'user_image')
+          String? userImage,
+      @JsonKey(name: 'title_ios')
+          String? titleIos,
+      @JsonKey(name: 'message_ios')
+          String? messageIos,
+      @JsonKey(name: 'vehicle_type')
+          int? vehicleType,
+      @JsonKey(name: 'session_id')
+          int? sessionId,
+      @JsonKey(name: 'engagement_id')
+          String? engagementId,
+      @JsonKey(name: 'driver_car_image')
+          String? driverCarImage,
+      @JsonKey(name: 'to_pay')
+          String? toPay,
+      @JsonKey(name: 'payment_mode')
+          int? paymentMode,
+      @JsonKey(name: 'distance_travelled')
+          String? distanceTravelled,
+      @JsonKey(name: 'ride_time')
+          String? rideTime,
+      @JsonKey(name: 'distance_unit')
+          String? distanceUnit,
+      @JsonKey(name: 'paid_using_wallet')
+          String? paidUsingWallet,
+      @JsonKey(name: 'current_location_latitude')
+          double? currentLocationLatitude,
+      @JsonKey(name: 'current_location_longitude')
+          double? currentLocationLongitude,
+      @JsonKey(name: 'is_corporate_ride')
+          int? isCorporateRide,
+      @JsonKey(name: 'marker_icon')
+          String? markerIcon}) {
     return _NotificationMessage(
       flag,
       title: title,
       message: message,
       rating: rating,
       fare: fare,
+      bearing: bearing,
+      timeTillDisplay: timeTillDisplay,
+      discount: discount,
       log: log,
       error: error,
       phoneNo: phoneNo,
       driverId: driverId,
       driverCarNo: driverCarNo,
+      vehicleName: vehicleName,
+      userName: userName,
+      vehicleModel: vehicleModel,
       userImage: userImage,
       titleIos: titleIos,
       messageIos: messageIos,
-      vehicleName: vehicleName,
       vehicleType: vehicleType,
       sessionId: sessionId,
       engagementId: engagementId,
@@ -3493,7 +3530,10 @@ class _$NotificationMessageTearOff {
       rideTime: rideTime,
       distanceUnit: distanceUnit,
       paidUsingWallet: paidUsingWallet,
-      discount: discount,
+      currentLocationLatitude: currentLocationLatitude,
+      currentLocationLongitude: currentLocationLongitude,
+      isCorporateRide: isCorporateRide,
+      markerIcon: markerIcon,
     );
   }
 
@@ -3512,6 +3552,9 @@ mixin _$NotificationMessage {
   String? get message => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
   String? get fare => throw _privateConstructorUsedError;
+  double? get bearing => throw _privateConstructorUsedError;
+  String? get timeTillDisplay => throw _privateConstructorUsedError;
+  String? get discount => throw _privateConstructorUsedError;
   String? get log => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_no')
@@ -3520,14 +3563,18 @@ mixin _$NotificationMessage {
   int? get driverId => throw _privateConstructorUsedError;
   @JsonKey(name: 'driver_car_no')
   String? get driverCarNo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_name')
+  String? get vehicleName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_name')
+  String? get userName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_model')
+  String? get vehicleModel => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_image')
   String? get userImage => throw _privateConstructorUsedError;
   @JsonKey(name: 'title_ios')
   String? get titleIos => throw _privateConstructorUsedError;
   @JsonKey(name: 'message_ios')
   String? get messageIos => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vehicle_name')
-  String? get vehicleName => throw _privateConstructorUsedError;
   @JsonKey(name: 'vehicle_type')
   int? get vehicleType => throw _privateConstructorUsedError;
   @JsonKey(name: 'session_id')
@@ -3548,7 +3595,14 @@ mixin _$NotificationMessage {
   String? get distanceUnit => throw _privateConstructorUsedError;
   @JsonKey(name: 'paid_using_wallet')
   String? get paidUsingWallet => throw _privateConstructorUsedError;
-  String? get discount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'current_location_latitude')
+  double? get currentLocationLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'current_location_longitude')
+  double? get currentLocationLongitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_corporate_ride')
+  int? get isCorporateRide => throw _privateConstructorUsedError;
+  @JsonKey(name: 'marker_icon')
+  String? get markerIcon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -3567,26 +3621,57 @@ abstract class $NotificationMessageCopyWith<$Res> {
       String? message,
       double? rating,
       String? fare,
+      double? bearing,
+      String? timeTillDisplay,
+      String? discount,
       String? log,
       String? error,
-      @JsonKey(name: 'phone_no') String? phoneNo,
-      @JsonKey(name: 'driver_id') int? driverId,
-      @JsonKey(name: 'driver_car_no') String? driverCarNo,
-      @JsonKey(name: 'user_image') String? userImage,
-      @JsonKey(name: 'title_ios') String? titleIos,
-      @JsonKey(name: 'message_ios') String? messageIos,
-      @JsonKey(name: 'vehicle_name') String? vehicleName,
-      @JsonKey(name: 'vehicle_type') int? vehicleType,
-      @JsonKey(name: 'session_id') int? sessionId,
-      @JsonKey(name: 'engagement_id') String? engagementId,
-      @JsonKey(name: 'driver_car_image') String? driverCarImage,
-      @JsonKey(name: 'to_pay') String? toPay,
-      @JsonKey(name: 'payment_mode') int? paymentMode,
-      @JsonKey(name: 'distance_travelled') String? distanceTravelled,
-      @JsonKey(name: 'ride_time') String? rideTime,
-      @JsonKey(name: 'distance_unit') String? distanceUnit,
-      @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
-      String? discount});
+      @JsonKey(name: 'phone_no')
+          String? phoneNo,
+      @JsonKey(name: 'driver_id')
+          int? driverId,
+      @JsonKey(name: 'driver_car_no')
+          String? driverCarNo,
+      @JsonKey(name: 'vehicle_name')
+          String? vehicleName,
+      @JsonKey(name: 'user_name')
+          String? userName,
+      @JsonKey(name: 'vehicle_model')
+          String? vehicleModel,
+      @JsonKey(name: 'user_image')
+          String? userImage,
+      @JsonKey(name: 'title_ios')
+          String? titleIos,
+      @JsonKey(name: 'message_ios')
+          String? messageIos,
+      @JsonKey(name: 'vehicle_type')
+          int? vehicleType,
+      @JsonKey(name: 'session_id')
+          int? sessionId,
+      @JsonKey(name: 'engagement_id')
+          String? engagementId,
+      @JsonKey(name: 'driver_car_image')
+          String? driverCarImage,
+      @JsonKey(name: 'to_pay')
+          String? toPay,
+      @JsonKey(name: 'payment_mode')
+          int? paymentMode,
+      @JsonKey(name: 'distance_travelled')
+          String? distanceTravelled,
+      @JsonKey(name: 'ride_time')
+          String? rideTime,
+      @JsonKey(name: 'distance_unit')
+          String? distanceUnit,
+      @JsonKey(name: 'paid_using_wallet')
+          String? paidUsingWallet,
+      @JsonKey(name: 'current_location_latitude')
+          double? currentLocationLatitude,
+      @JsonKey(name: 'current_location_longitude')
+          double? currentLocationLongitude,
+      @JsonKey(name: 'is_corporate_ride')
+          int? isCorporateRide,
+      @JsonKey(name: 'marker_icon')
+          String? markerIcon});
 }
 
 /// @nodoc
@@ -3605,15 +3690,20 @@ class _$NotificationMessageCopyWithImpl<$Res>
     Object? message = freezed,
     Object? rating = freezed,
     Object? fare = freezed,
+    Object? bearing = freezed,
+    Object? timeTillDisplay = freezed,
+    Object? discount = freezed,
     Object? log = freezed,
     Object? error = freezed,
     Object? phoneNo = freezed,
     Object? driverId = freezed,
     Object? driverCarNo = freezed,
+    Object? vehicleName = freezed,
+    Object? userName = freezed,
+    Object? vehicleModel = freezed,
     Object? userImage = freezed,
     Object? titleIos = freezed,
     Object? messageIos = freezed,
-    Object? vehicleName = freezed,
     Object? vehicleType = freezed,
     Object? sessionId = freezed,
     Object? engagementId = freezed,
@@ -3624,7 +3714,10 @@ class _$NotificationMessageCopyWithImpl<$Res>
     Object? rideTime = freezed,
     Object? distanceUnit = freezed,
     Object? paidUsingWallet = freezed,
-    Object? discount = freezed,
+    Object? currentLocationLatitude = freezed,
+    Object? currentLocationLongitude = freezed,
+    Object? isCorporateRide = freezed,
+    Object? markerIcon = freezed,
   }) {
     return _then(_value.copyWith(
       flag: flag == freezed
@@ -3647,6 +3740,18 @@ class _$NotificationMessageCopyWithImpl<$Res>
           ? _value.fare
           : fare // ignore: cast_nullable_to_non_nullable
               as String?,
+      bearing: bearing == freezed
+          ? _value.bearing
+          : bearing // ignore: cast_nullable_to_non_nullable
+              as double?,
+      timeTillDisplay: timeTillDisplay == freezed
+          ? _value.timeTillDisplay
+          : timeTillDisplay // ignore: cast_nullable_to_non_nullable
+              as String?,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as String?,
       log: log == freezed
           ? _value.log
           : log // ignore: cast_nullable_to_non_nullable
@@ -3667,6 +3772,18 @@ class _$NotificationMessageCopyWithImpl<$Res>
           ? _value.driverCarNo
           : driverCarNo // ignore: cast_nullable_to_non_nullable
               as String?,
+      vehicleName: vehicleName == freezed
+          ? _value.vehicleName
+          : vehicleName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vehicleModel: vehicleModel == freezed
+          ? _value.vehicleModel
+          : vehicleModel // ignore: cast_nullable_to_non_nullable
+              as String?,
       userImage: userImage == freezed
           ? _value.userImage
           : userImage // ignore: cast_nullable_to_non_nullable
@@ -3678,10 +3795,6 @@ class _$NotificationMessageCopyWithImpl<$Res>
       messageIos: messageIos == freezed
           ? _value.messageIos
           : messageIos // ignore: cast_nullable_to_non_nullable
-              as String?,
-      vehicleName: vehicleName == freezed
-          ? _value.vehicleName
-          : vehicleName // ignore: cast_nullable_to_non_nullable
               as String?,
       vehicleType: vehicleType == freezed
           ? _value.vehicleType
@@ -3723,9 +3836,21 @@ class _$NotificationMessageCopyWithImpl<$Res>
           ? _value.paidUsingWallet
           : paidUsingWallet // ignore: cast_nullable_to_non_nullable
               as String?,
-      discount: discount == freezed
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
+      currentLocationLatitude: currentLocationLatitude == freezed
+          ? _value.currentLocationLatitude
+          : currentLocationLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      currentLocationLongitude: currentLocationLongitude == freezed
+          ? _value.currentLocationLongitude
+          : currentLocationLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      isCorporateRide: isCorporateRide == freezed
+          ? _value.isCorporateRide
+          : isCorporateRide // ignore: cast_nullable_to_non_nullable
+              as int?,
+      markerIcon: markerIcon == freezed
+          ? _value.markerIcon
+          : markerIcon // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -3744,26 +3869,57 @@ abstract class _$NotificationMessageCopyWith<$Res>
       String? message,
       double? rating,
       String? fare,
+      double? bearing,
+      String? timeTillDisplay,
+      String? discount,
       String? log,
       String? error,
-      @JsonKey(name: 'phone_no') String? phoneNo,
-      @JsonKey(name: 'driver_id') int? driverId,
-      @JsonKey(name: 'driver_car_no') String? driverCarNo,
-      @JsonKey(name: 'user_image') String? userImage,
-      @JsonKey(name: 'title_ios') String? titleIos,
-      @JsonKey(name: 'message_ios') String? messageIos,
-      @JsonKey(name: 'vehicle_name') String? vehicleName,
-      @JsonKey(name: 'vehicle_type') int? vehicleType,
-      @JsonKey(name: 'session_id') int? sessionId,
-      @JsonKey(name: 'engagement_id') String? engagementId,
-      @JsonKey(name: 'driver_car_image') String? driverCarImage,
-      @JsonKey(name: 'to_pay') String? toPay,
-      @JsonKey(name: 'payment_mode') int? paymentMode,
-      @JsonKey(name: 'distance_travelled') String? distanceTravelled,
-      @JsonKey(name: 'ride_time') String? rideTime,
-      @JsonKey(name: 'distance_unit') String? distanceUnit,
-      @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
-      String? discount});
+      @JsonKey(name: 'phone_no')
+          String? phoneNo,
+      @JsonKey(name: 'driver_id')
+          int? driverId,
+      @JsonKey(name: 'driver_car_no')
+          String? driverCarNo,
+      @JsonKey(name: 'vehicle_name')
+          String? vehicleName,
+      @JsonKey(name: 'user_name')
+          String? userName,
+      @JsonKey(name: 'vehicle_model')
+          String? vehicleModel,
+      @JsonKey(name: 'user_image')
+          String? userImage,
+      @JsonKey(name: 'title_ios')
+          String? titleIos,
+      @JsonKey(name: 'message_ios')
+          String? messageIos,
+      @JsonKey(name: 'vehicle_type')
+          int? vehicleType,
+      @JsonKey(name: 'session_id')
+          int? sessionId,
+      @JsonKey(name: 'engagement_id')
+          String? engagementId,
+      @JsonKey(name: 'driver_car_image')
+          String? driverCarImage,
+      @JsonKey(name: 'to_pay')
+          String? toPay,
+      @JsonKey(name: 'payment_mode')
+          int? paymentMode,
+      @JsonKey(name: 'distance_travelled')
+          String? distanceTravelled,
+      @JsonKey(name: 'ride_time')
+          String? rideTime,
+      @JsonKey(name: 'distance_unit')
+          String? distanceUnit,
+      @JsonKey(name: 'paid_using_wallet')
+          String? paidUsingWallet,
+      @JsonKey(name: 'current_location_latitude')
+          double? currentLocationLatitude,
+      @JsonKey(name: 'current_location_longitude')
+          double? currentLocationLongitude,
+      @JsonKey(name: 'is_corporate_ride')
+          int? isCorporateRide,
+      @JsonKey(name: 'marker_icon')
+          String? markerIcon});
 }
 
 /// @nodoc
@@ -3784,15 +3940,20 @@ class __$NotificationMessageCopyWithImpl<$Res>
     Object? message = freezed,
     Object? rating = freezed,
     Object? fare = freezed,
+    Object? bearing = freezed,
+    Object? timeTillDisplay = freezed,
+    Object? discount = freezed,
     Object? log = freezed,
     Object? error = freezed,
     Object? phoneNo = freezed,
     Object? driverId = freezed,
     Object? driverCarNo = freezed,
+    Object? vehicleName = freezed,
+    Object? userName = freezed,
+    Object? vehicleModel = freezed,
     Object? userImage = freezed,
     Object? titleIos = freezed,
     Object? messageIos = freezed,
-    Object? vehicleName = freezed,
     Object? vehicleType = freezed,
     Object? sessionId = freezed,
     Object? engagementId = freezed,
@@ -3803,7 +3964,10 @@ class __$NotificationMessageCopyWithImpl<$Res>
     Object? rideTime = freezed,
     Object? distanceUnit = freezed,
     Object? paidUsingWallet = freezed,
-    Object? discount = freezed,
+    Object? currentLocationLatitude = freezed,
+    Object? currentLocationLongitude = freezed,
+    Object? isCorporateRide = freezed,
+    Object? markerIcon = freezed,
   }) {
     return _then(_NotificationMessage(
       flag == freezed
@@ -3826,6 +3990,18 @@ class __$NotificationMessageCopyWithImpl<$Res>
           ? _value.fare
           : fare // ignore: cast_nullable_to_non_nullable
               as String?,
+      bearing: bearing == freezed
+          ? _value.bearing
+          : bearing // ignore: cast_nullable_to_non_nullable
+              as double?,
+      timeTillDisplay: timeTillDisplay == freezed
+          ? _value.timeTillDisplay
+          : timeTillDisplay // ignore: cast_nullable_to_non_nullable
+              as String?,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as String?,
       log: log == freezed
           ? _value.log
           : log // ignore: cast_nullable_to_non_nullable
@@ -3846,6 +4022,18 @@ class __$NotificationMessageCopyWithImpl<$Res>
           ? _value.driverCarNo
           : driverCarNo // ignore: cast_nullable_to_non_nullable
               as String?,
+      vehicleName: vehicleName == freezed
+          ? _value.vehicleName
+          : vehicleName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      vehicleModel: vehicleModel == freezed
+          ? _value.vehicleModel
+          : vehicleModel // ignore: cast_nullable_to_non_nullable
+              as String?,
       userImage: userImage == freezed
           ? _value.userImage
           : userImage // ignore: cast_nullable_to_non_nullable
@@ -3857,10 +4045,6 @@ class __$NotificationMessageCopyWithImpl<$Res>
       messageIos: messageIos == freezed
           ? _value.messageIos
           : messageIos // ignore: cast_nullable_to_non_nullable
-              as String?,
-      vehicleName: vehicleName == freezed
-          ? _value.vehicleName
-          : vehicleName // ignore: cast_nullable_to_non_nullable
               as String?,
       vehicleType: vehicleType == freezed
           ? _value.vehicleType
@@ -3902,9 +4086,21 @@ class __$NotificationMessageCopyWithImpl<$Res>
           ? _value.paidUsingWallet
           : paidUsingWallet // ignore: cast_nullable_to_non_nullable
               as String?,
-      discount: discount == freezed
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
+      currentLocationLatitude: currentLocationLatitude == freezed
+          ? _value.currentLocationLatitude
+          : currentLocationLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      currentLocationLongitude: currentLocationLongitude == freezed
+          ? _value.currentLocationLongitude
+          : currentLocationLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      isCorporateRide: isCorporateRide == freezed
+          ? _value.isCorporateRide
+          : isCorporateRide // ignore: cast_nullable_to_non_nullable
+              as int?,
+      markerIcon: markerIcon == freezed
+          ? _value.markerIcon
+          : markerIcon // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -3913,31 +4109,63 @@ class __$NotificationMessageCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_NotificationMessage implements _NotificationMessage {
-  _$_NotificationMessage(this.flag,
+  _$_NotificationMessage(
+      this.flag,
       {this.title,
       this.message,
       this.rating,
       this.fare,
+      this.bearing,
+      this.timeTillDisplay,
+      this.discount,
       this.log,
       this.error,
-      @JsonKey(name: 'phone_no') this.phoneNo,
-      @JsonKey(name: 'driver_id') this.driverId,
-      @JsonKey(name: 'driver_car_no') this.driverCarNo,
-      @JsonKey(name: 'user_image') this.userImage,
-      @JsonKey(name: 'title_ios') this.titleIos,
-      @JsonKey(name: 'message_ios') this.messageIos,
-      @JsonKey(name: 'vehicle_name') this.vehicleName,
-      @JsonKey(name: 'vehicle_type') this.vehicleType,
-      @JsonKey(name: 'session_id') this.sessionId,
-      @JsonKey(name: 'engagement_id') this.engagementId,
-      @JsonKey(name: 'driver_car_image') this.driverCarImage,
-      @JsonKey(name: 'to_pay') this.toPay,
-      @JsonKey(name: 'payment_mode') this.paymentMode,
-      @JsonKey(name: 'distance_travelled') this.distanceTravelled,
-      @JsonKey(name: 'ride_time') this.rideTime,
-      @JsonKey(name: 'distance_unit') this.distanceUnit,
-      @JsonKey(name: 'paid_using_wallet') this.paidUsingWallet,
-      this.discount});
+      @JsonKey(name: 'phone_no')
+          this.phoneNo,
+      @JsonKey(name: 'driver_id')
+          this.driverId,
+      @JsonKey(name: 'driver_car_no')
+          this.driverCarNo,
+      @JsonKey(name: 'vehicle_name')
+          this.vehicleName,
+      @JsonKey(name: 'user_name')
+          this.userName,
+      @JsonKey(name: 'vehicle_model')
+          this.vehicleModel,
+      @JsonKey(name: 'user_image')
+          this.userImage,
+      @JsonKey(name: 'title_ios')
+          this.titleIos,
+      @JsonKey(name: 'message_ios')
+          this.messageIos,
+      @JsonKey(name: 'vehicle_type')
+          this.vehicleType,
+      @JsonKey(name: 'session_id')
+          this.sessionId,
+      @JsonKey(name: 'engagement_id')
+          this.engagementId,
+      @JsonKey(name: 'driver_car_image')
+          this.driverCarImage,
+      @JsonKey(name: 'to_pay')
+          this.toPay,
+      @JsonKey(name: 'payment_mode')
+          this.paymentMode,
+      @JsonKey(name: 'distance_travelled')
+          this.distanceTravelled,
+      @JsonKey(name: 'ride_time')
+          this.rideTime,
+      @JsonKey(name: 'distance_unit')
+          this.distanceUnit,
+      @JsonKey(name: 'paid_using_wallet')
+          this.paidUsingWallet,
+      @JsonKey(name: 'current_location_latitude')
+          this.currentLocationLatitude,
+      @JsonKey(name: 'current_location_longitude')
+          this.currentLocationLongitude,
+      @JsonKey(name: 'is_corporate_ride')
+          this.isCorporateRide,
+      @JsonKey(name: 'marker_icon')
+          this.markerIcon});
 
   factory _$_NotificationMessage.fromJson(Map<String, dynamic> json) =>
       _$_$_NotificationMessageFromJson(json);
@@ -3953,6 +4181,12 @@ class _$_NotificationMessage implements _NotificationMessage {
   @override
   final String? fare;
   @override
+  final double? bearing;
+  @override
+  final String? timeTillDisplay;
+  @override
+  final String? discount;
+  @override
   final String? log;
   @override
   final String? error;
@@ -3966,6 +4200,15 @@ class _$_NotificationMessage implements _NotificationMessage {
   @JsonKey(name: 'driver_car_no')
   final String? driverCarNo;
   @override
+  @JsonKey(name: 'vehicle_name')
+  final String? vehicleName;
+  @override
+  @JsonKey(name: 'user_name')
+  final String? userName;
+  @override
+  @JsonKey(name: 'vehicle_model')
+  final String? vehicleModel;
+  @override
   @JsonKey(name: 'user_image')
   final String? userImage;
   @override
@@ -3974,9 +4217,6 @@ class _$_NotificationMessage implements _NotificationMessage {
   @override
   @JsonKey(name: 'message_ios')
   final String? messageIos;
-  @override
-  @JsonKey(name: 'vehicle_name')
-  final String? vehicleName;
   @override
   @JsonKey(name: 'vehicle_type')
   final int? vehicleType;
@@ -4008,11 +4248,21 @@ class _$_NotificationMessage implements _NotificationMessage {
   @JsonKey(name: 'paid_using_wallet')
   final String? paidUsingWallet;
   @override
-  final String? discount;
+  @JsonKey(name: 'current_location_latitude')
+  final double? currentLocationLatitude;
+  @override
+  @JsonKey(name: 'current_location_longitude')
+  final double? currentLocationLongitude;
+  @override
+  @JsonKey(name: 'is_corporate_ride')
+  final int? isCorporateRide;
+  @override
+  @JsonKey(name: 'marker_icon')
+  final String? markerIcon;
 
   @override
   String toString() {
-    return 'NotificationMessage(flag: $flag, title: $title, message: $message, rating: $rating, fare: $fare, log: $log, error: $error, phoneNo: $phoneNo, driverId: $driverId, driverCarNo: $driverCarNo, userImage: $userImage, titleIos: $titleIos, messageIos: $messageIos, vehicleName: $vehicleName, vehicleType: $vehicleType, sessionId: $sessionId, engagementId: $engagementId, driverCarImage: $driverCarImage, toPay: $toPay, paymentMode: $paymentMode, distanceTravelled: $distanceTravelled, rideTime: $rideTime, distanceUnit: $distanceUnit, paidUsingWallet: $paidUsingWallet, discount: $discount)';
+    return 'NotificationMessage(flag: $flag, title: $title, message: $message, rating: $rating, fare: $fare, bearing: $bearing, timeTillDisplay: $timeTillDisplay, discount: $discount, log: $log, error: $error, phoneNo: $phoneNo, driverId: $driverId, driverCarNo: $driverCarNo, vehicleName: $vehicleName, userName: $userName, vehicleModel: $vehicleModel, userImage: $userImage, titleIos: $titleIos, messageIos: $messageIos, vehicleType: $vehicleType, sessionId: $sessionId, engagementId: $engagementId, driverCarImage: $driverCarImage, toPay: $toPay, paymentMode: $paymentMode, distanceTravelled: $distanceTravelled, rideTime: $rideTime, distanceUnit: $distanceUnit, paidUsingWallet: $paidUsingWallet, currentLocationLatitude: $currentLocationLatitude, currentLocationLongitude: $currentLocationLongitude, isCorporateRide: $isCorporateRide, markerIcon: $markerIcon)';
   }
 
   @override
@@ -4030,6 +4280,15 @@ class _$_NotificationMessage implements _NotificationMessage {
                 const DeepCollectionEquality().equals(other.rating, rating)) &&
             (identical(other.fare, fare) ||
                 const DeepCollectionEquality().equals(other.fare, fare)) &&
+            (identical(other.bearing, bearing) ||
+                const DeepCollectionEquality()
+                    .equals(other.bearing, bearing)) &&
+            (identical(other.timeTillDisplay, timeTillDisplay) ||
+                const DeepCollectionEquality()
+                    .equals(other.timeTillDisplay, timeTillDisplay)) &&
+            (identical(other.discount, discount) ||
+                const DeepCollectionEquality()
+                    .equals(other.discount, discount)) &&
             (identical(other.log, log) ||
                 const DeepCollectionEquality().equals(other.log, log)) &&
             (identical(other.error, error) ||
@@ -4043,6 +4302,15 @@ class _$_NotificationMessage implements _NotificationMessage {
             (identical(other.driverCarNo, driverCarNo) ||
                 const DeepCollectionEquality()
                     .equals(other.driverCarNo, driverCarNo)) &&
+            (identical(other.vehicleName, vehicleName) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleName, vehicleName)) &&
+            (identical(other.userName, userName) ||
+                const DeepCollectionEquality()
+                    .equals(other.userName, userName)) &&
+            (identical(other.vehicleModel, vehicleModel) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleModel, vehicleModel)) &&
             (identical(other.userImage, userImage) ||
                 const DeepCollectionEquality()
                     .equals(other.userImage, userImage)) &&
@@ -4052,9 +4320,6 @@ class _$_NotificationMessage implements _NotificationMessage {
             (identical(other.messageIos, messageIos) ||
                 const DeepCollectionEquality()
                     .equals(other.messageIos, messageIos)) &&
-            (identical(other.vehicleName, vehicleName) ||
-                const DeepCollectionEquality()
-                    .equals(other.vehicleName, vehicleName)) &&
             (identical(other.vehicleType, vehicleType) ||
                 const DeepCollectionEquality()
                     .equals(other.vehicleType, vehicleType)) &&
@@ -4072,21 +4337,14 @@ class _$_NotificationMessage implements _NotificationMessage {
             (identical(other.paymentMode, paymentMode) ||
                 const DeepCollectionEquality()
                     .equals(other.paymentMode, paymentMode)) &&
-            (identical(other.distanceTravelled, distanceTravelled) ||
-                const DeepCollectionEquality()
-                    .equals(other.distanceTravelled, distanceTravelled)) &&
-            (identical(other.rideTime, rideTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.rideTime, rideTime)) &&
-            (identical(other.distanceUnit, distanceUnit) ||
-                const DeepCollectionEquality()
-                    .equals(other.distanceUnit, distanceUnit)) &&
-            (identical(other.paidUsingWallet, paidUsingWallet) ||
-                const DeepCollectionEquality()
-                    .equals(other.paidUsingWallet, paidUsingWallet)) &&
-            (identical(other.discount, discount) ||
-                const DeepCollectionEquality()
-                    .equals(other.discount, discount)));
+            (identical(other.distanceTravelled, distanceTravelled) || const DeepCollectionEquality().equals(other.distanceTravelled, distanceTravelled)) &&
+            (identical(other.rideTime, rideTime) || const DeepCollectionEquality().equals(other.rideTime, rideTime)) &&
+            (identical(other.distanceUnit, distanceUnit) || const DeepCollectionEquality().equals(other.distanceUnit, distanceUnit)) &&
+            (identical(other.paidUsingWallet, paidUsingWallet) || const DeepCollectionEquality().equals(other.paidUsingWallet, paidUsingWallet)) &&
+            (identical(other.currentLocationLatitude, currentLocationLatitude) || const DeepCollectionEquality().equals(other.currentLocationLatitude, currentLocationLatitude)) &&
+            (identical(other.currentLocationLongitude, currentLocationLongitude) || const DeepCollectionEquality().equals(other.currentLocationLongitude, currentLocationLongitude)) &&
+            (identical(other.isCorporateRide, isCorporateRide) || const DeepCollectionEquality().equals(other.isCorporateRide, isCorporateRide)) &&
+            (identical(other.markerIcon, markerIcon) || const DeepCollectionEquality().equals(other.markerIcon, markerIcon)));
   }
 
   @override
@@ -4097,15 +4355,20 @@ class _$_NotificationMessage implements _NotificationMessage {
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(fare) ^
+      const DeepCollectionEquality().hash(bearing) ^
+      const DeepCollectionEquality().hash(timeTillDisplay) ^
+      const DeepCollectionEquality().hash(discount) ^
       const DeepCollectionEquality().hash(log) ^
       const DeepCollectionEquality().hash(error) ^
       const DeepCollectionEquality().hash(phoneNo) ^
       const DeepCollectionEquality().hash(driverId) ^
       const DeepCollectionEquality().hash(driverCarNo) ^
+      const DeepCollectionEquality().hash(vehicleName) ^
+      const DeepCollectionEquality().hash(userName) ^
+      const DeepCollectionEquality().hash(vehicleModel) ^
       const DeepCollectionEquality().hash(userImage) ^
       const DeepCollectionEquality().hash(titleIos) ^
       const DeepCollectionEquality().hash(messageIos) ^
-      const DeepCollectionEquality().hash(vehicleName) ^
       const DeepCollectionEquality().hash(vehicleType) ^
       const DeepCollectionEquality().hash(sessionId) ^
       const DeepCollectionEquality().hash(engagementId) ^
@@ -4116,7 +4379,10 @@ class _$_NotificationMessage implements _NotificationMessage {
       const DeepCollectionEquality().hash(rideTime) ^
       const DeepCollectionEquality().hash(distanceUnit) ^
       const DeepCollectionEquality().hash(paidUsingWallet) ^
-      const DeepCollectionEquality().hash(discount);
+      const DeepCollectionEquality().hash(currentLocationLatitude) ^
+      const DeepCollectionEquality().hash(currentLocationLongitude) ^
+      const DeepCollectionEquality().hash(isCorporateRide) ^
+      const DeepCollectionEquality().hash(markerIcon);
 
   @JsonKey(ignore: true)
   @override
@@ -4131,31 +4397,63 @@ class _$_NotificationMessage implements _NotificationMessage {
 }
 
 abstract class _NotificationMessage implements NotificationMessage {
-  factory _NotificationMessage(int flag,
+  factory _NotificationMessage(
+      int flag,
       {String? title,
       String? message,
       double? rating,
       String? fare,
+      double? bearing,
+      String? timeTillDisplay,
+      String? discount,
       String? log,
       String? error,
-      @JsonKey(name: 'phone_no') String? phoneNo,
-      @JsonKey(name: 'driver_id') int? driverId,
-      @JsonKey(name: 'driver_car_no') String? driverCarNo,
-      @JsonKey(name: 'user_image') String? userImage,
-      @JsonKey(name: 'title_ios') String? titleIos,
-      @JsonKey(name: 'message_ios') String? messageIos,
-      @JsonKey(name: 'vehicle_name') String? vehicleName,
-      @JsonKey(name: 'vehicle_type') int? vehicleType,
-      @JsonKey(name: 'session_id') int? sessionId,
-      @JsonKey(name: 'engagement_id') String? engagementId,
-      @JsonKey(name: 'driver_car_image') String? driverCarImage,
-      @JsonKey(name: 'to_pay') String? toPay,
-      @JsonKey(name: 'payment_mode') int? paymentMode,
-      @JsonKey(name: 'distance_travelled') String? distanceTravelled,
-      @JsonKey(name: 'ride_time') String? rideTime,
-      @JsonKey(name: 'distance_unit') String? distanceUnit,
-      @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
-      String? discount}) = _$_NotificationMessage;
+      @JsonKey(name: 'phone_no')
+          String? phoneNo,
+      @JsonKey(name: 'driver_id')
+          int? driverId,
+      @JsonKey(name: 'driver_car_no')
+          String? driverCarNo,
+      @JsonKey(name: 'vehicle_name')
+          String? vehicleName,
+      @JsonKey(name: 'user_name')
+          String? userName,
+      @JsonKey(name: 'vehicle_model')
+          String? vehicleModel,
+      @JsonKey(name: 'user_image')
+          String? userImage,
+      @JsonKey(name: 'title_ios')
+          String? titleIos,
+      @JsonKey(name: 'message_ios')
+          String? messageIos,
+      @JsonKey(name: 'vehicle_type')
+          int? vehicleType,
+      @JsonKey(name: 'session_id')
+          int? sessionId,
+      @JsonKey(name: 'engagement_id')
+          String? engagementId,
+      @JsonKey(name: 'driver_car_image')
+          String? driverCarImage,
+      @JsonKey(name: 'to_pay')
+          String? toPay,
+      @JsonKey(name: 'payment_mode')
+          int? paymentMode,
+      @JsonKey(name: 'distance_travelled')
+          String? distanceTravelled,
+      @JsonKey(name: 'ride_time')
+          String? rideTime,
+      @JsonKey(name: 'distance_unit')
+          String? distanceUnit,
+      @JsonKey(name: 'paid_using_wallet')
+          String? paidUsingWallet,
+      @JsonKey(name: 'current_location_latitude')
+          double? currentLocationLatitude,
+      @JsonKey(name: 'current_location_longitude')
+          double? currentLocationLongitude,
+      @JsonKey(name: 'is_corporate_ride')
+          int? isCorporateRide,
+      @JsonKey(name: 'marker_icon')
+          String? markerIcon}) = _$_NotificationMessage;
 
   factory _NotificationMessage.fromJson(Map<String, dynamic> json) =
       _$_NotificationMessage.fromJson;
@@ -4171,6 +4469,12 @@ abstract class _NotificationMessage implements NotificationMessage {
   @override
   String? get fare => throw _privateConstructorUsedError;
   @override
+  double? get bearing => throw _privateConstructorUsedError;
+  @override
+  String? get timeTillDisplay => throw _privateConstructorUsedError;
+  @override
+  String? get discount => throw _privateConstructorUsedError;
+  @override
   String? get log => throw _privateConstructorUsedError;
   @override
   String? get error => throw _privateConstructorUsedError;
@@ -4184,6 +4488,15 @@ abstract class _NotificationMessage implements NotificationMessage {
   @JsonKey(name: 'driver_car_no')
   String? get driverCarNo => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'vehicle_name')
+  String? get vehicleName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_name')
+  String? get userName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'vehicle_model')
+  String? get vehicleModel => throw _privateConstructorUsedError;
+  @override
   @JsonKey(name: 'user_image')
   String? get userImage => throw _privateConstructorUsedError;
   @override
@@ -4192,9 +4505,6 @@ abstract class _NotificationMessage implements NotificationMessage {
   @override
   @JsonKey(name: 'message_ios')
   String? get messageIos => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'vehicle_name')
-  String? get vehicleName => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'vehicle_type')
   int? get vehicleType => throw _privateConstructorUsedError;
@@ -4226,7 +4536,17 @@ abstract class _NotificationMessage implements NotificationMessage {
   @JsonKey(name: 'paid_using_wallet')
   String? get paidUsingWallet => throw _privateConstructorUsedError;
   @override
-  String? get discount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'current_location_latitude')
+  double? get currentLocationLatitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'current_location_longitude')
+  double? get currentLocationLongitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'is_corporate_ride')
+  int? get isCorporateRide => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'marker_icon')
+  String? get markerIcon => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$NotificationMessageCopyWith<_NotificationMessage> get copyWith =>
@@ -4556,6 +4876,369 @@ abstract class _RideDetail implements RideDetail {
   @override
   @JsonKey(ignore: true)
   _$RideDetailCopyWith<_RideDetail> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Address _$AddressFromJson(Map<String, dynamic> json) {
+  return _Address.fromJson(json);
+}
+
+/// @nodoc
+class _$AddressTearOff {
+  const _$AddressTearOff();
+
+  _Address call(
+      {String? type,
+      int? id,
+      String? instr,
+      @JsonKey(name: 'addr') String? addressName,
+      @JsonKey(name: 'lat') String? latitude,
+      @JsonKey(name: 'lng') String? longitude,
+      @JsonKey(name: 'freq') int? frequency,
+      @JsonKey(name: 'google_place_id') String? googlePlaceId,
+      @JsonKey(name: 'is_confirmed') int? isConfirmed}) {
+    return _Address(
+      type: type,
+      id: id,
+      instr: instr,
+      addressName: addressName,
+      latitude: latitude,
+      longitude: longitude,
+      frequency: frequency,
+      googlePlaceId: googlePlaceId,
+      isConfirmed: isConfirmed,
+    );
+  }
+
+  Address fromJson(Map<String, Object> json) {
+    return Address.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Address = _$AddressTearOff();
+
+/// @nodoc
+mixin _$Address {
+  String? get type => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get instr => throw _privateConstructorUsedError;
+  @JsonKey(name: 'addr')
+  String? get addressName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'lat')
+  String? get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'lng')
+  String? get longitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'freq')
+  int? get frequency => throw _privateConstructorUsedError;
+  @JsonKey(name: 'google_place_id')
+  String? get googlePlaceId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_confirmed')
+  int? get isConfirmed => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $AddressCopyWith<Address> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AddressCopyWith<$Res> {
+  factory $AddressCopyWith(Address value, $Res Function(Address) then) =
+      _$AddressCopyWithImpl<$Res>;
+  $Res call(
+      {String? type,
+      int? id,
+      String? instr,
+      @JsonKey(name: 'addr') String? addressName,
+      @JsonKey(name: 'lat') String? latitude,
+      @JsonKey(name: 'lng') String? longitude,
+      @JsonKey(name: 'freq') int? frequency,
+      @JsonKey(name: 'google_place_id') String? googlePlaceId,
+      @JsonKey(name: 'is_confirmed') int? isConfirmed});
+}
+
+/// @nodoc
+class _$AddressCopyWithImpl<$Res> implements $AddressCopyWith<$Res> {
+  _$AddressCopyWithImpl(this._value, this._then);
+
+  final Address _value;
+  // ignore: unused_field
+  final $Res Function(Address) _then;
+
+  @override
+  $Res call({
+    Object? type = freezed,
+    Object? id = freezed,
+    Object? instr = freezed,
+    Object? addressName = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? frequency = freezed,
+    Object? googlePlaceId = freezed,
+    Object? isConfirmed = freezed,
+  }) {
+    return _then(_value.copyWith(
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      instr: instr == freezed
+          ? _value.instr
+          : instr // ignore: cast_nullable_to_non_nullable
+              as String?,
+      addressName: addressName == freezed
+          ? _value.addressName
+          : addressName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      frequency: frequency == freezed
+          ? _value.frequency
+          : frequency // ignore: cast_nullable_to_non_nullable
+              as int?,
+      googlePlaceId: googlePlaceId == freezed
+          ? _value.googlePlaceId
+          : googlePlaceId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isConfirmed: isConfirmed == freezed
+          ? _value.isConfirmed
+          : isConfirmed // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$AddressCopyWith<$Res> implements $AddressCopyWith<$Res> {
+  factory _$AddressCopyWith(_Address value, $Res Function(_Address) then) =
+      __$AddressCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String? type,
+      int? id,
+      String? instr,
+      @JsonKey(name: 'addr') String? addressName,
+      @JsonKey(name: 'lat') String? latitude,
+      @JsonKey(name: 'lng') String? longitude,
+      @JsonKey(name: 'freq') int? frequency,
+      @JsonKey(name: 'google_place_id') String? googlePlaceId,
+      @JsonKey(name: 'is_confirmed') int? isConfirmed});
+}
+
+/// @nodoc
+class __$AddressCopyWithImpl<$Res> extends _$AddressCopyWithImpl<$Res>
+    implements _$AddressCopyWith<$Res> {
+  __$AddressCopyWithImpl(_Address _value, $Res Function(_Address) _then)
+      : super(_value, (v) => _then(v as _Address));
+
+  @override
+  _Address get _value => super._value as _Address;
+
+  @override
+  $Res call({
+    Object? type = freezed,
+    Object? id = freezed,
+    Object? instr = freezed,
+    Object? addressName = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? frequency = freezed,
+    Object? googlePlaceId = freezed,
+    Object? isConfirmed = freezed,
+  }) {
+    return _then(_Address(
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      instr: instr == freezed
+          ? _value.instr
+          : instr // ignore: cast_nullable_to_non_nullable
+              as String?,
+      addressName: addressName == freezed
+          ? _value.addressName
+          : addressName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      frequency: frequency == freezed
+          ? _value.frequency
+          : frequency // ignore: cast_nullable_to_non_nullable
+              as int?,
+      googlePlaceId: googlePlaceId == freezed
+          ? _value.googlePlaceId
+          : googlePlaceId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isConfirmed: isConfirmed == freezed
+          ? _value.isConfirmed
+          : isConfirmed // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Address implements _Address {
+  _$_Address(
+      {this.type,
+      this.id,
+      this.instr,
+      @JsonKey(name: 'addr') this.addressName,
+      @JsonKey(name: 'lat') this.latitude,
+      @JsonKey(name: 'lng') this.longitude,
+      @JsonKey(name: 'freq') this.frequency,
+      @JsonKey(name: 'google_place_id') this.googlePlaceId,
+      @JsonKey(name: 'is_confirmed') this.isConfirmed});
+
+  factory _$_Address.fromJson(Map<String, dynamic> json) =>
+      _$_$_AddressFromJson(json);
+
+  @override
+  final String? type;
+  @override
+  final int? id;
+  @override
+  final String? instr;
+  @override
+  @JsonKey(name: 'addr')
+  final String? addressName;
+  @override
+  @JsonKey(name: 'lat')
+  final String? latitude;
+  @override
+  @JsonKey(name: 'lng')
+  final String? longitude;
+  @override
+  @JsonKey(name: 'freq')
+  final int? frequency;
+  @override
+  @JsonKey(name: 'google_place_id')
+  final String? googlePlaceId;
+  @override
+  @JsonKey(name: 'is_confirmed')
+  final int? isConfirmed;
+
+  @override
+  String toString() {
+    return 'Address(type: $type, id: $id, instr: $instr, addressName: $addressName, latitude: $latitude, longitude: $longitude, frequency: $frequency, googlePlaceId: $googlePlaceId, isConfirmed: $isConfirmed)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Address &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.instr, instr) ||
+                const DeepCollectionEquality().equals(other.instr, instr)) &&
+            (identical(other.addressName, addressName) ||
+                const DeepCollectionEquality()
+                    .equals(other.addressName, addressName)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
+            (identical(other.frequency, frequency) ||
+                const DeepCollectionEquality()
+                    .equals(other.frequency, frequency)) &&
+            (identical(other.googlePlaceId, googlePlaceId) ||
+                const DeepCollectionEquality()
+                    .equals(other.googlePlaceId, googlePlaceId)) &&
+            (identical(other.isConfirmed, isConfirmed) ||
+                const DeepCollectionEquality()
+                    .equals(other.isConfirmed, isConfirmed)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(instr) ^
+      const DeepCollectionEquality().hash(addressName) ^
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(frequency) ^
+      const DeepCollectionEquality().hash(googlePlaceId) ^
+      const DeepCollectionEquality().hash(isConfirmed);
+
+  @JsonKey(ignore: true)
+  @override
+  _$AddressCopyWith<_Address> get copyWith =>
+      __$AddressCopyWithImpl<_Address>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_AddressToJson(this);
+  }
+}
+
+abstract class _Address implements Address {
+  factory _Address(
+      {String? type,
+      int? id,
+      String? instr,
+      @JsonKey(name: 'addr') String? addressName,
+      @JsonKey(name: 'lat') String? latitude,
+      @JsonKey(name: 'lng') String? longitude,
+      @JsonKey(name: 'freq') int? frequency,
+      @JsonKey(name: 'google_place_id') String? googlePlaceId,
+      @JsonKey(name: 'is_confirmed') int? isConfirmed}) = _$_Address;
+
+  factory _Address.fromJson(Map<String, dynamic> json) = _$_Address.fromJson;
+
+  @override
+  String? get type => throw _privateConstructorUsedError;
+  @override
+  int? get id => throw _privateConstructorUsedError;
+  @override
+  String? get instr => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'addr')
+  String? get addressName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'lat')
+  String? get latitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'lng')
+  String? get longitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'freq')
+  int? get frequency => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'google_place_id')
+  String? get googlePlaceId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'is_confirmed')
+  int? get isConfirmed => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$AddressCopyWith<_Address> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -6505,5 +7188,459 @@ abstract class _TransferResponse implements TransferResponse {
   @override
   @JsonKey(ignore: true)
   _$TransferResponseCopyWith<_TransferResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SavedPlacesResponse _$SavedPlacesResponseFromJson(Map<String, dynamic> json) {
+  return _SavedPlacesResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$SavedPlacesResponseTearOff {
+  const _$SavedPlacesResponseTearOff();
+
+  _SavedPlacesResponse call(int flag,
+      {String? message, String? error, List<Address>? addresses}) {
+    return _SavedPlacesResponse(
+      flag,
+      message: message,
+      error: error,
+      addresses: addresses,
+    );
+  }
+
+  SavedPlacesResponse fromJson(Map<String, Object> json) {
+    return SavedPlacesResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $SavedPlacesResponse = _$SavedPlacesResponseTearOff();
+
+/// @nodoc
+mixin _$SavedPlacesResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  List<Address>? get addresses => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SavedPlacesResponseCopyWith<SavedPlacesResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SavedPlacesResponseCopyWith<$Res> {
+  factory $SavedPlacesResponseCopyWith(
+          SavedPlacesResponse value, $Res Function(SavedPlacesResponse) then) =
+      _$SavedPlacesResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag, String? message, String? error, List<Address>? addresses});
+}
+
+/// @nodoc
+class _$SavedPlacesResponseCopyWithImpl<$Res>
+    implements $SavedPlacesResponseCopyWith<$Res> {
+  _$SavedPlacesResponseCopyWithImpl(this._value, this._then);
+
+  final SavedPlacesResponse _value;
+  // ignore: unused_field
+  final $Res Function(SavedPlacesResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? addresses = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      addresses: addresses == freezed
+          ? _value.addresses
+          : addresses // ignore: cast_nullable_to_non_nullable
+              as List<Address>?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$SavedPlacesResponseCopyWith<$Res>
+    implements $SavedPlacesResponseCopyWith<$Res> {
+  factory _$SavedPlacesResponseCopyWith(_SavedPlacesResponse value,
+          $Res Function(_SavedPlacesResponse) then) =
+      __$SavedPlacesResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag, String? message, String? error, List<Address>? addresses});
+}
+
+/// @nodoc
+class __$SavedPlacesResponseCopyWithImpl<$Res>
+    extends _$SavedPlacesResponseCopyWithImpl<$Res>
+    implements _$SavedPlacesResponseCopyWith<$Res> {
+  __$SavedPlacesResponseCopyWithImpl(
+      _SavedPlacesResponse _value, $Res Function(_SavedPlacesResponse) _then)
+      : super(_value, (v) => _then(v as _SavedPlacesResponse));
+
+  @override
+  _SavedPlacesResponse get _value => super._value as _SavedPlacesResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? addresses = freezed,
+  }) {
+    return _then(_SavedPlacesResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      addresses: addresses == freezed
+          ? _value.addresses
+          : addresses // ignore: cast_nullable_to_non_nullable
+              as List<Address>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_SavedPlacesResponse implements _SavedPlacesResponse {
+  _$_SavedPlacesResponse(this.flag, {this.message, this.error, this.addresses});
+
+  factory _$_SavedPlacesResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_SavedPlacesResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  final List<Address>? addresses;
+
+  @override
+  String toString() {
+    return 'SavedPlacesResponse(flag: $flag, message: $message, error: $error, addresses: $addresses)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _SavedPlacesResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.addresses, addresses) ||
+                const DeepCollectionEquality()
+                    .equals(other.addresses, addresses)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(addresses);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SavedPlacesResponseCopyWith<_SavedPlacesResponse> get copyWith =>
+      __$SavedPlacesResponseCopyWithImpl<_SavedPlacesResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_SavedPlacesResponseToJson(this);
+  }
+}
+
+abstract class _SavedPlacesResponse implements SavedPlacesResponse {
+  factory _SavedPlacesResponse(int flag,
+      {String? message,
+      String? error,
+      List<Address>? addresses}) = _$_SavedPlacesResponse;
+
+  factory _SavedPlacesResponse.fromJson(Map<String, dynamic> json) =
+      _$_SavedPlacesResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  List<Address>? get addresses => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$SavedPlacesResponseCopyWith<_SavedPlacesResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+DriverLocationResponse _$DriverLocationResponseFromJson(
+    Map<String, dynamic> json) {
+  return _DriverLocationResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$DriverLocationResponseTearOff {
+  const _$DriverLocationResponseTearOff();
+
+  _DriverLocationResponse call(int flag,
+      {double? latitude, double? longitude, int? eta, int? bearing}) {
+    return _DriverLocationResponse(
+      flag,
+      latitude: latitude,
+      longitude: longitude,
+      eta: eta,
+      bearing: bearing,
+    );
+  }
+
+  DriverLocationResponse fromJson(Map<String, Object> json) {
+    return DriverLocationResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DriverLocationResponse = _$DriverLocationResponseTearOff();
+
+/// @nodoc
+mixin _$DriverLocationResponse {
+  int get flag => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
+  int? get eta => throw _privateConstructorUsedError;
+  int? get bearing => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DriverLocationResponseCopyWith<DriverLocationResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DriverLocationResponseCopyWith<$Res> {
+  factory $DriverLocationResponseCopyWith(DriverLocationResponse value,
+          $Res Function(DriverLocationResponse) then) =
+      _$DriverLocationResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag, double? latitude, double? longitude, int? eta, int? bearing});
+}
+
+/// @nodoc
+class _$DriverLocationResponseCopyWithImpl<$Res>
+    implements $DriverLocationResponseCopyWith<$Res> {
+  _$DriverLocationResponseCopyWithImpl(this._value, this._then);
+
+  final DriverLocationResponse _value;
+  // ignore: unused_field
+  final $Res Function(DriverLocationResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? eta = freezed,
+    Object? bearing = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      eta: eta == freezed
+          ? _value.eta
+          : eta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bearing: bearing == freezed
+          ? _value.bearing
+          : bearing // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DriverLocationResponseCopyWith<$Res>
+    implements $DriverLocationResponseCopyWith<$Res> {
+  factory _$DriverLocationResponseCopyWith(_DriverLocationResponse value,
+          $Res Function(_DriverLocationResponse) then) =
+      __$DriverLocationResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag, double? latitude, double? longitude, int? eta, int? bearing});
+}
+
+/// @nodoc
+class __$DriverLocationResponseCopyWithImpl<$Res>
+    extends _$DriverLocationResponseCopyWithImpl<$Res>
+    implements _$DriverLocationResponseCopyWith<$Res> {
+  __$DriverLocationResponseCopyWithImpl(_DriverLocationResponse _value,
+      $Res Function(_DriverLocationResponse) _then)
+      : super(_value, (v) => _then(v as _DriverLocationResponse));
+
+  @override
+  _DriverLocationResponse get _value => super._value as _DriverLocationResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? eta = freezed,
+    Object? bearing = freezed,
+  }) {
+    return _then(_DriverLocationResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      eta: eta == freezed
+          ? _value.eta
+          : eta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      bearing: bearing == freezed
+          ? _value.bearing
+          : bearing // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DriverLocationResponse implements _DriverLocationResponse {
+  _$_DriverLocationResponse(this.flag,
+      {this.latitude, this.longitude, this.eta, this.bearing});
+
+  factory _$_DriverLocationResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_DriverLocationResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final double? latitude;
+  @override
+  final double? longitude;
+  @override
+  final int? eta;
+  @override
+  final int? bearing;
+
+  @override
+  String toString() {
+    return 'DriverLocationResponse(flag: $flag, latitude: $latitude, longitude: $longitude, eta: $eta, bearing: $bearing)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _DriverLocationResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
+            (identical(other.eta, eta) ||
+                const DeepCollectionEquality().equals(other.eta, eta)) &&
+            (identical(other.bearing, bearing) ||
+                const DeepCollectionEquality().equals(other.bearing, bearing)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(eta) ^
+      const DeepCollectionEquality().hash(bearing);
+
+  @JsonKey(ignore: true)
+  @override
+  _$DriverLocationResponseCopyWith<_DriverLocationResponse> get copyWith =>
+      __$DriverLocationResponseCopyWithImpl<_DriverLocationResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_DriverLocationResponseToJson(this);
+  }
+}
+
+abstract class _DriverLocationResponse implements DriverLocationResponse {
+  factory _DriverLocationResponse(int flag,
+      {double? latitude,
+      double? longitude,
+      int? eta,
+      int? bearing}) = _$_DriverLocationResponse;
+
+  factory _DriverLocationResponse.fromJson(Map<String, dynamic> json) =
+      _$_DriverLocationResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  double? get latitude => throw _privateConstructorUsedError;
+  @override
+  double? get longitude => throw _privateConstructorUsedError;
+  @override
+  int? get eta => throw _privateConstructorUsedError;
+  @override
+  int? get bearing => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$DriverLocationResponseCopyWith<_DriverLocationResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }

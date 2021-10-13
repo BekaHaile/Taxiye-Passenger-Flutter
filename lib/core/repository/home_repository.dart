@@ -86,9 +86,18 @@ class HomeRepository implements IHomeRepository {
           : '/cancel_ride_by_customer',
       data: cancelPayload,
     );
-
-    print('response here: $response');
     return BasicResponse.fromJson(response);
+  }
+
+  @override
+  Future<DriverLocationResponse> getCurrentDriverLocation(
+      String driverId) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/get_driver_current_location',
+      data: {'driver_id': driverId},
+    );
+    return DriverLocationResponse.fromJson(response);
   }
 
   @override
@@ -100,5 +109,37 @@ class HomeRepository implements IHomeRepository {
       data: rateDriverPayload,
     );
     return BasicResponse.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> addFavouriteDriver(
+      Map<String, dynamic> favouriteDriverPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/add_user_driver_mapping',
+      data: favouriteDriverPayload,
+    );
+    return BasicResponse.fromJson(response);
+  }
+
+  @override
+  Future<SavedPlacesResponse> getSavedPlaces() async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/customer/fetch_user_address',
+      data: {},
+    );
+    return SavedPlacesResponse.fromJson(response);
+  }
+
+  @override
+  Future<SavedPlacesResponse> addNewPlace(
+      Map<String, dynamic> addressPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/v2/add_home_and_work_address',
+      data: addressPayload,
+    );
+    return SavedPlacesResponse.fromJson(response);
   }
 }

@@ -271,15 +271,20 @@ _$_NotificationMessage _$_$_NotificationMessageFromJson(
     message: json['message'] as String?,
     rating: (json['rating'] as num?)?.toDouble(),
     fare: json['fare'] as String?,
+    bearing: (json['bearing'] as num?)?.toDouble(),
+    timeTillDisplay: json['timeTillDisplay'] as String?,
+    discount: json['discount'] as String?,
     log: json['log'] as String?,
     error: json['error'] as String?,
     phoneNo: json['phone_no'] as String?,
     driverId: json['driver_id'] as int?,
     driverCarNo: json['driver_car_no'] as String?,
+    vehicleName: json['vehicle_name'] as String?,
+    userName: json['user_name'] as String?,
+    vehicleModel: json['vehicle_model'] as String?,
     userImage: json['user_image'] as String?,
     titleIos: json['title_ios'] as String?,
     messageIos: json['message_ios'] as String?,
-    vehicleName: json['vehicle_name'] as String?,
     vehicleType: json['vehicle_type'] as int?,
     sessionId: json['session_id'] as int?,
     engagementId: json['engagement_id'] as String?,
@@ -290,7 +295,12 @@ _$_NotificationMessage _$_$_NotificationMessageFromJson(
     rideTime: json['ride_time'] as String?,
     distanceUnit: json['distance_unit'] as String?,
     paidUsingWallet: json['paid_using_wallet'] as String?,
-    discount: json['discount'] as String?,
+    currentLocationLatitude:
+        (json['current_location_latitude'] as num?)?.toDouble(),
+    currentLocationLongitude:
+        (json['current_location_longitude'] as num?)?.toDouble(),
+    isCorporateRide: json['is_corporate_ride'] as int?,
+    markerIcon: json['marker_icon'] as String?,
   );
 }
 
@@ -302,15 +312,20 @@ Map<String, dynamic> _$_$_NotificationMessageToJson(
       'message': instance.message,
       'rating': instance.rating,
       'fare': instance.fare,
+      'bearing': instance.bearing,
+      'timeTillDisplay': instance.timeTillDisplay,
+      'discount': instance.discount,
       'log': instance.log,
       'error': instance.error,
       'phone_no': instance.phoneNo,
       'driver_id': instance.driverId,
       'driver_car_no': instance.driverCarNo,
+      'vehicle_name': instance.vehicleName,
+      'user_name': instance.userName,
+      'vehicle_model': instance.vehicleModel,
       'user_image': instance.userImage,
       'title_ios': instance.titleIos,
       'message_ios': instance.messageIos,
-      'vehicle_name': instance.vehicleName,
       'vehicle_type': instance.vehicleType,
       'session_id': instance.sessionId,
       'engagement_id': instance.engagementId,
@@ -321,7 +336,10 @@ Map<String, dynamic> _$_$_NotificationMessageToJson(
       'ride_time': instance.rideTime,
       'distance_unit': instance.distanceUnit,
       'paid_using_wallet': instance.paidUsingWallet,
-      'discount': instance.discount,
+      'current_location_latitude': instance.currentLocationLatitude,
+      'current_location_longitude': instance.currentLocationLongitude,
+      'is_corporate_ride': instance.isCorporateRide,
+      'marker_icon': instance.markerIcon,
     };
 
 _$_RideDetail _$_$_RideDetailFromJson(Map<String, dynamic> json) {
@@ -347,6 +365,33 @@ Map<String, dynamic> _$_$_RideDetailToJson(_$_RideDetail instance) =>
       'rideTime': instance.rideTime,
       'distanceUnit': instance.distanceUnit,
       'toPay': instance.toPay,
+    };
+
+_$_Address _$_$_AddressFromJson(Map<String, dynamic> json) {
+  return _$_Address(
+    type: json['type'] as String?,
+    id: json['id'] as int?,
+    instr: json['instr'] as String?,
+    addressName: json['addr'] as String?,
+    latitude: json['lat'] as String?,
+    longitude: json['lng'] as String?,
+    frequency: json['freq'] as int?,
+    googlePlaceId: json['google_place_id'] as String?,
+    isConfirmed: json['is_confirmed'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_AddressToJson(_$_Address instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'id': instance.id,
+      'instr': instance.instr,
+      'addr': instance.addressName,
+      'lat': instance.latitude,
+      'lng': instance.longitude,
+      'freq': instance.frequency,
+      'google_place_id': instance.googlePlaceId,
+      'is_confirmed': instance.isConfirmed,
     };
 
 _$_BasicResponse _$_$_BasicResponseFromJson(Map<String, dynamic> json) {
@@ -508,4 +553,46 @@ Map<String, dynamic> _$_$_TransferResponseToJson(
       'message': instance.message,
       'error': instance.error,
       'credit_balance': instance.walletBalance,
+    };
+
+_$_SavedPlacesResponse _$_$_SavedPlacesResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_SavedPlacesResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    addresses: (json['addresses'] as List<dynamic>?)
+        ?.map((e) => Address.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$_$_SavedPlacesResponseToJson(
+        _$_SavedPlacesResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'addresses': instance.addresses,
+    };
+
+_$_DriverLocationResponse _$_$_DriverLocationResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_DriverLocationResponse(
+    json['flag'] as int,
+    latitude: (json['latitude'] as num?)?.toDouble(),
+    longitude: (json['longitude'] as num?)?.toDouble(),
+    eta: json['eta'] as int?,
+    bearing: json['bearing'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_DriverLocationResponseToJson(
+        _$_DriverLocationResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'eta': instance.eta,
+      'bearing': instance.bearing,
     };

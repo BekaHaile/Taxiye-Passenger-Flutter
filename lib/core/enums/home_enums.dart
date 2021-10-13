@@ -15,12 +15,6 @@ enum HomeServiceIndex {
   outStation,
 }
 
-enum VehicleType {
-  normal,
-  shared,
-  corporate,
-}
-
 enum TripStep {
   whereTo,
   pickOnMap,
@@ -30,4 +24,11 @@ enum TripStep {
   tripStarted,
   tripDetail,
   tripFeedback,
+  addPlace,
+  confirmPlace,
+}
+
+enum LocationType {
+  pickUp,
+  dropOff,
 }

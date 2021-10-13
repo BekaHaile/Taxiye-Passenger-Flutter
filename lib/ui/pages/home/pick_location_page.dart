@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
-import 'package:taxiye_passenger/shared/custom_icons.dart';
+import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/location_search.dart';
@@ -11,13 +11,6 @@ import 'package:taxiye_passenger/utils/constants.dart';
 
 class PickLocationPage extends GetView<HomeController> {
   PickLocationPage({Key? key}) : super(key: key);
-
-  final List<SavedLocation> _savedLocations = [
-    SavedLocation(title: 'add', icon: Icons.add),
-    SavedLocation(title: 'home', icon: Icons.home_outlined),
-    SavedLocation(title: 'work', icon: Icons.work_outline),
-    SavedLocation(title: 'bf_house', icon: Icons.home_outlined),
-  ];
 
   final _searchController = TextEditingController();
 
@@ -36,7 +29,9 @@ class PickLocationPage extends GetView<HomeController> {
               style: AppTheme.title.copyWith(fontWeight: FontWeight.w400),
             ),
           ),
-          LocationSearch(),
+          const LocationSearch(
+            locationType: LocationType.dropOff,
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
             child: Row(
@@ -70,57 +65,38 @@ class PickLocationPage extends GetView<HomeController> {
           Obx(
             () => controller.locationSuggestions.isEmpty ||
                     controller.locationSearch.isEmpty
-                ? SizedBox(
-                    height: 95.0,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final SavedLocation location = _savedLocations[index];
-                        return Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(16.0, 7.0, 0.0, 7.0),
-                          child: GestureDetector(
-                            onTap: () => {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(12.0)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        AppTheme.shadowColor.withOpacity(0.12),
-                                    spreadRadius: 0,
-                                    blurRadius: 10,
-                                    offset: const Offset(2, 2),
-                                  ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 25.0, vertical: 10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      location.icon,
-                                      color: AppTheme.darkTextColor,
-                                    ),
-                                    const SizedBox(height: 15.0),
-                                    Text(
-                                      location.title.tr,
-                                      style: AppTheme.title
-                                          .copyWith(fontSize: 14.0),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                ? SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SavedPlacesTile(
+                            address: Address(type: 'add'),
+                            isAdd: true,
+                            onTap: () {
+                              controller.tripStep = TripStep.addPlace;
+                              Get.back();
+                            }),
+                        SizedBox(
+                          height: 95.0,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final Address address =
+                                  controller.confirmedPlaces[index];
+                              return SavedPlacesTile(
+                                address: address,
+                                onTap: () =>
+                                    controller.onSavedLocationPicked(address),
+                              );
+                            },
+                            itemCount: controller.confirmedPlaces.length,
                           ),
-                        );
-                      },
-                      itemCount: _savedLocations.length,
+                        ),
+                      ],
                     ),
                   )
                 : Expanded(
@@ -137,12 +113,72 @@ class PickLocationPage extends GetView<HomeController> {
   }
 }
 
-class SavedLocation {
-  SavedLocation({
-    required this.title,
-    this.icon = CustomIcons.car,
-  });
+class SavedPlacesTile extends StatelessWidget {
+  const SavedPlacesTile({
+    Key? key,
+    required this.address,
+    required this.onTap,
+    this.isAdd = false,
+  }) : super(key: key);
 
-  String title;
-  IconData icon;
+  final Address address;
+  final VoidCallback onTap;
+  final bool isAdd;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 7.0, 0.0, 7.0),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.shadowColor.withOpacity(0.12),
+                spreadRadius: 0,
+                blurRadius: 10,
+                offset: const Offset(2, 2),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  getPlaceIcon(address.type ?? ''),
+                  color: AppTheme.darkTextColor,
+                ),
+                const SizedBox(height: 15.0),
+                Text(
+                  isAdd ? 'add'.tr : address.type ?? '',
+                  style: AppTheme.title.copyWith(fontSize: 14.0),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  IconData getPlaceIcon(String addressType) {
+    switch (addressType) {
+      case 'home':
+      case 'Home':
+        return Icons.home_outlined;
+      case 'work':
+      case 'Work':
+        return Icons.work_outlined;
+      case 'add':
+        return Icons.add;
+      default:
+        return Icons.location_city_outlined;
+    }
+  }
 }

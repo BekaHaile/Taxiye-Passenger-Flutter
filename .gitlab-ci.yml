@@ -3,7 +3,7 @@ stages:
 
 build_debug_release:
   stage: build
-  image: mingc/android-build-box
+  image: mingc/android-build-box:latest
 
   script:
     - flutter build apk --release

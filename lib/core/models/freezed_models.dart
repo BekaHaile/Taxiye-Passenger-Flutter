@@ -183,15 +183,20 @@ class NotificationMessage with _$NotificationMessage {
     String? message,
     double? rating,
     String? fare,
+    double? bearing,
+    String? timeTillDisplay,
+    String? discount,
     String? log,
     String? error,
     @JsonKey(name: 'phone_no') String? phoneNo,
     @JsonKey(name: 'driver_id') int? driverId,
     @JsonKey(name: 'driver_car_no') String? driverCarNo,
+    @JsonKey(name: 'vehicle_name') String? vehicleName,
+    @JsonKey(name: 'user_name') String? userName,
+    @JsonKey(name: 'vehicle_model') String? vehicleModel,
     @JsonKey(name: 'user_image') String? userImage,
     @JsonKey(name: 'title_ios') String? titleIos,
     @JsonKey(name: 'message_ios') String? messageIos,
-    @JsonKey(name: 'vehicle_name') String? vehicleName,
     @JsonKey(name: 'vehicle_type') int? vehicleType,
     @JsonKey(name: 'session_id') int? sessionId,
     @JsonKey(name: 'engagement_id') String? engagementId,
@@ -202,7 +207,11 @@ class NotificationMessage with _$NotificationMessage {
     @JsonKey(name: 'ride_time') String? rideTime,
     @JsonKey(name: 'distance_unit') String? distanceUnit,
     @JsonKey(name: 'paid_using_wallet') String? paidUsingWallet,
-    String? discount,
+    @JsonKey(name: 'current_location_latitude') double? currentLocationLatitude,
+    @JsonKey(name: 'current_location_longitude')
+        double? currentLocationLongitude,
+    @JsonKey(name: 'is_corporate_ride') int? isCorporateRide,
+    @JsonKey(name: 'marker_icon') String? markerIcon,
   }) = _NotificationMessage;
 
   factory NotificationMessage.fromJson(Map<String, dynamic> json) =>
@@ -224,6 +233,24 @@ abstract class RideDetail with _$RideDetail {
 
   factory RideDetail.fromJson(Map<String, dynamic> json) =>
       _$RideDetailFromJson(json);
+}
+
+@freezed
+abstract class Address with _$Address {
+  factory Address({
+    String? type,
+    int? id,
+    String? instr,
+    @JsonKey(name: 'addr') String? addressName,
+    @JsonKey(name: 'lat') String? latitude,
+    @JsonKey(name: 'lng') String? longitude,
+    @JsonKey(name: 'freq') int? frequency,
+    @JsonKey(name: 'google_place_id') String? googlePlaceId,
+    @JsonKey(name: 'is_confirmed') int? isConfirmed,
+  }) = _Address;
+
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
 }
 
 // response models
@@ -342,6 +369,33 @@ abstract class TransferResponse with _$TransferResponse {
 
   factory TransferResponse.fromJson(Map<String, dynamic> json) =>
       _$TransferResponseFromJson(json);
+}
+
+@freezed
+abstract class SavedPlacesResponse with _$SavedPlacesResponse {
+  factory SavedPlacesResponse(
+    int flag, {
+    String? message,
+    String? error,
+    List<Address>? addresses,
+  }) = _SavedPlacesResponse;
+
+  factory SavedPlacesResponse.fromJson(Map<String, dynamic> json) =>
+      _$SavedPlacesResponseFromJson(json);
+}
+
+@freezed
+abstract class DriverLocationResponse with _$DriverLocationResponse {
+  factory DriverLocationResponse(
+    int flag, {
+    double? latitude,
+    double? longitude,
+    int? eta,
+    int? bearing,
+  }) = _DriverLocationResponse;
+
+  factory DriverLocationResponse.fromJson(Map<String, dynamic> json) =>
+      _$DriverLocationResponseFromJson(json);
 }
 
 class DateConverter implements JsonConverter<DateTime, dynamic> {

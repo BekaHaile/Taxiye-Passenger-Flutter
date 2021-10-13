@@ -7,6 +7,8 @@ import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/widgets/logo_image.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeDrawer extends GetView<HomeController> {
   HomeDrawer(
@@ -82,7 +84,7 @@ class HomeDrawer extends GetView<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 20.0),
+                padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
                 child: GestureDetector(
                   onTap: () => Get.toNamed(Routes.profile),
                   child: Row(
@@ -160,8 +162,7 @@ class HomeDrawer extends GetView<HomeController> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 30.0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 5.0),
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.all(0.0),
@@ -173,37 +174,58 @@ class HomeDrawer extends GetView<HomeController> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        'Logout',
+                        style: AppTheme.title.copyWith(fontSize: 18.0),
+                      ),
+                      trailing: const Icon(
+                        Icons.logout,
+                        color: AppTheme.primaryColor,
+                      ),
+                      onTap: () => controller.onLogout(),
+                    ),
+                    const SizedBox(height: .0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const LogoImage(
-                          width: 65.0,
-                          height: 30.0,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const LogoImage(
+                              width: 65.0,
+                              height: 30.0,
+                            ),
+                            Text(
+                              'speak_real_person'.tr,
+                              style: AppTheme.title.copyWith(fontSize: 14.0),
+                            ),
+                            Text(
+                              'speak_person_info'.tr,
+                              style: AppTheme.subtitle.copyWith(
+                                  fontSize: 12.0, color: AppTheme.darkColor),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'speak_real_person'.tr,
-                          style: AppTheme.title.copyWith(fontSize: 14.0),
-                        ),
-                        Text(
-                          'speak_person_info'.tr,
-                          style: AppTheme.subtitle.copyWith(
-                              fontSize: 12.0, color: AppTheme.darkColor),
-                        ),
+                        GestureDetector(
+                          onTap: () => launch('tel:$kTaxiyePhoneNumber'),
+                          child: const CircleAvatar(
+                              radius: 25.0,
+                              backgroundColor: AppTheme.primaryColor,
+                              child: Icon(
+                                Icons.call,
+                                size: 32.0,
+                                color: Colors.white,
+                              )),
+                        )
                       ],
                     ),
-                    const CircleAvatar(
-                        radius: 25.0,
-                        backgroundColor: AppTheme.primaryColor,
-                        child: Icon(
-                          Icons.call,
-                          size: 32.0,
-                          color: Colors.white,
-                        ))
                   ],
                 ),
               ),

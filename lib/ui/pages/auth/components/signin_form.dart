@@ -20,35 +20,35 @@ class SignInForm extends GetView<AuthController> {
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               TitleView(
-                title: 'let_get_started'.tr,
-                subTitle: 'signup_info'.tr,
+                title: 'welcome_back'.tr,
+                subTitle: 'signin_info'.tr,
               ),
               const SizedBox(height: 48.0),
               PhoneInput(
                 onChanged: (value) => controller.phoneNumber = value,
               ),
               const SizedBox(height: 30.0),
-              PasscodeInput(
-                labelText: 'passcode'.tr,
-                onChanged: (value) => controller.passcode = value,
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(0.0),
-                ),
-                child: Text(
-                  'forgot_passcode'.tr,
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    color: AppTheme.primaryColor,
-                  ),
-                ),
-                onPressed: () {},
-              ),
-              const SizedBox(height: 30.0),
+              // uncomment the following if sign in logic is changed back to use password
+              // PasscodeInput(
+              //   labelText: 'passcode'.tr,
+              //   onChanged: (value) => controller.passcode = value,
+              // ),
+              // TextButton(
+              //   style: TextButton.styleFrom(
+              //     padding: const EdgeInsets.all(0.0),
+              //   ),
+              //   child: Text(
+              //     'forgot_passcode'.tr,
+              //     style: const TextStyle(
+              //       fontSize: 14.0,
+              //       color: AppTheme.primaryColor,
+              //     ),
+              //   ),
+              //   onPressed: () {},
+              // ),
+              // const SizedBox(height: 30.0),
               RoundedButton(
                 text: 'signin'.tr,
                 onPressed: () {

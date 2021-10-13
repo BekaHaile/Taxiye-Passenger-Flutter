@@ -35,7 +35,7 @@ class DriverDetail extends GetView<HomeController> {
             ),
             const SizedBox(height: 20.0),
             DriverTile(
-                driver: controller.driver, vehicle: controller.driverVehicle),
+                driver: controller.driver!, vehicle: controller.driverVehicle),
             const SizedBox(height: 20.0),
             SlideCancel(
               onCancel: () => controller.onCancelRide(),
