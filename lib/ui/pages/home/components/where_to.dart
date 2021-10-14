@@ -7,9 +7,13 @@ class WhereTo extends StatelessWidget {
   const WhereTo({
     Key? key,
     required this.onRoutePickLocation,
+    required this.onPickDate,
+    required this.onPickTime,
   }) : super(key: key);
 
   final VoidCallback onRoutePickLocation;
+  final Function(DateTime pickedDate) onPickDate;
+  final Function(TimeOfDay pickedTime) onPickTime;
 
   @override
   Widget build(BuildContext context) {
@@ -46,28 +50,31 @@ class WhereTo extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
-                  child: Row(
-                    children: [
-                      const Icon(CustomIcons.clock,
-                          color: AppTheme.darkTextColor),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          'now'.tr,
-                          style: AppTheme.title.copyWith(fontSize: 14.0),
+              GestureDetector(
+                onTap: () => _pickDate(context),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 8.0),
+                    child: Row(
+                      children: [
+                        const Icon(CustomIcons.clock,
+                            color: AppTheme.darkTextColor),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            'now'.tr,
+                            style: AppTheme.title.copyWith(fontSize: 14.0),
+                          ),
                         ),
-                      ),
-                      const Icon(Icons.expand_more,
-                          color: AppTheme.darkTextColor),
-                    ],
+                        const Icon(Icons.expand_more,
+                            color: AppTheme.darkTextColor),
+                      ],
+                    ),
                   ),
                 ),
               )
@@ -76,5 +83,28 @@ class WhereTo extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _pickDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2101));
+    if (pickedDate != null) {
+      onPickDate(pickedDate);
+      _pickTime(context);
+    }
+  }
+
+  _pickTime(BuildContext context) async {
+    final pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (pickedTime != null) {
+      onPickTime(pickedTime);
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
@@ -7,53 +8,70 @@ import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:get/get.dart';
 
 class LocationSearch extends GetView<HomeController> {
-  const LocationSearch({
+  LocationSearch({
     Key? key,
     required this.locationType,
   }) : super(key: key);
 
   final LocationType locationType;
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    _setInitialValues();
     return Padding(
-      padding: const EdgeInsets.all(kPagePadding),
-      child: TextField(
-          controller: controller.searchController,
-          keyboardType: TextInputType.streetAddress,
-          onChanged: (value) => controller.getPlaceSugestions(value),
-          style: AppTheme.title2,
-          decoration: AppTheme.textFieldDecoration.copyWith(
-            filled: true,
-            fillColor: Colors.white,
-            hintText: locationType == LocationType.pickUp
-                ? 'pick_up_location'.tr
-                : 'drop_off_location'.tr,
-            hintStyle: AppTheme.subtitle
-                .copyWith(fontSize: 16.0, fontWeight: FontWeight.w600),
-            suffixIcon: Obx(
-              () => controller.searchLoading
-                  ? const Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 16.0),
-                        child: SizedBox(
-                            width: 20.0,
-                            height: 20.0,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.0,
-                            )),
-                      ))
-                  : controller.locationSearch.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            controller.searchController.clear();
-                            controller.locationSearch = '';
-                          },
-                          icon: const Icon(Icons.cancel))
-                      : const SizedBox(),
-            ),
-          )),
+      padding:
+          const EdgeInsets.symmetric(horizontal: kPagePadding, vertical: 10.0),
+      child: Focus(
+        onFocusChange: (focus) {
+          if (focus) {
+            controller.focusedSearchLocation = locationType;
+          }
+        },
+        child: TextField(
+            controller: searchController,
+            keyboardType: TextInputType.streetAddress,
+            onChanged: (value) => controller.getPlaceSugestions(value),
+            style: AppTheme.title2,
+            decoration: AppTheme.textFieldDecoration.copyWith(
+              filled: true,
+              fillColor: Colors.white,
+              hintText: locationType == LocationType.pickUp
+                  ? 'pick_up_location'.tr
+                  : 'drop_off_location'.tr,
+              hintStyle: AppTheme.subtitle
+                  .copyWith(fontSize: 16.0, fontWeight: FontWeight.w600),
+              suffixIcon: Obx(
+                () => controller.searchLoading
+                    ? const Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: SizedBox(
+                              width: 20.0,
+                              height: 20.0,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.0,
+                              )),
+                        ))
+                    : searchController.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              searchController.clear();
+                              searchController.text = '';
+                            },
+                            icon: const Icon(Icons.cancel,
+                                color: AppTheme.primaryColor))
+                        : const SizedBox(),
+              ),
+            )),
+      ),
     );
+  }
+
+  _setInitialValues() {
+    searchController.text = locationType == LocationType.pickUp
+        ? controller.pickupLocation?.placeName ?? ''
+        : controller.dropOffLocation?.placeName ?? '';
   }
 }

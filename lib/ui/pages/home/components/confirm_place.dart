@@ -89,7 +89,7 @@ class _ConfirmPlaceState extends State<ConfirmPlace> {
                   ],
                 ),
               TextField(
-                controller: controller.searchController,
+                // controller: controller.searchController,
                 keyboardType: TextInputType.streetAddress,
                 style: AppTheme.title2,
                 enabled: false,

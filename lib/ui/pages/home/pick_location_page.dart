@@ -10,104 +10,126 @@ import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
 class PickLocationPage extends GetView<HomeController> {
-  PickLocationPage({Key? key}) : super(key: key);
-
-  final _searchController = TextEditingController();
+  const PickLocationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const WhiteAppBar(),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
-            child: Text(
-              'drop_off_location'.tr,
-              style: AppTheme.title.copyWith(fontWeight: FontWeight.w400),
-            ),
-          ),
-          const LocationSearch(
-            locationType: LocationType.dropOff,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
-            child: Row(
-              children: [
-                const CircleAvatar(
-                  radius: 17.0,
-                  backgroundColor: AppTheme.lightGrey,
-                  child: Icon(
-                    Icons.location_on,
-                    size: 20.0,
-                    color: AppTheme.primaryColor,
-                  ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
+              child: Text(
+                'pick_up_location'.tr,
+                style: AppTheme.title.copyWith(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    controller.tripStep = TripStep.pickOnMap;
-                    Get.back();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      'choose_on_map'.tr,
-                      style:
-                          AppTheme.body.copyWith(color: AppTheme.primaryColor),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-          Obx(
-            () => controller.locationSuggestions.isEmpty ||
-                    controller.locationSearch.isEmpty
-                ? SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    child: Row(
-                      // mainAxisSize: MainAxisSize.min,
+            LocationSearch(
+              locationType: LocationType.pickUp,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
+              child: Text(
+                'drop_off_location'.tr,
+                style: AppTheme.title.copyWith(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            LocationSearch(
+              locationType: LocationType.dropOff,
+            ),
+            Obx(
+              () => controller.locationSuggestions.isEmpty ||
+                      controller.dropOffLocationSearch.isEmpty
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SavedPlacesTile(
-                            address: Address(type: 'add'),
-                            isAdd: true,
-                            onTap: () {
-                              controller.tripStep = TripStep.addPlace;
-                              Get.back();
-                            }),
-                        SizedBox(
-                          height: 95.0,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final Address address =
-                                  controller.confirmedPlaces[index];
-                              return SavedPlacesTile(
-                                address: address,
-                                onTap: () =>
-                                    controller.onSavedLocationPicked(address),
-                              );
-                            },
-                            itemCount: controller.confirmedPlaces.length,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
+                          child: Row(
+                            children: [
+                              const CircleAvatar(
+                                radius: 17.0,
+                                backgroundColor: AppTheme.lightGrey,
+                                child: Icon(
+                                  Icons.location_on,
+                                  size: 20.0,
+                                  color: AppTheme.primaryColor,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  controller.tripStep = TripStep.pickOnMap;
+                                  Get.back();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Text(
+                                    'choose_on_map'.tr,
+                                    style: AppTheme.body
+                                        .copyWith(color: AppTheme.primaryColor),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: Row(
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SavedPlacesTile(
+                                  address: Address(type: 'add'),
+                                  isAdd: true,
+                                  onTap: () {
+                                    controller.tripStep = TripStep.addPlace;
+                                    Get.back();
+                                  }),
+                              SizedBox(
+                                height: 95.0,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final Address address =
+                                        controller.confirmedPlaces[index];
+                                    return SavedPlacesTile(
+                                      address: address,
+                                      onTap: () => controller
+                                          .onSavedLocationPicked(address),
+                                    );
+                                  },
+                                  itemCount: controller.confirmedPlaces.length,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
-                    ),
-                  )
-                : Expanded(
-                    child: LocationsList(
+                    )
+                  : LocationsList(
                       suggestions: controller.locationSuggestions,
                       onPickLocation: (suggestion) =>
                           controller.onPickLocationFromSearch(suggestion),
                     ),
-                  ),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

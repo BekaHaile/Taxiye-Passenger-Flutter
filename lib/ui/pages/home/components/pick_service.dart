@@ -33,6 +33,11 @@ class PickService extends GetView<HomeController> {
         children: [
           WhereTo(
             onRoutePickLocation: controller.onRoutePickLocation,
+            onPickDate: (pickedDate) => controller.scheduleDate = pickedDate,
+            onPickTime: (pickedTime) {
+              controller.scheduleTime = pickedTime;
+              controller.onRoutePickLocation();
+            },
           ),
           Obx(() => ServiceList(
                 services: homeServices,

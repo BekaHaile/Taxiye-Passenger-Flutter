@@ -144,6 +144,8 @@ final Map<String, String> enUs = {
   'add': 'Add',
   'bf_house': 'BF\'s House',
 
+  'pick_up_location': 'Pick up location',
+
   // Location detail strings
   'your_location': 'Your location,',
   'add_more_stops': 'Add more stops',

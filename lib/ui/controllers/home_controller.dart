@@ -96,15 +96,23 @@ class HomeController extends GetxService {
   get polyLines => _polyLines.value;
   set polyLines(value) => _polyLines.value = value;
 
-  final _locationSearch = ''.obs;
-  get locationSearch => _locationSearch.value;
-  set locationSearch(value) => _locationSearch.value = value;
+  final _focusedSearchLocation = LocationType.dropOff.obs;
+  get focusedSearchLocation => _focusedSearchLocation.value;
+  set focusedSearchLocation(value) => _focusedSearchLocation.value = value;
+
+  final _pickUpLocationSearch = ''.obs;
+  get pickUpLocationSearch => _pickUpLocationSearch.value;
+  set pickUpLocationSearch(value) => _pickUpLocationSearch.value = value;
+
+  final _dropOffLocationSearch = ''.obs;
+  get dropOffLocationSearch => _dropOffLocationSearch.value;
+  set dropOffLocationSearch(value) => _dropOffLocationSearch.value = value;
 
   final _searchLoading = false.obs;
   get searchLoading => _searchLoading.value;
   set searchLoading(value) => _searchLoading.value = value;
 
-  final searchController = TextEditingController();
+  // final searchController = TextEditingController();
   Polyline? ridePolyline;
 
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
@@ -136,19 +144,24 @@ class HomeController extends GetxService {
   int? sessionId;
   int? engagementId;
   // trid end variables
-  RideDetail? rideDetail;
 
-  Place? pickedLocation;
+  RideDetail? rideDetail;
+  Place? pickupLocation;
+  Place? dropOffLocation;
   int paymentMode = 0;
   Timer? debounce;
-  late Timer _resendTimer;
 
+  late Timer _resendTimer;
   String feedbackComment = '';
   double driverRating = 0;
 
   final GetStorage _storage = GetStorage();
   late SharedPreferences prefs;
   StreamSubscription<Position>? positionStream;
+
+  // For ride schedule
+  DateTime? scheduleDate;
+  TimeOfDay? scheduleTime;
 
   @override
   void onInit() async {
@@ -159,6 +172,14 @@ class HomeController extends GetxService {
     // Todo: uncomment this for current location
     // set current location
     currentLocation = authController.currentLocation;
+    getPlaceNameFromCordinate(testLocation).then((value) {
+      Place place = Place(
+          placeName:
+              '${value.name ?? ''}, ${value.subLocality ?? ''}, ${value.locality ?? ''}',
+          location: testLocation);
+      pickUpLocationSearch = place.placeName ?? '';
+      pickupLocation = place;
+    });
     print('current location here: $currentLocation');
 
     // register for notification message listner
@@ -353,14 +374,14 @@ class HomeController extends GetxService {
 
   _onRideStarted() {
     tripStep = TripStep.tripStarted;
-    _setMapPins(testLocation, pickedLocation!.location!);
+    _setMapPins(testLocation, dropOffLocation!.location!);
     if (ridePolyline != null) {
       _polyLines.clear();
       _polyLines.add(ridePolyline!);
 
       final origin = PointLatLng(testLocation.latitude, testLocation.longitude);
-      final destination = PointLatLng(pickedLocation!.location!.latitude,
-          pickedLocation!.location!.longitude);
+      final destination = PointLatLng(dropOffLocation!.location!.latitude,
+          dropOffLocation!.location!.longitude);
 
       // animate camera to mid point between origin and destination
       LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
@@ -404,21 +425,21 @@ class HomeController extends GetxService {
   onRoutePickLocation() {
     // Generate new sessionToken for place search
     sessionToken = const Uuid().v4();
-    locationSearch = '';
+    dropOffLocationSearch = '';
     _locationSuggestions.clear();
     Get.toNamed(Routes.pickLocation);
   }
 
   // For location search
   getPlaceSugestions(String input) {
-    locationSearch = input;
-    if (locationSearch.isNotEmpty &&
-        locationSearch != pickedLocation?.placeName) {
+    dropOffLocationSearch = input;
+    if (dropOffLocationSearch.isNotEmpty &&
+        dropOffLocationSearch != dropOffLocation?.placeName) {
       // use 250 millisoconds as debouncing for throttling.
       if (debounce?.isActive ?? false) debounce?.cancel();
       debounce = Timer(const Duration(milliseconds: 250), () {
         repository
-            .getPlaceSugestions(locationSearch,
+            .getPlaceSugestions(dropOffLocationSearch,
                 Get.locale?.languageCode ?? 'en', 'et', sessionToken)
             .then((placeSuggestions) {
           locationSuggestions = placeSuggestions;
@@ -478,17 +499,26 @@ class HomeController extends GetxService {
 
   onPickLocationFromSearch(Suggestion placeSuggetion) {
     // find place with place Id
+    print('here 0');
     if (placeSuggetion.placeId.isNotEmpty) {
       repository
           .getPlaceDetailFromId(placeSuggetion.placeId, sessionToken)
           .then((place) {
-        pickedLocation = place;
-        searchController.text = place.placeName ?? '';
-        locationSuggestions.clear();
-        if (!(tripStep == TripStep.addPlace ||
-            tripStep == TripStep.confirmPlace)) {
-          onLocationPicked();
+        if (focusedSearchLocation == LocationType.pickUp) {
+          pickupLocation = place;
+          pickUpLocationSearch = place.placeName ?? '';
+          print('here 1');
+        } else {
+          dropOffLocation = place;
+          dropOffLocationSearch = place.placeName ?? '';
+          locationSuggestions.clear();
+          if (!(tripStep == TripStep.addPlace ||
+              tripStep == TripStep.confirmPlace)) {
+            onLocationPicked();
+          }
         }
+
+        _locationSuggestions.clear();
       }, onError: (error) => log('Place detail error: $error'));
     }
   }
@@ -502,8 +532,8 @@ class HomeController extends GetxService {
           placeName:
               '${value.name ?? ''}, ${value.subLocality ?? ''}, ${value.locality ?? ''}',
           location: position);
-      searchController.text = place.placeName ?? '';
-      pickedLocation = place;
+      dropOffLocationSearch = place.placeName ?? '';
+      dropOffLocation = place;
     }, onError: (error) {
       print(error);
       searchLoading = false;
@@ -511,7 +541,7 @@ class HomeController extends GetxService {
   }
 
   onSavedLocationPicked(Address savedAddress) {
-    pickedLocation = Place(
+    dropOffLocation = Place(
         placeName: savedAddress.addressName,
         location: LatLng(double.parse(savedAddress.latitude ?? ''),
             double.parse(savedAddress.longitude ?? '')));
@@ -519,7 +549,7 @@ class HomeController extends GetxService {
   }
 
   confirmPickedLocation() {
-    if (pickedLocation == null) {
+    if (dropOffLocation == null) {
       Get.snackbar('error', 'destination_error');
     } else {
       onLocationPicked();
@@ -528,7 +558,7 @@ class HomeController extends GetxService {
 
   onLocationPicked() {
     // get vehicle Fare estimations
-    _findDrivers(destination: pickedLocation!.location);
+    _findDrivers(destination: dropOffLocation!.location);
     Get.back();
     tripStep = TripStep.pickVehicle;
 
@@ -540,18 +570,18 @@ class HomeController extends GetxService {
       //     currentLocation!.latitude, currentLocation!.longitude);
 
       final origin = PointLatLng(testLocation.latitude, testLocation.longitude);
-      final destination = PointLatLng(pickedLocation!.location!.latitude,
-          pickedLocation!.location!.longitude);
+      final destination = PointLatLng(dropOffLocation!.location!.latitude,
+          dropOffLocation!.location!.longitude);
 
       // set origin and destination markers
-      _setMapPins(testLocation, pickedLocation!.location!);
+      _setMapPins(testLocation, dropOffLocation!.location!);
 
       // Get & set the polyLines
       repository.getRoutePolylines(origin, destination).then(
           (polylineCoordinates) {
         // get vehicles fare calculation
         _findDrivers(
-            destination: pickedLocation!.location,
+            destination: dropOffLocation!.location,
             routeDistance: getRouteDistance(polylineCoordinates));
 
         Polyline polyline = Polyline(
@@ -663,7 +693,7 @@ class HomeController extends GetxService {
 
   bookRide() {
     // check if destination and vehicle is picked first
-    if (pickedLocation == null) {
+    if (dropOffLocation == null) {
       Get.snackbar('error', 'destination_error');
     } else if (selectedVehicle.regionId == null) {
       Get.snackbar('error'.tr, 'vehicle_select_error'.tr);
@@ -673,8 +703,8 @@ class HomeController extends GetxService {
         'longitude': '${testLocation.longitude}',
         'current_latitude': '${testLocation.latitude}',
         'current_longitude': '${testLocation.longitude}',
-        'op_drop_latitude': '${pickedLocation?.location?.latitude}',
-        'op_drop_longitude': '${pickedLocation?.location?.longitude}',
+        'op_drop_latitude': '${dropOffLocation?.location?.latitude}',
+        'op_drop_longitude': '${dropOffLocation?.location?.longitude}',
         'duplicate_flag': '0',
         'preferred_payment_mode': '$paymentMode',
         'vehicle_type': '${selectedVehicle.vehicleType}',
@@ -684,7 +714,7 @@ class HomeController extends GetxService {
         'location_accuracy': '24.9',
         'customer_fare_factor': '1.0',
         'pickup_location_address': currentLocationPlace?.name ?? '',
-        'drop_location_address': '${pickedLocation?.placeName}',
+        'drop_location_address': '${dropOffLocation?.placeName}',
         'coupon_to_apply': '-1',
         'is_bluetooth_tracker': '0',
       };
@@ -788,9 +818,12 @@ class HomeController extends GetxService {
     driverOnRouteCounter = 0;
     rideCounter = 0;
 
-    pickedLocation = null;
+    dropOffLocation = null;
     _polyLines.clear();
     _markers.clear();
+
+    scheduleDate = null;
+    scheduleTime = null;
 
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(CameraPosition(
@@ -801,11 +834,11 @@ class HomeController extends GetxService {
   }
 
   addNewPlace(String addressLabel) {
-    if (pickedLocation != null) {
+    if (dropOffLocation != null) {
       Map<String, dynamic> addressPayload = {
-        'address': pickedLocation!.placeName,
-        'latitude': pickedLocation!.location?.latitude,
-        'longitude': pickedLocation!.location?.longitude,
+        'address': dropOffLocation!.placeName,
+        'latitude': dropOffLocation!.location?.latitude,
+        'longitude': dropOffLocation!.location?.longitude,
         'type': addressLabel,
         'is_confirmed': '1',
         'google_place_id': '',

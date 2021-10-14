@@ -89,8 +89,8 @@ class _HomePageState extends State<HomePage>
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Column(
                         children: [
-                          const LocationSearch(
-                              locationType: LocationType.dropOff),
+                          LocationSearch(
+                              locationType: controller.focusedSearchLocation),
                           getLocationLists(),
                           const Spacer(),
                           Padding(
@@ -106,7 +106,8 @@ class _HomePageState extends State<HomePage>
                                         controller.confirmPickedLocation();
                                         break;
                                       case TripStep.addPlace:
-                                        if (controller.pickedLocation != null) {
+                                        if (controller.dropOffLocation !=
+                                            null) {
                                           controller.tripStep =
                                               TripStep.confirmPlace;
                                         } else {
@@ -156,7 +157,10 @@ class _HomePageState extends State<HomePage>
 
   Widget getLocationLists() {
     return Obx(() => controller.locationSuggestions.isEmpty ||
-            controller.locationSearch.isEmpty
+            (controller.focusedSearchLocation == LocationType.dropOff &&
+                controller.dropOffLocationSearch.isEmpty) ||
+            (controller.focusedSearchLocation == LocationType.pickUp &&
+                controller.pickUpLocationSearch.isEmpty)
         ? const SizedBox()
         : Padding(
             padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
