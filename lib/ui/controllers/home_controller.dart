@@ -4,13 +4,13 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_animarker/helpers/math_util.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
@@ -108,6 +108,9 @@ class HomeController extends GetxService {
   get dropOffLocationSearch => _dropOffLocationSearch.value;
   set dropOffLocationSearch(value) => _dropOffLocationSearch.value = value;
 
+  final pickUpSearchController = TextEditingController();
+  final dropOffSearchController = TextEditingController();
+
   final _searchLoading = false.obs;
   get searchLoading => _searchLoading.value;
   set searchLoading(value) => _searchLoading.value = value;
@@ -143,7 +146,7 @@ class HomeController extends GetxService {
   // trip started variables
   int? sessionId;
   int? engagementId;
-  // trid end variables
+  int rideType = 0;
 
   RideDetail? rideDetail;
   Place? pickupLocation;
@@ -247,6 +250,7 @@ class HomeController extends GetxService {
         if (findDriverResponse.regions != null) {
           // add vehicles filteredby ride_type, show O || 2
           allVehicles = findDriverResponse.regions;
+
           filterVehicles(0);
         }
       } else {
@@ -305,6 +309,7 @@ class HomeController extends GetxService {
         );
         tripStep = TripStep.tripDetail;
         break;
+      case SuccessFlags.driverCancelRide:
       case SuccessFlags.driversBusy:
         resetValues();
         break;
@@ -401,6 +406,7 @@ class HomeController extends GetxService {
     // filter vehicles based on rideType
     // 0 - normal
     // 2 - shared
+    this.rideType = rideType;
     if (allVehicles?.isNotEmpty ?? false) {
       vehicles = allVehicles?.where((vehicle) => vehicle.rideType == rideType);
     }
@@ -422,25 +428,38 @@ class HomeController extends GetxService {
         'assets/icons/white_car.png');
   }
 
-  onRoutePickLocation() {
+  onRoutePickLocation({bool isSchedule = false}) {
     // Generate new sessionToken for place search
     sessionToken = const Uuid().v4();
     dropOffLocationSearch = '';
+
+    if (!isSchedule) {
+      scheduleDate = null;
+      scheduleTime = null;
+    }
+
     _locationSuggestions.clear();
     Get.toNamed(Routes.pickLocation);
   }
 
   // For location search
   getPlaceSugestions(String input) {
-    dropOffLocationSearch = input;
-    if (dropOffLocationSearch.isNotEmpty &&
-        dropOffLocationSearch != dropOffLocation?.placeName) {
+    String? searchedPlaceName = '';
+    if (focusedSearchLocation == LocationType.pickUp) {
+      pickUpLocationSearch = input;
+      searchedPlaceName = pickupLocation?.placeName;
+    } else {
+      dropOffLocationSearch = input;
+      searchedPlaceName = dropOffLocation?.placeName;
+    }
+
+    if (input.isNotEmpty && input != searchedPlaceName) {
       // use 250 millisoconds as debouncing for throttling.
       if (debounce?.isActive ?? false) debounce?.cancel();
       debounce = Timer(const Duration(milliseconds: 250), () {
         repository
-            .getPlaceSugestions(dropOffLocationSearch,
-                Get.locale?.languageCode ?? 'en', 'et', sessionToken)
+            .getPlaceSugestions(
+                input, Get.locale?.languageCode ?? 'en', 'et', sessionToken)
             .then((placeSuggestions) {
           locationSuggestions = placeSuggestions;
         }, onError: (error) => log('location Suggetion error: $error'));
@@ -499,18 +518,22 @@ class HomeController extends GetxService {
 
   onPickLocationFromSearch(Suggestion placeSuggetion) {
     // find place with place Id
-    print('here 0');
     if (placeSuggetion.placeId.isNotEmpty) {
       repository
           .getPlaceDetailFromId(placeSuggetion.placeId, sessionToken)
           .then((place) {
+        // use the suggestion description for place name, instead of the one
+        // returned using the placeId
+        place.placeName = placeSuggetion.description;
         if (focusedSearchLocation == LocationType.pickUp) {
           pickupLocation = place;
-          pickUpLocationSearch = place.placeName ?? '';
-          print('here 1');
+          pickUpLocationSearch = place.placeName;
+          pickUpSearchController.text = place.placeName ?? '';
         } else {
           dropOffLocation = place;
-          dropOffLocationSearch = place.placeName ?? '';
+          dropOffLocationSearch = place.placeName;
+          dropOffSearchController.text = place.placeName ?? '';
+
           locationSuggestions.clear();
           if (!(tripStep == TripStep.addPlace ||
               tripStep == TripStep.confirmPlace)) {
@@ -532,8 +555,16 @@ class HomeController extends GetxService {
           placeName:
               '${value.name ?? ''}, ${value.subLocality ?? ''}, ${value.locality ?? ''}',
           location: position);
-      dropOffLocationSearch = place.placeName ?? '';
-      dropOffLocation = place;
+
+      if (focusedSearchLocation == LocationType.pickUp) {
+        pickUpLocationSearch = place.placeName ?? '';
+        pickUpSearchController.text = place.placeName ?? '';
+        pickupLocation = place;
+      } else {
+        dropOffLocationSearch = place.placeName ?? '';
+        dropOffSearchController.text = place.placeName ?? '';
+        dropOffLocation = place;
+      }
     }, onError: (error) {
       print(error);
       searchLoading = false;
@@ -675,13 +706,16 @@ class HomeController extends GetxService {
     // final Uint8List? currentLocationIcon =
     //     await getBytesFromAsset('assets/icons/current_location_sm.png', 50);
 
+    // remove if previous driver marker
+    _markers
+        .removeWhere((marker) => marker.markerId.value == 'available_drivers');
     markers.clear();
     // add driver markers
     for (Driver driver in drivers) {
       if (driver.latitude != null && driver.longitude != null) {
         _markers.add(
           Marker(
-            markerId: const MarkerId('yellow_car'),
+            markerId: const MarkerId('available_drivers'),
             infoWindow: InfoWindow(title: driver.userName),
             icon: yellowCarIcon,
             position: LatLng(driver.latitude!, driver.longitude!),
@@ -693,16 +727,12 @@ class HomeController extends GetxService {
 
   bookRide() {
     // check if destination and vehicle is picked first
-    if (dropOffLocation == null) {
-      Get.snackbar('error', 'destination_error');
-    } else if (selectedVehicle.regionId == null) {
-      Get.snackbar('error'.tr, 'vehicle_select_error'.tr);
-    } else {
+    if (_isRideInputValid()) {
       Map<String, dynamic> ridePayload = {
-        'latitude': '${testLocation.latitude}',
-        'longitude': '${testLocation.longitude}',
-        'current_latitude': '${testLocation.latitude}',
-        'current_longitude': '${testLocation.longitude}',
+        'latitude': '${pickupLocation?.location?.latitude}',
+        'longitude': '${pickupLocation?.location?.longitude}',
+        'current_latitude': '${pickupLocation?.location?.latitude}',
+        'current_longitude': '${pickupLocation?.location?.longitude}',
         'op_drop_latitude': '${dropOffLocation?.location?.latitude}',
         'op_drop_longitude': '${dropOffLocation?.location?.longitude}',
         'duplicate_flag': '0',
@@ -713,11 +743,13 @@ class HomeController extends GetxService {
         'driver_fare_factor': '1.0',
         'location_accuracy': '24.9',
         'customer_fare_factor': '1.0',
-        'pickup_location_address': currentLocationPlace?.name ?? '',
+        'pickup_location_address': '${pickupLocation?.placeName}',
         'drop_location_address': '${dropOffLocation?.placeName}',
         'coupon_to_apply': '-1',
         'is_bluetooth_tracker': '0',
       };
+
+      log('book ride request: $ridePayload');
 
       status(Status.loading);
       repository.requestRide(ridePayload).then((requestRideResponse) {
@@ -741,6 +773,66 @@ class HomeController extends GetxService {
         status(Status.error);
       });
     }
+  }
+
+  scheduleRide() {
+    // check if destination and vehicle is picked first
+    if (_isRideInputValid() && scheduleDate != null && scheduleTime != null) {
+      Map<String, dynamic> scheduleRidePayload = {
+        'latitude': '${pickupLocation?.location?.latitude}',
+        'longitude': '${pickupLocation?.location?.longitude}',
+        'op_drop_latitude': '${dropOffLocation?.location?.latitude}',
+        'op_drop_longitude': '${dropOffLocation?.location?.longitude}',
+        'preferred_payment_mode': '$paymentMode',
+        'vehicle_type': '${selectedVehicle.vehicleType}',
+        'region_id': '${selectedVehicle.regionId}',
+        'pickup_time':
+            '${DateFormat('yyyy-MM-dd').format(scheduleDate!)} ${scheduleTime!.hour}:${scheduleTime!.minute}:00',
+        "ride_type": rideType,
+        'driver_fare_factor': '1.0',
+        'location_accuracy': '24.9',
+        'customer_fare_factor': '1.0',
+        'pickup_location_address': '${pickupLocation?.placeName}',
+        'drop_location_address': '${dropOffLocation?.placeName}'
+      };
+
+      status(Status.loading);
+      repository.scheduleRide(scheduleRidePayload).then((scheduleRideResponse) {
+        if (scheduleRideResponse.flag ==
+            SuccessFlags.basicSuccess.successCode) {
+          status(Status.success);
+          Get.snackbar('succes'.tr, 'schedule_ride_success'.tr);
+          // Todo: show schedule Ride detail here
+          resetValues();
+        } else {
+          status(Status.error);
+          toast(
+              'error',
+              scheduleRideResponse.error ??
+                  scheduleRideResponse.log ??
+                  scheduleRideResponse.message ??
+                  '');
+        }
+      }, onError: (error) {
+        status(Status.error);
+      });
+    }
+  }
+
+  bool _isRideInputValid() {
+    bool isValid = true;
+    if (pickupLocation == null) {
+      Get.snackbar('error', 'pickup_location_error');
+      isValid = false;
+    } else if (dropOffLocation == null) {
+      Get.snackbar('error', 'destination_error');
+      isValid = false;
+    } else if (selectedVehicle.regionId == null) {
+      Get.snackbar('error'.tr, 'vehicle_select_error'.tr);
+      isValid = false;
+    }
+
+    return isValid;
   }
 
   submitFeedback() {
@@ -775,33 +867,36 @@ class HomeController extends GetxService {
   }
 
   addFavouriteDriver() {
-    final Map<String, dynamic> favouriteDriverPayload = {
-      'given_rating': '$driverRating',
-      'engagement_id': '$engagementId',
-      'driver_id': '${driver?.driverId}',
-      'feedback': feedbackComment,
-      'feedback_reasons': 'performance'
-    };
+    // add driver in to favourites
+    if (driver?.driverId != null && engagementId != null) {
+      final Map<String, dynamic> favouriteDriverPayload = {
+        'driver_id': '${driver?.driverId}',
+        'engagement_id': '$engagementId',
+        'action_type': '1',
+        'integrated': '1',
+      };
 
-    status(Status.loading);
-    repository.addFavouriteDriver(favouriteDriverPayload).then((basicResponse) {
-      if (basicResponse.flag == SuccessFlags.basicSuccess.successCode) {
-        status(Status.success);
-        Get.snackbar('succes'.tr, 'add_favourite_driver_success'.tr);
-      } else {
-        print(basicResponse.error ?? '');
+      status(Status.loading);
+      repository.addFavouriteDriver(favouriteDriverPayload).then(
+          (basicResponse) {
+        if (basicResponse.flag == SuccessFlags.basicSuccess.successCode) {
+          status(Status.success);
+          Get.snackbar('succes'.tr, 'add_favourite_driver_success'.tr);
+        } else {
+          print(basicResponse.error ?? '');
+          status(Status.error);
+          toast(
+              'error',
+              basicResponse.error ??
+                  basicResponse.log ??
+                  basicResponse.message ??
+                  '');
+        }
+      }, onError: (error) {
         status(Status.error);
-        toast(
-            'error',
-            basicResponse.error ??
-                basicResponse.log ??
-                basicResponse.message ??
-                '');
-      }
-    }, onError: (error) {
-      status(Status.error);
-      print('Add favourite driver error: $error');
-    });
+        print('Add favourite driver error: $error');
+      });
+    }
   }
 
   resetValues() {
@@ -911,8 +1006,6 @@ class HomeController extends GetxService {
   }
 
   _updateDriverMarker(double latitude, double longitude) {
-    _markers.clear();
-
     _markers.removeWhere((m) => m.markerId.value == 'driver_current_location');
     _markers.add(Marker(
         markerId: const MarkerId('driver_current_location'),
@@ -933,7 +1026,10 @@ class HomeController extends GetxService {
   onLogout() {
     // Todo: check if there is pending operations
     if (tripStep == TripStep.whereTo) {
-      authController.logout();
+      status(Status.loading);
+      authController.logout().then((value) {
+        status(Status.success);
+      }, onError: (error) => status(Status.error));
     } else {
       Get.snackbar('warning'.tr, 'check_pending_operations'.tr);
     }

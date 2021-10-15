@@ -8,13 +8,12 @@ import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:get/get.dart';
 
 class LocationSearch extends GetView<HomeController> {
-  LocationSearch({
+  const LocationSearch({
     Key? key,
     required this.locationType,
   }) : super(key: key);
 
   final LocationType locationType;
-  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class LocationSearch extends GetView<HomeController> {
           }
         },
         child: TextField(
-            controller: searchController,
+            controller: getSearchController(),
             keyboardType: TextInputType.streetAddress,
             onChanged: (value) => controller.getPlaceSugestions(value),
             style: AppTheme.title2,
@@ -52,13 +51,22 @@ class LocationSearch extends GetView<HomeController> {
                               height: 20.0,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2.0,
+                                color: AppTheme.primaryColor,
                               )),
                         ))
-                    : searchController.text.isNotEmpty
+                    : (locationType == LocationType.pickUp &&
+                                controller.pickUpLocationSearch.isNotEmpty) ||
+                            (locationType == LocationType.dropOff &&
+                                controller.dropOffLocationSearch.isNotEmpty)
                         ? IconButton(
                             onPressed: () {
-                              searchController.clear();
-                              searchController.text = '';
+                              getSearchController().clear();
+                              if (locationType == LocationType.pickUp) {
+                                controller.pickUpLocationSearch = '';
+                              } else {
+                                controller.dropOffLocationSearch = '';
+                              }
+                              // getSearchController().text = '';
                             },
                             icon: const Icon(Icons.cancel,
                                 color: AppTheme.primaryColor))
@@ -70,8 +78,13 @@ class LocationSearch extends GetView<HomeController> {
   }
 
   _setInitialValues() {
-    searchController.text = locationType == LocationType.pickUp
+    getSearchController().text = locationType == LocationType.pickUp
         ? controller.pickupLocation?.placeName ?? ''
         : controller.dropOffLocation?.placeName ?? '';
   }
+
+  TextEditingController getSearchController() =>
+      locationType == LocationType.pickUp
+          ? controller.pickUpSearchController
+          : controller.dropOffSearchController;
 }

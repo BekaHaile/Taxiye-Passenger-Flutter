@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
@@ -67,13 +69,24 @@ class HomeRepository implements IHomeRepository {
 
   @override
   Future<RequestRideResponse> requestRide(
-      Map<String, dynamic> findDriversPayload) async {
+      Map<String, dynamic> requestRidePayload) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/request_ride',
-      data: findDriversPayload,
+      data: requestRidePayload,
     );
     return RequestRideResponse.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> scheduleRide(
+      Map<String, dynamic> scheduleRidePayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/insert_pickup_schedule',
+      data: scheduleRidePayload,
+    );
+    return BasicResponse.fromJson(response);
   }
 
   @override
@@ -116,7 +129,7 @@ class HomeRepository implements IHomeRepository {
       Map<String, dynamic> favouriteDriverPayload) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
-      path: '/add_user_driver_mapping',
+      path: '/customer/add_user_driver_mapping',
       data: favouriteDriverPayload,
     );
     return BasicResponse.fromJson(response);

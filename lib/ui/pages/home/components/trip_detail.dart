@@ -5,6 +5,7 @@ import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_payment_list.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 
 class TripDetail extends GetView<HomeController> {
   const TripDetail({
@@ -99,7 +100,8 @@ class TripDetail extends GetView<HomeController> {
                         const SizedBox(height: 20.0),
                         DistanceInfo(
                           title: 'duration',
-                          value: rideDetail.rideTime ?? 0,
+                          value: controller.rideCounter,
+                          //value: rideDetail.rideTime ?? 0,
                         ),
                       ],
                     )
@@ -148,7 +150,9 @@ class DistanceInfo extends StatelessWidget {
           ),
         ),
         Text(
-          '$value ${title == 'distance' ? 'kms'.tr : 'mins'.tr}',
+          title == 'distance'
+              ? '$value ${'kms'.tr}'
+              : getDisplayTimeFromSeconds(value),
           style: const TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.w700,

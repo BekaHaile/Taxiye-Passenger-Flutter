@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 
 class TripProgress extends GetView<HomeController> {
   const TripProgress({Key? key}) : super(key: key);
@@ -23,15 +24,9 @@ class TripProgress extends GetView<HomeController> {
             ),
             const SizedBox(height: 5.0),
 
-            Obx(() => Text(
-                '${controller.rideCounter ~/ 60} m ${controller.rideCounter % 60} s',
+            Obx(() => Text(getDisplayTimeFromSeconds(controller.rideCounter),
                 style: AppTheme.title
                     .copyWith(fontSize: 18.0, color: AppTheme.primaryColor))),
-            // Text(
-            //   '1 m 05 s',
-            //   style: AppTheme.title
-            //       .copyWith(fontSize: 18.0, color: AppTheme.primaryColor),
-            // ),
             const SizedBox(height: 10.0),
             Image.asset(
               'assets/images/trip_progress.png',

@@ -74,8 +74,12 @@ class PickVehicle extends GetView<HomeController> {
             ),
             const SizedBox(height: 16.0),
             RoundedButton(
-              text: 'book_now'.tr,
-              onPressed: () => controller.bookRide(),
+              text: controller.scheduleDate == null
+                  ? 'book_now'.tr
+                  : 'schedule_ride'.tr,
+              onPressed: () => controller.scheduleDate == null
+                  ? controller.bookRide()
+                  : controller.scheduleRide(),
             )
           ],
         ),

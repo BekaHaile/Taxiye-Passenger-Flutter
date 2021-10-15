@@ -77,9 +77,7 @@ class TripFeadback extends GetView<HomeController> {
                         fontSize: 14.0,
                         color: Colors.white,
                       ),
-                      onPressed: () {
-                        // Todo: Add Driver to favourites
-                      }),
+                      onPressed: () => controller.addFavouriteDriver()),
                 ],
               ),
               const SizedBox(height: 20.0),

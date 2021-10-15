@@ -54,7 +54,8 @@ abstract class IHomeRepository {
       Map<String, dynamic> findDriversPayload);
 
   Future<RequestRideResponse> requestRide(
-      Map<String, dynamic> findDriversPayload);
+      Map<String, dynamic> requestRidePayload);
+  Future<BasicResponse> scheduleRide(Map<String, dynamic> scheduleRidePayload);
 
   Future<BasicResponse> cancelRide(
       Map<String, dynamic> cancelPayload, TripStep tripStep);

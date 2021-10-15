@@ -164,6 +164,9 @@ final Map<String, String> enUs = {
   'offers': 'Offers',
   'notes': 'Notes',
   'book_now': 'Book Now',
+  'schedule_ride': 'Schedule Ride',
+
+  'schedule_ride_success': 'Scheduled ride successfully',
 
   // vehicle detail
   'fare_details': 'Fare Details',
@@ -326,6 +329,7 @@ final Map<String, String> enUs = {
   'error_amount': 'Invalid amount',
 
   'api_error': 'Api Error',
+  'pickup_location_error': 'Please pick your pick up location',
   'destination_error': 'Please pick your destination',
   'vehicle_select_error': 'Please pick vehicle',
 

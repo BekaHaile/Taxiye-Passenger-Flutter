@@ -32,25 +32,40 @@ class PickLocationPage extends GetView<HomeController> {
                 ),
               ),
             ),
-            LocationSearch(
+            const LocationSearch(
               locationType: LocationType.pickUp,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
-              child: Text(
-                'drop_off_location'.tr,
-                style: AppTheme.title.copyWith(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            LocationSearch(
-              locationType: LocationType.dropOff,
-            ),
+            Obx(() =>
+                !(controller.focusedSearchLocation == LocationType.pickUp &&
+                        controller.locationSuggestions.isNotEmpty)
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: kPagePadding),
+                            child: Text(
+                              'drop_off_location'.tr,
+                              style: AppTheme.title.copyWith(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                          const LocationSearch(
+                            locationType: LocationType.dropOff,
+                          ),
+                        ],
+                      )
+                    : const SizedBox()),
             Obx(
               () => controller.locationSuggestions.isEmpty ||
-                      controller.dropOffLocationSearch.isEmpty
+                      (controller.focusedSearchLocation ==
+                              LocationType.pickUp &&
+                          controller.pickUpLocationSearch.isEmpty) ||
+                      (controller.focusedSearchLocation ==
+                              LocationType.dropOff &&
+                          controller.dropOffLocationSearch.isEmpty)
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

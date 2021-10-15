@@ -161,3 +161,11 @@ Future<Placemark> getPlaceNameFromCordinate(LatLng placeCoordinate) async {
     return Future.error("$err");
   }
 }
+
+String getDisplayTimeFromSeconds(int seconds) {
+  int hour = seconds ~/ 3600;
+  int min = seconds ~/ 60;
+  int sec = seconds % 60;
+
+  return '${(hour > 0 ? '$hour h' : '')} ${(min > 0 ? '$min m' : '')} $sec s';
+}

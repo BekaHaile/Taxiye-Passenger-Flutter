@@ -144,9 +144,10 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
       case TripStep.tripDetail:
         return Get.height * 0.35;
       case TripStep.lookingDrivers:
-      case TripStep.tripStarted:
       case TripStep.confirmPlace:
         return Get.height * 0.3;
+      case TripStep.tripStarted:
+        return Get.height * 0.24;
       default:
         return 0.0;
     }

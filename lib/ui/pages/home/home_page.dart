@@ -103,7 +103,13 @@ class _HomePageState extends State<HomePage>
                                   onPressed: () {
                                     switch (controller.tripStep) {
                                       case TripStep.pickOnMap:
-                                        controller.confirmPickedLocation();
+                                        if (controller.focusedSearchLocation ==
+                                            LocationType.pickUp) {
+                                          controller.onRoutePickLocation();
+                                        } else {
+                                          controller.confirmPickedLocation();
+                                        }
+
                                         break;
                                       case TripStep.addPlace:
                                         if (controller.dropOffLocation !=

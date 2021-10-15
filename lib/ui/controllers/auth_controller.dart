@@ -404,10 +404,9 @@ class AuthController extends GetxService {
     return sha256.convert(utf8.encode(authSecret)).toString();
   }
 
-  logout() async {
+  Future<void> logout() async {
     // call server logout
-    status(Status.loading);
-    repository.logoutUser().then((basicResponse) {
+    return repository.logoutUser().then((basicResponse) {
       if (basicResponse.flag == SuccessFlags.logout.successCode) {
         status(Status.success);
         // reset controllers values and rebind dependency injections
@@ -417,7 +416,6 @@ class AuthController extends GetxService {
         // Get.snackbar('success'.tr, 'logout_success'.tr);
       } else {
         print(basicResponse.error ?? '');
-        status(Status.error);
         toast(
             'error',
             basicResponse.error ??
@@ -426,7 +424,6 @@ class AuthController extends GetxService {
                 '');
       }
     }, onError: (error) {
-      status(Status.error);
       print('Logout error: $error');
     });
   }
