@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
@@ -5,6 +6,7 @@ import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
+import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/confirm_place.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
@@ -23,6 +25,7 @@ import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -68,85 +71,98 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Scaffold(
-          key: _scaffoldKey,
-          // resizeToAvoidBottomInset: false,
-          body: Stack(
-            children: [
-              // MapScreen(),
-              const RideMap(),
-              // SimpleMarkerAnimationExample(),
+        WillPopScope(
+          onWillPop: controller.onHomeBack,
+          child: Scaffold(
+            key: _scaffoldKey,
+            // resizeToAvoidBottomInset: false,
+            body: Stack(
+              children: [
+                // MapScreen(),
+                const RideMap(),
+                // SimpleMarkerAnimationExample(),
 
-              CircleNav(
-                icon: CustomIcons.menu,
-                onTap: () => _scaffoldKey.currentState?.openDrawer(),
-              ),
+                Obx(() => controller.tripStep == TripStep.pickVehicle
+                    ? CircleNav(
+                        onTap: () => controller.onHomeBack(),
+                      )
+                    : CircleNav(
+                        icon: CustomIcons.menu,
+                        onTap: () => _scaffoldKey.currentState?.openDrawer(),
+                      )),
 
-              Obx(() => controller.tripStep == TripStep.pickOnMap ||
-                      controller.tripStep == TripStep.addPlace ||
-                      controller.tripStep == TripStep.confirmPlace
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Column(
-                        children: [
-                          LocationSearch(
-                              locationType: controller.focusedSearchLocation),
-                          getLocationLists(),
-                          const Spacer(),
-                          Padding(
-                              padding: const EdgeInsets.all(kPagePadding),
-                              child: RoundedButton(
-                                  text:
-                                      controller.tripStep == TripStep.pickOnMap
-                                          ? 'confirm'.tr
-                                          : 'next'.tr,
-                                  onPressed: () {
-                                    switch (controller.tripStep) {
-                                      case TripStep.pickOnMap:
-                                        if (controller.focusedSearchLocation ==
-                                            LocationType.pickUp) {
-                                          controller.onRoutePickLocation();
-                                        } else {
-                                          controller.confirmPickedLocation();
-                                        }
+                Obx(() => controller.tripStep == TripStep.tripStarted ||
+                        controller.tripStep == TripStep.tripDetail
+                    ? const SOS()
+                    : const SizedBox()),
 
-                                        break;
-                                      case TripStep.addPlace:
-                                        if (controller.dropOffLocation !=
-                                            null) {
-                                          controller.tripStep =
-                                              TripStep.confirmPlace;
-                                        } else {
-                                          Get.snackbar('success',
-                                              'place_not_picked_error'.tr);
-                                        }
+                Obx(() => controller.tripStep == TripStep.pickOnMap ||
+                        controller.tripStep == TripStep.addPlace ||
+                        controller.tripStep == TripStep.confirmPlace
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Column(
+                          children: [
+                            LocationSearch(
+                                locationType: controller.focusedSearchLocation),
+                            getLocationLists(),
+                            const Spacer(),
+                            Padding(
+                                padding: const EdgeInsets.all(kPagePadding),
+                                child: RoundedButton(
+                                    text: controller.tripStep ==
+                                            TripStep.pickOnMap
+                                        ? 'confirm'.tr
+                                        : 'next'.tr,
+                                    onPressed: () {
+                                      switch (controller.tripStep) {
+                                        case TripStep.pickOnMap:
+                                          if (controller
+                                                  .focusedSearchLocation ==
+                                              LocationType.pickUp) {
+                                            controller.onRoutePickLocation();
+                                          } else {
+                                            controller.confirmPickedLocation();
+                                          }
 
-                                        break;
-                                      default:
-                                    }
-                                  }))
-                        ],
-                      ),
-                    )
-                  : const SizedBox()),
-            ],
-          ),
-          drawer: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(10.0),
-              bottomRight: Radius.circular(10.0),
+                                          break;
+                                        case TripStep.addPlace:
+                                          if (controller.dropOffLocation !=
+                                              null) {
+                                            controller.tripStep =
+                                                TripStep.confirmPlace;
+                                          } else {
+                                            Get.snackbar('success',
+                                                'place_not_picked_error'.tr);
+                                          }
+
+                                          break;
+                                        default:
+                                      }
+                                    }))
+                          ],
+                        ),
+                      )
+                    : const SizedBox()),
+              ],
             ),
-            child: Drawer(
-              child: HomeDrawer(
-                screenIndex: drawerIndex,
-                iconAnimationController: iconAnimationController,
-                callBackIndex: (DrawerIndex indexType) {
-                  changeIndex(indexType);
-                },
+            drawer: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10.0),
+                bottomRight: Radius.circular(10.0),
+              ),
+              child: Drawer(
+                child: HomeDrawer(
+                  screenIndex: drawerIndex,
+                  iconAnimationController: iconAnimationController,
+                  callBackIndex: (DrawerIndex indexType) {
+                    changeIndex(indexType);
+                  },
+                ),
               ),
             ),
+            bottomSheet: Obx(() => tripViews()),
           ),
-          bottomSheet: Obx(() => tripViews()),
         ),
         Obx(() => ModalProgressHUD(
               child: const SizedBox(),
@@ -244,6 +260,50 @@ class _HomePageState extends State<HomePage>
         break;
       default:
     }
+  }
+}
+
+class SOS extends StatelessWidget {
+  const SOS({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 40.0,
+      right: 16.0,
+      child: GestureDetector(
+        onTap: () => launch('tel:$kSOSNumber'),
+        child: Container(
+          width: 50.0,
+          height: 50.0,
+          decoration: BoxDecoration(
+            color: AppTheme.redSOSColor,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(0.25),
+                spreadRadius: 0,
+                blurRadius: 6,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: const Center(
+            child: Text(
+              'SOS',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 16.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

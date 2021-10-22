@@ -336,4 +336,6 @@ final Map<String, String> enUs = {
   'error_label': 'Please add address label',
   'place_not_picked_error': 'Please pick a place',
   'check_pending_operations': 'Please complete pending operations first',
+
+  'invalid_time': 'Invalid Time!\nTime should be after 30 minutes',
 };

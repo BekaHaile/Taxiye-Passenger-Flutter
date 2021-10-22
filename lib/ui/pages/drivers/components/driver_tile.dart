@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
 class DriverTile extends StatelessWidget {
@@ -96,7 +97,7 @@ class DriverTile extends StatelessWidget {
                             Icons.call,
                             color: AppTheme.darkTextColor,
                           ),
-                          // onTap: () => launch('tel:${driver.phoneNo}'),
+                          onTap: () => launch('tel:${driver.phoneNo}'),
                         ),
                         const SizedBox(width: 20.0),
                         if (onRemove != null)

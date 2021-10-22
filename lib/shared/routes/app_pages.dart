@@ -1,6 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
+import 'package:taxiye_passenger/ui/bindings/orders_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
@@ -149,6 +150,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.orders,
       page: () => OrdersPage(),
+      binding: OrdersBinding(),
     ),
 
     GetPage(

@@ -6,6 +6,8 @@ build_debug_release:
   image: mingc/android-build-box:latest
 
   script:
+    - flutter channel beta
+    - flutter upgrade
     - flutter build apk --release
     - mkdir output
     - mv "build/app/outputs/apk/release/app-release.apk" output/taxiye-passenger-release.apk

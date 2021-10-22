@@ -130,7 +130,7 @@ dependencies:
   # for local storage
   shared_preferences: ^2.0.8
   # for launching a URL
-  # url_launcher: ^6.0.12
+  url_launcher: ^6.0.12
 
   
 

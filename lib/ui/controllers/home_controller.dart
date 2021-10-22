@@ -1035,6 +1035,19 @@ class HomeController extends GetxService {
     }
   }
 
+  Future<bool> onHomeBack() async {
+    switch (tripStep) {
+      case TripStep.pickVehicle:
+        Get.toNamed(Routes.pickLocation);
+        resetValues();
+        break;
+      default:
+        Get.back();
+    }
+
+    return false;
+  }
+
   @override
   void onClose() {
     positionStream?.cancel();

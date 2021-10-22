@@ -394,6 +394,108 @@ Map<String, dynamic> _$_$_AddressToJson(_$_Address instance) =>
       'is_confirmed': instance.isConfirmed,
     };
 
+_$_ScheduledRide _$_$_ScheduledRideFromJson(Map<String, dynamic> json) {
+  return _$_ScheduledRide(
+    latitude: (json['latitude'] as num?)?.toDouble(),
+    longitude: (json['longitude'] as num?)?.toDouble(),
+    status: json['status'] as int?,
+    modifiable: json['modifiable'] as int?,
+    opDropLatitude: (json['op_drop_latitude'] as num?)?.toDouble(),
+    opDropLongitude: (json['op_drop_longitude'] as num?)?.toDouble(),
+    pickupId: json['pickup_id'] as int?,
+    preferredPaymentMode: json['preferred_payment_mode'] as int?,
+    pickupLocationAddress: json['pickup_location_address'] as String?,
+    dropLocationAddress: json['drop_location_address'] as String?,
+    pickupTime: json['pickup_time'] == null
+        ? null
+        : DateTime.parse(json['pickup_time'] as String),
+    vehicleName: json['vehicle_name'] as String?,
+    rideType: json['ride_type'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_ScheduledRideToJson(_$_ScheduledRide instance) =>
+    <String, dynamic>{
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'status': instance.status,
+      'modifiable': instance.modifiable,
+      'op_drop_latitude': instance.opDropLatitude,
+      'op_drop_longitude': instance.opDropLongitude,
+      'pickup_id': instance.pickupId,
+      'preferred_payment_mode': instance.preferredPaymentMode,
+      'pickup_location_address': instance.pickupLocationAddress,
+      'drop_location_address': instance.dropLocationAddress,
+      'pickup_time': instance.pickupTime?.toIso8601String(),
+      'vehicle_name': instance.vehicleName,
+      'ride_type': instance.rideType,
+    };
+
+_$_RideHistory _$_$_RideHistoryFromJson(Map<String, dynamic> json) {
+  return _$_RideHistory(
+    distance: (json['distance'] as num?)?.toDouble(),
+    longitude: (json['longitude'] as num?)?.toDouble(),
+    status: json['status'] as int?,
+    modifiable: json['modifiable'] as int?,
+    amount: json['amount'] as int?,
+    currency: json['currency'] as String?,
+    date: json['date'] as String?,
+    pickupAddress: json['pickup_address'] as String?,
+    pickupLatitude: (json['pickup_latitude'] as num?)?.toDouble(),
+    pickupLongitude: (json['pickup_longitude'] as num?)?.toDouble(),
+    dropLatitude: (json['drop_latitude'] as num?)?.toDouble(),
+    dropLongitude: (json['drop_longitude'] as num?)?.toDouble(),
+    dropAddress: json['drop_address'] as String?,
+    rideType: json['ride_type'] as int?,
+    isCancelledRide: json['is_cancelled_ride'] as int?,
+    rideTime: json['ride_time'] as int?,
+    vehicleType: json['vehicle_type'] as int?,
+    driverId: json['driver_id'] as int?,
+    driverRating: json['driver_rating'] as int?,
+    regionName: json['region_name'] as String?,
+    engagementId: json['engagement_id'] as int?,
+    userId: json['user_id'] as int?,
+    manuallyEdited: json['manually_edited'] as int?,
+    waitTime: json['wait_time'] as int?,
+    autosStatusText: json['autos_status_text'] as String?,
+    distanceUnit: json['distance_unit'] as String?,
+    createdAt: json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String),
+  );
+}
+
+Map<String, dynamic> _$_$_RideHistoryToJson(_$_RideHistory instance) =>
+    <String, dynamic>{
+      'distance': instance.distance,
+      'longitude': instance.longitude,
+      'status': instance.status,
+      'modifiable': instance.modifiable,
+      'amount': instance.amount,
+      'currency': instance.currency,
+      'date': instance.date,
+      'pickup_address': instance.pickupAddress,
+      'pickup_latitude': instance.pickupLatitude,
+      'pickup_longitude': instance.pickupLongitude,
+      'drop_latitude': instance.dropLatitude,
+      'drop_longitude': instance.dropLongitude,
+      'drop_address': instance.dropAddress,
+      'ride_type': instance.rideType,
+      'is_cancelled_ride': instance.isCancelledRide,
+      'ride_time': instance.rideTime,
+      'vehicle_type': instance.vehicleType,
+      'driver_id': instance.driverId,
+      'driver_rating': instance.driverRating,
+      'region_name': instance.regionName,
+      'engagement_id': instance.engagementId,
+      'user_id': instance.userId,
+      'manually_edited': instance.manuallyEdited,
+      'wait_time': instance.waitTime,
+      'autos_status_text': instance.autosStatusText,
+      'distance_unit': instance.distanceUnit,
+      'created_at': instance.createdAt?.toIso8601String(),
+    };
+
 _$_BasicResponse _$_$_BasicResponseFromJson(Map<String, dynamic> json) {
   return _$_BasicResponse(
     json['flag'] as int,
@@ -473,13 +575,13 @@ _$_RequestRideResponse _$_$_RequestRideResponseFromJson(
     error: json['error'] as String?,
     message: json['message'] as String?,
     log: json['log'] as String?,
+    latitude: (json['latitude'] as num?)?.toDouble(),
+    longitude: (json['longitude'] as num?)?.toDouble(),
     orderId: json['order_id'] as int?,
     sessionId: json['session_id'] as int?,
     pickupLocationAddress: json['pickup_location_address'] as String?,
     dropLocationAddress: json['drop_location_address'] as String?,
     startTime: json['start_time'] as String?,
-    latitude: (json['latitude'] as num?)?.toDouble(),
-    longitude: (json['longitude'] as num?)?.toDouble(),
   );
 }
 
@@ -490,13 +592,13 @@ Map<String, dynamic> _$_$_RequestRideResponseToJson(
       'error': instance.error,
       'message': instance.message,
       'log': instance.log,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'order_id': instance.orderId,
       'session_id': instance.sessionId,
       'pickup_location_address': instance.pickupLocationAddress,
       'drop_location_address': instance.dropLocationAddress,
       'start_time': instance.startTime,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
     };
 
 _$_WalletResponse _$_$_WalletResponseFromJson(Map<String, dynamic> json) {
@@ -595,4 +697,27 @@ Map<String, dynamic> _$_$_DriverLocationResponseToJson(
       'longitude': instance.longitude,
       'eta': instance.eta,
       'bearing': instance.bearing,
+    };
+
+_$_RideListResponse<T> _$_$_RideListResponseFromJson<T>(
+    Map<String, dynamic> json) {
+  return _$_RideListResponse<T>(
+    json['flag'] as int,
+    data: (json['data'] as List<dynamic>?)
+        ?.map(DataConverter<T>().fromJson)
+        .toList(),
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    log: json['log'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_RideListResponseToJson<T>(
+        _$_RideListResponse<T> instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'data': instance.data?.map(DataConverter<T>().toJson).toList(),
+      'message': instance.message,
+      'error': instance.error,
+      'log': instance.log,
     };

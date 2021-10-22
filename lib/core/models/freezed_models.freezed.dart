@@ -5242,6 +5242,1341 @@ abstract class _Address implements Address {
       throw _privateConstructorUsedError;
 }
 
+ScheduledRide _$ScheduledRideFromJson(Map<String, dynamic> json) {
+  return _ScheduledRide.fromJson(json);
+}
+
+/// @nodoc
+class _$ScheduledRideTearOff {
+  const _$ScheduledRideTearOff();
+
+  _ScheduledRide call(
+      {double? latitude,
+      double? longitude,
+      int? status,
+      int? modifiable,
+      @JsonKey(name: 'op_drop_latitude') double? opDropLatitude,
+      @JsonKey(name: 'op_drop_longitude') double? opDropLongitude,
+      @JsonKey(name: 'pickup_id') int? pickupId,
+      @JsonKey(name: 'preferred_payment_mode') int? preferredPaymentMode,
+      @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+      @JsonKey(name: 'vehicle_name') String? vehicleName,
+      @JsonKey(name: 'ride_type') int? rideType}) {
+    return _ScheduledRide(
+      latitude: latitude,
+      longitude: longitude,
+      status: status,
+      modifiable: modifiable,
+      opDropLatitude: opDropLatitude,
+      opDropLongitude: opDropLongitude,
+      pickupId: pickupId,
+      preferredPaymentMode: preferredPaymentMode,
+      pickupLocationAddress: pickupLocationAddress,
+      dropLocationAddress: dropLocationAddress,
+      pickupTime: pickupTime,
+      vehicleName: vehicleName,
+      rideType: rideType,
+    );
+  }
+
+  ScheduledRide fromJson(Map<String, Object> json) {
+    return ScheduledRide.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $ScheduledRide = _$ScheduledRideTearOff();
+
+/// @nodoc
+mixin _$ScheduledRide {
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
+  int? get status => throw _privateConstructorUsedError;
+  int? get modifiable => throw _privateConstructorUsedError;
+  @JsonKey(name: 'op_drop_latitude')
+  double? get opDropLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'op_drop_longitude')
+  double? get opDropLongitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_id')
+  int? get pickupId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'preferred_payment_mode')
+  int? get preferredPaymentMode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_location_address')
+  String? get pickupLocationAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_location_address')
+  String? get dropLocationAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_time')
+  DateTime? get pickupTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_name')
+  String? get vehicleName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_type')
+  int? get rideType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ScheduledRideCopyWith<ScheduledRide> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ScheduledRideCopyWith<$Res> {
+  factory $ScheduledRideCopyWith(
+          ScheduledRide value, $Res Function(ScheduledRide) then) =
+      _$ScheduledRideCopyWithImpl<$Res>;
+  $Res call(
+      {double? latitude,
+      double? longitude,
+      int? status,
+      int? modifiable,
+      @JsonKey(name: 'op_drop_latitude') double? opDropLatitude,
+      @JsonKey(name: 'op_drop_longitude') double? opDropLongitude,
+      @JsonKey(name: 'pickup_id') int? pickupId,
+      @JsonKey(name: 'preferred_payment_mode') int? preferredPaymentMode,
+      @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+      @JsonKey(name: 'vehicle_name') String? vehicleName,
+      @JsonKey(name: 'ride_type') int? rideType});
+}
+
+/// @nodoc
+class _$ScheduledRideCopyWithImpl<$Res>
+    implements $ScheduledRideCopyWith<$Res> {
+  _$ScheduledRideCopyWithImpl(this._value, this._then);
+
+  final ScheduledRide _value;
+  // ignore: unused_field
+  final $Res Function(ScheduledRide) _then;
+
+  @override
+  $Res call({
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? status = freezed,
+    Object? modifiable = freezed,
+    Object? opDropLatitude = freezed,
+    Object? opDropLongitude = freezed,
+    Object? pickupId = freezed,
+    Object? preferredPaymentMode = freezed,
+    Object? pickupLocationAddress = freezed,
+    Object? dropLocationAddress = freezed,
+    Object? pickupTime = freezed,
+    Object? vehicleName = freezed,
+    Object? rideType = freezed,
+  }) {
+    return _then(_value.copyWith(
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      modifiable: modifiable == freezed
+          ? _value.modifiable
+          : modifiable // ignore: cast_nullable_to_non_nullable
+              as int?,
+      opDropLatitude: opDropLatitude == freezed
+          ? _value.opDropLatitude
+          : opDropLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      opDropLongitude: opDropLongitude == freezed
+          ? _value.opDropLongitude
+          : opDropLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      pickupId: pickupId == freezed
+          ? _value.pickupId
+          : pickupId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      preferredPaymentMode: preferredPaymentMode == freezed
+          ? _value.preferredPaymentMode
+          : preferredPaymentMode // ignore: cast_nullable_to_non_nullable
+              as int?,
+      pickupLocationAddress: pickupLocationAddress == freezed
+          ? _value.pickupLocationAddress
+          : pickupLocationAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dropLocationAddress: dropLocationAddress == freezed
+          ? _value.dropLocationAddress
+          : dropLocationAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupTime: pickupTime == freezed
+          ? _value.pickupTime
+          : pickupTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      vehicleName: vehicleName == freezed
+          ? _value.vehicleName
+          : vehicleName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rideType: rideType == freezed
+          ? _value.rideType
+          : rideType // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ScheduledRideCopyWith<$Res>
+    implements $ScheduledRideCopyWith<$Res> {
+  factory _$ScheduledRideCopyWith(
+          _ScheduledRide value, $Res Function(_ScheduledRide) then) =
+      __$ScheduledRideCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {double? latitude,
+      double? longitude,
+      int? status,
+      int? modifiable,
+      @JsonKey(name: 'op_drop_latitude') double? opDropLatitude,
+      @JsonKey(name: 'op_drop_longitude') double? opDropLongitude,
+      @JsonKey(name: 'pickup_id') int? pickupId,
+      @JsonKey(name: 'preferred_payment_mode') int? preferredPaymentMode,
+      @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+      @JsonKey(name: 'vehicle_name') String? vehicleName,
+      @JsonKey(name: 'ride_type') int? rideType});
+}
+
+/// @nodoc
+class __$ScheduledRideCopyWithImpl<$Res>
+    extends _$ScheduledRideCopyWithImpl<$Res>
+    implements _$ScheduledRideCopyWith<$Res> {
+  __$ScheduledRideCopyWithImpl(
+      _ScheduledRide _value, $Res Function(_ScheduledRide) _then)
+      : super(_value, (v) => _then(v as _ScheduledRide));
+
+  @override
+  _ScheduledRide get _value => super._value as _ScheduledRide;
+
+  @override
+  $Res call({
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? status = freezed,
+    Object? modifiable = freezed,
+    Object? opDropLatitude = freezed,
+    Object? opDropLongitude = freezed,
+    Object? pickupId = freezed,
+    Object? preferredPaymentMode = freezed,
+    Object? pickupLocationAddress = freezed,
+    Object? dropLocationAddress = freezed,
+    Object? pickupTime = freezed,
+    Object? vehicleName = freezed,
+    Object? rideType = freezed,
+  }) {
+    return _then(_ScheduledRide(
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      modifiable: modifiable == freezed
+          ? _value.modifiable
+          : modifiable // ignore: cast_nullable_to_non_nullable
+              as int?,
+      opDropLatitude: opDropLatitude == freezed
+          ? _value.opDropLatitude
+          : opDropLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      opDropLongitude: opDropLongitude == freezed
+          ? _value.opDropLongitude
+          : opDropLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      pickupId: pickupId == freezed
+          ? _value.pickupId
+          : pickupId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      preferredPaymentMode: preferredPaymentMode == freezed
+          ? _value.preferredPaymentMode
+          : preferredPaymentMode // ignore: cast_nullable_to_non_nullable
+              as int?,
+      pickupLocationAddress: pickupLocationAddress == freezed
+          ? _value.pickupLocationAddress
+          : pickupLocationAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dropLocationAddress: dropLocationAddress == freezed
+          ? _value.dropLocationAddress
+          : dropLocationAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupTime: pickupTime == freezed
+          ? _value.pickupTime
+          : pickupTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      vehicleName: vehicleName == freezed
+          ? _value.vehicleName
+          : vehicleName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rideType: rideType == freezed
+          ? _value.rideType
+          : rideType // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ScheduledRide implements _ScheduledRide {
+  _$_ScheduledRide(
+      {this.latitude,
+      this.longitude,
+      this.status,
+      this.modifiable,
+      @JsonKey(name: 'op_drop_latitude') this.opDropLatitude,
+      @JsonKey(name: 'op_drop_longitude') this.opDropLongitude,
+      @JsonKey(name: 'pickup_id') this.pickupId,
+      @JsonKey(name: 'preferred_payment_mode') this.preferredPaymentMode,
+      @JsonKey(name: 'pickup_location_address') this.pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') this.dropLocationAddress,
+      @JsonKey(name: 'pickup_time') this.pickupTime,
+      @JsonKey(name: 'vehicle_name') this.vehicleName,
+      @JsonKey(name: 'ride_type') this.rideType});
+
+  factory _$_ScheduledRide.fromJson(Map<String, dynamic> json) =>
+      _$_$_ScheduledRideFromJson(json);
+
+  @override
+  final double? latitude;
+  @override
+  final double? longitude;
+  @override
+  final int? status;
+  @override
+  final int? modifiable;
+  @override
+  @JsonKey(name: 'op_drop_latitude')
+  final double? opDropLatitude;
+  @override
+  @JsonKey(name: 'op_drop_longitude')
+  final double? opDropLongitude;
+  @override
+  @JsonKey(name: 'pickup_id')
+  final int? pickupId;
+  @override
+  @JsonKey(name: 'preferred_payment_mode')
+  final int? preferredPaymentMode;
+  @override
+  @JsonKey(name: 'pickup_location_address')
+  final String? pickupLocationAddress;
+  @override
+  @JsonKey(name: 'drop_location_address')
+  final String? dropLocationAddress;
+  @override
+  @JsonKey(name: 'pickup_time')
+  final DateTime? pickupTime;
+  @override
+  @JsonKey(name: 'vehicle_name')
+  final String? vehicleName;
+  @override
+  @JsonKey(name: 'ride_type')
+  final int? rideType;
+
+  @override
+  String toString() {
+    return 'ScheduledRide(latitude: $latitude, longitude: $longitude, status: $status, modifiable: $modifiable, opDropLatitude: $opDropLatitude, opDropLongitude: $opDropLongitude, pickupId: $pickupId, preferredPaymentMode: $preferredPaymentMode, pickupLocationAddress: $pickupLocationAddress, dropLocationAddress: $dropLocationAddress, pickupTime: $pickupTime, vehicleName: $vehicleName, rideType: $rideType)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ScheduledRide &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.modifiable, modifiable) ||
+                const DeepCollectionEquality()
+                    .equals(other.modifiable, modifiable)) &&
+            (identical(other.opDropLatitude, opDropLatitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.opDropLatitude, opDropLatitude)) &&
+            (identical(other.opDropLongitude, opDropLongitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.opDropLongitude, opDropLongitude)) &&
+            (identical(other.pickupId, pickupId) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupId, pickupId)) &&
+            (identical(other.preferredPaymentMode, preferredPaymentMode) ||
+                const DeepCollectionEquality().equals(
+                    other.preferredPaymentMode, preferredPaymentMode)) &&
+            (identical(other.pickupLocationAddress, pickupLocationAddress) ||
+                const DeepCollectionEquality().equals(
+                    other.pickupLocationAddress, pickupLocationAddress)) &&
+            (identical(other.dropLocationAddress, dropLocationAddress) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropLocationAddress, dropLocationAddress)) &&
+            (identical(other.pickupTime, pickupTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupTime, pickupTime)) &&
+            (identical(other.vehicleName, vehicleName) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleName, vehicleName)) &&
+            (identical(other.rideType, rideType) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideType, rideType)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(modifiable) ^
+      const DeepCollectionEquality().hash(opDropLatitude) ^
+      const DeepCollectionEquality().hash(opDropLongitude) ^
+      const DeepCollectionEquality().hash(pickupId) ^
+      const DeepCollectionEquality().hash(preferredPaymentMode) ^
+      const DeepCollectionEquality().hash(pickupLocationAddress) ^
+      const DeepCollectionEquality().hash(dropLocationAddress) ^
+      const DeepCollectionEquality().hash(pickupTime) ^
+      const DeepCollectionEquality().hash(vehicleName) ^
+      const DeepCollectionEquality().hash(rideType);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ScheduledRideCopyWith<_ScheduledRide> get copyWith =>
+      __$ScheduledRideCopyWithImpl<_ScheduledRide>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ScheduledRideToJson(this);
+  }
+}
+
+abstract class _ScheduledRide implements ScheduledRide {
+  factory _ScheduledRide(
+      {double? latitude,
+      double? longitude,
+      int? status,
+      int? modifiable,
+      @JsonKey(name: 'op_drop_latitude') double? opDropLatitude,
+      @JsonKey(name: 'op_drop_longitude') double? opDropLongitude,
+      @JsonKey(name: 'pickup_id') int? pickupId,
+      @JsonKey(name: 'preferred_payment_mode') int? preferredPaymentMode,
+      @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+      @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+      @JsonKey(name: 'vehicle_name') String? vehicleName,
+      @JsonKey(name: 'ride_type') int? rideType}) = _$_ScheduledRide;
+
+  factory _ScheduledRide.fromJson(Map<String, dynamic> json) =
+      _$_ScheduledRide.fromJson;
+
+  @override
+  double? get latitude => throw _privateConstructorUsedError;
+  @override
+  double? get longitude => throw _privateConstructorUsedError;
+  @override
+  int? get status => throw _privateConstructorUsedError;
+  @override
+  int? get modifiable => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'op_drop_latitude')
+  double? get opDropLatitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'op_drop_longitude')
+  double? get opDropLongitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_id')
+  int? get pickupId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'preferred_payment_mode')
+  int? get preferredPaymentMode => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_location_address')
+  String? get pickupLocationAddress => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_location_address')
+  String? get dropLocationAddress => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_time')
+  DateTime? get pickupTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'vehicle_name')
+  String? get vehicleName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_type')
+  int? get rideType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$ScheduledRideCopyWith<_ScheduledRide> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+RideHistory _$RideHistoryFromJson(Map<String, dynamic> json) {
+  return _RideHistory.fromJson(json);
+}
+
+/// @nodoc
+class _$RideHistoryTearOff {
+  const _$RideHistoryTearOff();
+
+  _RideHistory call(
+      {double? distance,
+      double? longitude,
+      int? status,
+      int? modifiable,
+      int? amount,
+      String? currency,
+      String? date,
+      @JsonKey(name: 'pickup_address') String? pickupAddress,
+      @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+      @JsonKey(name: 'drop_latitude') double? dropLatitude,
+      @JsonKey(name: 'drop_longitude') double? dropLongitude,
+      @JsonKey(name: 'drop_address') String? dropAddress,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'is_cancelled_ride') int? isCancelledRide,
+      @JsonKey(name: 'ride_time') int? rideTime,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'region_name') String? regionName,
+      @JsonKey(name: 'engagement_id') int? engagementId,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'manually_edited') int? manuallyEdited,
+      @JsonKey(name: 'wait_time') int? waitTime,
+      @JsonKey(name: 'autos_status_text') String? autosStatusText,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'created_at') DateTime? createdAt}) {
+    return _RideHistory(
+      distance: distance,
+      longitude: longitude,
+      status: status,
+      modifiable: modifiable,
+      amount: amount,
+      currency: currency,
+      date: date,
+      pickupAddress: pickupAddress,
+      pickupLatitude: pickupLatitude,
+      pickupLongitude: pickupLongitude,
+      dropLatitude: dropLatitude,
+      dropLongitude: dropLongitude,
+      dropAddress: dropAddress,
+      rideType: rideType,
+      isCancelledRide: isCancelledRide,
+      rideTime: rideTime,
+      vehicleType: vehicleType,
+      driverId: driverId,
+      driverRating: driverRating,
+      regionName: regionName,
+      engagementId: engagementId,
+      userId: userId,
+      manuallyEdited: manuallyEdited,
+      waitTime: waitTime,
+      autosStatusText: autosStatusText,
+      distanceUnit: distanceUnit,
+      createdAt: createdAt,
+    );
+  }
+
+  RideHistory fromJson(Map<String, Object> json) {
+    return RideHistory.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $RideHistory = _$RideHistoryTearOff();
+
+/// @nodoc
+mixin _$RideHistory {
+  double? get distance => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
+  int? get status => throw _privateConstructorUsedError;
+  int? get modifiable => throw _privateConstructorUsedError;
+  int? get amount => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
+  String? get date => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_address')
+  String? get pickupAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_latitude')
+  double? get pickupLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_longitude')
+  double? get pickupLongitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_latitude')
+  double? get dropLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_longitude')
+  double? get dropLongitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_address')
+  String? get dropAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_type')
+  int? get rideType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_cancelled_ride')
+  int? get isCancelledRide => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_time')
+  int? get rideTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_type')
+  int? get vehicleType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_rating')
+  int? get driverRating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'region_name')
+  String? get regionName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'engagement_id')
+  int? get engagementId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'manually_edited')
+  int? get manuallyEdited => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wait_time')
+  int? get waitTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'autos_status_text')
+  String? get autosStatusText => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_unit')
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RideHistoryCopyWith<RideHistory> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RideHistoryCopyWith<$Res> {
+  factory $RideHistoryCopyWith(
+          RideHistory value, $Res Function(RideHistory) then) =
+      _$RideHistoryCopyWithImpl<$Res>;
+  $Res call(
+      {double? distance,
+      double? longitude,
+      int? status,
+      int? modifiable,
+      int? amount,
+      String? currency,
+      String? date,
+      @JsonKey(name: 'pickup_address') String? pickupAddress,
+      @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+      @JsonKey(name: 'drop_latitude') double? dropLatitude,
+      @JsonKey(name: 'drop_longitude') double? dropLongitude,
+      @JsonKey(name: 'drop_address') String? dropAddress,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'is_cancelled_ride') int? isCancelledRide,
+      @JsonKey(name: 'ride_time') int? rideTime,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'region_name') String? regionName,
+      @JsonKey(name: 'engagement_id') int? engagementId,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'manually_edited') int? manuallyEdited,
+      @JsonKey(name: 'wait_time') int? waitTime,
+      @JsonKey(name: 'autos_status_text') String? autosStatusText,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'created_at') DateTime? createdAt});
+}
+
+/// @nodoc
+class _$RideHistoryCopyWithImpl<$Res> implements $RideHistoryCopyWith<$Res> {
+  _$RideHistoryCopyWithImpl(this._value, this._then);
+
+  final RideHistory _value;
+  // ignore: unused_field
+  final $Res Function(RideHistory) _then;
+
+  @override
+  $Res call({
+    Object? distance = freezed,
+    Object? longitude = freezed,
+    Object? status = freezed,
+    Object? modifiable = freezed,
+    Object? amount = freezed,
+    Object? currency = freezed,
+    Object? date = freezed,
+    Object? pickupAddress = freezed,
+    Object? pickupLatitude = freezed,
+    Object? pickupLongitude = freezed,
+    Object? dropLatitude = freezed,
+    Object? dropLongitude = freezed,
+    Object? dropAddress = freezed,
+    Object? rideType = freezed,
+    Object? isCancelledRide = freezed,
+    Object? rideTime = freezed,
+    Object? vehicleType = freezed,
+    Object? driverId = freezed,
+    Object? driverRating = freezed,
+    Object? regionName = freezed,
+    Object? engagementId = freezed,
+    Object? userId = freezed,
+    Object? manuallyEdited = freezed,
+    Object? waitTime = freezed,
+    Object? autosStatusText = freezed,
+    Object? distanceUnit = freezed,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      modifiable: modifiable == freezed
+          ? _value.modifiable
+          : modifiable // ignore: cast_nullable_to_non_nullable
+              as int?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupAddress: pickupAddress == freezed
+          ? _value.pickupAddress
+          : pickupAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupLatitude: pickupLatitude == freezed
+          ? _value.pickupLatitude
+          : pickupLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      pickupLongitude: pickupLongitude == freezed
+          ? _value.pickupLongitude
+          : pickupLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropLatitude: dropLatitude == freezed
+          ? _value.dropLatitude
+          : dropLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropLongitude: dropLongitude == freezed
+          ? _value.dropLongitude
+          : dropLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropAddress: dropAddress == freezed
+          ? _value.dropAddress
+          : dropAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rideType: rideType == freezed
+          ? _value.rideType
+          : rideType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isCancelledRide: isCancelledRide == freezed
+          ? _value.isCancelledRide
+          : isCancelledRide // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rideTime: rideTime == freezed
+          ? _value.rideTime
+          : rideTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      vehicleType: vehicleType == freezed
+          ? _value.vehicleType
+          : vehicleType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverRating: driverRating == freezed
+          ? _value.driverRating
+          : driverRating // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionName: regionName == freezed
+          ? _value.regionName
+          : regionName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      engagementId: engagementId == freezed
+          ? _value.engagementId
+          : engagementId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      manuallyEdited: manuallyEdited == freezed
+          ? _value.manuallyEdited
+          : manuallyEdited // ignore: cast_nullable_to_non_nullable
+              as int?,
+      waitTime: waitTime == freezed
+          ? _value.waitTime
+          : waitTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      autosStatusText: autosStatusText == freezed
+          ? _value.autosStatusText
+          : autosStatusText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$RideHistoryCopyWith<$Res>
+    implements $RideHistoryCopyWith<$Res> {
+  factory _$RideHistoryCopyWith(
+          _RideHistory value, $Res Function(_RideHistory) then) =
+      __$RideHistoryCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {double? distance,
+      double? longitude,
+      int? status,
+      int? modifiable,
+      int? amount,
+      String? currency,
+      String? date,
+      @JsonKey(name: 'pickup_address') String? pickupAddress,
+      @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+      @JsonKey(name: 'drop_latitude') double? dropLatitude,
+      @JsonKey(name: 'drop_longitude') double? dropLongitude,
+      @JsonKey(name: 'drop_address') String? dropAddress,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'is_cancelled_ride') int? isCancelledRide,
+      @JsonKey(name: 'ride_time') int? rideTime,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'region_name') String? regionName,
+      @JsonKey(name: 'engagement_id') int? engagementId,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'manually_edited') int? manuallyEdited,
+      @JsonKey(name: 'wait_time') int? waitTime,
+      @JsonKey(name: 'autos_status_text') String? autosStatusText,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'created_at') DateTime? createdAt});
+}
+
+/// @nodoc
+class __$RideHistoryCopyWithImpl<$Res> extends _$RideHistoryCopyWithImpl<$Res>
+    implements _$RideHistoryCopyWith<$Res> {
+  __$RideHistoryCopyWithImpl(
+      _RideHistory _value, $Res Function(_RideHistory) _then)
+      : super(_value, (v) => _then(v as _RideHistory));
+
+  @override
+  _RideHistory get _value => super._value as _RideHistory;
+
+  @override
+  $Res call({
+    Object? distance = freezed,
+    Object? longitude = freezed,
+    Object? status = freezed,
+    Object? modifiable = freezed,
+    Object? amount = freezed,
+    Object? currency = freezed,
+    Object? date = freezed,
+    Object? pickupAddress = freezed,
+    Object? pickupLatitude = freezed,
+    Object? pickupLongitude = freezed,
+    Object? dropLatitude = freezed,
+    Object? dropLongitude = freezed,
+    Object? dropAddress = freezed,
+    Object? rideType = freezed,
+    Object? isCancelledRide = freezed,
+    Object? rideTime = freezed,
+    Object? vehicleType = freezed,
+    Object? driverId = freezed,
+    Object? driverRating = freezed,
+    Object? regionName = freezed,
+    Object? engagementId = freezed,
+    Object? userId = freezed,
+    Object? manuallyEdited = freezed,
+    Object? waitTime = freezed,
+    Object? autosStatusText = freezed,
+    Object? distanceUnit = freezed,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_RideHistory(
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      modifiable: modifiable == freezed
+          ? _value.modifiable
+          : modifiable // ignore: cast_nullable_to_non_nullable
+              as int?,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupAddress: pickupAddress == freezed
+          ? _value.pickupAddress
+          : pickupAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupLatitude: pickupLatitude == freezed
+          ? _value.pickupLatitude
+          : pickupLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      pickupLongitude: pickupLongitude == freezed
+          ? _value.pickupLongitude
+          : pickupLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropLatitude: dropLatitude == freezed
+          ? _value.dropLatitude
+          : dropLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropLongitude: dropLongitude == freezed
+          ? _value.dropLongitude
+          : dropLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropAddress: dropAddress == freezed
+          ? _value.dropAddress
+          : dropAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rideType: rideType == freezed
+          ? _value.rideType
+          : rideType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isCancelledRide: isCancelledRide == freezed
+          ? _value.isCancelledRide
+          : isCancelledRide // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rideTime: rideTime == freezed
+          ? _value.rideTime
+          : rideTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      vehicleType: vehicleType == freezed
+          ? _value.vehicleType
+          : vehicleType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverRating: driverRating == freezed
+          ? _value.driverRating
+          : driverRating // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionName: regionName == freezed
+          ? _value.regionName
+          : regionName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      engagementId: engagementId == freezed
+          ? _value.engagementId
+          : engagementId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      manuallyEdited: manuallyEdited == freezed
+          ? _value.manuallyEdited
+          : manuallyEdited // ignore: cast_nullable_to_non_nullable
+              as int?,
+      waitTime: waitTime == freezed
+          ? _value.waitTime
+          : waitTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      autosStatusText: autosStatusText == freezed
+          ? _value.autosStatusText
+          : autosStatusText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_RideHistory implements _RideHistory {
+  _$_RideHistory(
+      {this.distance,
+      this.longitude,
+      this.status,
+      this.modifiable,
+      this.amount,
+      this.currency,
+      this.date,
+      @JsonKey(name: 'pickup_address') this.pickupAddress,
+      @JsonKey(name: 'pickup_latitude') this.pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') this.pickupLongitude,
+      @JsonKey(name: 'drop_latitude') this.dropLatitude,
+      @JsonKey(name: 'drop_longitude') this.dropLongitude,
+      @JsonKey(name: 'drop_address') this.dropAddress,
+      @JsonKey(name: 'ride_type') this.rideType,
+      @JsonKey(name: 'is_cancelled_ride') this.isCancelledRide,
+      @JsonKey(name: 'ride_time') this.rideTime,
+      @JsonKey(name: 'vehicle_type') this.vehicleType,
+      @JsonKey(name: 'driver_id') this.driverId,
+      @JsonKey(name: 'driver_rating') this.driverRating,
+      @JsonKey(name: 'region_name') this.regionName,
+      @JsonKey(name: 'engagement_id') this.engagementId,
+      @JsonKey(name: 'user_id') this.userId,
+      @JsonKey(name: 'manually_edited') this.manuallyEdited,
+      @JsonKey(name: 'wait_time') this.waitTime,
+      @JsonKey(name: 'autos_status_text') this.autosStatusText,
+      @JsonKey(name: 'distance_unit') this.distanceUnit,
+      @JsonKey(name: 'created_at') this.createdAt});
+
+  factory _$_RideHistory.fromJson(Map<String, dynamic> json) =>
+      _$_$_RideHistoryFromJson(json);
+
+  @override
+  final double? distance;
+  @override
+  final double? longitude;
+  @override
+  final int? status;
+  @override
+  final int? modifiable;
+  @override
+  final int? amount;
+  @override
+  final String? currency;
+  @override
+  final String? date;
+  @override
+  @JsonKey(name: 'pickup_address')
+  final String? pickupAddress;
+  @override
+  @JsonKey(name: 'pickup_latitude')
+  final double? pickupLatitude;
+  @override
+  @JsonKey(name: 'pickup_longitude')
+  final double? pickupLongitude;
+  @override
+  @JsonKey(name: 'drop_latitude')
+  final double? dropLatitude;
+  @override
+  @JsonKey(name: 'drop_longitude')
+  final double? dropLongitude;
+  @override
+  @JsonKey(name: 'drop_address')
+  final String? dropAddress;
+  @override
+  @JsonKey(name: 'ride_type')
+  final int? rideType;
+  @override
+  @JsonKey(name: 'is_cancelled_ride')
+  final int? isCancelledRide;
+  @override
+  @JsonKey(name: 'ride_time')
+  final int? rideTime;
+  @override
+  @JsonKey(name: 'vehicle_type')
+  final int? vehicleType;
+  @override
+  @JsonKey(name: 'driver_id')
+  final int? driverId;
+  @override
+  @JsonKey(name: 'driver_rating')
+  final int? driverRating;
+  @override
+  @JsonKey(name: 'region_name')
+  final String? regionName;
+  @override
+  @JsonKey(name: 'engagement_id')
+  final int? engagementId;
+  @override
+  @JsonKey(name: 'user_id')
+  final int? userId;
+  @override
+  @JsonKey(name: 'manually_edited')
+  final int? manuallyEdited;
+  @override
+  @JsonKey(name: 'wait_time')
+  final int? waitTime;
+  @override
+  @JsonKey(name: 'autos_status_text')
+  final String? autosStatusText;
+  @override
+  @JsonKey(name: 'distance_unit')
+  final String? distanceUnit;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+
+  @override
+  String toString() {
+    return 'RideHistory(distance: $distance, longitude: $longitude, status: $status, modifiable: $modifiable, amount: $amount, currency: $currency, date: $date, pickupAddress: $pickupAddress, pickupLatitude: $pickupLatitude, pickupLongitude: $pickupLongitude, dropLatitude: $dropLatitude, dropLongitude: $dropLongitude, dropAddress: $dropAddress, rideType: $rideType, isCancelledRide: $isCancelledRide, rideTime: $rideTime, vehicleType: $vehicleType, driverId: $driverId, driverRating: $driverRating, regionName: $regionName, engagementId: $engagementId, userId: $userId, manuallyEdited: $manuallyEdited, waitTime: $waitTime, autosStatusText: $autosStatusText, distanceUnit: $distanceUnit, createdAt: $createdAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _RideHistory &&
+            (identical(other.distance, distance) ||
+                const DeepCollectionEquality()
+                    .equals(other.distance, distance)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.modifiable, modifiable) ||
+                const DeepCollectionEquality()
+                    .equals(other.modifiable, modifiable)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.currency, currency) ||
+                const DeepCollectionEquality()
+                    .equals(other.currency, currency)) &&
+            (identical(other.date, date) ||
+                const DeepCollectionEquality().equals(other.date, date)) &&
+            (identical(other.pickupAddress, pickupAddress) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupAddress, pickupAddress)) &&
+            (identical(other.pickupLatitude, pickupLatitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupLatitude, pickupLatitude)) &&
+            (identical(other.pickupLongitude, pickupLongitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupLongitude, pickupLongitude)) &&
+            (identical(other.dropLatitude, dropLatitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropLatitude, dropLatitude)) &&
+            (identical(other.dropLongitude, dropLongitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropLongitude, dropLongitude)) &&
+            (identical(other.dropAddress, dropAddress) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropAddress, dropAddress)) &&
+            (identical(other.rideType, rideType) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideType, rideType)) &&
+            (identical(other.isCancelledRide, isCancelledRide) ||
+                const DeepCollectionEquality()
+                    .equals(other.isCancelledRide, isCancelledRide)) &&
+            (identical(other.rideTime, rideTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideTime, rideTime)) &&
+            (identical(other.vehicleType, vehicleType) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleType, vehicleType)) &&
+            (identical(other.driverId, driverId) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverId, driverId)) &&
+            (identical(other.driverRating, driverRating) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverRating, driverRating)) &&
+            (identical(other.regionName, regionName) ||
+                const DeepCollectionEquality()
+                    .equals(other.regionName, regionName)) &&
+            (identical(other.engagementId, engagementId) ||
+                const DeepCollectionEquality()
+                    .equals(other.engagementId, engagementId)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.manuallyEdited, manuallyEdited) ||
+                const DeepCollectionEquality()
+                    .equals(other.manuallyEdited, manuallyEdited)) &&
+            (identical(other.waitTime, waitTime) ||
+                const DeepCollectionEquality().equals(other.waitTime, waitTime)) &&
+            (identical(other.autosStatusText, autosStatusText) || const DeepCollectionEquality().equals(other.autosStatusText, autosStatusText)) &&
+            (identical(other.distanceUnit, distanceUnit) || const DeepCollectionEquality().equals(other.distanceUnit, distanceUnit)) &&
+            (identical(other.createdAt, createdAt) || const DeepCollectionEquality().equals(other.createdAt, createdAt)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(distance) ^
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(modifiable) ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(currency) ^
+      const DeepCollectionEquality().hash(date) ^
+      const DeepCollectionEquality().hash(pickupAddress) ^
+      const DeepCollectionEquality().hash(pickupLatitude) ^
+      const DeepCollectionEquality().hash(pickupLongitude) ^
+      const DeepCollectionEquality().hash(dropLatitude) ^
+      const DeepCollectionEquality().hash(dropLongitude) ^
+      const DeepCollectionEquality().hash(dropAddress) ^
+      const DeepCollectionEquality().hash(rideType) ^
+      const DeepCollectionEquality().hash(isCancelledRide) ^
+      const DeepCollectionEquality().hash(rideTime) ^
+      const DeepCollectionEquality().hash(vehicleType) ^
+      const DeepCollectionEquality().hash(driverId) ^
+      const DeepCollectionEquality().hash(driverRating) ^
+      const DeepCollectionEquality().hash(regionName) ^
+      const DeepCollectionEquality().hash(engagementId) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(manuallyEdited) ^
+      const DeepCollectionEquality().hash(waitTime) ^
+      const DeepCollectionEquality().hash(autosStatusText) ^
+      const DeepCollectionEquality().hash(distanceUnit) ^
+      const DeepCollectionEquality().hash(createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  _$RideHistoryCopyWith<_RideHistory> get copyWith =>
+      __$RideHistoryCopyWithImpl<_RideHistory>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_RideHistoryToJson(this);
+  }
+}
+
+abstract class _RideHistory implements RideHistory {
+  factory _RideHistory(
+      {double? distance,
+      double? longitude,
+      int? status,
+      int? modifiable,
+      int? amount,
+      String? currency,
+      String? date,
+      @JsonKey(name: 'pickup_address') String? pickupAddress,
+      @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+      @JsonKey(name: 'drop_latitude') double? dropLatitude,
+      @JsonKey(name: 'drop_longitude') double? dropLongitude,
+      @JsonKey(name: 'drop_address') String? dropAddress,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'is_cancelled_ride') int? isCancelledRide,
+      @JsonKey(name: 'ride_time') int? rideTime,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'region_name') String? regionName,
+      @JsonKey(name: 'engagement_id') int? engagementId,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'manually_edited') int? manuallyEdited,
+      @JsonKey(name: 'wait_time') int? waitTime,
+      @JsonKey(name: 'autos_status_text') String? autosStatusText,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'created_at') DateTime? createdAt}) = _$_RideHistory;
+
+  factory _RideHistory.fromJson(Map<String, dynamic> json) =
+      _$_RideHistory.fromJson;
+
+  @override
+  double? get distance => throw _privateConstructorUsedError;
+  @override
+  double? get longitude => throw _privateConstructorUsedError;
+  @override
+  int? get status => throw _privateConstructorUsedError;
+  @override
+  int? get modifiable => throw _privateConstructorUsedError;
+  @override
+  int? get amount => throw _privateConstructorUsedError;
+  @override
+  String? get currency => throw _privateConstructorUsedError;
+  @override
+  String? get date => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_address')
+  String? get pickupAddress => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_latitude')
+  double? get pickupLatitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_longitude')
+  double? get pickupLongitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_latitude')
+  double? get dropLatitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_longitude')
+  double? get dropLongitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_address')
+  String? get dropAddress => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_type')
+  int? get rideType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'is_cancelled_ride')
+  int? get isCancelledRide => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_time')
+  int? get rideTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'vehicle_type')
+  int? get vehicleType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_rating')
+  int? get driverRating => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'region_name')
+  String? get regionName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'engagement_id')
+  int? get engagementId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'manually_edited')
+  int? get manuallyEdited => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'wait_time')
+  int? get waitTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'autos_status_text')
+  String? get autosStatusText => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'distance_unit')
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$RideHistoryCopyWith<_RideHistory> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 BasicResponse _$BasicResponseFromJson(Map<String, dynamic> json) {
   return _BasicResponse.fromJson(json);
 }
@@ -6092,25 +7427,25 @@ class _$RequestRideResponseTearOff {
       {String? error,
       String? message,
       String? log,
+      double? latitude,
+      double? longitude,
       @JsonKey(name: 'order_id') int? orderId,
       @JsonKey(name: 'session_id') int? sessionId,
       @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
       @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
-      @JsonKey(name: 'start_time') String? startTime,
-      double? latitude,
-      double? longitude}) {
+      @JsonKey(name: 'start_time') String? startTime}) {
     return _RequestRideResponse(
       flag,
       error: error,
       message: message,
       log: log,
+      latitude: latitude,
+      longitude: longitude,
       orderId: orderId,
       sessionId: sessionId,
       pickupLocationAddress: pickupLocationAddress,
       dropLocationAddress: dropLocationAddress,
       startTime: startTime,
-      latitude: latitude,
-      longitude: longitude,
     );
   }
 
@@ -6128,6 +7463,8 @@ mixin _$RequestRideResponse {
   String? get error => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get log => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'order_id')
   int? get orderId => throw _privateConstructorUsedError;
   @JsonKey(name: 'session_id')
@@ -6138,8 +7475,6 @@ mixin _$RequestRideResponse {
   String? get dropLocationAddress => throw _privateConstructorUsedError;
   @JsonKey(name: 'start_time')
   String? get startTime => throw _privateConstructorUsedError;
-  double? get latitude => throw _privateConstructorUsedError;
-  double? get longitude => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -6157,13 +7492,13 @@ abstract class $RequestRideResponseCopyWith<$Res> {
       String? error,
       String? message,
       String? log,
+      double? latitude,
+      double? longitude,
       @JsonKey(name: 'order_id') int? orderId,
       @JsonKey(name: 'session_id') int? sessionId,
       @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
       @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
-      @JsonKey(name: 'start_time') String? startTime,
-      double? latitude,
-      double? longitude});
+      @JsonKey(name: 'start_time') String? startTime});
 }
 
 /// @nodoc
@@ -6181,13 +7516,13 @@ class _$RequestRideResponseCopyWithImpl<$Res>
     Object? error = freezed,
     Object? message = freezed,
     Object? log = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? orderId = freezed,
     Object? sessionId = freezed,
     Object? pickupLocationAddress = freezed,
     Object? dropLocationAddress = freezed,
     Object? startTime = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
       flag: flag == freezed
@@ -6206,6 +7541,14 @@ class _$RequestRideResponseCopyWithImpl<$Res>
           ? _value.log
           : log // ignore: cast_nullable_to_non_nullable
               as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       orderId: orderId == freezed
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
@@ -6226,14 +7569,6 @@ class _$RequestRideResponseCopyWithImpl<$Res>
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
               as String?,
-      latitude: latitude == freezed
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double?,
-      longitude: longitude == freezed
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double?,
     ));
   }
 }
@@ -6250,13 +7585,13 @@ abstract class _$RequestRideResponseCopyWith<$Res>
       String? error,
       String? message,
       String? log,
+      double? latitude,
+      double? longitude,
       @JsonKey(name: 'order_id') int? orderId,
       @JsonKey(name: 'session_id') int? sessionId,
       @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
       @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
-      @JsonKey(name: 'start_time') String? startTime,
-      double? latitude,
-      double? longitude});
+      @JsonKey(name: 'start_time') String? startTime});
 }
 
 /// @nodoc
@@ -6276,13 +7611,13 @@ class __$RequestRideResponseCopyWithImpl<$Res>
     Object? error = freezed,
     Object? message = freezed,
     Object? log = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
     Object? orderId = freezed,
     Object? sessionId = freezed,
     Object? pickupLocationAddress = freezed,
     Object? dropLocationAddress = freezed,
     Object? startTime = freezed,
-    Object? latitude = freezed,
-    Object? longitude = freezed,
   }) {
     return _then(_RequestRideResponse(
       flag == freezed
@@ -6301,6 +7636,14 @@ class __$RequestRideResponseCopyWithImpl<$Res>
           ? _value.log
           : log // ignore: cast_nullable_to_non_nullable
               as String?,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
       orderId: orderId == freezed
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
@@ -6321,14 +7664,6 @@ class __$RequestRideResponseCopyWithImpl<$Res>
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
               as String?,
-      latitude: latitude == freezed
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double?,
-      longitude: longitude == freezed
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double?,
     ));
   }
 }
@@ -6340,13 +7675,13 @@ class _$_RequestRideResponse implements _RequestRideResponse {
       {this.error,
       this.message,
       this.log,
+      this.latitude,
+      this.longitude,
       @JsonKey(name: 'order_id') this.orderId,
       @JsonKey(name: 'session_id') this.sessionId,
       @JsonKey(name: 'pickup_location_address') this.pickupLocationAddress,
       @JsonKey(name: 'drop_location_address') this.dropLocationAddress,
-      @JsonKey(name: 'start_time') this.startTime,
-      this.latitude,
-      this.longitude});
+      @JsonKey(name: 'start_time') this.startTime});
 
   factory _$_RequestRideResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_RequestRideResponseFromJson(json);
@@ -6359,6 +7694,10 @@ class _$_RequestRideResponse implements _RequestRideResponse {
   final String? message;
   @override
   final String? log;
+  @override
+  final double? latitude;
+  @override
+  final double? longitude;
   @override
   @JsonKey(name: 'order_id')
   final int? orderId;
@@ -6374,14 +7713,10 @@ class _$_RequestRideResponse implements _RequestRideResponse {
   @override
   @JsonKey(name: 'start_time')
   final String? startTime;
-  @override
-  final double? latitude;
-  @override
-  final double? longitude;
 
   @override
   String toString() {
-    return 'RequestRideResponse(flag: $flag, error: $error, message: $message, log: $log, orderId: $orderId, sessionId: $sessionId, pickupLocationAddress: $pickupLocationAddress, dropLocationAddress: $dropLocationAddress, startTime: $startTime, latitude: $latitude, longitude: $longitude)';
+    return 'RequestRideResponse(flag: $flag, error: $error, message: $message, log: $log, latitude: $latitude, longitude: $longitude, orderId: $orderId, sessionId: $sessionId, pickupLocationAddress: $pickupLocationAddress, dropLocationAddress: $dropLocationAddress, startTime: $startTime)';
   }
 
   @override
@@ -6397,6 +7732,12 @@ class _$_RequestRideResponse implements _RequestRideResponse {
                     .equals(other.message, message)) &&
             (identical(other.log, log) ||
                 const DeepCollectionEquality().equals(other.log, log)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
             (identical(other.orderId, orderId) ||
                 const DeepCollectionEquality()
                     .equals(other.orderId, orderId)) &&
@@ -6411,13 +7752,7 @@ class _$_RequestRideResponse implements _RequestRideResponse {
                     .equals(other.dropLocationAddress, dropLocationAddress)) &&
             (identical(other.startTime, startTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.startTime, startTime)) &&
-            (identical(other.latitude, latitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.latitude, latitude)) &&
-            (identical(other.longitude, longitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.longitude, longitude)));
+                    .equals(other.startTime, startTime)));
   }
 
   @override
@@ -6427,13 +7762,13 @@ class _$_RequestRideResponse implements _RequestRideResponse {
       const DeepCollectionEquality().hash(error) ^
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(log) ^
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude) ^
       const DeepCollectionEquality().hash(orderId) ^
       const DeepCollectionEquality().hash(sessionId) ^
       const DeepCollectionEquality().hash(pickupLocationAddress) ^
       const DeepCollectionEquality().hash(dropLocationAddress) ^
-      const DeepCollectionEquality().hash(startTime) ^
-      const DeepCollectionEquality().hash(latitude) ^
-      const DeepCollectionEquality().hash(longitude);
+      const DeepCollectionEquality().hash(startTime);
 
   @JsonKey(ignore: true)
   @override
@@ -6452,13 +7787,13 @@ abstract class _RequestRideResponse implements RequestRideResponse {
       {String? error,
       String? message,
       String? log,
+      double? latitude,
+      double? longitude,
       @JsonKey(name: 'order_id') int? orderId,
       @JsonKey(name: 'session_id') int? sessionId,
       @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
       @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
-      @JsonKey(name: 'start_time') String? startTime,
-      double? latitude,
-      double? longitude}) = _$_RequestRideResponse;
+      @JsonKey(name: 'start_time') String? startTime}) = _$_RequestRideResponse;
 
   factory _RequestRideResponse.fromJson(Map<String, dynamic> json) =
       _$_RequestRideResponse.fromJson;
@@ -6471,6 +7806,10 @@ abstract class _RequestRideResponse implements RequestRideResponse {
   String? get message => throw _privateConstructorUsedError;
   @override
   String? get log => throw _privateConstructorUsedError;
+  @override
+  double? get latitude => throw _privateConstructorUsedError;
+  @override
+  double? get longitude => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'order_id')
   int? get orderId => throw _privateConstructorUsedError;
@@ -6486,10 +7825,6 @@ abstract class _RequestRideResponse implements RequestRideResponse {
   @override
   @JsonKey(name: 'start_time')
   String? get startTime => throw _privateConstructorUsedError;
-  @override
-  double? get latitude => throw _privateConstructorUsedError;
-  @override
-  double? get longitude => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RequestRideResponseCopyWith<_RequestRideResponse> get copyWith =>
@@ -7642,5 +8977,255 @@ abstract class _DriverLocationResponse implements DriverLocationResponse {
   @override
   @JsonKey(ignore: true)
   _$DriverLocationResponseCopyWith<_DriverLocationResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+RideListResponse<T> _$RideListResponseFromJson<T>(Map<String, dynamic> json) {
+  return _RideListResponse<T>.fromJson(json);
+}
+
+/// @nodoc
+class _$RideListResponseTearOff {
+  const _$RideListResponseTearOff();
+
+  _RideListResponse<T> call<T>(int flag,
+      {@DataConverter() List<T>? data,
+      String? message,
+      String? error,
+      String? log}) {
+    return _RideListResponse<T>(
+      flag,
+      data: data,
+      message: message,
+      error: error,
+      log: log,
+    );
+  }
+
+  RideListResponse<T> fromJson<T>(Map<String, Object> json) {
+    return RideListResponse<T>.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $RideListResponse = _$RideListResponseTearOff();
+
+/// @nodoc
+mixin _$RideListResponse<T> {
+  int get flag => throw _privateConstructorUsedError;
+  @DataConverter()
+  List<T>? get data => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  String? get log => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RideListResponseCopyWith<T, RideListResponse<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RideListResponseCopyWith<T, $Res> {
+  factory $RideListResponseCopyWith(
+          RideListResponse<T> value, $Res Function(RideListResponse<T>) then) =
+      _$RideListResponseCopyWithImpl<T, $Res>;
+  $Res call(
+      {int flag,
+      @DataConverter() List<T>? data,
+      String? message,
+      String? error,
+      String? log});
+}
+
+/// @nodoc
+class _$RideListResponseCopyWithImpl<T, $Res>
+    implements $RideListResponseCopyWith<T, $Res> {
+  _$RideListResponseCopyWithImpl(this._value, this._then);
+
+  final RideListResponse<T> _value;
+  // ignore: unused_field
+  final $Res Function(RideListResponse<T>) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? data = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? log = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$RideListResponseCopyWith<T, $Res>
+    implements $RideListResponseCopyWith<T, $Res> {
+  factory _$RideListResponseCopyWith(_RideListResponse<T> value,
+          $Res Function(_RideListResponse<T>) then) =
+      __$RideListResponseCopyWithImpl<T, $Res>;
+  @override
+  $Res call(
+      {int flag,
+      @DataConverter() List<T>? data,
+      String? message,
+      String? error,
+      String? log});
+}
+
+/// @nodoc
+class __$RideListResponseCopyWithImpl<T, $Res>
+    extends _$RideListResponseCopyWithImpl<T, $Res>
+    implements _$RideListResponseCopyWith<T, $Res> {
+  __$RideListResponseCopyWithImpl(
+      _RideListResponse<T> _value, $Res Function(_RideListResponse<T>) _then)
+      : super(_value, (v) => _then(v as _RideListResponse<T>));
+
+  @override
+  _RideListResponse<T> get _value => super._value as _RideListResponse<T>;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? data = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? log = freezed,
+  }) {
+    return _then(_RideListResponse<T>(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_RideListResponse<T> implements _RideListResponse<T> {
+  _$_RideListResponse(this.flag,
+      {@DataConverter() this.data, this.message, this.error, this.log});
+
+  factory _$_RideListResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_RideListResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  @DataConverter()
+  final List<T>? data;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  final String? log;
+
+  @override
+  String toString() {
+    return 'RideListResponse<$T>(flag: $flag, data: $data, message: $message, error: $error, log: $log)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _RideListResponse<T> &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(data) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(log);
+
+  @JsonKey(ignore: true)
+  @override
+  _$RideListResponseCopyWith<T, _RideListResponse<T>> get copyWith =>
+      __$RideListResponseCopyWithImpl<T, _RideListResponse<T>>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_RideListResponseToJson(this);
+  }
+}
+
+abstract class _RideListResponse<T> implements RideListResponse<T> {
+  factory _RideListResponse(int flag,
+      {@DataConverter() List<T>? data,
+      String? message,
+      String? error,
+      String? log}) = _$_RideListResponse<T>;
+
+  factory _RideListResponse.fromJson(Map<String, dynamic> json) =
+      _$_RideListResponse<T>.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  @DataConverter()
+  List<T>? get data => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  String? get log => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$RideListResponseCopyWith<T, _RideListResponse<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

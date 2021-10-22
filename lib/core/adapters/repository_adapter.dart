@@ -99,3 +99,15 @@ abstract class IProfileRepository {
 abstract class IPaymentRepository {
   // Todo: Add profile request class signitures (interfaces) here.
 }
+
+abstract class IOrdersRepository {
+  // Todo: Add orders request class signitures (interfaces) here.
+  Future<RideListResponse<ScheduledRide>> getScheduledRides();
+  Future<RideListResponse<RideHistory>> getRideHistory();
+  Future<List<LatLng>> getRoutePolylines(
+      PointLatLng origin, PointLatLng destination);
+}
+
+abstract class IDriversRepository {
+  // Todo: Add drivers request class signitures (interfaces) here.
+}

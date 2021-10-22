@@ -253,6 +253,64 @@ abstract class Address with _$Address {
       _$AddressFromJson(json);
 }
 
+@freezed
+abstract class ScheduledRide with _$ScheduledRide {
+  factory ScheduledRide({
+    double? latitude,
+    double? longitude,
+    int? status,
+    int? modifiable,
+    @JsonKey(name: 'op_drop_latitude') double? opDropLatitude,
+    @JsonKey(name: 'op_drop_longitude') double? opDropLongitude,
+    @JsonKey(name: 'pickup_id') int? pickupId,
+    @JsonKey(name: 'preferred_payment_mode') int? preferredPaymentMode,
+    @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
+    @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
+    @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+    @JsonKey(name: 'vehicle_name') String? vehicleName,
+    @JsonKey(name: 'ride_type') int? rideType,
+  }) = _ScheduledRide;
+
+  factory ScheduledRide.fromJson(Map<String, dynamic> json) =>
+      _$ScheduledRideFromJson(json);
+}
+
+@freezed
+abstract class RideHistory with _$RideHistory {
+  factory RideHistory({
+    double? distance,
+    double? longitude,
+    int? status,
+    int? modifiable,
+    int? amount,
+    String? currency,
+    String? date,
+    @JsonKey(name: 'pickup_address') String? pickupAddress,
+    @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+    @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+    @JsonKey(name: 'drop_latitude') double? dropLatitude,
+    @JsonKey(name: 'drop_longitude') double? dropLongitude,
+    @JsonKey(name: 'drop_address') String? dropAddress,
+    @JsonKey(name: 'ride_type') int? rideType,
+    @JsonKey(name: 'is_cancelled_ride') int? isCancelledRide,
+    @JsonKey(name: 'ride_time') int? rideTime,
+    @JsonKey(name: 'vehicle_type') int? vehicleType,
+    @JsonKey(name: 'driver_id') int? driverId,
+    @JsonKey(name: 'driver_rating') int? driverRating,
+    @JsonKey(name: 'region_name') String? regionName,
+    @JsonKey(name: 'engagement_id') int? engagementId,
+    @JsonKey(name: 'user_id') int? userId,
+    @JsonKey(name: 'manually_edited') int? manuallyEdited,
+    @JsonKey(name: 'wait_time') int? waitTime,
+    @JsonKey(name: 'autos_status_text') String? autosStatusText,
+    @JsonKey(name: 'distance_unit') String? distanceUnit,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+  }) = _RideHistory;
+
+  factory RideHistory.fromJson(Map<String, dynamic> json) =>
+      _$RideHistoryFromJson(json);
+}
+
 // response models
 @freezed
 abstract class BasicResponse with _$BasicResponse {
@@ -319,13 +377,13 @@ abstract class RequestRideResponse with _$RequestRideResponse {
     String? error,
     String? message,
     String? log,
+    double? latitude,
+    double? longitude,
     @JsonKey(name: 'order_id') int? orderId,
     @JsonKey(name: 'session_id') int? sessionId,
     @JsonKey(name: 'pickup_location_address') String? pickupLocationAddress,
     @JsonKey(name: 'drop_location_address') String? dropLocationAddress,
     @JsonKey(name: 'start_time') String? startTime,
-    double? latitude,
-    double? longitude,
   }) = _RequestRideResponse;
 
   factory RequestRideResponse.fromJson(Map<String, dynamic> json) =>
@@ -398,6 +456,20 @@ abstract class DriverLocationResponse with _$DriverLocationResponse {
       _$DriverLocationResponseFromJson(json);
 }
 
+@freezed
+abstract class RideListResponse<T> with _$RideListResponse<T> {
+  factory RideListResponse(
+    int flag, {
+    @DataConverter() List<T>? data,
+    String? message,
+    String? error,
+    String? log,
+  }) = _RideListResponse<T>;
+
+  factory RideListResponse.fromJson(Map<String, dynamic> json) =>
+      _$RideListResponseFromJson<T>(json);
+}
+
 class DateConverter implements JsonConverter<DateTime, dynamic> {
   const DateConverter();
 
@@ -412,4 +484,23 @@ class DateConverter implements JsonConverter<DateTime, dynamic> {
 
   @override
   String toJson(DateTime date) => date.toString();
+}
+
+class DataConverter<T> implements JsonConverter<T, Object?> {
+  const DataConverter();
+
+  @override
+  T fromJson(Object? json) {
+    switch (T) {
+      case ScheduledRide:
+        return ScheduledRide.fromJson(json as Map<String, dynamic>) as T;
+      case RideHistory:
+        return RideHistory.fromJson(json as Map<String, dynamic>) as T;
+      default:
+        throw Exception("Class type not found!");
+    }
+  }
+
+  @override
+  Object toJson(Object? value) => value!;
 }

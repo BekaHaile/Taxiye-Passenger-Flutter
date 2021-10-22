@@ -87,10 +87,11 @@ class WhereTo extends StatelessWidget {
 
   _pickDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2101));
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 1)),
+    );
     if (pickedDate != null) {
       onPickDate(pickedDate);
       _pickTime(context);
@@ -98,13 +99,22 @@ class WhereTo extends StatelessWidget {
   }
 
   _pickTime(BuildContext context) async {
+    // selected time should be after 30 min
+    final minTime = DateTime.now().add(const Duration(minutes: 30));
     final pickedTime = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: TimeOfDay.fromDateTime(minTime),
     );
 
     if (pickedTime != null) {
-      onPickTime(pickedTime);
+      print(
+          'minTime.hour: ${minTime.hour}  pickedTime.hour: ${pickedTime.hour}  minTime.minute: ${minTime.minute}  pickedTime.minute: ${pickedTime.minute}');
+      if (pickedTime.hour < minTime.hour ||
+          pickedTime.minute < minTime.minute) {
+        Get.snackbar('error'.tr, 'invalid_time'.tr);
+      } else {
+        onPickTime(pickedTime);
+      }
     }
   }
 }

@@ -61,9 +61,10 @@ String getInitials(fullName) {
   return initials;
 }
 
-String formatDate(DateTime date) {
+String formatDate(DateTime date, {bool showTime = false}) {
   final DateFormat format = DateFormat("MMMM dd, yyyy");
-  return format.format(date);
+  final DateFormat dateWithTime = DateFormat("MMMM dd, yyyy hh:mm a");
+  return showTime ? dateWithTime.format(date) : format.format(date);
 }
 
 String formatTime(DateTime date) {

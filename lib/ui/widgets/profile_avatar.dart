@@ -17,6 +17,7 @@ class ProfileAvatar extends StatelessWidget {
     this.radius = 40.0,
     this.initialsFontSize = 20.0,
     this.canEdit = true,
+    this.iconSize = 55.0,
     this.onDeleteCallback,
   }) : super(key: key);
 
@@ -28,6 +29,7 @@ class ProfileAvatar extends StatelessWidget {
 
   final bool canEdit;
   final double initialsFontSize;
+  final double iconSize;
   final Function(Files image)? onDeleteCallback;
 
   @override
@@ -91,7 +93,7 @@ class ProfileAvatar extends StatelessWidget {
                             radius: radius,
                             // backgroundImage:
                             //     const AssetImage('assets/images/profile_placeholder.png'),
-                            child: const Icon(Icons.person, size: 55.0),
+                            child: Icon(Icons.person, size: iconSize),
                             // child: Image.asset(
                             //   'assets/images/profile_placeholder.png',
                             //   fit: BoxFit.fill,

@@ -8,6 +8,7 @@ import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/widgets/logo_image.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
 class HomeDrawer extends GetView<HomeController> {
@@ -214,7 +215,7 @@ class HomeDrawer extends GetView<HomeController> {
                           ],
                         ),
                         GestureDetector(
-                          // onTap: () => launch('tel:$kTaxiyePhoneNumber'),
+                          onTap: () => launch('tel:$kTaxiyePhoneNumber'),
                           child: const CircleAvatar(
                               radius: 25.0,
                               backgroundColor: AppTheme.primaryColor,
