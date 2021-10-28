@@ -53,7 +53,7 @@ class DriverTile extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      driver.userName ?? '',
+                      driver.userName ?? driver.driverName ?? '',
                       style: AppTheme.title.copyWith(fontSize: 18.0),
                     ),
                     Padding(
@@ -62,7 +62,7 @@ class DriverTile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           RatingBarIndicator(
-                            rating: driver.rating ?? 0,
+                            rating: driver.rating ?? driver.avgRating ?? 0,
                             itemBuilder: (context, _) => const Icon(
                               Icons.star,
                               color: AppTheme.yellowColor,
@@ -78,7 +78,9 @@ class DriverTile extends StatelessWidget {
                             radius: 15.0,
                             backgroundColor: AppTheme.yellowColor,
                             child: Text(
-                              driver.rating?.toStringAsFixed(1) ?? '',
+                              driver.rating?.toStringAsFixed(1) ??
+                                  driver.avgRating?.toStringAsFixed(1) ??
+                                  '',
                               style: const TextStyle(
                                   fontSize: 12.0,
                                   color: Colors.white,
@@ -97,7 +99,7 @@ class DriverTile extends StatelessWidget {
                             Icons.call,
                             color: AppTheme.darkTextColor,
                           ),
-                          onTap: () => launch('tel:${driver.phoneNo}'),
+                          onTap: () => launch('tel:${driver.phoneNo ?? ''}'),
                         ),
                         const SizedBox(width: 20.0),
                         if (onRemove != null)

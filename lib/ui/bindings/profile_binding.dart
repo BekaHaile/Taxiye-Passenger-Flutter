@@ -6,7 +6,7 @@ import 'package:taxiye_passenger/core/services/api/api_client.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
 
 /*
-  Binding and DI for profilr flow.
+  Binding and DI for profile flow.
 */
 class ProfileBinding implements Bindings {
   @override

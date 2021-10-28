@@ -69,8 +69,6 @@ class OrdersController extends GetxController {
           cancelledRides = rideHistories
               .where((rideHistory) => rideHistory.isCancelledRide == 1)
               .toList();
-
-          log('completed Rides: $completedRides');
         }
       } else {
         print(rideHistoryResponse.error ?? '');

@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'dart:io';
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/core/services/api/dio_client.dart';

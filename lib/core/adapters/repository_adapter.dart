@@ -102,12 +102,17 @@ abstract class IPaymentRepository {
 
 abstract class IOrdersRepository {
   // Todo: Add orders request class signitures (interfaces) here.
-  Future<RideListResponse<ScheduledRide>> getScheduledRides();
-  Future<RideListResponse<RideHistory>> getRideHistory();
+  Future<ListResponse<ScheduledRide>> getScheduledRides();
+  Future<ListResponse<RideHistory>> getRideHistory();
   Future<List<LatLng>> getRoutePolylines(
       PointLatLng origin, PointLatLng destination);
+
+  Future<BasicResponse> removeRideSchedule(
+      Map<String, dynamic> removeSchedulePayload);
 }
 
 abstract class IDriversRepository {
   // Todo: Add drivers request class signitures (interfaces) here.
+  Future<ListResponse<Driver>> getFavouriteDrivers();
+  Future<BasicResponse> removeFavouriteDriver(int driverId);
 }

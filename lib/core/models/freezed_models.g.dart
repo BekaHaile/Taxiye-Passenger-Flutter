@@ -159,28 +159,42 @@ Map<String, dynamic> _$_$_VehicleImageToJson(_$_VehicleImage instance) =>
 
 _$_Driver _$_$_DriverFromJson(Map<String, dynamic> json) {
   return _$_Driver(
-    driverId: json['driver_id'] as int?,
-    userName: json['user_name'] as String?,
-    phoneNo: json['phone_no'] as String?,
     latitude: (json['latitude'] as num?)?.toDouble(),
     longitude: (json['longitude'] as num?)?.toDouble(),
     rating: (json['rating'] as num?)?.toDouble(),
+    type: json['type'] as int?,
+    distance: (json['distance'] as num?)?.toDouble(),
+    driverId: json['driver_id'] as int?,
+    userName: json['user_name'] as String?,
+    driverName: json['driver_name'] as String?,
+    phoneNo: json['phone_no'] as String?,
+    avgRating: (json['avg_rating'] as num?)?.toDouble(),
     cityId: json['city_id'] as int?,
     driverImage: json['driver_image'] as String?,
     vehicleNo: json['vehicle_no'] as String?,
+    vehicleType: json['vehicle_type'] as int?,
+    vehicleBrand: json['vehicle_brand'] as String?,
+    vehicleName: json['vehicle_name'] as String?,
   );
 }
 
 Map<String, dynamic> _$_$_DriverToJson(_$_Driver instance) => <String, dynamic>{
-      'driver_id': instance.driverId,
-      'user_name': instance.userName,
-      'phone_no': instance.phoneNo,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'rating': instance.rating,
+      'type': instance.type,
+      'distance': instance.distance,
+      'driver_id': instance.driverId,
+      'user_name': instance.userName,
+      'driver_name': instance.driverName,
+      'phone_no': instance.phoneNo,
+      'avg_rating': instance.avgRating,
       'city_id': instance.cityId,
       'driver_image': instance.driverImage,
       'vehicle_no': instance.vehicleNo,
+      'vehicle_type': instance.vehicleType,
+      'vehicle_brand': instance.vehicleBrand,
+      'vehicle_name': instance.vehicleName,
     };
 
 _$_Order _$_$_OrderFromJson(Map<String, dynamic> json) {

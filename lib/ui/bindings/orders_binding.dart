@@ -4,7 +4,7 @@ import 'package:taxiye_passenger/core/repository/orders_repository.dart';
 import 'package:taxiye_passenger/ui/controllers/orders_controller.dart';
 
 /*
-  Binding and DI for profilr flow.
+  Binding and DI for Orders flow.
 */
 class OrdersBinding implements Bindings {
   @override

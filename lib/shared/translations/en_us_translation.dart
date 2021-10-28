@@ -275,6 +275,8 @@ final Map<String, String> enUs = {
   'favourites': 'Favourites',
   'blocked': 'Blocked',
 
+  'fav_driver_removed_success': 'Driver has been removed from favourites',
+
   // Payment strings
   'payment_methods': 'Payment Methods',
   'add_new_method': 'Add new method',

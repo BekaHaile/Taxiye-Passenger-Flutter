@@ -6,9 +6,11 @@ class DriversList extends StatelessWidget {
   const DriversList({
     Key? key,
     required this.drivers,
+    required this.onRemoveDriver,
   }) : super(key: key);
 
   final List<Driver> drivers;
+  final Function(int driverId) onRemoveDriver;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +23,10 @@ class DriversList extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
           child: DriverTile(
             driver: driver,
-            vehicle: Vehicle(
-                regionName: 'Taxiye - Sedan',
-                vehicleNumber: 'B12345',
-                regionFare: VehicleFare(fare: 128)),
-            onRemove: () {
-              // Todo: on remove driver from list.
-            },
+            vehicle: Vehicle(vehicleNumber: driver.vehicleNo),
+            onRemove: () => driver.driverId != null
+                ? onRemoveDriver(driver.driverId!)
+                : null,
           ),
         );
       },

@@ -21,17 +21,17 @@ class OrdersRepository implements IOrdersRepository {
   });
   // Todo: Add orders api requests here.
   @override
-  Future<RideListResponse<ScheduledRide>> getScheduledRides() async {
+  Future<ListResponse<ScheduledRide>> getScheduledRides() async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/show_pickup_schedules',
       data: {},
     );
-    return RideListResponse<ScheduledRide>.fromJson(response);
+    return ListResponse<ScheduledRide>.fromJson(response);
   }
 
   @override
-  Future<RideListResponse<RideHistory>> getRideHistory() async {
+  Future<ListResponse<RideHistory>> getRideHistory() async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/autos_integrated_order_history',
@@ -40,7 +40,18 @@ class OrdersRepository implements IOrdersRepository {
         'show_custom_fields': '1',
       },
     );
-    return RideListResponse<RideHistory>.fromJson(response);
+    return ListResponse<RideHistory>.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> removeRideSchedule(
+      Map<String, dynamic> removeSchedulePayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/remove_pickup_schedule',
+      data: removeSchedulePayload,
+    );
+    return BasicResponse.fromJson(response);
   }
 
   @override

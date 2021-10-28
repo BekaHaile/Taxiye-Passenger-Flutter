@@ -107,15 +107,22 @@ class VehicleImage with _$VehicleImage {
 @freezed
 class Driver with _$Driver {
   factory Driver({
-    @JsonKey(name: 'driver_id') int? driverId,
-    @JsonKey(name: 'user_name') String? userName,
-    @JsonKey(name: 'phone_no') String? phoneNo,
     double? latitude,
     double? longitude,
     double? rating,
+    int? type,
+    double? distance,
+    @JsonKey(name: 'driver_id') int? driverId,
+    @JsonKey(name: 'user_name') String? userName,
+    @JsonKey(name: 'driver_name') String? driverName,
+    @JsonKey(name: 'phone_no') String? phoneNo,
+    @JsonKey(name: 'avg_rating') double? avgRating,
     @JsonKey(name: 'city_id') int? cityId,
     @JsonKey(name: 'driver_image') String? driverImage,
     @JsonKey(name: 'vehicle_no') String? vehicleNo,
+    @JsonKey(name: 'vehicle_type') int? vehicleType,
+    @JsonKey(name: 'vehicle_brand') String? vehicleBrand,
+    @JsonKey(name: 'vehicle_name') String? vehicleName,
   }) = _Driver;
 
   factory Driver.fromJson(Map<String, dynamic> json) => _$DriverFromJson(json);
@@ -457,8 +464,8 @@ abstract class DriverLocationResponse with _$DriverLocationResponse {
 }
 
 @freezed
-abstract class RideListResponse<T> with _$RideListResponse<T> {
-  factory RideListResponse(
+abstract class ListResponse<T> with _$ListResponse<T> {
+  factory ListResponse(
     int flag, {
     @DataConverter() List<T>? data,
     String? message,
@@ -466,7 +473,7 @@ abstract class RideListResponse<T> with _$RideListResponse<T> {
     String? log,
   }) = _RideListResponse<T>;
 
-  factory RideListResponse.fromJson(Map<String, dynamic> json) =>
+  factory ListResponse.fromJson(Map<String, dynamic> json) =>
       _$RideListResponseFromJson<T>(json);
 }
 
@@ -496,6 +503,8 @@ class DataConverter<T> implements JsonConverter<T, Object?> {
         return ScheduledRide.fromJson(json as Map<String, dynamic>) as T;
       case RideHistory:
         return RideHistory.fromJson(json as Map<String, dynamic>) as T;
+      case Driver:
+        return Driver.fromJson(json as Map<String, dynamic>) as T;
       default:
         throw Exception("Class type not found!");
     }

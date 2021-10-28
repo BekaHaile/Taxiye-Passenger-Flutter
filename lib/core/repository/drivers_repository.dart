@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -14,12 +15,26 @@ class DriversRepository implements IDriversRepository {
   });
   // Todo: Add drivers api requests here.
   @override
-  Future<RideListResponse<ScheduledRide>> getFavouriteDrivers() async {
+  Future<ListResponse<Driver>> getFavouriteDrivers() async {
+    final accessToken = GetStorage().read('accessToken');
+    final response = await apiClient.request(
+        requestType: RequestType.get,
+        path: '/customer/fetch_user_driver_mapping',
+        queryParameters: {'access_token': accessToken});
+    return ListResponse<Driver>.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> removeFavouriteDriver(int driverId) async {
+    final Map<String, dynamic> removePayload = {
+      'action_type': '1',
+      'driver_id': driverId,
+    };
     final response = await apiClient.request(
       requestType: RequestType.post,
-      path: '/show_pickup_schedules',
-      data: {},
+      path: '/customer/delete_user_driver_mapping',
+      data: removePayload,
     );
-    return RideListResponse<ScheduledRide>.fromJson(response);
+    return BasicResponse.fromJson(response);
   }
 }

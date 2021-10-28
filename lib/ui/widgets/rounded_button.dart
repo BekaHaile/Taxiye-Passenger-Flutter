@@ -12,6 +12,7 @@ class RoundedButton extends StatelessWidget {
     this.leadingIcon,
     this.trailingIcon,
     this.elevation = 2.0,
+    this.child,
     required this.onPressed,
   }) : super(key: key);
 
@@ -23,6 +24,7 @@ class RoundedButton extends StatelessWidget {
   final IconData? leadingIcon;
   final IconData? trailingIcon;
   final double elevation;
+  final Widget? child;
   final VoidCallback onPressed;
 
   @override
