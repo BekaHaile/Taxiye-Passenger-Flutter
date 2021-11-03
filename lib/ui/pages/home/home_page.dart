@@ -16,6 +16,7 @@ import 'package:taxiye_passenger/ui/pages/home/components/locations_list.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/looking_drivers.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/pick_service.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/pick_vehicle.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/schedule_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_feedback.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/trip_progress.dart';
@@ -105,8 +106,7 @@ class _HomePageState extends State<HomePage>
                           children: [
                             LocationSearch(
                                 locationType: controller.focusedSearchLocation),
-                            getLocationLists(),
-                            const Spacer(),
+                            Expanded(child: getLocationLists()),
                             Padding(
                                 padding: const EdgeInsets.all(kPagePadding),
                                 child: RoundedButton(
@@ -222,8 +222,10 @@ class _HomePageState extends State<HomePage>
             driver: controller.driver!, vehicle: controller.driverVehicle);
       case TripStep.confirmPlace:
         return const ConfirmPlace();
+      case TripStep.scheduleDetail:
+        return const ScheduleDetail();
       default:
-        return const Text('pick vehicle');
+        return const SizedBox();
     }
   }
 

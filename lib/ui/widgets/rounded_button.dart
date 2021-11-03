@@ -6,13 +6,14 @@ class RoundedButton extends StatelessWidget {
     Key? key,
     required this.text,
     this.width,
-    this.height = 45.0,
+    this.height = 50.0,
     this.textStyle,
     this.color = AppTheme.primaryColor,
     this.leadingIcon,
     this.trailingIcon,
     this.elevation = 2.0,
     this.child,
+    this.subChild = const SizedBox(),
     required this.onPressed,
   }) : super(key: key);
 
@@ -25,6 +26,7 @@ class RoundedButton extends StatelessWidget {
   final IconData? trailingIcon;
   final double elevation;
   final Widget? child;
+  final Widget subChild;
   final VoidCallback onPressed;
 
   @override
@@ -42,29 +44,38 @@ class RoundedButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (leadingIcon != null) Icon(leadingIcon),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                text,
-                style: textStyle ??
-                    const TextStyle(
-                      fontFamily: 'SegoeUi',
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (leadingIcon != null) Icon(leadingIcon),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      text,
+                      style: textStyle ??
+                          const TextStyle(
+                            fontFamily: 'SegoeUi',
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
                     ),
+                  ),
+                  if (trailingIcon != null)
+                    Icon(
+                      trailingIcon,
+                      size: 20.0,
+                    )
+                ],
               ),
-            ),
-            if (trailingIcon != null)
-              Icon(
-                trailingIcon,
-                size: 20.0,
-              )
-          ],
+              subChild
+            ],
+          ),
         ),
       ),
     );

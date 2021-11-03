@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
-import 'package:taxiye_passenger/ui/controllers/orders_controller.dart';
+import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
@@ -17,11 +15,20 @@ class OrderTile extends StatefulWidget {
     this.order,
     this.schedule,
     required this.onTap,
+    required this.getRoutePolyline,
+    this.onCancelSchedule,
+    this.sourceIcon = BitmapDescriptor.defaultMarker,
+    this.destinationIcon = BitmapDescriptor.defaultMarker,
   }) : super(key: key);
 
   final RideHistory? order;
   final ScheduledRide? schedule;
   final VoidCallback onTap;
+  final VoidCallback? onCancelSchedule;
+
+  final BitmapDescriptor sourceIcon;
+  final BitmapDescriptor destinationIcon;
+  final Function(PointLatLng origin, PointLatLng destination) getRoutePolyline;
 
   @override
   State<OrderTile> createState() => _OrderTileState();
@@ -29,7 +36,6 @@ class OrderTile extends StatefulWidget {
 
 class _OrderTileState extends State<OrderTile> {
   late GoogleMapController mapController;
-  OrdersController ordersController = Get.find();
   Set<Polyline> _polylines = {};
   Set<Marker> _markers = {};
 
@@ -74,11 +80,11 @@ class _OrderTileState extends State<OrderTile> {
       _markers.add(Marker(
           markerId: const MarkerId('sourcePin'),
           position: origin,
-          icon: ordersController.sourceIcon));
+          icon: widget.sourceIcon));
       _markers.add(Marker(
           markerId: const MarkerId('destinationPin'),
           position: destination,
-          icon: ordersController.destinationIcon));
+          icon: widget.destinationIcon));
     });
   }
 
@@ -95,8 +101,7 @@ class _OrderTileState extends State<OrderTile> {
   }
 
   _setPolylines(PointLatLng origin, PointLatLng destination) async {
-    final orderPolyline =
-        await ordersController.getRoutePolyline(origin, destination);
+    final orderPolyline = await widget.getRoutePolyline(origin, destination);
     setState(() {
       _polylines.add(orderPolyline);
     });
@@ -143,13 +148,45 @@ class _OrderTileState extends State<OrderTile> {
                             fontSize: 14.0,
                             fontWeight: FontWeight.w700,
                             color: AppTheme.primaryColor,
-                          ))
+                          )),
+                    if (widget.schedule != null)
+                      widget.schedule?.status == 0
+                          ? GestureDetector(
+                              onTap: () {
+                                // show confirmation dialog
+                                Get.dialog(ConfirmDialog(
+                                  title: 'cancel_scheduled_ride'.tr,
+                                  content: 'cancel_scheduled_ride_info'.tr,
+                                  actionCallback: widget.onCancelSchedule,
+                                  actionText: 'yes',
+                                  cancelText: 'no',
+                                ));
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Icon(
+                                  Icons.delete,
+                                  color: AppTheme.primaryColor,
+                                ),
+                              ),
+                            )
+                          : Text(
+                              widget.schedule?.status == 2
+                                  ? 'processed'.tr
+                                  : widget.schedule?.status == 3
+                                      ? 'cancelled'.tr
+                                      : '',
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                                color: AppTheme.primaryColor,
+                              )),
                   ],
                 ),
                 const SizedBox(height: 10.0),
                 // Image.asset('assets/images/order_map.png'),
                 SizedBox(
-                  height: Get.height * 0.3,
+                  height: Get.height * 0.24,
                   child: GoogleMap(
                     initialCameraPosition: const CameraPosition(
                       target: kInitialPosition,

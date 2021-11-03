@@ -1,12 +1,19 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
-import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'dart:io';
 
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -34,22 +41,29 @@ class ProfileController extends GetxController {
   get profileImage => _profileImage.value;
   set profileImage(value) => _profileImage.value = value;
 
-  final _emergencyContacts = List<User>.empty(growable: true).obs;
+  final _emergencyContacts = List<EmergencyContact>.empty(growable: true).obs;
   get emergencyContacts => _emergencyContacts.value;
   set emergencyContacts(value) => _emergencyContacts.assignAll(value);
 
-  final _savedPlaces = List<SavedPlace>.empty(growable: true).obs;
+  final _savedPlaces = List<Address>.empty(growable: true).obs;
   get savedPlaces => _savedPlaces.value;
-  set savedPlaces(value) => _savedPlaces.assignAll(value);
+  set savedPlaces(value) => _savedPlaces.value = value;
+
+  final _contacts = List<EmergencyContact>.empty(growable: true).obs;
+  get contacts => _contacts.value;
+  set contacts(value) => _contacts.assignAll(value);
+
+  BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
 
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
 
+    _setPinIcons();
     setProfileInfos();
     _getEmergencyContacts();
-    _getSavedPlaces();
+    _getContacts();
   }
 
   updateProfile(Map<String, dynamic> profilePayload) async {
@@ -112,19 +126,16 @@ class ProfileController extends GetxController {
           title: 'phone_number', value: user.phoneNo ?? '', isActive: false),
       ProfileInfo(title: 'email_address', value: user.email ?? ''),
       ProfileInfo(
-          title: 'gender', value: user.gender == 2 ? 'female'.tr : 'male'.tr),
+          title: 'gender',
+          value: user.gender == 2 ? 'female'.tr : 'male'.tr,
+          isActive: false),
       ProfileInfo(
           title: 'country',
           value: kCountries
               .firstWhere((country) => country.code == user.countryCode,
                   orElse: () => kCountries.first)
-              .name),
-      ProfileInfo(
-          title: 'language',
-          value: kLanguages
-              .firstWhere((language) => language.code == user.locale,
-                  orElse: () => kLanguages.first)
-              .name)
+              .name,
+          isActive: false),
     ];
   }
 
@@ -159,27 +170,154 @@ class ProfileController extends GetxController {
   }
 
   _getEmergencyContacts() {
-    // Todo: get and set emergency contacts
-    emergencyContacts = [
-      User('Devon Lane', phoneNo: '+251912345678'),
-      User('Elizabeth Tucker Lane', phoneNo: '+251912345678'),
-      User('Brook Lane', phoneNo: '+251923342341'),
-    ];
+    repository.getEmergencyContacts().then((emergencyContactsResponse) {
+      if (emergencyContactsResponse.flag ==
+          SuccessFlags.emergencyContacts.successCode) {
+        if (emergencyContactsResponse.emergencyContacts?.isNotEmpty ?? false) {
+          emergencyContacts = emergencyContactsResponse.emergencyContacts;
+        }
+      } else {
+        print(
+            'Get emergency contacts error: ${emergencyContactsResponse.error}');
+
+        toast(
+            'error',
+            emergencyContactsResponse.error ??
+                emergencyContactsResponse.log ??
+                emergencyContactsResponse.message ??
+                '');
+      }
+    }, onError: (error) {
+      print('Get emergency contacts error: $error');
+    });
   }
 
-  _getSavedPlaces() {
-    // Todo: get and set saved places
-    savedPlaces = [
-      SavedPlace(
-          placeTitle: 'home'.tr,
-          placeAddress: 'Egypt Street, Addis Ababa, Ethiopia'),
-      SavedPlace(
-          placeTitle: 'work'.tr,
-          placeAddress: 'Alemayehu Building, Addis Ababa, Ethiopia'),
-      SavedPlace(
-          placeTitle: 'work'.tr,
-          placeAddress: 'Arat killo, Addis Ababa, Ethiopia'),
-    ];
+  // _getSavedPlaces() {
+  //   // Todo: get and set saved places
+  //   savedPlaces = [
+  //     SavedPlace(
+  //         placeTitle: 'home'.tr,
+  //         placeAddress: 'Egypt Street, Addis Ababa, Ethiopia'),
+  //     SavedPlace(
+  //         placeTitle: 'work'.tr,
+  //         placeAddress: 'Alemayehu Building, Addis Ababa, Ethiopia'),
+  //     SavedPlace(
+  //         placeTitle: 'work'.tr,
+  //         placeAddress: 'Arat killo, Addis Ababa, Ethiopia'),
+  //   ];
+  // }
+
+  Future<void> _getContacts() async {
+    // Load without thumbnails initially.
+    var tempContacts = (await ContactsService.getContacts(
+            withThumbnails: false, iOSLocalizedLabels: false))
+        .toList();
+
+    // this is to prevent a lot of contacts
+    // if (tempContacts.length > 5)
+    //   tempContacts.removeRange(5, tempContacts.length - 1);
+    // contacts = tempContacts;
+
+    // get phone numbers, name from contacts
+    // List<String> phoneNumbers = [];
+    for (Contact contact in tempContacts) {
+      if (contact.phones?.isNotEmpty ?? false) {
+        contacts.add(EmergencyContact(
+          name: contact.displayName,
+          phoneNo:
+              '+${contact.phones?.first.value?.replaceAll(RegExp('\\W+'), '')}',
+        ));
+      }
+    }
+
+    // Lazy load thumbnails after rendering initial contacts.
+    // for (final contact in contacts) {
+    //   ContactsService.getAvatar(contact).then((avatar) {
+    //     if (avatar == null) return; // Don't redraw if no change.
+    //     contact.avatar = avatar;
+    //   });
+    // }
+  }
+
+  addEmergencyContact(EmergencyContact emergencyContact) {
+    //Todo: on add emergency contacts
+    final contactpayload = {
+      'emergency_contacts': [
+        {
+          'name': emergencyContact.name,
+          'phone_no': emergencyContact.phoneNo,
+          'country_code': '+251',
+        }
+      ].toString()
+    };
+
+    status(Status.loading);
+    repository.addEmergencyContact(contactpayload).then(
+        (addEmergencyContactresponse) {
+      log('add emergency contact response: $addEmergencyContactresponse');
+      if (addEmergencyContactresponse.flag ==
+          SuccessFlags.basicSuccess.successCode) {
+        Get.snackbar('success'.tr, 'add_emergency_contact_success'.tr);
+      } else {
+        print(
+            'Add emergency contact error: ${addEmergencyContactresponse.error}');
+        status(Status.error);
+        toast(
+            'error',
+            addEmergencyContactresponse.error ??
+                addEmergencyContactresponse.log ??
+                addEmergencyContactresponse.message ??
+                '');
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Add emergency contact error: $error');
+    });
+  }
+
+  removeEmergencyContact(EmergencyContact emergencyContact) {
+    if (emergencyContact.id != null) {
+      status(Status.loading);
+      repository.removeEmergencyContact('${emergencyContact.id}').then(
+          (removeContactResponse) {
+        if (removeContactResponse.flag ==
+            SuccessFlags.basicSuccess.successCode) {
+          status(Status.success);
+          Get.snackbar('success'.tr, 'remove_emergency_contact_success'.tr);
+        } else {
+          print(
+              'Remove emergency contact error: ${removeContactResponse.error}');
+          status(Status.error);
+          toast(
+              'error',
+              removeContactResponse.error ??
+                  removeContactResponse.log ??
+                  removeContactResponse.message ??
+                  '');
+        }
+      }, onError: (error) {
+        status(Status.error);
+        print('Remove emergency contact error: $error');
+      });
+    }
+  }
+
+  onNavToSavedPlaces() {
+    // get saved places from home controller
+    HomeController homeController = Get.find();
+    savedPlaces = homeController.savedPlaces;
+    // remove the first element, since it's add place
+    if (savedPlaces.length > 0) {
+      savedPlaces.removeAt(0);
+    }
+
+    Get.toNamed(Routes.savedPlaces);
+  }
+
+  _setPinIcons() async {
+    sourceIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(devicePixelRatio: 2.5),
+        'assets/icons/source_location.png');
   }
 }
 

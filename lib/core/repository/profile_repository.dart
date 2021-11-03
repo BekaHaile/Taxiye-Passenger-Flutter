@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -28,10 +31,7 @@ class ProfileRepository implements IProfileRepository {
       File? profileImage, Map<String, dynamic>? userPayload) async {
     dynamic response;
 
-    print('here 1');
-
     if (profileImage == null) {
-      print('here 2');
       await apiClient
           .request(
         requestType: RequestType.post,
@@ -55,5 +55,39 @@ class ProfileRepository implements IProfileRepository {
     }
 
     return User.fromJson(response);
+  }
+
+  // For emergency contacts
+  @override
+  Future<EmergencyContactsResponse> getEmergencyContacts() async {
+    final accessToken = GetStorage().read('accessToken');
+    final response = await apiClient.request(
+      requestType: RequestType.get,
+      path: '/emergency/contacts/list',
+      queryParameters: {'access_token': accessToken},
+    );
+
+    return EmergencyContactsResponse.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> addEmergencyContact(
+      Map<String, dynamic> contactPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/emergency/contacts/add_multiple',
+      data: {},
+    );
+    return BasicResponse.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> removeEmergencyContact(String contactId) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/emergency/contacts/delete',
+      data: {'id': contactId},
+    );
+    return BasicResponse.fromJson(response);
   }
 }

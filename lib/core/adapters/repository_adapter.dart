@@ -67,6 +67,8 @@ abstract class IHomeRepository {
 
   Future<SavedPlacesResponse> getSavedPlaces();
   Future<SavedPlacesResponse> addNewPlace(Map<String, dynamic> addressPayload);
+
+  Future<ListResponse<Corporate>> getUserCorporates();
 }
 
 abstract class ICommonRepository {
@@ -94,6 +96,11 @@ abstract class IProfileRepository {
   Future<User> reloadProfile();
   Future<User> updateUser(
       File? profileImage, Map<String, dynamic>? userPayload);
+
+  Future<EmergencyContactsResponse> getEmergencyContacts();
+  Future<BasicResponse> removeEmergencyContact(String contactId);
+  Future<BasicResponse> addEmergencyContact(
+      Map<String, dynamic> contactPayload);
 }
 
 abstract class IPaymentRepository {
@@ -107,8 +114,8 @@ abstract class IOrdersRepository {
   Future<List<LatLng>> getRoutePolylines(
       PointLatLng origin, PointLatLng destination);
 
-  Future<BasicResponse> removeRideSchedule(
-      Map<String, dynamic> removeSchedulePayload);
+  Future<BasicResponse> cancelRideSchedule(
+      Map<String, dynamic> cancelSchedulePayload);
 }
 
 abstract class IDriversRepository {

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
-import 'package:taxiye_passenger/ui/pages/profile/components/edit_profile_dialog.dart';
+import 'package:taxiye_passenger/ui/pages/profile/components/edit_profile_bottomsheet.dart';
 import 'package:taxiye_passenger/ui/widgets/image_picker_bottomsheet.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
@@ -68,7 +67,7 @@ class ProfileInfoPage extends GetView<ProfileController> {
                               controller.profileInfos[index];
                           return ProfileInfoTile(
                             profileInfo: profileInfo,
-                            onTap: () => Get.bottomSheet(EditProfileDialog(
+                            onTap: () => Get.bottomSheet(EditProfileBottomSheet(
                                 title: profileInfo.title,
                                 user: controller.authController.user,
                                 onValueChange: (changePayload) {
@@ -113,7 +112,9 @@ class ProfileInfoTile extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
       title: Text(
         profileInfo.title.tr,
-        style: AppTheme.title2,
+        style: AppTheme.title2.copyWith(
+            color:
+                profileInfo.isActive ? AppTheme.darkColor : AppTheme.greyColor),
       ),
       subtitle: Text(
         profileInfo.value,

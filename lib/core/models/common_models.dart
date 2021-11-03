@@ -59,16 +59,6 @@ class ExchangePoint {
   final ExchangePointOption option;
 }
 
-class SavedPlace {
-  const SavedPlace({
-    required this.placeTitle,
-    required this.placeAddress,
-  });
-
-  final String placeTitle;
-  final String placeAddress;
-}
-
 class VehicleType {
   const VehicleType({
     required this.type,
@@ -77,4 +67,16 @@ class VehicleType {
 
   final String type;
   final int rideType;
+}
+
+class PaymentType {
+  const PaymentType({
+    required this.text,
+    required this.icon,
+    required this.iconColor,
+  });
+
+  final String text;
+  final IconData icon;
+  final Color iconColor;
 }

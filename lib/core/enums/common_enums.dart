@@ -74,6 +74,7 @@ enum SuccessFlags {
   addNewPlace,
   driverLocation,
   rideHistory,
+  emergencyContacts,
   logout,
   dummy
 }
@@ -102,6 +103,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.addNewPlace: 143,
     SuccessFlags.driverLocation: 117,
     SuccessFlags.rideHistory: 173,
+    SuccessFlags.emergencyContacts: 450,
     SuccessFlags.logout: 409,
   };
 

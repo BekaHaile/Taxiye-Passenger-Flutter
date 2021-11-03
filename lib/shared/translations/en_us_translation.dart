@@ -88,6 +88,22 @@ final Map<String, String> enUs = {
   'work': 'Work',
   'pinned_on_map': 'Pinned on Map',
 
+  'ratings': 'Ratings',
+  'rides_completed': 'Rides Completed',
+  'rides_cancelled': 'Rides Cancelled',
+
+  'remove_emergency_contact': 'Remove emergency contact?',
+  'remove_emergency_contact_info':
+      'Are you sure you want to remove this contact from your emergency list?',
+
+  'remove_emergency_contact_success':
+      'Contact has been removed from your emergency contacts',
+  'confirm_contact': 'Confirm contact',
+  'as_emergency_contact': 'as an emergency contact?',
+
+  'add_emergency_contact_success':
+      'Contact has been added as emergency contact',
+
   // privacy settings strings
   'transaction_updates': 'Transaction Updates',
   'transaction_updates_info': 'Confirmations, arrival, payment status and more',
@@ -167,6 +183,7 @@ final Map<String, String> enUs = {
   'schedule_ride': 'Schedule Ride',
 
   'schedule_ride_success': 'Scheduled ride successfully',
+  'upcoming_ride_scheduled': 'Upcoming ride scheduled!',
 
   // vehicle detail
   'fare_details': 'Fare Details',
@@ -269,6 +286,14 @@ final Map<String, String> enUs = {
   'scheduled': 'Scheduled',
 
   'order_details': 'Order Details',
+  'processed': 'Processed',
+  'cancelled': 'Cancelled',
+  'ride_scheduled': 'Ride Scheduled',
+
+  'cancel_scheduled_ride': 'Cancel scheduled ride?',
+  'cancel_scheduled_ride_info':
+      'Are you sure you want to cancel the scheduled ride?',
+  'cancel_schedule_success': 'Scheduled ride cancelled!',
 
   // Drivers strings
   'your_drivers': 'Your Drivers',
@@ -276,6 +301,9 @@ final Map<String, String> enUs = {
   'blocked': 'Blocked',
 
   'fav_driver_removed_success': 'Driver has been removed from favourites',
+  'remove_fav_driver': 'Remove favorite driver?',
+  'remove_fav_driver_info':
+      'Are you sure you want to remove your favourite driver?',
 
   // Payment strings
   'payment_methods': 'Payment Methods',
@@ -315,6 +343,8 @@ final Map<String, String> enUs = {
   // common texts
   'add_phone_number': 'Please add your phone number',
   'done': 'Done',
+  'yes': 'Yes',
+  'no': 'No',
 
   //notification Strings
   'ride_completed': 'Ride Completed',

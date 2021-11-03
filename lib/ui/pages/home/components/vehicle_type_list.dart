@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
@@ -7,9 +6,11 @@ import 'package:get/get.dart';
 class VehicleTypeList extends StatefulWidget {
   const VehicleTypeList({
     Key? key,
+    required this.hasCorporate,
     required this.onFilterVehicle,
   }) : super(key: key);
 
+  final bool hasCorporate;
   final Function(int rideType) onFilterVehicle;
 
   @override
@@ -26,8 +27,11 @@ class _VehicleTypeListState extends State<VehicleTypeList> {
     vehicleTypes = [
       const VehicleType(type: 'normal', rideType: 0),
       const VehicleType(type: 'shared', rideType: 2),
-      const VehicleType(type: 'corporate', rideType: 1),
     ];
+
+    if (widget.hasCorporate) {
+      vehicleTypes.add(const VehicleType(type: 'corporate', rideType: 1));
+    }
     activeVehicleType = vehicleTypes.first;
 
     super.initState();
@@ -57,7 +61,6 @@ class _VehicleTypeListState extends State<VehicleTypeList> {
       },
       itemCount: vehicleTypes.length,
     );
-    ;
   }
 }
 

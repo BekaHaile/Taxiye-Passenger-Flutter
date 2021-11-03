@@ -87,8 +87,10 @@ class OrdersController extends GetxController {
   }
 
   getScheduledRides() {
+    status(Status.loading);
     repository.getScheduledRides().then((scheduledRideResponse) {
       if (scheduledRideResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        status(Status.success);
         if (scheduledRideResponse.data != null) {
           scheduledRides = scheduledRideResponse.data;
         }
@@ -105,6 +107,33 @@ class OrdersController extends GetxController {
     }, onError: (error) {
       status(Status.error);
       print('Get scheduled rides error: $error');
+    });
+  }
+
+  cancelRideSchedule(String pickupId) {
+    final Map<String, dynamic> cancelSchedulePayload = {'pickup_id': pickupId};
+    status(Status.loading);
+    repository.cancelRideSchedule(cancelSchedulePayload).then(
+        (cancelScheduleResponse) {
+      if (cancelScheduleResponse.flag ==
+          SuccessFlags.basicSuccess.successCode) {
+        status(Status.success);
+        Get.snackbar('success'.tr, 'cancel_schedule_success'.tr);
+        // Refresh scheduled ride history
+        getScheduledRides();
+      } else {
+        print(cancelScheduleResponse.error ?? '');
+        status(Status.error);
+        toast(
+            'error',
+            cancelScheduleResponse.error ??
+                cancelScheduleResponse.log ??
+                cancelScheduleResponse.message ??
+                '');
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Cancel scheduled ride error: $error');
     });
   }
 

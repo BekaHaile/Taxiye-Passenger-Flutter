@@ -510,6 +510,49 @@ Map<String, dynamic> _$_$_RideHistoryToJson(_$_RideHistory instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
     };
 
+_$_Corporate _$_$_CorporateFromJson(Map<String, dynamic> json) {
+  return _$_Corporate(
+    businessId: json['business_id'] as int?,
+    partnerName: json['partner_name'] as String?,
+    restrictedSubRegions: json['restricted_sub_regions'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_CorporateToJson(_$_Corporate instance) =>
+    <String, dynamic>{
+      'business_id': instance.businessId,
+      'partner_name': instance.partnerName,
+      'restricted_sub_regions': instance.restrictedSubRegions,
+    };
+
+_$_EmergencyContact _$_$_EmergencyContactFromJson(Map<String, dynamic> json) {
+  return _$_EmergencyContact(
+    id: json['id'] as int?,
+    name: json['name'] as String?,
+    email: json['email'] as String?,
+    userId: json['user_id'] as int?,
+    phoneNo: json['phone_no'] as String?,
+    countryCode: json['country_code'] as String?,
+    requestedOn: json['requested_on'] == null
+        ? null
+        : DateTime.parse(json['requested_on'] as String),
+    verificationStatus: json['verification_status'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_EmergencyContactToJson(
+        _$_EmergencyContact instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'email': instance.email,
+      'user_id': instance.userId,
+      'phone_no': instance.phoneNo,
+      'country_code': instance.countryCode,
+      'requested_on': instance.requestedOn?.toIso8601String(),
+      'verification_status': instance.verificationStatus,
+    };
+
 _$_BasicResponse _$_$_BasicResponseFromJson(Map<String, dynamic> json) {
   return _$_BasicResponse(
     json['flag'] as int,
@@ -711,6 +754,29 @@ Map<String, dynamic> _$_$_DriverLocationResponseToJson(
       'longitude': instance.longitude,
       'eta': instance.eta,
       'bearing': instance.bearing,
+    };
+
+_$_EmergencyContactsResponse _$_$_EmergencyContactsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_EmergencyContactsResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    log: json['log'] as String?,
+    emergencyContacts: (json['emergency_contacts'] as List<dynamic>?)
+        ?.map((e) => EmergencyContact.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$_$_EmergencyContactsResponseToJson(
+        _$_EmergencyContactsResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'log': instance.log,
+      'emergency_contacts': instance.emergencyContacts,
     };
 
 _$_RideListResponse<T> _$_$_RideListResponseFromJson<T>(

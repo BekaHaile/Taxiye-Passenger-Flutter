@@ -9,6 +9,7 @@ class ConfirmDialog extends StatelessWidget {
     required this.title,
     required this.content,
     this.actionText = 'done',
+    this.cancelText = 'cancel',
     this.actionCallback,
     this.contentTextAlign = TextAlign.center,
     this.secondAction,
@@ -18,6 +19,7 @@ class ConfirmDialog extends StatelessWidget {
   final String title;
   final String content;
   final String actionText;
+  final String cancelText;
   final VoidCallback? actionCallback;
   final TextAlign contentTextAlign;
 
@@ -26,27 +28,28 @@ class ConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: const EdgeInsets.all(0),
+      // insetPadding: const EdgeInsets.all(0),
       title: Text(
         title,
         textAlign: TextAlign.center,
+        style: AppTheme.title2,
       ),
       content: Text(
         content,
         textAlign: TextAlign.start,
         style: const TextStyle(
-          fontSize: 18.0,
+          fontSize: 14.0,
           letterSpacing: 1.2,
         ),
       ),
       actions: [
         TextButton(
           child: Text(
-            'cancel'.tr,
+            cancelText.tr,
             style: const TextStyle(
               fontFamily: AppTheme.fontName,
               fontWeight: FontWeight.w700,
-              fontSize: 18.0,
+              fontSize: 16.0,
               letterSpacing: 1,
               color: AppTheme.primaryColor,
             ),
@@ -62,7 +65,7 @@ class ConfirmDialog extends StatelessWidget {
               style: const TextStyle(
                 fontFamily: AppTheme.fontName,
                 fontWeight: FontWeight.w700,
-                fontSize: 18.0,
+                fontSize: 16.0,
                 letterSpacing: 1,
                 color: AppTheme.primaryColor,
               ),
@@ -79,7 +82,7 @@ class ConfirmDialog extends StatelessWidget {
               style: const TextStyle(
                 fontFamily: AppTheme.fontName,
                 fontWeight: FontWeight.w700,
-                fontSize: 18.0,
+                fontSize: 16.0,
                 letterSpacing: 1,
                 color: AppTheme.primaryColor,
               ),

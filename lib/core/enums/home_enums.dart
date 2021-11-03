@@ -26,6 +26,7 @@ enum TripStep {
   tripFeedback,
   addPlace,
   confirmPlace,
+  scheduleDetail,
 }
 
 enum LocationType {

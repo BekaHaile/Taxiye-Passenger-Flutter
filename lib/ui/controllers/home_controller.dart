@@ -15,8 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/core/models/map_models.dart';
+import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
@@ -67,9 +69,19 @@ class HomeController extends GetxService {
   get paymentMethods => _paymentMethods.value;
   set paymentMethods(value) => _paymentMethods.assignAll(value);
 
+  final _paymentTypes = List<PaymentType>.empty(growable: true).obs;
+  get paymentTypes => _paymentTypes.value;
+  set paymentTypes(value) => _paymentTypes.assignAll(value);
+
   final _selectedPayment = Payment(name: 'cash_payment').obs;
   get selectedPayment => _selectedPayment.value;
   set selectedPayment(value) => _selectedPayment.value = value;
+
+  final _userCorporates = List<Corporate>.empty(growable: true).obs;
+  get userCorporates => _userCorporates.value;
+  set userCorporates(value) => _userCorporates.assignAll(value);
+
+  Corporate? selectedCorporate;
 
   // Trip step
   final _tripStep = TripStep.whereTo.obs;
@@ -115,6 +127,10 @@ class HomeController extends GetxService {
   get searchLoading => _searchLoading.value;
   set searchLoading(value) => _searchLoading.value = value;
 
+  final _rideType = 0.obs;
+  get rideType => _rideType.value;
+  set rideType(value) => _rideType.value = value;
+
   // final searchController = TextEditingController();
   Polyline? ridePolyline;
 
@@ -146,7 +162,6 @@ class HomeController extends GetxService {
   // trip started variables
   int? sessionId;
   int? engagementId;
-  int rideType = 0;
 
   RideDetail? rideDetail;
   Place? pickupLocation;
@@ -171,6 +186,9 @@ class HomeController extends GetxService {
     // Todo: Initialize and get any initial values here.
     super.onInit();
 
+    scheduleDate = DateTime.now();
+    scheduleTime = TimeOfDay.now();
+
     prefs = await SharedPreferences.getInstance();
     // Todo: uncomment this for current location
     // set current location
@@ -190,9 +208,10 @@ class HomeController extends GetxService {
 
     _findDrivers();
     _setPinIcons();
-    // getVehicles();
-    getPaymentMethods();
-    getSavedPlaces();
+    _getUserCorporates();
+    _getPaymentMethods();
+    _getPaymentTypes();
+    _getSavedPlaces();
   }
 
   onAppStateChange(AppLifecycleState appState) async {
@@ -406,9 +425,22 @@ class HomeController extends GetxService {
     // filter vehicles based on rideType
     // 0 - normal
     // 2 - shared
+    // 1 - corporate
     this.rideType = rideType;
     if (allVehicles?.isNotEmpty ?? false) {
-      vehicles = allVehicles?.where((vehicle) => vehicle.rideType == rideType);
+      if (rideType == 1) {
+        // case for corporate
+        selectedCorporate = selectedCorporate ?? userCorporates[0];
+        List<String>? coporateRestrictedVehicles =
+            selectedCorporate?.restrictedSubRegions?.split(',');
+        if (coporateRestrictedVehicles?.isNotEmpty ?? false) {
+          vehicles = allVehicles?.where((vehicle) =>
+              !coporateRestrictedVehicles!.contains('${vehicle.regionId}'));
+        }
+      } else {
+        vehicles =
+            allVehicles?.where((vehicle) => vehicle.rideType == rideType);
+      }
     }
   }
 
@@ -474,18 +506,37 @@ class HomeController extends GetxService {
     return await repository.getRoutePolylines(origin, destination);
   }
 
-  getVehicles() {
-    //Todo: Get vehicles
-    vehicles = [
-      Vehicle(regionName: 'Taxiye - Sedan', regionFare: VehicleFare(fare: 128)),
-      Vehicle(regionName: 'Taxiye - Mini', regionFare: VehicleFare(fare: 121)),
-      Vehicle(regionName: 'Taxiye - Mini', regionFare: VehicleFare(fare: 126)),
-      Vehicle(regionName: 'Taxiye - Mini', regionFare: VehicleFare(fare: 208)),
-      Vehicle(regionName: 'Taxiye - Mini', regionFare: VehicleFare(fare: 24)),
-    ];
+  Future<Polyline> getRoutePolyline(
+      PointLatLng origin, PointLatLng destination) async {
+    // Get & set the polyLines
+    final polylineCoordinates =
+        await repository.getRoutePolylines(origin, destination);
+
+    return Polyline(
+        polylineId: const PolylineId("poly"),
+        color: AppTheme.primaryColor,
+        width: 3,
+        points: polylineCoordinates);
   }
 
-  getPaymentMethods() {
+  _getUserCorporates() {
+    repository.getUserCorporates().then((userCorporatesResponse) {
+      if (userCorporatesResponse.flag ==
+          SuccessFlags.basicSuccess.successCode) {
+        if (userCorporatesResponse.data?.isNotEmpty ?? false) {
+          userCorporates = userCorporatesResponse.data;
+        }
+      } else {
+        print(userCorporatesResponse.error ??
+            userCorporatesResponse.message ??
+            '');
+      }
+    }, onError: (error) {
+      print('Get user corporates error:  $error');
+    });
+  }
+
+  _getPaymentMethods() {
     //Todo: Get payment Methods
     paymentMethods = [
       Payment(name: 'cash'),
@@ -495,7 +546,28 @@ class HomeController extends GetxService {
     ];
   }
 
-  getSavedPlaces() {
+  _getPaymentTypes() {
+    //Todo: Get payment Types
+    paymentTypes = [
+      PaymentType(
+        text: 'cash'.tr,
+        icon: CustomIcons.payment,
+        iconColor: AppTheme.greenColor,
+      ),
+      PaymentType(
+        text: 'offers'.tr,
+        icon: CustomIcons.offer,
+        iconColor: AppTheme.primaryColor,
+      ),
+      const PaymentType(
+        text: 'notes',
+        icon: CustomIcons.notes,
+        iconColor: AppTheme.yellowColor,
+      )
+    ];
+  }
+
+  _getSavedPlaces() {
     repository.getSavedPlaces().then((getPlacesResponse) {
       if (getPlacesResponse.flag == SuccessFlags.getSavedPlaces.successCode) {
         if (getPlacesResponse.addresses?.isNotEmpty ?? false) {
@@ -665,8 +737,7 @@ class HomeController extends GetxService {
   }
 
   onCancelRide() {
-    // Todo: cancell ride based on current ride step
-
+    // cancell ride based on current ride step
     Map<String, dynamic> cancelPayload = tripStep == TripStep.lookingDrivers
         ? {'session_id': '$sessionId'}
         : {'reasons': ''};
@@ -802,8 +873,8 @@ class HomeController extends GetxService {
             SuccessFlags.basicSuccess.successCode) {
           status(Status.success);
           Get.snackbar('succes'.tr, 'schedule_ride_success'.tr);
-          // Todo: show schedule Ride detail here
-          resetValues();
+          // show schedule Ride detail
+          tripStep = TripStep.scheduleDetail;
         } else {
           status(Status.error);
           toast(
@@ -816,6 +887,23 @@ class HomeController extends GetxService {
       }, onError: (error) {
         status(Status.error);
       });
+    }
+  }
+
+  ScheduledRide? getCurrentScheduledRide() {
+    if (scheduleDate != null && scheduleTime != null) {
+      return ScheduledRide(
+        latitude: pickupLocation?.location?.latitude,
+        longitude: pickupLocation?.location?.longitude,
+        opDropLatitude: dropOffLocation?.location?.latitude,
+        opDropLongitude: dropOffLocation?.location?.longitude,
+        pickupTime: DateTime(scheduleDate!.year, scheduleDate!.month,
+            scheduleDate!.day, scheduleTime!.hour, scheduleTime!.minute),
+        pickupLocationAddress: pickupLocation?.placeName,
+        dropLocationAddress: dropOffLocation?.placeName,
+      );
+    } else {
+      return null;
     }
   }
 
@@ -1038,6 +1126,7 @@ class HomeController extends GetxService {
   Future<bool> onHomeBack() async {
     switch (tripStep) {
       case TripStep.pickVehicle:
+      case TripStep.confirmPlace:
         Get.toNamed(Routes.pickLocation);
         resetValues();
         break;

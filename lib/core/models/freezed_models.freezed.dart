@@ -6766,6 +6766,562 @@ abstract class _RideHistory implements RideHistory {
       throw _privateConstructorUsedError;
 }
 
+Corporate _$CorporateFromJson(Map<String, dynamic> json) {
+  return _Corporate.fromJson(json);
+}
+
+/// @nodoc
+class _$CorporateTearOff {
+  const _$CorporateTearOff();
+
+  _Corporate call(
+      {@JsonKey(name: 'business_id') int? businessId,
+      @JsonKey(name: 'partner_name') String? partnerName,
+      @JsonKey(name: 'restricted_sub_regions') String? restrictedSubRegions}) {
+    return _Corporate(
+      businessId: businessId,
+      partnerName: partnerName,
+      restrictedSubRegions: restrictedSubRegions,
+    );
+  }
+
+  Corporate fromJson(Map<String, Object> json) {
+    return Corporate.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Corporate = _$CorporateTearOff();
+
+/// @nodoc
+mixin _$Corporate {
+  @JsonKey(name: 'business_id')
+  int? get businessId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'partner_name')
+  String? get partnerName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'restricted_sub_regions')
+  String? get restrictedSubRegions => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CorporateCopyWith<Corporate> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CorporateCopyWith<$Res> {
+  factory $CorporateCopyWith(Corporate value, $Res Function(Corporate) then) =
+      _$CorporateCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: 'business_id') int? businessId,
+      @JsonKey(name: 'partner_name') String? partnerName,
+      @JsonKey(name: 'restricted_sub_regions') String? restrictedSubRegions});
+}
+
+/// @nodoc
+class _$CorporateCopyWithImpl<$Res> implements $CorporateCopyWith<$Res> {
+  _$CorporateCopyWithImpl(this._value, this._then);
+
+  final Corporate _value;
+  // ignore: unused_field
+  final $Res Function(Corporate) _then;
+
+  @override
+  $Res call({
+    Object? businessId = freezed,
+    Object? partnerName = freezed,
+    Object? restrictedSubRegions = freezed,
+  }) {
+    return _then(_value.copyWith(
+      businessId: businessId == freezed
+          ? _value.businessId
+          : businessId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      partnerName: partnerName == freezed
+          ? _value.partnerName
+          : partnerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      restrictedSubRegions: restrictedSubRegions == freezed
+          ? _value.restrictedSubRegions
+          : restrictedSubRegions // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CorporateCopyWith<$Res> implements $CorporateCopyWith<$Res> {
+  factory _$CorporateCopyWith(
+          _Corporate value, $Res Function(_Corporate) then) =
+      __$CorporateCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: 'business_id') int? businessId,
+      @JsonKey(name: 'partner_name') String? partnerName,
+      @JsonKey(name: 'restricted_sub_regions') String? restrictedSubRegions});
+}
+
+/// @nodoc
+class __$CorporateCopyWithImpl<$Res> extends _$CorporateCopyWithImpl<$Res>
+    implements _$CorporateCopyWith<$Res> {
+  __$CorporateCopyWithImpl(_Corporate _value, $Res Function(_Corporate) _then)
+      : super(_value, (v) => _then(v as _Corporate));
+
+  @override
+  _Corporate get _value => super._value as _Corporate;
+
+  @override
+  $Res call({
+    Object? businessId = freezed,
+    Object? partnerName = freezed,
+    Object? restrictedSubRegions = freezed,
+  }) {
+    return _then(_Corporate(
+      businessId: businessId == freezed
+          ? _value.businessId
+          : businessId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      partnerName: partnerName == freezed
+          ? _value.partnerName
+          : partnerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      restrictedSubRegions: restrictedSubRegions == freezed
+          ? _value.restrictedSubRegions
+          : restrictedSubRegions // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Corporate implements _Corporate {
+  _$_Corporate(
+      {@JsonKey(name: 'business_id') this.businessId,
+      @JsonKey(name: 'partner_name') this.partnerName,
+      @JsonKey(name: 'restricted_sub_regions') this.restrictedSubRegions});
+
+  factory _$_Corporate.fromJson(Map<String, dynamic> json) =>
+      _$_$_CorporateFromJson(json);
+
+  @override
+  @JsonKey(name: 'business_id')
+  final int? businessId;
+  @override
+  @JsonKey(name: 'partner_name')
+  final String? partnerName;
+  @override
+  @JsonKey(name: 'restricted_sub_regions')
+  final String? restrictedSubRegions;
+
+  @override
+  String toString() {
+    return 'Corporate(businessId: $businessId, partnerName: $partnerName, restrictedSubRegions: $restrictedSubRegions)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Corporate &&
+            (identical(other.businessId, businessId) ||
+                const DeepCollectionEquality()
+                    .equals(other.businessId, businessId)) &&
+            (identical(other.partnerName, partnerName) ||
+                const DeepCollectionEquality()
+                    .equals(other.partnerName, partnerName)) &&
+            (identical(other.restrictedSubRegions, restrictedSubRegions) ||
+                const DeepCollectionEquality()
+                    .equals(other.restrictedSubRegions, restrictedSubRegions)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(businessId) ^
+      const DeepCollectionEquality().hash(partnerName) ^
+      const DeepCollectionEquality().hash(restrictedSubRegions);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CorporateCopyWith<_Corporate> get copyWith =>
+      __$CorporateCopyWithImpl<_Corporate>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CorporateToJson(this);
+  }
+}
+
+abstract class _Corporate implements Corporate {
+  factory _Corporate(
+      {@JsonKey(name: 'business_id')
+          int? businessId,
+      @JsonKey(name: 'partner_name')
+          String? partnerName,
+      @JsonKey(name: 'restricted_sub_regions')
+          String? restrictedSubRegions}) = _$_Corporate;
+
+  factory _Corporate.fromJson(Map<String, dynamic> json) =
+      _$_Corporate.fromJson;
+
+  @override
+  @JsonKey(name: 'business_id')
+  int? get businessId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'partner_name')
+  String? get partnerName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'restricted_sub_regions')
+  String? get restrictedSubRegions => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CorporateCopyWith<_Corporate> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+EmergencyContact _$EmergencyContactFromJson(Map<String, dynamic> json) {
+  return _EmergencyContact.fromJson(json);
+}
+
+/// @nodoc
+class _$EmergencyContactTearOff {
+  const _$EmergencyContactTearOff();
+
+  _EmergencyContact call(
+      {int? id,
+      String? name,
+      String? email,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      @JsonKey(name: 'country_code') String? countryCode,
+      @JsonKey(name: 'requested_on') DateTime? requestedOn,
+      @JsonKey(name: 'verification_status') int? verificationStatus}) {
+    return _EmergencyContact(
+      id: id,
+      name: name,
+      email: email,
+      userId: userId,
+      phoneNo: phoneNo,
+      countryCode: countryCode,
+      requestedOn: requestedOn,
+      verificationStatus: verificationStatus,
+    );
+  }
+
+  EmergencyContact fromJson(Map<String, Object> json) {
+    return EmergencyContact.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $EmergencyContact = _$EmergencyContactTearOff();
+
+/// @nodoc
+mixin _$EmergencyContact {
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'country_code')
+  String? get countryCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'requested_on')
+  DateTime? get requestedOn => throw _privateConstructorUsedError;
+  @JsonKey(name: 'verification_status')
+  int? get verificationStatus => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $EmergencyContactCopyWith<EmergencyContact> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $EmergencyContactCopyWith<$Res> {
+  factory $EmergencyContactCopyWith(
+          EmergencyContact value, $Res Function(EmergencyContact) then) =
+      _$EmergencyContactCopyWithImpl<$Res>;
+  $Res call(
+      {int? id,
+      String? name,
+      String? email,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      @JsonKey(name: 'country_code') String? countryCode,
+      @JsonKey(name: 'requested_on') DateTime? requestedOn,
+      @JsonKey(name: 'verification_status') int? verificationStatus});
+}
+
+/// @nodoc
+class _$EmergencyContactCopyWithImpl<$Res>
+    implements $EmergencyContactCopyWith<$Res> {
+  _$EmergencyContactCopyWithImpl(this._value, this._then);
+
+  final EmergencyContact _value;
+  // ignore: unused_field
+  final $Res Function(EmergencyContact) _then;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? userId = freezed,
+    Object? phoneNo = freezed,
+    Object? countryCode = freezed,
+    Object? requestedOn = freezed,
+    Object? verificationStatus = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      countryCode: countryCode == freezed
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      requestedOn: requestedOn == freezed
+          ? _value.requestedOn
+          : requestedOn // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      verificationStatus: verificationStatus == freezed
+          ? _value.verificationStatus
+          : verificationStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$EmergencyContactCopyWith<$Res>
+    implements $EmergencyContactCopyWith<$Res> {
+  factory _$EmergencyContactCopyWith(
+          _EmergencyContact value, $Res Function(_EmergencyContact) then) =
+      __$EmergencyContactCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int? id,
+      String? name,
+      String? email,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'phone_no') String? phoneNo,
+      @JsonKey(name: 'country_code') String? countryCode,
+      @JsonKey(name: 'requested_on') DateTime? requestedOn,
+      @JsonKey(name: 'verification_status') int? verificationStatus});
+}
+
+/// @nodoc
+class __$EmergencyContactCopyWithImpl<$Res>
+    extends _$EmergencyContactCopyWithImpl<$Res>
+    implements _$EmergencyContactCopyWith<$Res> {
+  __$EmergencyContactCopyWithImpl(
+      _EmergencyContact _value, $Res Function(_EmergencyContact) _then)
+      : super(_value, (v) => _then(v as _EmergencyContact));
+
+  @override
+  _EmergencyContact get _value => super._value as _EmergencyContact;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? userId = freezed,
+    Object? phoneNo = freezed,
+    Object? countryCode = freezed,
+    Object? requestedOn = freezed,
+    Object? verificationStatus = freezed,
+  }) {
+    return _then(_EmergencyContact(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      countryCode: countryCode == freezed
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      requestedOn: requestedOn == freezed
+          ? _value.requestedOn
+          : requestedOn // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      verificationStatus: verificationStatus == freezed
+          ? _value.verificationStatus
+          : verificationStatus // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_EmergencyContact implements _EmergencyContact {
+  _$_EmergencyContact(
+      {this.id,
+      this.name,
+      this.email,
+      @JsonKey(name: 'user_id') this.userId,
+      @JsonKey(name: 'phone_no') this.phoneNo,
+      @JsonKey(name: 'country_code') this.countryCode,
+      @JsonKey(name: 'requested_on') this.requestedOn,
+      @JsonKey(name: 'verification_status') this.verificationStatus});
+
+  factory _$_EmergencyContact.fromJson(Map<String, dynamic> json) =>
+      _$_$_EmergencyContactFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final String? name;
+  @override
+  final String? email;
+  @override
+  @JsonKey(name: 'user_id')
+  final int? userId;
+  @override
+  @JsonKey(name: 'phone_no')
+  final String? phoneNo;
+  @override
+  @JsonKey(name: 'country_code')
+  final String? countryCode;
+  @override
+  @JsonKey(name: 'requested_on')
+  final DateTime? requestedOn;
+  @override
+  @JsonKey(name: 'verification_status')
+  final int? verificationStatus;
+
+  @override
+  String toString() {
+    return 'EmergencyContact(id: $id, name: $name, email: $email, userId: $userId, phoneNo: $phoneNo, countryCode: $countryCode, requestedOn: $requestedOn, verificationStatus: $verificationStatus)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _EmergencyContact &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.phoneNo, phoneNo) ||
+                const DeepCollectionEquality()
+                    .equals(other.phoneNo, phoneNo)) &&
+            (identical(other.countryCode, countryCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.countryCode, countryCode)) &&
+            (identical(other.requestedOn, requestedOn) ||
+                const DeepCollectionEquality()
+                    .equals(other.requestedOn, requestedOn)) &&
+            (identical(other.verificationStatus, verificationStatus) ||
+                const DeepCollectionEquality()
+                    .equals(other.verificationStatus, verificationStatus)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(phoneNo) ^
+      const DeepCollectionEquality().hash(countryCode) ^
+      const DeepCollectionEquality().hash(requestedOn) ^
+      const DeepCollectionEquality().hash(verificationStatus);
+
+  @JsonKey(ignore: true)
+  @override
+  _$EmergencyContactCopyWith<_EmergencyContact> get copyWith =>
+      __$EmergencyContactCopyWithImpl<_EmergencyContact>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_EmergencyContactToJson(this);
+  }
+}
+
+abstract class _EmergencyContact implements EmergencyContact {
+  factory _EmergencyContact(
+          {int? id,
+          String? name,
+          String? email,
+          @JsonKey(name: 'user_id') int? userId,
+          @JsonKey(name: 'phone_no') String? phoneNo,
+          @JsonKey(name: 'country_code') String? countryCode,
+          @JsonKey(name: 'requested_on') DateTime? requestedOn,
+          @JsonKey(name: 'verification_status') int? verificationStatus}) =
+      _$_EmergencyContact;
+
+  factory _EmergencyContact.fromJson(Map<String, dynamic> json) =
+      _$_EmergencyContact.fromJson;
+
+  @override
+  int? get id => throw _privateConstructorUsedError;
+  @override
+  String? get name => throw _privateConstructorUsedError;
+  @override
+  String? get email => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'country_code')
+  String? get countryCode => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'requested_on')
+  DateTime? get requestedOn => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'verification_status')
+  int? get verificationStatus => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$EmergencyContactCopyWith<_EmergencyContact> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 BasicResponse _$BasicResponseFromJson(Map<String, dynamic> json) {
   return _BasicResponse.fromJson(json);
 }
@@ -9169,13 +9725,279 @@ abstract class _DriverLocationResponse implements DriverLocationResponse {
       throw _privateConstructorUsedError;
 }
 
-ListResponse<T> _$RideListResponseFromJson<T>(Map<String, dynamic> json) {
+EmergencyContactsResponse _$EmergencyContactsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _EmergencyContactsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$EmergencyContactsResponseTearOff {
+  const _$EmergencyContactsResponseTearOff();
+
+  _EmergencyContactsResponse call(
+      int flag,
+      {String? message,
+      String? error,
+      String? log,
+      @JsonKey(name: 'emergency_contacts')
+          List<EmergencyContact>? emergencyContacts}) {
+    return _EmergencyContactsResponse(
+      flag,
+      message: message,
+      error: error,
+      log: log,
+      emergencyContacts: emergencyContacts,
+    );
+  }
+
+  EmergencyContactsResponse fromJson(Map<String, Object> json) {
+    return EmergencyContactsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $EmergencyContactsResponse = _$EmergencyContactsResponseTearOff();
+
+/// @nodoc
+mixin _$EmergencyContactsResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  String? get log => throw _privateConstructorUsedError;
+  @JsonKey(name: 'emergency_contacts')
+  List<EmergencyContact>? get emergencyContacts =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $EmergencyContactsResponseCopyWith<EmergencyContactsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $EmergencyContactsResponseCopyWith<$Res> {
+  factory $EmergencyContactsResponseCopyWith(EmergencyContactsResponse value,
+          $Res Function(EmergencyContactsResponse) then) =
+      _$EmergencyContactsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      String? log,
+      @JsonKey(name: 'emergency_contacts')
+          List<EmergencyContact>? emergencyContacts});
+}
+
+/// @nodoc
+class _$EmergencyContactsResponseCopyWithImpl<$Res>
+    implements $EmergencyContactsResponseCopyWith<$Res> {
+  _$EmergencyContactsResponseCopyWithImpl(this._value, this._then);
+
+  final EmergencyContactsResponse _value;
+  // ignore: unused_field
+  final $Res Function(EmergencyContactsResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? log = freezed,
+    Object? emergencyContacts = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emergencyContacts: emergencyContacts == freezed
+          ? _value.emergencyContacts
+          : emergencyContacts // ignore: cast_nullable_to_non_nullable
+              as List<EmergencyContact>?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$EmergencyContactsResponseCopyWith<$Res>
+    implements $EmergencyContactsResponseCopyWith<$Res> {
+  factory _$EmergencyContactsResponseCopyWith(_EmergencyContactsResponse value,
+          $Res Function(_EmergencyContactsResponse) then) =
+      __$EmergencyContactsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      String? log,
+      @JsonKey(name: 'emergency_contacts')
+          List<EmergencyContact>? emergencyContacts});
+}
+
+/// @nodoc
+class __$EmergencyContactsResponseCopyWithImpl<$Res>
+    extends _$EmergencyContactsResponseCopyWithImpl<$Res>
+    implements _$EmergencyContactsResponseCopyWith<$Res> {
+  __$EmergencyContactsResponseCopyWithImpl(_EmergencyContactsResponse _value,
+      $Res Function(_EmergencyContactsResponse) _then)
+      : super(_value, (v) => _then(v as _EmergencyContactsResponse));
+
+  @override
+  _EmergencyContactsResponse get _value =>
+      super._value as _EmergencyContactsResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? log = freezed,
+    Object? emergencyContacts = freezed,
+  }) {
+    return _then(_EmergencyContactsResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emergencyContacts: emergencyContacts == freezed
+          ? _value.emergencyContacts
+          : emergencyContacts // ignore: cast_nullable_to_non_nullable
+              as List<EmergencyContact>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_EmergencyContactsResponse implements _EmergencyContactsResponse {
+  _$_EmergencyContactsResponse(this.flag,
+      {this.message,
+      this.error,
+      this.log,
+      @JsonKey(name: 'emergency_contacts') this.emergencyContacts});
+
+  factory _$_EmergencyContactsResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_EmergencyContactsResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  final String? log;
+  @override
+  @JsonKey(name: 'emergency_contacts')
+  final List<EmergencyContact>? emergencyContacts;
+
+  @override
+  String toString() {
+    return 'EmergencyContactsResponse(flag: $flag, message: $message, error: $error, log: $log, emergencyContacts: $emergencyContacts)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _EmergencyContactsResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)) &&
+            (identical(other.emergencyContacts, emergencyContacts) ||
+                const DeepCollectionEquality()
+                    .equals(other.emergencyContacts, emergencyContacts)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(log) ^
+      const DeepCollectionEquality().hash(emergencyContacts);
+
+  @JsonKey(ignore: true)
+  @override
+  _$EmergencyContactsResponseCopyWith<_EmergencyContactsResponse>
+      get copyWith =>
+          __$EmergencyContactsResponseCopyWithImpl<_EmergencyContactsResponse>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_EmergencyContactsResponseToJson(this);
+  }
+}
+
+abstract class _EmergencyContactsResponse implements EmergencyContactsResponse {
+  factory _EmergencyContactsResponse(
+          int flag,
+          {String? message,
+          String? error,
+          String? log,
+          @JsonKey(name: 'emergency_contacts')
+              List<EmergencyContact>? emergencyContacts}) =
+      _$_EmergencyContactsResponse;
+
+  factory _EmergencyContactsResponse.fromJson(Map<String, dynamic> json) =
+      _$_EmergencyContactsResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  String? get log => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'emergency_contacts')
+  List<EmergencyContact>? get emergencyContacts =>
+      throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$EmergencyContactsResponseCopyWith<_EmergencyContactsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ListResponse<T> _$ListResponseFromJson<T>(Map<String, dynamic> json) {
   return _RideListResponse<T>.fromJson(json);
 }
 
 /// @nodoc
-class _$RideListResponseTearOff {
-  const _$RideListResponseTearOff();
+class _$ListResponseTearOff {
+  const _$ListResponseTearOff();
 
   _RideListResponse<T> call<T>(int flag,
       {@DataConverter() List<T>? data,
@@ -9197,7 +10019,7 @@ class _$RideListResponseTearOff {
 }
 
 /// @nodoc
-const $ListResponse = _$RideListResponseTearOff();
+const $ListResponse = _$ListResponseTearOff();
 
 /// @nodoc
 mixin _$ListResponse<T> {
@@ -9210,15 +10032,15 @@ mixin _$ListResponse<T> {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RideListResponseCopyWith<T, ListResponse<T>> get copyWith =>
+  $ListResponseCopyWith<T, ListResponse<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RideListResponseCopyWith<T, $Res> {
-  factory $RideListResponseCopyWith(
+abstract class $ListResponseCopyWith<T, $Res> {
+  factory $ListResponseCopyWith(
           ListResponse<T> value, $Res Function(ListResponse<T>) then) =
-      _$RideListResponseCopyWithImpl<T, $Res>;
+      _$ListResponseCopyWithImpl<T, $Res>;
   $Res call(
       {int flag,
       @DataConverter() List<T>? data,
@@ -9228,9 +10050,9 @@ abstract class $RideListResponseCopyWith<T, $Res> {
 }
 
 /// @nodoc
-class _$RideListResponseCopyWithImpl<T, $Res>
-    implements $RideListResponseCopyWith<T, $Res> {
-  _$RideListResponseCopyWithImpl(this._value, this._then);
+class _$ListResponseCopyWithImpl<T, $Res>
+    implements $ListResponseCopyWith<T, $Res> {
+  _$ListResponseCopyWithImpl(this._value, this._then);
 
   final ListResponse<T> _value;
   // ignore: unused_field
@@ -9271,7 +10093,7 @@ class _$RideListResponseCopyWithImpl<T, $Res>
 
 /// @nodoc
 abstract class _$RideListResponseCopyWith<T, $Res>
-    implements $RideListResponseCopyWith<T, $Res> {
+    implements $ListResponseCopyWith<T, $Res> {
   factory _$RideListResponseCopyWith(_RideListResponse<T> value,
           $Res Function(_RideListResponse<T>) then) =
       __$RideListResponseCopyWithImpl<T, $Res>;
@@ -9286,7 +10108,7 @@ abstract class _$RideListResponseCopyWith<T, $Res>
 
 /// @nodoc
 class __$RideListResponseCopyWithImpl<T, $Res>
-    extends _$RideListResponseCopyWithImpl<T, $Res>
+    extends _$ListResponseCopyWithImpl<T, $Res>
     implements _$RideListResponseCopyWith<T, $Res> {
   __$RideListResponseCopyWithImpl(
       _RideListResponse<T> _value, $Res Function(_RideListResponse<T>) _then)

@@ -44,12 +44,12 @@ class OrdersRepository implements IOrdersRepository {
   }
 
   @override
-  Future<BasicResponse> removeRideSchedule(
-      Map<String, dynamic> removeSchedulePayload) async {
+  Future<BasicResponse> cancelRideSchedule(
+      Map<String, dynamic> cancelSchedulePayload) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/remove_pickup_schedule',
-      data: removeSchedulePayload,
+      data: cancelSchedulePayload,
     );
     return BasicResponse.fromJson(response);
   }

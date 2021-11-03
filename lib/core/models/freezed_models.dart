@@ -318,6 +318,35 @@ abstract class RideHistory with _$RideHistory {
       _$RideHistoryFromJson(json);
 }
 
+@freezed
+abstract class Corporate with _$Corporate {
+  factory Corporate({
+    @JsonKey(name: 'business_id') int? businessId,
+    @JsonKey(name: 'partner_name') String? partnerName,
+    @JsonKey(name: 'restricted_sub_regions') String? restrictedSubRegions,
+  }) = _Corporate;
+
+  factory Corporate.fromJson(Map<String, dynamic> json) =>
+      _$CorporateFromJson(json);
+}
+
+@freezed
+abstract class EmergencyContact with _$EmergencyContact {
+  factory EmergencyContact({
+    int? id,
+    String? name,
+    String? email,
+    @JsonKey(name: 'user_id') int? userId,
+    @JsonKey(name: 'phone_no') String? phoneNo,
+    @JsonKey(name: 'country_code') String? countryCode,
+    @JsonKey(name: 'requested_on') DateTime? requestedOn,
+    @JsonKey(name: 'verification_status') int? verificationStatus,
+  }) = _EmergencyContact;
+
+  factory EmergencyContact.fromJson(Map<String, dynamic> json) =>
+      _$EmergencyContactFromJson(json);
+}
+
 // response models
 @freezed
 abstract class BasicResponse with _$BasicResponse {
@@ -464,6 +493,21 @@ abstract class DriverLocationResponse with _$DriverLocationResponse {
 }
 
 @freezed
+abstract class EmergencyContactsResponse with _$EmergencyContactsResponse {
+  factory EmergencyContactsResponse(
+    int flag, {
+    String? message,
+    String? error,
+    String? log,
+    @JsonKey(name: 'emergency_contacts')
+        List<EmergencyContact>? emergencyContacts,
+  }) = _EmergencyContactsResponse;
+
+  factory EmergencyContactsResponse.fromJson(Map<String, dynamic> json) =>
+      _$EmergencyContactsResponseFromJson(json);
+}
+
+@freezed
 abstract class ListResponse<T> with _$ListResponse<T> {
   factory ListResponse(
     int flag, {
@@ -474,7 +518,7 @@ abstract class ListResponse<T> with _$ListResponse<T> {
   }) = _RideListResponse<T>;
 
   factory ListResponse.fromJson(Map<String, dynamic> json) =>
-      _$RideListResponseFromJson<T>(json);
+      _$ListResponseFromJson<T>(json);
 }
 
 class DateConverter implements JsonConverter<DateTime, dynamic> {
@@ -505,6 +549,8 @@ class DataConverter<T> implements JsonConverter<T, Object?> {
         return RideHistory.fromJson(json as Map<String, dynamic>) as T;
       case Driver:
         return Driver.fromJson(json as Map<String, dynamic>) as T;
+      case Corporate:
+        return Corporate.fromJson(json as Map<String, dynamic>) as T;
       default:
         throw Exception("Class type not found!");
     }

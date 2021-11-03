@@ -155,4 +155,14 @@ class HomeRepository implements IHomeRepository {
     );
     return SavedPlacesResponse.fromJson(response);
   }
+
+  @override
+  Future<ListResponse<Corporate>> getUserCorporates() async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/fetch_corporates_for_user',
+      data: {},
+    );
+    return ListResponse<Corporate>.fromJson(response);
+  }
 }

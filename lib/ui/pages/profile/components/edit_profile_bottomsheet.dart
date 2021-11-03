@@ -9,8 +9,8 @@ import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
-class EditProfileDialog extends StatefulWidget {
-  const EditProfileDialog({
+class EditProfileBottomSheet extends StatefulWidget {
+  const EditProfileBottomSheet({
     Key? key,
     required this.title,
     required this.user,
@@ -22,10 +22,10 @@ class EditProfileDialog extends StatefulWidget {
   final Function(Map<String, dynamic>? changePayload) onValueChange;
 
   @override
-  State<EditProfileDialog> createState() => _EditProfileDialogState();
+  State<EditProfileBottomSheet> createState() => _EditProfileBottomSheetState();
 }
 
-class _EditProfileDialogState extends State<EditProfileDialog> {
+class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
   final _formKey = GlobalKey<FormState>();
 
   late Gender activeGender;

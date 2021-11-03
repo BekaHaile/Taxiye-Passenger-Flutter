@@ -94,6 +94,8 @@ class OrdersPage extends GetView<OrdersController> {
                               // Todo: on select order
                               Get.toNamed(Routes.orderDetails);
                             },
+                            onCancelSchedule: (pickupId) =>
+                                controller.cancelRideSchedule(pickupId),
                           )),
                     ],
                   ),

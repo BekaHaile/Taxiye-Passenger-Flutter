@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
@@ -89,7 +89,10 @@ class _ConfirmPlaceState extends State<ConfirmPlace> {
                   ],
                 ),
               TextField(
-                // controller: controller.searchController,
+                controller:
+                    controller.focusedSearchLocation == LocationType.pickUp
+                        ? controller.pickUpSearchController
+                        : controller.dropOffSearchController,
                 keyboardType: TextInputType.streetAddress,
                 style: AppTheme.title2,
                 enabled: false,

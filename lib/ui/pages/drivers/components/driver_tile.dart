@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
 import 'package:taxiye_passenger/ui/widgets/profile_avatar.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
 
 class DriverTile extends StatelessWidget {
   const DriverTile({
@@ -108,7 +109,16 @@ class DriverTile extends StatelessWidget {
                               Icons.clear,
                               color: AppTheme.darkTextColor,
                             ),
-                            onTap: onRemove,
+                            onTap: () {
+                              // show confirmation dialog
+                              Get.dialog(ConfirmDialog(
+                                title: 'remove_fav_driver'.tr,
+                                content: 'remove_fav_driver_info'.tr,
+                                actionCallback: onRemove,
+                                actionText: 'yes',
+                                cancelText: 'no',
+                              ));
+                            },
                           ),
                       ],
                     ),
