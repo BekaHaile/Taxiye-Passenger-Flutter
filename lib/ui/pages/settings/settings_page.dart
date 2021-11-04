@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/ui/controllers/settings_controller.dart';
 import 'package:taxiye_passenger/ui/pages/common/options_tile.dart';
+import 'package:taxiye_passenger/ui/pages/profile/components/edit_profile_bottomsheet.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends GetView<SettingsController> {
   SettingsPage({Key? key}) : super(key: key);
 
   List<Option> settingOptions = [
@@ -45,6 +49,31 @@ class SettingsPage extends StatelessWidget {
                   onTap: () {
                     // Todo: nav based on option
                     print('option selected ${option.title}');
+                  },
+                  onToggle: (value) {
+                    switch (option.title) {
+                      case 'night_mode':
+                        // toggle between light and dark themes
+                        log('this called');
+                        Get.changeTheme(Get.isDarkMode
+                            ? ThemeData.light()
+                            : ThemeData.dark());
+                        break;
+                      case 'language':
+                        Get.bottomSheet(EditProfileBottomSheet(
+                            title: 'language',
+                            user: controller.authController.user,
+                            onValueChange: (changePayload) {
+                              if (changePayload != null) {
+                                controller.updateLanguage(changePayload);
+                              }
+                              Get.back();
+                              // controller.profileInfos[index].value = value;
+                              // Todo: set changed values
+                            }));
+                        break;
+                      default:
+                    }
                   },
                 );
               },

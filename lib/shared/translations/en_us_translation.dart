@@ -103,6 +103,11 @@ final Map<String, String> enUs = {
 
   'add_emergency_contact_success':
       'Contact has been added as emergency contact',
+  'used': 'Used',
+  'times': 'times',
+
+  'recent_locations': 'Recent Locations',
+  'contact_permission_error': 'Contact permission is required',
 
   // privacy settings strings
   'transaction_updates': 'Transaction Updates',

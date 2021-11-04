@@ -9,11 +9,13 @@ class OptionTile extends StatefulWidget {
     required this.option,
     required this.onTap,
     this.toggleColor = AppTheme.yellowColor,
+    this.onToggle,
   }) : super(key: key);
 
   final Option option;
   final VoidCallback onTap;
   final Color toggleColor;
+  final Function(bool value)? onToggle;
 
   @override
   State<OptionTile> createState() => _OptionTileState();
@@ -47,9 +49,12 @@ class _OptionTileState extends State<OptionTile> {
       trailing: widget.option.toggleValue != null
           ? Switch(
               value: widget.option.toggleValue ?? false,
-              onChanged: (value) => setState(() {
-                widget.option.toggleValue = value;
-              }),
+              onChanged: (value) {
+                setState(() {
+                  widget.option.toggleValue = value;
+                });
+                if (widget.onToggle != null) widget.onToggle!(value);
+              },
               activeColor: widget.toggleColor,
             )
           : const Icon(

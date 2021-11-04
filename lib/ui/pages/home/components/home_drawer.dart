@@ -155,15 +155,16 @@ class HomeDrawer extends GetView<HomeController> {
                   ),
                 ),
               ),
-              Divider(
+              const SizedBox(height: 20.0),
+              const Divider(
                 indent: 20.0,
                 endIndent: 20.0,
-                height: 1,
-                color: AppTheme.greyColor.withOpacity(0.6),
+                height: 3,
+                color: AppTheme.greyColor,
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 5.0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 5.0),
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.all(0.0),

@@ -127,6 +127,8 @@ dependencies:
 
   # for picking contacts
   contacts_service: ^0.6.3
+  # to handle permissions
+  permission_handler: ^8.2.5
 
   
 

@@ -1,4 +1,5 @@
 enum DrawerIndex {
+  home,
   myWallet,
   promotions,
   myOrders,

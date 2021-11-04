@@ -22,6 +22,7 @@ import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 import 'package:uuid/uuid.dart';
@@ -158,7 +159,7 @@ class HomeController extends GetxService {
 
   // LatLng testLocation = const LatLng(37.4220371, -122.0841212);
 
-  late String sessionToken;
+  String sessionToken = const Uuid().v4();
   // trip started variables
   int? sessionId;
   int? engagementId;
@@ -180,6 +181,7 @@ class HomeController extends GetxService {
   // For ride schedule
   DateTime? scheduleDate;
   TimeOfDay? scheduleTime;
+  String addFrom = 'home';
 
   @override
   void onInit() async {
@@ -1007,6 +1009,7 @@ class HomeController extends GetxService {
 
     scheduleDate = null;
     scheduleTime = null;
+    addFrom = 'home';
 
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(CameraPosition(
@@ -1041,7 +1044,14 @@ class HomeController extends GetxService {
                     (address.type?.isNotEmpty ?? false))
                 .toList();
             Get.snackbar('success', 'add_place_success'.tr);
-            resetValues();
+            if (addFrom == 'profile') {
+              ProfileController profileController = Get.find();
+              profileController.savedPlaces = savedPlaces;
+              resetValues();
+              Get.back();
+            } else {
+              resetValues();
+            }
           }
         } else {
           status(Status.error);

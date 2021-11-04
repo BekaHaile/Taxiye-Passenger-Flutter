@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     WidgetsBinding.instance?.addObserver(this);
-    drawerIndex = DrawerIndex.myWallet;
+    drawerIndex = DrawerIndex.home;
     screenView = ProfilePage();
     iconAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 0));

@@ -9,13 +9,11 @@ class ContactList extends StatelessWidget {
     Key? key,
     required this.contacts,
     this.onDeleteContact,
-    this.onEditContact,
     this.onAddContact,
   }) : super(key: key);
 
   final List<EmergencyContact> contacts;
   final Function(EmergencyContact emergencyContact)? onDeleteContact;
-  final Function(EmergencyContact emergencyContact)? onEditContact;
   final Function(EmergencyContact emergencyContact)? onAddContact;
 
   @override
@@ -27,7 +25,6 @@ class ContactList extends StatelessWidget {
         final EmergencyContact contact = contacts[index];
         return EmergencyContactTile(
           contact: contact,
-          onEdit: onEditContact != null ? () => onEditContact!(contact) : null,
           onDelete:
               onDeleteContact != null ? () => onDeleteContact!(contact) : null,
           onAddContact:
@@ -43,13 +40,11 @@ class EmergencyContactTile extends StatelessWidget {
   const EmergencyContactTile({
     Key? key,
     required this.contact,
-    this.onEdit,
     this.onDelete,
     this.onAddContact,
   }) : super(key: key);
 
   final EmergencyContact contact;
-  final VoidCallback? onEdit;
   final VoidCallback? onDelete;
   final VoidCallback? onAddContact;
 
@@ -78,27 +73,15 @@ class EmergencyContactTile extends StatelessWidget {
         style: AppTheme.body,
       ),
       trailing: onAddContact == null
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: onEdit,
-                  child: const Icon(Icons.edit),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                GestureDetector(
-                  onTap: () => Get.dialog(ConfirmDialog(
-                    title: 'remove_emergency_contact'.tr,
-                    content: 'remove_emergency_contact_info'.tr,
-                    actionCallback: onDelete,
-                    actionText: 'yes',
-                    cancelText: 'no',
-                  )),
-                  child: const Icon(Icons.delete),
-                )
-              ],
+          ? GestureDetector(
+              onTap: () => Get.dialog(ConfirmDialog(
+                title: 'remove_emergency_contact'.tr,
+                content: 'remove_emergency_contact_info'.tr,
+                actionCallback: onDelete,
+                actionText: 'yes',
+                cancelText: 'no',
+              )),
+              child: const Icon(Icons.delete),
             )
           : const SizedBox(),
       onTap: onAddContact != null

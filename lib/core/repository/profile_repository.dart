@@ -76,7 +76,7 @@ class ProfileRepository implements IProfileRepository {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/emergency/contacts/add_multiple',
-      data: {},
+      data: contactPayload,
     );
     return BasicResponse.fromJson(response);
   }
