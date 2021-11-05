@@ -38,6 +38,7 @@ class HomeController extends GetxService {
 
   final status = Status.success.obs;
   final AuthController authController = Get.find();
+  ProfileController? profileController;
 
   final _selectedService = HomeServiceIndex.ride.obs;
   get selectedService => _selectedService.value;
@@ -181,7 +182,7 @@ class HomeController extends GetxService {
   // For ride schedule
   DateTime? scheduleDate;
   TimeOfDay? scheduleTime;
-  String addFrom = 'home';
+  String updateFrom = 'home';
 
   @override
   void onInit() async {
@@ -1009,7 +1010,7 @@ class HomeController extends GetxService {
 
     scheduleDate = null;
     scheduleTime = null;
-    addFrom = 'home';
+    updateFrom = 'home';
 
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(CameraPosition(
@@ -1019,52 +1020,91 @@ class HomeController extends GetxService {
     );
   }
 
-  addNewPlace(String addressLabel) {
-    if (dropOffLocation != null) {
-      Map<String, dynamic> addressPayload = {
-        'address': dropOffLocation!.placeName,
-        'latitude': dropOffLocation!.location?.latitude,
-        'longitude': dropOffLocation!.location?.longitude,
-        'type': addressLabel,
-        'is_confirmed': '1',
-        'google_place_id': '',
-        'keep_duplicate': '0',
-      };
+  updateSavedPlaces({
+    String? addressLabel,
+    UpdateMode updateMode = UpdateMode.add,
+    Address? address,
+  }) {
+    Map<String, dynamic> addressPayload = {
+      'is_confirmed': '1',
+      'google_place_id': '',
+      'keep_duplicate': '0',
+    };
 
-      status(Status.loading);
-      repository.addNewPlace(addressPayload).then((addressesResponse) {
-        if (addressesResponse.flag == SuccessFlags.addNewPlace.successCode) {
-          status(Status.success);
-          if (addressesResponse.addresses?.isNotEmpty ?? false) {
-            // filter saved places which are confirmed and has type
-            savedPlaces = addressesResponse.addresses;
-            confirmedPlaces = addressesResponse.addresses
-                ?.where((address) =>
-                    address.isConfirmed == 1 &&
-                    (address.type?.isNotEmpty ?? false))
-                .toList();
-            Get.snackbar('success', 'add_place_success'.tr);
-            if (addFrom == 'profile') {
-              ProfileController profileController = Get.find();
-              profileController.savedPlaces = savedPlaces;
+    switch (updateMode) {
+      case UpdateMode.add:
+        if (dropOffLocation != null) {
+          addressPayload.addAll({
+            'address': dropOffLocation!.placeName,
+            'latitude': dropOffLocation!.location?.latitude,
+            'longitude': dropOffLocation!.location?.longitude,
+            'type': addressLabel,
+          });
+        } else {
+          Get.snackbar('error', 'place_not_picked_error');
+          return;
+        }
+        break;
+      case UpdateMode.delete:
+        if (address != null) {
+          addressPayload.addAll({
+            'address': address.addressName,
+            'latitude': address.latitude,
+            'longitude': address.longitude,
+            'type': address.type,
+            'address_id': address.id,
+            'delete_flag': '1',
+          });
+        } else {
+          return;
+        }
+        break;
+      default:
+    }
+
+    status(Status.loading);
+    if (updateFrom == 'profile') {
+      profileController = Get.find();
+      profileController?.status(Status.loading);
+    }
+    repository.updateSavedPlaces(addressPayload).then((addressesResponse) {
+      if (addressesResponse.flag == SuccessFlags.addNewPlace.successCode) {
+        status(Status.success);
+        if (addressesResponse.addresses?.isNotEmpty ?? false) {
+          // filter saved places which are confirmed and has type
+          savedPlaces = addressesResponse.addresses;
+          confirmedPlaces = addressesResponse.addresses
+              ?.where((address) =>
+                  address.isConfirmed == 1 &&
+                  (address.type?.isNotEmpty ?? false))
+              .toList();
+          Get.snackbar('success', 'add_place_success'.tr);
+          if (updateFrom == 'profile') {
+            profileController?.status(Status.success);
+            profileController?.savedPlaces = savedPlaces;
+            if (updateMode == UpdateMode.add) {
               resetValues();
               Get.back();
-            } else {
-              resetValues();
             }
+          } else {
+            resetValues();
           }
-        } else {
-          status(Status.error);
-          toast('error',
-              addressesResponse.error ?? addressesResponse.message ?? '');
         }
-      }, onError: (error) {
+      } else {
+        if (updateFrom == 'profile') {
+          profileController?.status(Status.error);
+        }
         status(Status.error);
-        print('Add new place error:  $error');
-      });
-    } else {
-      Get.snackbar('error', 'place_not_picked_error');
-    }
+        toast('error',
+            addressesResponse.error ?? addressesResponse.message ?? '');
+      }
+    }, onError: (error) {
+      if (updateFrom == 'profile') {
+        profileController?.status(Status.error);
+      }
+      status(Status.error);
+      print('Add new place error:  $error');
+    });
   }
 
   updateDriverLocation() async {

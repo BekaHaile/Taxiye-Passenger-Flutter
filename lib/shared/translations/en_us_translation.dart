@@ -109,6 +109,9 @@ final Map<String, String> enUs = {
   'recent_locations': 'Recent Locations',
   'contact_permission_error': 'Contact permission is required',
 
+  'remove_address': 'Remove address?',
+  'remove_address_info': 'Are you sure you want to remove this address?',
+
   // privacy settings strings
   'transaction_updates': 'Transaction Updates',
   'transaction_updates_info': 'Confirmations, arrival, payment status and more',

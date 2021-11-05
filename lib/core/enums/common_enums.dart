@@ -18,6 +18,12 @@ enum UpdateOption {
   setDefault,
 }
 
+enum UpdateMode {
+  add,
+  edit,
+  delete,
+}
+
 enum DriverPreference {
   favourite,
   blocked,

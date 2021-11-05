@@ -2,9 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
+import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
 import 'package:taxiye_passenger/ui/pages/profile/components/add_new.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
@@ -15,69 +18,76 @@ class SavedPlacesPage extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const WhiteAppBar(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'saved_places'.tr,
-                style: AppTheme.body.copyWith(fontSize: 24.0),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: const WhiteAppBar(),
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'saved_places'.tr,
+                    style: AppTheme.body.copyWith(fontSize: 24.0),
+                  ),
+                  const SizedBox(height: 20.0),
+                  AddNew(
+                    title: 'add_new_place'.tr,
+                    onTap: () => controller.onAddSavedPage(),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Obx(
+                    () => ListView.builder(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final Address place = controller.savedPlaces[index];
+                        return SavedPlaceTile(
+                            place: place,
+                            sourceIcon: controller.sourceIcon,
+                            onEditTab: () {
+                              // Todo: on edit saved places
+                            },
+                            onDeleteTab: () =>
+                                controller.onDeleteSavedPage(place));
+                      },
+                      itemCount: controller.savedPlaces.length,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      'recent_locations'.tr,
+                      style: AppTheme.subtitle.copyWith(fontSize: 18.0),
+                    ),
+                  ),
+                  Obx(
+                    () => ListView.builder(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final Address place = controller.recentLocations[index];
+                        return SavedPlaceTile(
+                          place: place,
+                          sourceIcon: controller.sourceIcon,
+                        );
+                      },
+                      itemCount: controller.recentLocations.length,
+                    ),
+                  )
+                ],
               ),
-              const SizedBox(height: 20.0),
-              AddNew(
-                title: 'add_new_place'.tr,
-                onTap: () => controller.onAddSavedPage(),
-              ),
-              const SizedBox(height: 20.0),
-              Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final Address place = controller.savedPlaces[index];
-                    return SavedPlaceTile(
-                      place: place,
-                      sourceIcon: controller.sourceIcon,
-                    );
-                  },
-                  itemCount: controller.savedPlaces.length,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(
-                  'recent_locations'.tr,
-                  style: AppTheme.subtitle.copyWith(fontSize: 18.0),
-                ),
-              ),
-              Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final Address place = controller.recentLocations[index];
-                    return SavedPlaceTile(
-                        place: place,
-                        sourceIcon: controller.sourceIcon,
-                        onEditTab: () {
-                          // Todo: on edit saved places
-                        },
-                        onDeleteTab: () {
-                          // Todo: on delete saved places
-                        });
-                  },
-                  itemCount: controller.recentLocations.length,
-                ),
-              )
-            ],
+            ),
           ),
         ),
-      ),
+        Obx(() => ModalProgressHUD(
+              child: const SizedBox(),
+              inAsyncCall: controller.status.value == Status.loading,
+            ))
+      ],
     );
   }
 }
@@ -157,7 +167,15 @@ class _SavedPlaceTileState extends State<SavedPlaceTile> {
                 ),
                 const SizedBox(width: 20.0),
                 GestureDetector(
-                  onTap: widget.onDeleteTab,
+                  onTap: () {
+                    Get.dialog(ConfirmDialog(
+                      title: 'remove_address'.tr,
+                      content: 'remove_address_info'.tr,
+                      actionCallback: widget.onDeleteTab,
+                      actionText: 'yes',
+                      cancelText: 'no',
+                    ));
+                  },
                   child: const Icon(Icons.delete),
                 ),
               ],

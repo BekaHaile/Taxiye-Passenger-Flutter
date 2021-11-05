@@ -66,7 +66,8 @@ abstract class IHomeRepository {
   Future<DriverLocationResponse> getCurrentDriverLocation(String driverId);
 
   Future<SavedPlacesResponse> getSavedPlaces();
-  Future<SavedPlacesResponse> addNewPlace(Map<String, dynamic> addressPayload);
+  Future<SavedPlacesResponse> updateSavedPlaces(
+      Map<String, dynamic> addressPayload);
 
   Future<ListResponse<Corporate>> getUserCorporates();
 }

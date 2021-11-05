@@ -146,7 +146,7 @@ class HomeRepository implements IHomeRepository {
   }
 
   @override
-  Future<SavedPlacesResponse> addNewPlace(
+  Future<SavedPlacesResponse> updateSavedPlaces(
       Map<String, dynamic> addressPayload) async {
     final response = await apiClient.request(
       requestType: RequestType.post,

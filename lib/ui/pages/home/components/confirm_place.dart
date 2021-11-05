@@ -112,9 +112,10 @@ class _ConfirmPlaceState extends State<ConfirmPlace> {
                     final form = _formKey.currentState;
                     if (form?.validate() ?? false) {
                       form?.save();
-                      controller.addNewPlace(activeAddressLabel.title != 'other'
-                          ? activeAddressLabel.title
-                          : labelController.text);
+                      controller.updateSavedPlaces(
+                          addressLabel: activeAddressLabel.title != 'other'
+                              ? activeAddressLabel.title
+                              : labelController.text);
                     }
                   })
             ],

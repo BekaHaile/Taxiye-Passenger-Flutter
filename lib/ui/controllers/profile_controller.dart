@@ -317,8 +317,14 @@ class ProfileController extends GetxController {
     // add saved places from home page
     HomeController homeController = Get.find();
     homeController.tripStep = TripStep.addPlace;
-    homeController.addFrom = 'profile';
+    homeController.updateFrom = 'profile';
     Get.toNamed(Routes.home);
+  }
+
+  onDeleteSavedPage(Address address) {
+    HomeController homeController = Get.find();
+    homeController.updateSavedPlaces(
+        updateMode: UpdateMode.delete, address: address);
   }
 
   _setPinIcons() async {

@@ -24,7 +24,9 @@ class ProfilePage extends GetView<ProfileController> {
         subtitle: '2 people',
         leadingIcon: Icons.call),
     Option(
-        title: 'saved_places', subtitle: '3 places', leadingIcon: Icons.call),
+        title: 'saved_places',
+        subtitle: 'Saved places',
+        leadingIcon: Icons.call),
   ];
 
   @override
