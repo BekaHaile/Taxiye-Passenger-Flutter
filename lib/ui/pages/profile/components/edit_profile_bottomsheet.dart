@@ -105,9 +105,9 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
                                   {'updated_country_code': activeCountry.code});
                               break;
                             case 'language':
-                              Get.updateLocale(Locale(activeLanguage.code));
+                              //Get.updateLocale(Locale(activeLanguage.code));
                               widget.onValueChange(
-                                  {'updated_locale': activeLanguage.code});
+                                  {'locale': activeLanguage.code});
                               break;
                             default:
                               break;

@@ -126,7 +126,6 @@ class AuthController extends GetxService {
 
   onsignUpSuccess(SignUpResponse signupResponse) {
     if (signupResponse.flag == SuccessFlags.signUp.successCode) {
-      print('this called here');
       status(Status.success);
       if (Get.currentRoute != Routes.verify) {
         Get.toNamed(Routes.verify);

@@ -177,4 +177,16 @@ class AuthRepository implements IAuthRepository {
     );
     return BasicResponse.fromJson(response);
   }
+
+  // get legals info
+  @override
+  Future<LegalResponse> getLagalsDetail(
+      Map<String, dynamic> legalPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/get_information',
+      data: legalPayload,
+    );
+    return LegalResponse.fromJson(response);
+  }
 }

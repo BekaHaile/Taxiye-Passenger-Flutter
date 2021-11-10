@@ -28,12 +28,14 @@ class Option {
     required this.title,
     required this.subtitle,
     this.leadingIcon = Icons.info,
+    this.isActive = true,
     this.toggleValue,
   });
 
   String title;
   String subtitle;
   IconData leadingIcon;
+  bool isActive;
   bool? toggleValue;
 }
 

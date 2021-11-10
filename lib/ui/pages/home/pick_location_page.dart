@@ -122,14 +122,14 @@ class PickLocationPage extends GetView<HomeController> {
                                   physics: const BouncingScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     final Address address =
-                                        controller.confirmedPlaces[index];
+                                        controller.savedPlaces[index];
                                     return SavedPlacesTile(
                                       address: address,
                                       onTap: () => controller
                                           .onSavedLocationPicked(address),
                                     );
                                   },
-                                  itemCount: controller.confirmedPlaces.length,
+                                  itemCount: controller.savedPlaces.length,
                                 ),
                               ),
                             ],

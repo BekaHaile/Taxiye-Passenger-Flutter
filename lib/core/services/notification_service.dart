@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     as lNotification;
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:get/get.dart';
@@ -155,6 +156,16 @@ handleNotification(RemoteMessage message,
 }
 
 showNotification(String title, String body) async {
+  final GetStorage _storage = GetStorage();
+
+  // check if notification is enabled for different notification types
+
+  bool? showRideNotifications = _storage.read<bool>('showRideNotifications');
+  bool? showDeliveryNotifications =
+      _storage.read<bool>('showDeliveryNotifications');
+  bool? showTransactionNotifications =
+      _storage.read<bool>('showTransactionNotifications');
+
   var androidPlatformChannelSpecifics =
       const lNotification.AndroidNotificationDetails(
     'com.taxiye',
@@ -172,13 +183,17 @@ showNotification(String title, String body) async {
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics);
 
-  await lNotification.FlutterLocalNotificationsPlugin().show(
-    0,
-    title,
-    body,
-    platformChannelSpecifics,
-    // payload: json.encode(message),
-  );
+  // Todo: check notification type from body
+
+  if (showRideNotifications ?? true) {
+    await lNotification.FlutterLocalNotificationsPlugin().show(
+      0,
+      title,
+      body,
+      platformChannelSpecifics,
+      // payload: json.encode(message),
+    );
+  }
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

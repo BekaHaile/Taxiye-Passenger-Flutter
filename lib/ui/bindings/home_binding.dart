@@ -9,7 +9,9 @@ import 'package:taxiye_passenger/core/services/google_map_service.dart';
 import 'package:taxiye_passenger/core/services/notification_service.dart';
 import 'package:taxiye_passenger/ui/controllers/drivers_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/legals_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/orders_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/promotions_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/settings_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/wallet_controller.dart';
@@ -46,6 +48,11 @@ class HomeBinding implements Bindings {
     Get.lazyPut(() => DriversController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => PromotionsController(repository: Get.find()),
         fenix: true);
+    Get.lazyPut(
+        () => ProfileController(
+            repository: Get.find(), fileRepository: Get.find()),
+        fenix: true);
     Get.lazyPut(() => SettingsController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => LegalsController(repository: Get.find()), fenix: true);
   }
 }

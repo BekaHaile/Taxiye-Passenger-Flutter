@@ -12,22 +12,7 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
 class ProfilePage extends GetView<ProfileController> {
-  ProfilePage({Key? key}) : super(key: key);
-
-  final List<Option> profileOPtions = [
-    Option(
-        title: 'your_info',
-        subtitle: 'view_edit_your_details',
-        leadingIcon: Icons.person),
-    Option(
-        title: 'emergency_contacts',
-        subtitle: '2 people',
-        leadingIcon: Icons.call),
-    Option(
-        title: 'saved_places',
-        subtitle: 'Saved places',
-        leadingIcon: Icons.call),
-  ];
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,32 +104,33 @@ class ProfilePage extends GetView<ProfileController> {
                       color: AppTheme.lightSilverColor,
                     ),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final Option option = profileOPtions[index];
-                      return OptionTile(
-                        option: option,
-                        onTap: () {
-                          // Todo: nav based on option
-                          switch (option.title) {
-                            case 'your_info':
-                              Get.toNamed(Routes.profileInfo);
-                              break;
-                            case 'emergency_contacts':
-                              Get.toNamed(Routes.emergencyContacts);
-                              break;
-                            case 'saved_places':
-                              controller.onNavToSavedPlaces();
-                              break;
-                            default:
-                          }
+                  Obx(() => ListView.builder(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final Option option =
+                              controller.profileOPtions[index];
+                          return OptionTile(
+                            option: option,
+                            onTap: () {
+                              // Todo: nav based on option
+                              switch (option.title) {
+                                case 'your_info':
+                                  Get.toNamed(Routes.profileInfo);
+                                  break;
+                                case 'emergency_contacts':
+                                  Get.toNamed(Routes.emergencyContacts);
+                                  break;
+                                case 'saved_places':
+                                  Get.toNamed(Routes.savedPlaces);
+                                  break;
+                                default:
+                              }
+                            },
+                          );
                         },
-                      );
-                    },
-                    itemCount: profileOPtions.length,
-                  ),
+                        itemCount: controller.profileOPtions.length,
+                      )),
                 ],
               ),
             ),

@@ -34,6 +34,8 @@ abstract class IAuthRepository {
       File? profileImage, Map<String, dynamic>? userPayload);
   Future<User> reloadProfile();
   Future<BasicResponse> logoutUser();
+
+  Future<LegalResponse> getLagalsDetail(Map<String, dynamic> legalPayload);
 }
 
 abstract class IHomeRepository {
@@ -70,6 +72,8 @@ abstract class IHomeRepository {
       Map<String, dynamic> addressPayload);
 
   Future<ListResponse<Corporate>> getUserCorporates();
+  Future<BasicResponse> updateEmergency(
+      Map<String, dynamic> emergencyPayload, EmergencyStatus emergencyStatus);
 }
 
 abstract class ICommonRepository {

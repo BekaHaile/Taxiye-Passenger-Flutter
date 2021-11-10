@@ -34,3 +34,8 @@ enum LocationType {
   pickUp,
   dropOff,
 }
+
+enum EmergencyStatus {
+  enable,
+  disable,
+}

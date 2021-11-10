@@ -17,7 +17,6 @@ abstract class Routes {
   static const profileInfo = '/profileInfo';
   static const emergencyContacts = '/emergencyContacts';
   static const savedPlaces = '/savedPlaces';
-  static const privacySettings = '/privacySettings';
 
   // Home routes
   static const home = '/home';
@@ -40,9 +39,11 @@ abstract class Routes {
 
   // Settings routes
   static const settings = '/settings';
+  static const privacySettings = '/privacySettings';
 
   // Legals routes
   static const legals = '/legals';
+  static const legalDetails = '/legalDetails';
 
   // drivers routes
   static const drivers = '/drivers';

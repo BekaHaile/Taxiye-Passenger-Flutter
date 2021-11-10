@@ -10,6 +10,7 @@ import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/confirm_place.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/emergency_status_dialog.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/location_search.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/locations_list.dart';
@@ -265,7 +266,7 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-class SOS extends StatelessWidget {
+class SOS extends GetView<HomeController> {
   const SOS({
     Key? key,
   }) : super(key: key);
@@ -276,7 +277,12 @@ class SOS extends StatelessWidget {
       top: 40.0,
       right: 16.0,
       child: GestureDetector(
-        onTap: () => launch('tel:$kSOSNumber'),
+        onTap: () {
+          Get.dialog(EmergencyStatusDialog(
+            emergencyStatus: controller.emergencyStatus,
+            onToggle: (value) => controller.updateEmergencyStatus(),
+          ));
+        },
         child: Container(
           width: 50.0,
           height: 50.0,

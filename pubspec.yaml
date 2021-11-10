@@ -74,7 +74,8 @@ dependencies:
   # For drawing polylines
   flutter_polyline_points: ^1.0.0
   # For svg images
-  flutter_svg: ^0.22.0
+  # flutter_svg: ^0.22.0
+  flutter_svg: ^0.23.0+1
   # For star rating
   flutter_rating_bar: ^4.0.0
 
@@ -129,6 +130,9 @@ dependencies:
   contacts_service: ^0.6.3
   # to handle permissions
   permission_handler: ^8.2.5
+  # for showing html elements
+  # flutter_html: ^2.1.5
+  flutter_widget_from_html: ^0.8.1+1
 
   
 

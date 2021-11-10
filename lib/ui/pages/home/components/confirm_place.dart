@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
+import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
@@ -17,6 +19,7 @@ class _ConfirmPlaceState extends State<ConfirmPlace> {
   HomeController controller = Get.find();
   TextEditingController labelController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  UpdateMode updateMode = UpdateMode.add;
 
   late List<AddressLabel> addressLabels;
   late AddressLabel activeAddressLabel;
@@ -28,8 +31,25 @@ class _ConfirmPlaceState extends State<ConfirmPlace> {
       const AddressLabel(title: 'work', icon: Icons.work_outline_outlined),
       const AddressLabel(title: 'other', icon: Icons.location_on_outlined),
     ];
-
     activeAddressLabel = addressLabels.first;
+
+    // for edit saved place
+
+    if (controller.selectedSavedPlace.id != null) {
+      updateMode = UpdateMode.edit;
+      if (controller.selectedSavedPlace.type?.toLowerCase() ==
+          addressLabels[0].title) {
+        activeAddressLabel = addressLabels[0];
+      } else if (controller.selectedSavedPlace.type?.toLowerCase() ==
+          addressLabels[1].title) {
+        activeAddressLabel = addressLabels[1];
+      } else {
+        activeAddressLabel = addressLabels[2];
+        if (controller.selectedSavedPlace.type?.isNotEmpty ?? false) {
+          labelController.text = controller.selectedSavedPlace.type!;
+        }
+      }
+    }
 
     super.initState();
   }
@@ -113,6 +133,7 @@ class _ConfirmPlaceState extends State<ConfirmPlace> {
                     if (form?.validate() ?? false) {
                       form?.save();
                       controller.updateSavedPlaces(
+                          updateMode: updateMode,
                           addressLabel: activeAddressLabel.title != 'other'
                               ? activeAddressLabel.title
                               : labelController.text);

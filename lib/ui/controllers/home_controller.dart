@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -58,9 +57,13 @@ class HomeController extends GetxService {
   get savedPlaces => _savedPlaces.value;
   set savedPlaces(value) => _savedPlaces.value = value;
 
-  final _confirmedPlaces = List<Address>.empty(growable: true).obs;
-  get confirmedPlaces => _confirmedPlaces.value;
-  set confirmedPlaces(value) => _confirmedPlaces.value = value;
+  final _selectedSavedPlace = Address().obs;
+  get selectedSavedPlace => _selectedSavedPlace.value;
+  set selectedSavedPlace(value) => _selectedSavedPlace.value = value;
+
+  final _recentLocations = List<Address>.empty(growable: true).obs;
+  get recentLocations => _recentLocations.value;
+  set recentLocations(value) => _recentLocations.value = value;
 
   final _selectedVehicle = Vehicle().obs;
   get selectedVehicle => _selectedVehicle.value;
@@ -149,15 +152,12 @@ class HomeController extends GetxService {
   Position? currentLocation;
   Placemark? currentLocationPlace;
   // Getu commercial
-  LatLng testLocation = const LatLng(9.003432689703812, 38.769641840207235);
+  // LatLng testLocation = const LatLng(9.003432689703812, 38.769641840207235);
 
   // yemeru senay
   // LatLng testLocation = const LatLng(9.003620646534136, 38.80093371322263);
-
-  // LatLng testLocation = const LatLng(8.985193131157347, 38.74934949834666);
-
   // LatLng testLocation = const LatLng(9.065387872139096, 38.67130131804619);
-
+  LatLng testLocation = const LatLng(9.051552111443572, 38.72762157250847);
   // LatLng testLocation = const LatLng(37.4220371, -122.0841212);
 
   String sessionToken = const Uuid().v4();
@@ -183,6 +183,7 @@ class HomeController extends GetxService {
   DateTime? scheduleDate;
   TimeOfDay? scheduleTime;
   String updateFrom = 'home';
+  EmergencyStatus emergencyStatus = EmergencyStatus.disable;
 
   @override
   void onInit() async {
@@ -191,7 +192,6 @@ class HomeController extends GetxService {
 
     scheduleDate = DateTime.now();
     scheduleTime = TimeOfDay.now();
-
     prefs = await SharedPreferences.getInstance();
     // Todo: uncomment this for current location
     // set current location
@@ -575,12 +575,17 @@ class HomeController extends GetxService {
       if (getPlacesResponse.flag == SuccessFlags.getSavedPlaces.successCode) {
         if (getPlacesResponse.addresses?.isNotEmpty ?? false) {
           // filter saved places which are confirmed and has type
-          savedPlaces = getPlacesResponse.addresses;
-          confirmedPlaces = getPlacesResponse.addresses
+          savedPlaces = getPlacesResponse.addresses
               ?.where((address) =>
                   address.isConfirmed == 1 &&
                   (address.type?.isNotEmpty ?? false))
               .toList();
+
+          recentLocations = getPlacesResponse.addresses
+              ?.where((element) => element.type == null)
+              .toList();
+
+          _storage.write('savedPlacesCount', savedPlaces.length);
         }
       } else {
         toast('error',
@@ -1012,6 +1017,8 @@ class HomeController extends GetxService {
     scheduleTime = null;
     updateFrom = 'home';
 
+    selectedSavedPlace = Address();
+
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(CameraPosition(
         target: testLocation,
@@ -1031,18 +1038,31 @@ class HomeController extends GetxService {
       'keep_duplicate': '0',
     };
 
+    // check if place is picked
+    if ((updateMode == UpdateMode.add || updateMode == UpdateMode.edit) &&
+        dropOffLocation == null) {
+      Get.snackbar('error', 'place_not_picked_error');
+      return;
+    }
+
     switch (updateMode) {
       case UpdateMode.add:
-        if (dropOffLocation != null) {
+        addressPayload.addAll({
+          'address': dropOffLocation!.placeName,
+          'latitude': dropOffLocation!.location?.latitude,
+          'longitude': dropOffLocation!.location?.longitude,
+          'type': addressLabel,
+        });
+        break;
+      case UpdateMode.edit:
+        if (selectedSavedPlace.id != null) {
           addressPayload.addAll({
+            'address_id': selectedSavedPlace.id,
             'address': dropOffLocation!.placeName,
             'latitude': dropOffLocation!.location?.latitude,
             'longitude': dropOffLocation!.location?.longitude,
             'type': addressLabel,
           });
-        } else {
-          Get.snackbar('error', 'place_not_picked_error');
-          return;
         }
         break;
       case UpdateMode.delete:
@@ -1063,48 +1083,59 @@ class HomeController extends GetxService {
     }
 
     status(Status.loading);
-    if (updateFrom == 'profile') {
-      profileController = Get.find();
-      profileController?.status(Status.loading);
-    }
     repository.updateSavedPlaces(addressPayload).then((addressesResponse) {
       if (addressesResponse.flag == SuccessFlags.addNewPlace.successCode) {
         status(Status.success);
         if (addressesResponse.addresses?.isNotEmpty ?? false) {
           // filter saved places which are confirmed and has type
-          savedPlaces = addressesResponse.addresses;
-          confirmedPlaces = addressesResponse.addresses
+
+          savedPlaces = addressesResponse.addresses
               ?.where((address) =>
                   address.isConfirmed == 1 &&
                   (address.type?.isNotEmpty ?? false))
               .toList();
-          Get.snackbar('success', 'add_place_success'.tr);
-          if (updateFrom == 'profile') {
-            profileController?.status(Status.success);
-            profileController?.savedPlaces = savedPlaces;
-            if (updateMode == UpdateMode.add) {
-              resetValues();
-              Get.back();
-            }
-          } else {
-            resetValues();
+          _storage.write('savedPlacesCount', savedPlaces.length);
+          if (updateFrom == 'profile' && updateMode != UpdateMode.delete) {
+            Get.back();
           }
+          String successMessage = 'add_place_success';
+          switch (updateMode) {
+            case UpdateMode.delete:
+              successMessage = 'delete_place_success';
+              break;
+            case UpdateMode.edit:
+              successMessage = 'edit_place_success';
+              break;
+            default:
+          }
+          Get.snackbar('success', successMessage.tr);
+          resetValues();
         }
       } else {
-        if (updateFrom == 'profile') {
-          profileController?.status(Status.error);
-        }
         status(Status.error);
         toast('error',
             addressesResponse.error ?? addressesResponse.message ?? '');
       }
     }, onError: (error) {
-      if (updateFrom == 'profile') {
-        profileController?.status(Status.error);
-      }
       status(Status.error);
-      print('Add new place error:  $error');
+      print('Update saved place error:  $error');
     });
+  }
+
+  onEditSavedPlace(Address savedPlace) {
+    selectedSavedPlace = savedPlace;
+    if ((savedPlace.latitude?.isNotEmpty ?? false) &&
+        (savedPlace.longitude?.isNotEmpty ?? false)) {
+      dropOffLocation = Place(
+          placeName: savedPlace.addressName,
+          location: LatLng(double.parse(savedPlace.latitude!),
+              double.parse(savedPlace.longitude!)));
+      dropOffLocationSearch = savedPlace.addressName;
+      dropOffSearchController.text = savedPlace.addressName ?? '';
+    }
+    tripStep = TripStep.addPlace;
+    updateFrom = 'profile';
+    Get.toNamed(Routes.home);
   }
 
   updateDriverLocation() async {
@@ -1158,6 +1189,52 @@ class HomeController extends GetxService {
       if (tripStep == TripStep.tripStarted && position != null) {
         _updateDriverMarker(position.latitude, position.longitude);
       }
+    });
+  }
+
+  updateEmergencyStatus() async {
+    // enable and disable emergency(status)
+    final Map<String, dynamic> emergencyPayload = {
+      'engagement_id': '$engagementId',
+    };
+
+    if (emergencyStatus == EmergencyStatus.disable) {
+      // get current users location
+      Position location = await getCurrentLocation();
+      emergencyPayload.addAll({
+        'driver_id': '${driver?.driverId}',
+        "alert_type": "",
+        "latitude": location.latitude,
+        "longitude": location.longitude,
+      });
+    }
+
+    status(Status.loading);
+    repository.updateEmergency(emergencyPayload, emergencyStatus).then(
+        (basicResponse) {
+      if (basicResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        status(Status.success);
+        Get.snackbar(
+            'succes'.tr,
+            emergencyStatus == EmergencyStatus.disable
+                ? 'emrgency_enabled_success'.tr
+                : 'emergency_disabled_success'.tr);
+        emergencyStatus = emergencyStatus == EmergencyStatus.enable
+            ? EmergencyStatus.disable
+            : EmergencyStatus.enable;
+      } else {
+        print(basicResponse.error ?? '');
+        status(Status.error);
+        toast(
+            'error',
+            basicResponse.error ??
+                basicResponse.log ??
+                basicResponse.message ??
+                '');
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Update emergency error: $error');
     });
   }
 

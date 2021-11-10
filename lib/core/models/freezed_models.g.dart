@@ -742,7 +742,7 @@ _$_DriverLocationResponse _$_$_DriverLocationResponseFromJson(
     latitude: (json['latitude'] as num?)?.toDouble(),
     longitude: (json['longitude'] as num?)?.toDouble(),
     eta: json['eta'] as int?,
-    bearing: json['bearing'] as int?,
+    bearing: (json['bearing'] as num?)?.toDouble(),
   );
 }
 
@@ -777,6 +777,17 @@ Map<String, dynamic> _$_$_EmergencyContactsResponseToJson(
       'error': instance.error,
       'log': instance.log,
       'emergency_contacts': instance.emergencyContacts,
+    };
+
+_$_LegalResponse _$_$_LegalResponseFromJson(Map<String, dynamic> json) {
+  return _$_LegalResponse(
+    data: json['data'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_LegalResponseToJson(_$_LegalResponse instance) =>
+    <String, dynamic>{
+      'data': instance.data,
     };
 
 _$_RideListResponse<T> _$_$_RideListResponseFromJson<T>(

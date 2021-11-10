@@ -49,8 +49,10 @@ class AuthBinding implements Bindings {
         ));
     Get.lazyPut<IFileRepository>(() => FileRepository(fileService: Get.find()),
         fenix: true);
-    Get.lazyPut<IAuthRepository>(() =>
-        AuthRepository(apiClient: Get.find(), firebaseService: Get.find()));
+    Get.lazyPut<IAuthRepository>(
+        () =>
+            AuthRepository(apiClient: Get.find(), firebaseService: Get.find()),
+        fenix: true);
     Get.lazyPut(() =>
         AuthController(repository: Get.find(), fileRepository: Get.find()));
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/models/map_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 
 class LocationsList extends StatelessWidget {
   const LocationsList({
@@ -41,7 +42,10 @@ class LocationsList extends StatelessWidget {
               size: 20,
               color: AppTheme.darkTextColor,
             ),
-            onTap: () => onPickLocation(suggestion),
+            onTap: () {
+              onPickLocation(suggestion);
+              unfocus(context);
+            },
           );
         },
         itemCount: suggestions.length,

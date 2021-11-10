@@ -2,6 +2,7 @@ import 'dart:io';
 
 // import 'package:device_info/device_info.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -168,4 +169,12 @@ String getDisplayTimeFromSeconds(int seconds) {
   int sec = seconds % 60;
 
   return '${(hour > 0 ? '$hour h' : '')} ${(min > 0 ? '$min m' : '')} $sec s';
+}
+
+unfocus(BuildContext context) {
+  var currentFocus = FocusScope.of(context);
+
+  if (!currentFocus.hasPrimaryFocus) {
+    currentFocus.unfocus();
+  }
 }

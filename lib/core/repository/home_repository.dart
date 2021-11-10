@@ -165,4 +165,18 @@ class HomeRepository implements IHomeRepository {
     );
     return ListResponse<Corporate>.fromJson(response);
   }
+
+  @override
+  Future<BasicResponse> updateEmergency(Map<String, dynamic> emergencyPayload,
+      EmergencyStatus emergencyStatus) async {
+    String endPoint = emergencyStatus == EmergencyStatus.enable
+        ? '/emergency/alert'
+        : '/emergency/disable';
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: endPoint,
+      data: emergencyPayload,
+    );
+    return BasicResponse.fromJson(response);
+  }
 }

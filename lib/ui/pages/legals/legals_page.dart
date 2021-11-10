@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/ui/controllers/legals_controller.dart';
 import 'package:taxiye_passenger/ui/pages/common/options_tile.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
 
-class LegalsPage extends StatelessWidget {
-  LegalsPage({Key? key}) : super(key: key);
-
-  List<Option> legalsOptions = [
-    Option(title: 'terms_conditions', subtitle: 'view_terms_conditions'),
-    Option(title: 'privacy_policy', subtitle: 'privacy_info'),
-    Option(title: 'about_us', subtitle: 'know_us'),
-  ];
+class LegalsPage extends GetView<LegalsController> {
+  const LegalsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +31,29 @@ class LegalsPage extends StatelessWidget {
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                final Option option = legalsOptions[index];
+                final Option option = controller.legalsOptions[index];
                 return OptionTile(
                   option: option,
                   onTap: () {
-                    // Todo: nav based on option
-                    print('option selected ${option.title}');
+                    // show legal type based on section
+                    switch (option.title) {
+                      case 'terms_conditions':
+                        controller.getLegalsInfo('3');
+                        break;
+                      case 'privacy_policy':
+                        controller.getLegalsInfo('2');
+                        break;
+                      case 'about_us':
+                        controller.getLegalsInfo('0');
+                        break;
+                      default:
+                    }
+
+                    Get.toNamed(Routes.legalDetails);
                   },
                 );
               },
-              itemCount: legalsOptions.length,
+              itemCount: controller.legalsOptions.length,
             ),
           ],
         ),

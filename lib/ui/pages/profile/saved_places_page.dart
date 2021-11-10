@@ -1,19 +1,19 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
-import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
 import 'package:taxiye_passenger/ui/pages/profile/components/add_new.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
-class SavedPlacesPage extends GetView<ProfileController> {
+class SavedPlacesPage extends GetView<HomeController> {
   const SavedPlacesPage({Key? key}) : super(key: key);
 
   @override
@@ -36,7 +36,11 @@ class SavedPlacesPage extends GetView<ProfileController> {
                   const SizedBox(height: 20.0),
                   AddNew(
                     title: 'add_new_place'.tr,
-                    onTap: () => controller.onAddSavedPage(),
+                    onTap: () {
+                      controller.tripStep = TripStep.addPlace;
+                      controller.updateFrom = 'profile';
+                      Get.toNamed(Routes.home);
+                    },
                   ),
                   const SizedBox(height: 20.0),
                   Obx(
@@ -48,11 +52,9 @@ class SavedPlacesPage extends GetView<ProfileController> {
                         return SavedPlaceTile(
                             place: place,
                             sourceIcon: controller.sourceIcon,
-                            onEditTab: () {
-                              // Todo: on edit saved places
-                            },
-                            onDeleteTab: () =>
-                                controller.onDeleteSavedPage(place));
+                            onEditTab: () => controller.onEditSavedPlace(place),
+                            onDeleteTab: () => controller.updateSavedPlaces(
+                                updateMode: UpdateMode.delete, address: place));
                       },
                       itemCount: controller.savedPlaces.length,
                     ),

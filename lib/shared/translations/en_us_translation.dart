@@ -210,6 +210,13 @@ final Map<String, String> enUs = {
   'driver_on_route': 'Driver on route!',
   'ride_started': 'Your ride has started!',
 
+  // Trip started strings
+  'emrgency_status': 'Emergency Status',
+  'change_emergency_status': 'Change emergency status',
+  'emrgency_enabled_success':
+      'We have received the alert at Taxiye and are on it!',
+  'emergency_disabled_success': 'Emergency disabled successfully',
+
   // Trip details strings
   'arrived_destination': 'You’ve arrived at your destination.',
   'pay_with_cash': 'Pay With Cash',
@@ -227,6 +234,8 @@ final Map<String, String> enUs = {
   'address_name': 'Address name',
 
   'add_place_success': 'Place saved successfully',
+  'delete_place_success': 'Place removed successfully',
+  'edit_place_success': 'Place updated successfully',
 
   // trip feedback strings
   'block': 'Block',
@@ -340,6 +349,9 @@ final Map<String, String> enUs = {
   'language': 'Language',
   'english': 'English',
   'customize_privacy': 'Customize what you share with us',
+
+  'privacy_settings_detail':
+      'We respect your personal space. Help us costomize your experiance by personalizing notifications you recieve.',
 
   // Legals strings
   'view_terms_conditions': 'View app usage terms & conditions',

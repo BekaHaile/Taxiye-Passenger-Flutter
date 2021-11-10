@@ -485,7 +485,7 @@ abstract class DriverLocationResponse with _$DriverLocationResponse {
     double? latitude,
     double? longitude,
     int? eta,
-    int? bearing,
+    double? bearing,
   }) = _DriverLocationResponse;
 
   factory DriverLocationResponse.fromJson(Map<String, dynamic> json) =>
@@ -505,6 +505,16 @@ abstract class EmergencyContactsResponse with _$EmergencyContactsResponse {
 
   factory EmergencyContactsResponse.fromJson(Map<String, dynamic> json) =>
       _$EmergencyContactsResponseFromJson(json);
+}
+
+@freezed
+abstract class LegalResponse with _$LegalResponse {
+  factory LegalResponse({
+    String? data,
+  }) = _LegalResponse;
+
+  factory LegalResponse.fromJson(Map<String, dynamic> json) =>
+      _$LegalResponseFromJson(json);
 }
 
 @freezed
