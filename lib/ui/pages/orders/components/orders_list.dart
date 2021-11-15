@@ -9,13 +9,13 @@ class OrdersList extends GetView<OrdersController> {
     Key? key,
     this.orders,
     this.scheduledRides,
-    required this.onSelectOrder,
+    this.onSelectOrder,
     this.onCancelSchedule,
   }) : super(key: key);
 
   final List<RideHistory>? orders;
   final List<ScheduledRide>? scheduledRides;
-  final Function(dynamic selectedOrder) onSelectOrder;
+  final Function(RideHistory selectedOrder)? onSelectOrder;
   final Function(String pickupId)? onCancelSchedule;
 
   @override
@@ -34,7 +34,9 @@ class OrdersList extends GetView<OrdersController> {
             schedule: scheduledRide,
             sourceIcon: controller.sourceIcon,
             destinationIcon: controller.destinationIcon,
-            onTap: () => onSelectOrder(order ?? scheduledRide),
+            onTap: onSelectOrder != null && order != null
+                ? () => onSelectOrder!(order)
+                : () {},
             getRoutePolyline: (origin, destination) =>
                 controller.getRoutePolyline(origin, destination),
             onCancelSchedule: scheduledRide != null &&

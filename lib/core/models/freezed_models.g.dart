@@ -230,10 +230,12 @@ _$_Transaction _$_$_TransactionFromJson(Map<String, dynamic> json) {
   return _$_Transaction(
     transactionId: json['txn_id'] as int?,
     type: json['txn_type'] as String?,
-    amount: json['amount'] as int?,
+    amount: (json['amount'] as num?)?.toDouble(),
     transactionDate: json['txn_date'] as String?,
     transactionTime: json['txn_time'] as String?,
-    loggedOn: json['logged_on'] as String?,
+    loggedOn: json['logged_on'] == null
+        ? null
+        : DateTime.parse(json['logged_on'] as String),
     walletTxn: json['wallet_txn'] as int?,
     paytm: json['paytm'] as int?,
     mobikwik: json['mobikwik'] as int?,
@@ -251,7 +253,7 @@ Map<String, dynamic> _$_$_TransactionToJson(_$_Transaction instance) =>
       'amount': instance.amount,
       'txn_date': instance.transactionDate,
       'txn_time': instance.transactionTime,
-      'logged_on': instance.loggedOn,
+      'logged_on': instance.loggedOn?.toIso8601String(),
       'wallet_txn': instance.walletTxn,
       'paytm': instance.paytm,
       'mobikwik': instance.mobikwik,
@@ -510,6 +512,89 @@ Map<String, dynamic> _$_$_RideHistoryToJson(_$_RideHistory instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
     };
 
+_$_RideSummary _$_$_RideSummaryFromJson(Map<String, dynamic> json) {
+  return _$_RideSummary(
+    flag: json['flag'] as int?,
+    distance: (json['distance'] as num?)?.toDouble(),
+    status: json['status'] as int?,
+    currency: json['currency'] as String?,
+    fare: json['fare'] as int?,
+    error: json['error'] as String?,
+    message: json['message'] as String?,
+    pickupAddress: json['pickup_address'] as String?,
+    pickupLatitude: (json['pickup_latitude'] as num?)?.toDouble(),
+    pickupLongitude: (json['pickup_longitude'] as num?)?.toDouble(),
+    dropLatitude: (json['drop_latitude'] as num?)?.toDouble(),
+    dropLongitude: (json['drop_longitude'] as num?)?.toDouble(),
+    dropAddress: json['drop_address'] as String?,
+    pickupTime: json['pickup_time'] == null
+        ? null
+        : DateTime.parse(json['pickup_time'] as String),
+    dropTime: json['drop_time'] == null
+        ? null
+        : DateTime.parse(json['drop_time'] as String),
+    rideDate: json['ride_date'] == null
+        ? null
+        : DateTime.parse(json['ride_date'] as String),
+    rideType: json['ride_type'] as int?,
+    toPay: json['to_pay'] as int?,
+    rideTime: json['ride_time'] as int?,
+    vehicleType: json['vehicle_type'] as int?,
+    driverId: json['driver_id'] as int?,
+    driverRating: json['driver_rating'] as int?,
+    engagementId: json['engagement_id'] as int?,
+    userId: json['user_id'] as int?,
+    waitTime: json['wait_time'] as int?,
+    distanceUnit: json['distance_unit'] as String?,
+    cancellationCharges: json['cancellation_charges'] as int?,
+    isCorporateRide: json['is_corporate_ride'] as int?,
+    baseFare: json['base_fare'] as int?,
+    fareFactor: json['fare_factor'] as int?,
+    balance: json['jugnoo_balance'] as int?,
+    totalRides: json['total_rides_as_user'] as int?,
+    createdAt: json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String),
+  );
+}
+
+Map<String, dynamic> _$_$_RideSummaryToJson(_$_RideSummary instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'distance': instance.distance,
+      'status': instance.status,
+      'currency': instance.currency,
+      'fare': instance.fare,
+      'error': instance.error,
+      'message': instance.message,
+      'pickup_address': instance.pickupAddress,
+      'pickup_latitude': instance.pickupLatitude,
+      'pickup_longitude': instance.pickupLongitude,
+      'drop_latitude': instance.dropLatitude,
+      'drop_longitude': instance.dropLongitude,
+      'drop_address': instance.dropAddress,
+      'pickup_time': instance.pickupTime?.toIso8601String(),
+      'drop_time': instance.dropTime?.toIso8601String(),
+      'ride_date': instance.rideDate?.toIso8601String(),
+      'ride_type': instance.rideType,
+      'to_pay': instance.toPay,
+      'ride_time': instance.rideTime,
+      'vehicle_type': instance.vehicleType,
+      'driver_id': instance.driverId,
+      'driver_rating': instance.driverRating,
+      'engagement_id': instance.engagementId,
+      'user_id': instance.userId,
+      'wait_time': instance.waitTime,
+      'distance_unit': instance.distanceUnit,
+      'cancellation_charges': instance.cancellationCharges,
+      'is_corporate_ride': instance.isCorporateRide,
+      'base_fare': instance.baseFare,
+      'fare_factor': instance.fareFactor,
+      'jugnoo_balance': instance.balance,
+      'total_rides_as_user': instance.totalRides,
+      'created_at': instance.createdAt?.toIso8601String(),
+    };
+
 _$_Corporate _$_$_CorporateFromJson(Map<String, dynamic> json) {
   return _$_Corporate(
     businessId: json['business_id'] as int?,
@@ -589,6 +674,7 @@ _$_VerifyResponse _$_$_VerifyResponseFromJson(Map<String, dynamic> json) {
   return _$_VerifyResponse(
     json['flag'] as int,
     message: json['message'] as String?,
+    error: json['error'] as String?,
     userData: json['user_data'] == null
         ? null
         : User.fromJson(json['user_data'] as Map<String, dynamic>),
@@ -599,6 +685,7 @@ Map<String, dynamic> _$_$_VerifyResponseToJson(_$_VerifyResponse instance) =>
     <String, dynamic>{
       'flag': instance.flag,
       'message': instance.message,
+      'error': instance.error,
       'user_data': instance.userData,
     };
 

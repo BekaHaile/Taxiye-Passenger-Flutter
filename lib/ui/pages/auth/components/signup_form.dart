@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/ui/widgets/box_ui.dart';
@@ -49,39 +50,42 @@ class SignUpForm extends GetView<AuthController> {
                 'terms_info'.tr,
                 style: AppTheme.subtitle.copyWith(fontSize: 12.0),
               ),
-              Text(
-                'terms_conditions'.tr,
-                style: AppTheme.subtitle.copyWith(
-                  fontSize: 12.0,
-                  color: AppTheme.primaryColor,
-                  decoration: TextDecoration.underline,
+              GestureDetector(
+                onTap: () => Get.toNamed(Routes.legalDetails),
+                child: Text(
+                  'terms_conditions'.tr,
+                  style: AppTheme.subtitle.copyWith(
+                    fontSize: 14.0,
+                    color: AppTheme.primaryColor,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
               const SizedBox(height: 45.0),
-              Text(
-                'signup_with'.tr,
-                style: AppTheme.subtitle.copyWith(fontSize: 14.0),
-              ),
-              const SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BoxUI(
-                    icon: SvgPicture.asset('assets/icons/google.svg'),
-                    onTapCallback: () => controller.signInWithGoogle(),
-                  ),
-                  BoxUI(
-                    icon: SvgPicture.asset('assets/icons/facebook.svg'),
-                    onTapCallback: () => controller.signInWithFacebook(),
-                  ),
-                  BoxUI(
-                    icon: SvgPicture.asset(
-                      'assets/icons/twitter.svg',
-                    ),
-                    onTapCallback: () => controller.signInWithTwitter(),
-                  ),
-                ],
-              )
+              // Text(
+              //   'signup_with'.tr,
+              //   style: AppTheme.subtitle.copyWith(fontSize: 14.0),
+              // ),
+              // const SizedBox(height: 20.0),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     BoxUI(
+              //       icon: SvgPicture.asset('assets/icons/google.svg'),
+              //       onTapCallback: () => controller.signInWithGoogle(),
+              //     ),
+              //     BoxUI(
+              //       icon: SvgPicture.asset('assets/icons/facebook.svg'),
+              //       onTapCallback: () => controller.signInWithFacebook(),
+              //     ),
+              //     BoxUI(
+              //       icon: SvgPicture.asset(
+              //         'assets/icons/twitter.svg',
+              //       ),
+              //       onTapCallback: () => controller.signInWithTwitter(),
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),

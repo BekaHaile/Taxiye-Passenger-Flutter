@@ -76,24 +76,16 @@ class OrdersPage extends GetView<OrdersController> {
                     children: [
                       Obx(() => OrdersList(
                             orders: controller.completedRides,
-                            onSelectOrder: (selectedOrder) {
-                              // Todo: on select order
-                              Get.toNamed(Routes.orderDetails);
-                            },
+                            onSelectOrder: (selectedOrder) =>
+                                controller.onSelectOrder(selectedOrder),
                           )),
                       Obx(() => OrdersList(
                             orders: controller.cancelledRides,
-                            onSelectOrder: (selectedOrder) {
-                              // Todo: on select order
-                              Get.toNamed(Routes.orderDetails);
-                            },
+                            onSelectOrder: (selectedOrder) =>
+                                controller.onSelectOrder(selectedOrder),
                           )),
                       Obx(() => OrdersList(
                             scheduledRides: controller.scheduledRides,
-                            onSelectOrder: (selectedOrder) {
-                              // Todo: on select order
-                              Get.toNamed(Routes.orderDetails);
-                            },
                             onCancelSchedule: (pickupId) =>
                                 controller.cancelRideSchedule(pickupId),
                           )),

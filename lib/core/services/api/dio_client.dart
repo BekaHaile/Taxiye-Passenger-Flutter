@@ -57,7 +57,11 @@ class DioClient {
 
         // add the access token to the body too.
         if (options.data != null) {
-          options.data['access_token'] = accessToken;
+          try {
+            options.data['access_token'] = accessToken;
+          } catch (e) {
+            print('$e');
+          }
         }
 
         return handler.next(options); //continue

@@ -42,7 +42,7 @@ final Map<String, String> enUs = {
 
   // verify
   'verify_title': 'Verify your\nPhone number',
-  'verify_info': 'Enter the 4-digit verification code sent to +251911399631.',
+  'verify_info': 'Enter the 4-digit verification code sent to.',
   'reset_code_in': 'Reset code in',
   'didnt_recieve_code': 'Didn’t recieve any code?',
 
@@ -269,6 +269,9 @@ final Map<String, String> enUs = {
   'reason': 'Reason',
   'send': 'Send',
 
+  'today': 'Today',
+  'yesterday': 'Yesteray',
+
   // Promotions String
   'enter_promocode': 'Enter Promocode Here...',
   'apply': 'Apply',
@@ -311,6 +314,11 @@ final Map<String, String> enUs = {
   'cancel_scheduled_ride_info':
       'Are you sure you want to cancel the scheduled ride?',
   'cancel_schedule_success': 'Scheduled ride cancelled!',
+
+  'pick_up': 'Pick up',
+  'drop_off': 'Drop off',
+  'time': 'Time',
+  'total': 'Total',
 
   // Drivers strings
   'your_drivers': 'Your Drivers',
@@ -390,4 +398,9 @@ final Map<String, String> enUs = {
   'check_pending_operations': 'Please complete pending operations first',
 
   'invalid_time': 'Invalid Time!\nTime should be after 30 minutes',
+  'error_connection':
+      'Unable to connect, Please check your connection and try again.',
+  'fetch_ride_summary_error': 'Unable to fetch ride summary.',
+  'network_error':
+      'Oops unable to perform operation, Please check your internet connection!',
 };

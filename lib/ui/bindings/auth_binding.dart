@@ -11,6 +11,7 @@ import 'package:taxiye_passenger/core/services/api/api_client.dart';
 import 'package:taxiye_passenger/core/services/file_service.dart';
 import 'package:taxiye_passenger/core/services/firebase_service.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/legals_controller.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 /*
@@ -55,5 +56,6 @@ class AuthBinding implements Bindings {
         fenix: true);
     Get.lazyPut(() =>
         AuthController(repository: Get.find(), fileRepository: Get.find()));
+    Get.lazyPut(() => LegalsController(repository: Get.find()), fenix: true);
   }
 }

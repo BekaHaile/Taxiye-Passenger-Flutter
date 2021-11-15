@@ -108,13 +108,14 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<User> loginUsingToken(Map<String, dynamic> loginPayload) async {
+  Future<VerifyResponse> loginUsingToken(
+      Map<String, dynamic> loginPayload) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/v3/customer/login_using_access_token',
       data: loginPayload,
     );
-    return VerifyResponse.fromJson(response).userData ?? User('');
+    return VerifyResponse.fromJson(response);
   }
 
   @override

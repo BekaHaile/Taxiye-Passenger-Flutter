@@ -149,15 +149,14 @@ class HomeController extends GetxService {
   Vehicle driverVehicle = Vehicle();
 
   // Location search
-  Position? currentLocation;
+  LatLng currentLocation = kInitialPosition;
   Placemark? currentLocationPlace;
   // Getu commercial
   // LatLng testLocation = const LatLng(9.003432689703812, 38.769641840207235);
-
   // yemeru senay
   // LatLng testLocation = const LatLng(9.003620646534136, 38.80093371322263);
   // LatLng testLocation = const LatLng(9.065387872139096, 38.67130131804619);
-  LatLng testLocation = const LatLng(9.051552111443572, 38.72762157250847);
+  // LatLng testLocation = const LatLng(9.051552111443572, 38.72762157250847);
   // LatLng testLocation = const LatLng(37.4220371, -122.0841212);
 
   String sessionToken = const Uuid().v4();
@@ -195,12 +194,13 @@ class HomeController extends GetxService {
     prefs = await SharedPreferences.getInstance();
     // Todo: uncomment this for current location
     // set current location
-    currentLocation = authController.currentLocation;
-    getPlaceNameFromCordinate(testLocation).then((value) {
+    currentLocation = LatLng(authController.currentLocation.latitude,
+        authController.currentLocation.longitude);
+    getPlaceNameFromCordinate(currentLocation).then((value) {
       Place place = Place(
           placeName:
               '${value.name ?? ''}, ${value.subLocality ?? ''}, ${value.locality ?? ''}',
-          location: testLocation);
+          location: currentLocation);
       pickUpLocationSearch = place.placeName ?? '';
       pickupLocation = place;
     });
@@ -250,8 +250,8 @@ class HomeController extends GetxService {
 
   _findDrivers({LatLng? destination, double? routeDistance}) async {
     Map<String, dynamic> findDriversPayload = {
-      'latitude': '${testLocation.latitude}',
-      'longitude': '${testLocation.longitude}',
+      'latitude': '${currentLocation.latitude}',
+      'longitude': '${currentLocation.longitude}',
     };
 
     if (destination != null) {
@@ -369,10 +369,11 @@ class HomeController extends GetxService {
     // set driver route
     // set origin to drivers current location
     final origin = PointLatLng(
-        notificationMessage.currentLocationLatitude ?? testLocation.latitude,
-        notificationMessage.currentLocationLongitude ?? testLocation.longitude);
+        notificationMessage.currentLocationLatitude ?? currentLocation.latitude,
+        notificationMessage.currentLocationLongitude ??
+            currentLocation.longitude);
     final destination =
-        PointLatLng(testLocation.latitude, testLocation.longitude);
+        PointLatLng(currentLocation.latitude, currentLocation.longitude);
     // Get & set the polyLines
     repository.getRoutePolylines(origin, destination).then(
         (polylineCoordinates) {
@@ -401,12 +402,13 @@ class HomeController extends GetxService {
 
   _onRideStarted() {
     tripStep = TripStep.tripStarted;
-    _setMapPins(testLocation, dropOffLocation!.location!);
+    _setMapPins(currentLocation, dropOffLocation!.location!);
     if (ridePolyline != null) {
       _polyLines.clear();
       _polyLines.add(ridePolyline!);
 
-      final origin = PointLatLng(testLocation.latitude, testLocation.longitude);
+      final origin =
+          PointLatLng(currentLocation.latitude, currentLocation.longitude);
       final destination = PointLatLng(dropOffLocation!.location!.latitude,
           dropOffLocation!.location!.longitude);
 
@@ -674,48 +676,43 @@ class HomeController extends GetxService {
     tripStep = TripStep.pickVehicle;
 
     // set the polylines
-    if (currentLocation != null) {
-      // final origin = PointLatLng(
-      //     currentLocation!.latitude, currentLocation!.longitude);
-      // final origin = PointLatLng(
-      //     currentLocation!.latitude, currentLocation!.longitude);
 
-      final origin = PointLatLng(testLocation.latitude, testLocation.longitude);
-      final destination = PointLatLng(dropOffLocation!.location!.latitude,
-          dropOffLocation!.location!.longitude);
+    final origin =
+        PointLatLng(currentLocation.latitude, currentLocation.longitude);
+    final destination = PointLatLng(dropOffLocation!.location!.latitude,
+        dropOffLocation!.location!.longitude);
 
-      // set origin and destination markers
-      _setMapPins(testLocation, dropOffLocation!.location!);
+    // set origin and destination markers
+    _setMapPins(currentLocation, dropOffLocation!.location!);
 
-      // Get & set the polyLines
-      repository.getRoutePolylines(origin, destination).then(
-          (polylineCoordinates) {
-        // get vehicles fare calculation
-        _findDrivers(
-            destination: dropOffLocation!.location,
-            routeDistance: getRouteDistance(polylineCoordinates));
+    // Get & set the polyLines
+    repository.getRoutePolylines(origin, destination).then(
+        (polylineCoordinates) {
+      // get vehicles fare calculation
+      _findDrivers(
+          destination: dropOffLocation!.location,
+          routeDistance: getRouteDistance(polylineCoordinates));
 
-        Polyline polyline = Polyline(
-            polylineId: const PolylineId("ride_polyline"),
-            color: AppTheme.primaryColor,
-            width: 3,
-            points: polylineCoordinates);
+      Polyline polyline = Polyline(
+          polylineId: const PolylineId("ride_polyline"),
+          color: AppTheme.primaryColor,
+          width: 3,
+          points: polylineCoordinates);
 
-        ridePolyline = polyline;
-        _polyLines.clear();
-        _polyLines.add(polyline);
+      ridePolyline = polyline;
+      _polyLines.clear();
+      _polyLines.add(polyline);
 
-        // animate camera to mid point between origin and destination
-        LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
-            (origin.longitude + destination.longitude) / 2);
-        mapController.animateCamera(
-          CameraUpdate.newCameraPosition(CameraPosition(
-            target: midPoint,
-            zoom: 13,
-          )),
-        );
-      }, onError: (error) => log('Poly line error: $error'));
-    }
+      // animate camera to mid point between origin and destination
+      LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
+          (origin.longitude + destination.longitude) / 2);
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(
+          target: midPoint,
+          zoom: 13,
+        )),
+      );
+    }, onError: (error) => log('Poly line error: $error'));
   }
 
   double getRouteDistance(List<LatLng> polylineCoordinates) {
@@ -1021,7 +1018,7 @@ class HomeController extends GetxService {
 
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(CameraPosition(
-        target: testLocation,
+        target: currentLocation,
         zoom: kCameraZoom,
       )),
     );

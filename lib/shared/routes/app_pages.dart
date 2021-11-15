@@ -57,13 +57,13 @@ abstract class AppPages {
 
     GetPage(
       name: Routes.pickLocation,
-      page: () => PickLocationPage(),
+      page: () => const PickLocationPage(),
     ),
 
     // wallet Pages
     GetPage(
       name: Routes.wallet,
-      page: () => WalletPage(),
+      page: () => const WalletPage(),
     ),
 
     GetPage(

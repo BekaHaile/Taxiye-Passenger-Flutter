@@ -15,7 +15,7 @@ abstract class IAuthRepository {
   // Todo: Add Auth request class signitures (interfaces) here.
   Future<String?> getDeviceToken();
   Future<SignUpResponse> signup(Map<String, dynamic> signupPayload);
-  Future<User> loginUsingToken(Map<String, dynamic> loginPayload);
+  Future<VerifyResponse> loginUsingToken(Map<String, dynamic> loginPayload);
 
   Future<SignUpResponse> signInWithGoogle(
     Map<String, dynamic> googleSignInPayload, {
@@ -121,6 +121,7 @@ abstract class IOrdersRepository {
 
   Future<BasicResponse> cancelRideSchedule(
       Map<String, dynamic> cancelSchedulePayload);
+  Future<RideSummary> getRideSummary(String engagementID);
 }
 
 abstract class IDriversRepository {

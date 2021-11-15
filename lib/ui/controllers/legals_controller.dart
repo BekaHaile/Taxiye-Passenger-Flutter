@@ -35,6 +35,7 @@ class LegalsController extends GetxController {
   void onInit() async {
     super.onInit();
     _setLegalOptions();
+    getLegalsInfo('3');
   }
 
   _setLegalOptions() {

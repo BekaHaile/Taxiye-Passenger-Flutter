@@ -15,7 +15,7 @@ class ImagePickerBottomsheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xff757575),
-      height: 190,
+      height: 200,
       child: Container(
         padding: const EdgeInsets.all(kPagePadding),
         decoration: AppTheme.bottomSheetDecoration,

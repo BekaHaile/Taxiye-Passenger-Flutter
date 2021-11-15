@@ -2967,10 +2967,10 @@ class _$TransactionTearOff {
   _Transaction call(
       {@JsonKey(name: 'txn_id') int? transactionId,
       @JsonKey(name: 'txn_type') String? type,
-      @JsonKey(name: 'amount') int? amount,
+      @JsonKey(name: 'amount') double? amount,
       @JsonKey(name: 'txn_date') String? transactionDate,
       @JsonKey(name: 'txn_time') String? transactionTime,
-      @JsonKey(name: 'logged_on') String? loggedOn,
+      @JsonKey(name: 'logged_on') DateTime? loggedOn,
       @JsonKey(name: 'wallet_txn') int? walletTxn,
       @JsonKey(name: 'paytm') int? paytm,
       @JsonKey(name: 'mobikwik') int? mobikwik,
@@ -3010,13 +3010,13 @@ mixin _$Transaction {
   @JsonKey(name: 'txn_type')
   String? get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'amount')
-  int? get amount => throw _privateConstructorUsedError;
+  double? get amount => throw _privateConstructorUsedError;
   @JsonKey(name: 'txn_date')
   String? get transactionDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'txn_time')
   String? get transactionTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'logged_on')
-  String? get loggedOn => throw _privateConstructorUsedError;
+  DateTime? get loggedOn => throw _privateConstructorUsedError;
   @JsonKey(name: 'wallet_txn')
   int? get walletTxn => throw _privateConstructorUsedError;
   @JsonKey(name: 'paytm')
@@ -3046,10 +3046,10 @@ abstract class $TransactionCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'txn_id') int? transactionId,
       @JsonKey(name: 'txn_type') String? type,
-      @JsonKey(name: 'amount') int? amount,
+      @JsonKey(name: 'amount') double? amount,
       @JsonKey(name: 'txn_date') String? transactionDate,
       @JsonKey(name: 'txn_time') String? transactionTime,
-      @JsonKey(name: 'logged_on') String? loggedOn,
+      @JsonKey(name: 'logged_on') DateTime? loggedOn,
       @JsonKey(name: 'wallet_txn') int? walletTxn,
       @JsonKey(name: 'paytm') int? paytm,
       @JsonKey(name: 'mobikwik') int? mobikwik,
@@ -3095,7 +3095,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       transactionDate: transactionDate == freezed
           ? _value.transactionDate
           : transactionDate // ignore: cast_nullable_to_non_nullable
@@ -3107,7 +3107,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
       loggedOn: loggedOn == freezed
           ? _value.loggedOn
           : loggedOn // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       walletTxn: walletTxn == freezed
           ? _value.walletTxn
           : walletTxn // ignore: cast_nullable_to_non_nullable
@@ -3150,10 +3150,10 @@ abstract class _$TransactionCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'txn_id') int? transactionId,
       @JsonKey(name: 'txn_type') String? type,
-      @JsonKey(name: 'amount') int? amount,
+      @JsonKey(name: 'amount') double? amount,
       @JsonKey(name: 'txn_date') String? transactionDate,
       @JsonKey(name: 'txn_time') String? transactionTime,
-      @JsonKey(name: 'logged_on') String? loggedOn,
+      @JsonKey(name: 'logged_on') DateTime? loggedOn,
       @JsonKey(name: 'wallet_txn') int? walletTxn,
       @JsonKey(name: 'paytm') int? paytm,
       @JsonKey(name: 'mobikwik') int? mobikwik,
@@ -3201,7 +3201,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       transactionDate: transactionDate == freezed
           ? _value.transactionDate
           : transactionDate // ignore: cast_nullable_to_non_nullable
@@ -3213,7 +3213,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
       loggedOn: loggedOn == freezed
           ? _value.loggedOn
           : loggedOn // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       walletTxn: walletTxn == freezed
           ? _value.walletTxn
           : walletTxn // ignore: cast_nullable_to_non_nullable
@@ -3275,7 +3275,7 @@ class _$_Transaction implements _Transaction {
   final String? type;
   @override
   @JsonKey(name: 'amount')
-  final int? amount;
+  final double? amount;
   @override
   @JsonKey(name: 'txn_date')
   final String? transactionDate;
@@ -3284,7 +3284,7 @@ class _$_Transaction implements _Transaction {
   final String? transactionTime;
   @override
   @JsonKey(name: 'logged_on')
-  final String? loggedOn;
+  final DateTime? loggedOn;
   @override
   @JsonKey(name: 'wallet_txn')
   final int? walletTxn;
@@ -3384,10 +3384,10 @@ abstract class _Transaction implements Transaction {
   factory _Transaction(
       {@JsonKey(name: 'txn_id') int? transactionId,
       @JsonKey(name: 'txn_type') String? type,
-      @JsonKey(name: 'amount') int? amount,
+      @JsonKey(name: 'amount') double? amount,
       @JsonKey(name: 'txn_date') String? transactionDate,
       @JsonKey(name: 'txn_time') String? transactionTime,
-      @JsonKey(name: 'logged_on') String? loggedOn,
+      @JsonKey(name: 'logged_on') DateTime? loggedOn,
       @JsonKey(name: 'wallet_txn') int? walletTxn,
       @JsonKey(name: 'paytm') int? paytm,
       @JsonKey(name: 'mobikwik') int? mobikwik,
@@ -3407,7 +3407,7 @@ abstract class _Transaction implements Transaction {
   String? get type => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'amount')
-  int? get amount => throw _privateConstructorUsedError;
+  double? get amount => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'txn_date')
   String? get transactionDate => throw _privateConstructorUsedError;
@@ -3416,7 +3416,7 @@ abstract class _Transaction implements Transaction {
   String? get transactionTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'logged_on')
-  String? get loggedOn => throw _privateConstructorUsedError;
+  DateTime? get loggedOn => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'wallet_txn')
   int? get walletTxn => throw _privateConstructorUsedError;
@@ -6766,6 +6766,1015 @@ abstract class _RideHistory implements RideHistory {
       throw _privateConstructorUsedError;
 }
 
+RideSummary _$RideSummaryFromJson(Map<String, dynamic> json) {
+  return _RideSummary.fromJson(json);
+}
+
+/// @nodoc
+class _$RideSummaryTearOff {
+  const _$RideSummaryTearOff();
+
+  _RideSummary call(
+      {int? flag,
+      double? distance,
+      int? status,
+      String? currency,
+      int? fare,
+      String? error,
+      String? message,
+      @JsonKey(name: 'pickup_address') String? pickupAddress,
+      @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+      @JsonKey(name: 'drop_latitude') double? dropLatitude,
+      @JsonKey(name: 'drop_longitude') double? dropLongitude,
+      @JsonKey(name: 'drop_address') String? dropAddress,
+      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+      @JsonKey(name: 'drop_time') DateTime? dropTime,
+      @JsonKey(name: 'ride_date') DateTime? rideDate,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'to_pay') int? toPay,
+      @JsonKey(name: 'ride_time') int? rideTime,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'engagement_id') int? engagementId,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'wait_time') int? waitTime,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'cancellation_charges') int? cancellationCharges,
+      @JsonKey(name: 'is_corporate_ride') int? isCorporateRide,
+      @JsonKey(name: 'base_fare') int? baseFare,
+      @JsonKey(name: 'fare_factor') int? fareFactor,
+      @JsonKey(name: 'jugnoo_balance') int? balance,
+      @JsonKey(name: 'total_rides_as_user') int? totalRides,
+      @JsonKey(name: 'created_at') DateTime? createdAt}) {
+    return _RideSummary(
+      flag: flag,
+      distance: distance,
+      status: status,
+      currency: currency,
+      fare: fare,
+      error: error,
+      message: message,
+      pickupAddress: pickupAddress,
+      pickupLatitude: pickupLatitude,
+      pickupLongitude: pickupLongitude,
+      dropLatitude: dropLatitude,
+      dropLongitude: dropLongitude,
+      dropAddress: dropAddress,
+      pickupTime: pickupTime,
+      dropTime: dropTime,
+      rideDate: rideDate,
+      rideType: rideType,
+      toPay: toPay,
+      rideTime: rideTime,
+      vehicleType: vehicleType,
+      driverId: driverId,
+      driverRating: driverRating,
+      engagementId: engagementId,
+      userId: userId,
+      waitTime: waitTime,
+      distanceUnit: distanceUnit,
+      cancellationCharges: cancellationCharges,
+      isCorporateRide: isCorporateRide,
+      baseFare: baseFare,
+      fareFactor: fareFactor,
+      balance: balance,
+      totalRides: totalRides,
+      createdAt: createdAt,
+    );
+  }
+
+  RideSummary fromJson(Map<String, Object> json) {
+    return RideSummary.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $RideSummary = _$RideSummaryTearOff();
+
+/// @nodoc
+mixin _$RideSummary {
+  int? get flag => throw _privateConstructorUsedError;
+  double? get distance => throw _privateConstructorUsedError;
+  int? get status => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
+  int? get fare => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_address')
+  String? get pickupAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_latitude')
+  double? get pickupLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_longitude')
+  double? get pickupLongitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_latitude')
+  double? get dropLatitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_longitude')
+  double? get dropLongitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_address')
+  String? get dropAddress => throw _privateConstructorUsedError;
+  @JsonKey(name: 'pickup_time')
+  DateTime? get pickupTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'drop_time')
+  DateTime? get dropTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_date')
+  DateTime? get rideDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_type')
+  int? get rideType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'to_pay')
+  int? get toPay => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ride_time')
+  int? get rideTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vehicle_type')
+  int? get vehicleType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_rating')
+  int? get driverRating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'engagement_id')
+  int? get engagementId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wait_time')
+  int? get waitTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_unit')
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cancellation_charges')
+  int? get cancellationCharges => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_corporate_ride')
+  int? get isCorporateRide => throw _privateConstructorUsedError;
+  @JsonKey(name: 'base_fare')
+  int? get baseFare => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fare_factor')
+  int? get fareFactor => throw _privateConstructorUsedError;
+  @JsonKey(name: 'jugnoo_balance')
+  int? get balance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total_rides_as_user')
+  int? get totalRides => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RideSummaryCopyWith<RideSummary> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RideSummaryCopyWith<$Res> {
+  factory $RideSummaryCopyWith(
+          RideSummary value, $Res Function(RideSummary) then) =
+      _$RideSummaryCopyWithImpl<$Res>;
+  $Res call(
+      {int? flag,
+      double? distance,
+      int? status,
+      String? currency,
+      int? fare,
+      String? error,
+      String? message,
+      @JsonKey(name: 'pickup_address') String? pickupAddress,
+      @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+      @JsonKey(name: 'drop_latitude') double? dropLatitude,
+      @JsonKey(name: 'drop_longitude') double? dropLongitude,
+      @JsonKey(name: 'drop_address') String? dropAddress,
+      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+      @JsonKey(name: 'drop_time') DateTime? dropTime,
+      @JsonKey(name: 'ride_date') DateTime? rideDate,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'to_pay') int? toPay,
+      @JsonKey(name: 'ride_time') int? rideTime,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'engagement_id') int? engagementId,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'wait_time') int? waitTime,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'cancellation_charges') int? cancellationCharges,
+      @JsonKey(name: 'is_corporate_ride') int? isCorporateRide,
+      @JsonKey(name: 'base_fare') int? baseFare,
+      @JsonKey(name: 'fare_factor') int? fareFactor,
+      @JsonKey(name: 'jugnoo_balance') int? balance,
+      @JsonKey(name: 'total_rides_as_user') int? totalRides,
+      @JsonKey(name: 'created_at') DateTime? createdAt});
+}
+
+/// @nodoc
+class _$RideSummaryCopyWithImpl<$Res> implements $RideSummaryCopyWith<$Res> {
+  _$RideSummaryCopyWithImpl(this._value, this._then);
+
+  final RideSummary _value;
+  // ignore: unused_field
+  final $Res Function(RideSummary) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? distance = freezed,
+    Object? status = freezed,
+    Object? currency = freezed,
+    Object? fare = freezed,
+    Object? error = freezed,
+    Object? message = freezed,
+    Object? pickupAddress = freezed,
+    Object? pickupLatitude = freezed,
+    Object? pickupLongitude = freezed,
+    Object? dropLatitude = freezed,
+    Object? dropLongitude = freezed,
+    Object? dropAddress = freezed,
+    Object? pickupTime = freezed,
+    Object? dropTime = freezed,
+    Object? rideDate = freezed,
+    Object? rideType = freezed,
+    Object? toPay = freezed,
+    Object? rideTime = freezed,
+    Object? vehicleType = freezed,
+    Object? driverId = freezed,
+    Object? driverRating = freezed,
+    Object? engagementId = freezed,
+    Object? userId = freezed,
+    Object? waitTime = freezed,
+    Object? distanceUnit = freezed,
+    Object? cancellationCharges = freezed,
+    Object? isCorporateRide = freezed,
+    Object? baseFare = freezed,
+    Object? fareFactor = freezed,
+    Object? balance = freezed,
+    Object? totalRides = freezed,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fare: fare == freezed
+          ? _value.fare
+          : fare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupAddress: pickupAddress == freezed
+          ? _value.pickupAddress
+          : pickupAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupLatitude: pickupLatitude == freezed
+          ? _value.pickupLatitude
+          : pickupLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      pickupLongitude: pickupLongitude == freezed
+          ? _value.pickupLongitude
+          : pickupLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropLatitude: dropLatitude == freezed
+          ? _value.dropLatitude
+          : dropLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropLongitude: dropLongitude == freezed
+          ? _value.dropLongitude
+          : dropLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropAddress: dropAddress == freezed
+          ? _value.dropAddress
+          : dropAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupTime: pickupTime == freezed
+          ? _value.pickupTime
+          : pickupTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      dropTime: dropTime == freezed
+          ? _value.dropTime
+          : dropTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rideDate: rideDate == freezed
+          ? _value.rideDate
+          : rideDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rideType: rideType == freezed
+          ? _value.rideType
+          : rideType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      toPay: toPay == freezed
+          ? _value.toPay
+          : toPay // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rideTime: rideTime == freezed
+          ? _value.rideTime
+          : rideTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      vehicleType: vehicleType == freezed
+          ? _value.vehicleType
+          : vehicleType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverRating: driverRating == freezed
+          ? _value.driverRating
+          : driverRating // ignore: cast_nullable_to_non_nullable
+              as int?,
+      engagementId: engagementId == freezed
+          ? _value.engagementId
+          : engagementId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      waitTime: waitTime == freezed
+          ? _value.waitTime
+          : waitTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancellationCharges: cancellationCharges == freezed
+          ? _value.cancellationCharges
+          : cancellationCharges // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isCorporateRide: isCorporateRide == freezed
+          ? _value.isCorporateRide
+          : isCorporateRide // ignore: cast_nullable_to_non_nullable
+              as int?,
+      baseFare: baseFare == freezed
+          ? _value.baseFare
+          : baseFare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fareFactor: fareFactor == freezed
+          ? _value.fareFactor
+          : fareFactor // ignore: cast_nullable_to_non_nullable
+              as int?,
+      balance: balance == freezed
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalRides: totalRides == freezed
+          ? _value.totalRides
+          : totalRides // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$RideSummaryCopyWith<$Res>
+    implements $RideSummaryCopyWith<$Res> {
+  factory _$RideSummaryCopyWith(
+          _RideSummary value, $Res Function(_RideSummary) then) =
+      __$RideSummaryCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int? flag,
+      double? distance,
+      int? status,
+      String? currency,
+      int? fare,
+      String? error,
+      String? message,
+      @JsonKey(name: 'pickup_address') String? pickupAddress,
+      @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+      @JsonKey(name: 'drop_latitude') double? dropLatitude,
+      @JsonKey(name: 'drop_longitude') double? dropLongitude,
+      @JsonKey(name: 'drop_address') String? dropAddress,
+      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+      @JsonKey(name: 'drop_time') DateTime? dropTime,
+      @JsonKey(name: 'ride_date') DateTime? rideDate,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'to_pay') int? toPay,
+      @JsonKey(name: 'ride_time') int? rideTime,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'engagement_id') int? engagementId,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'wait_time') int? waitTime,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'cancellation_charges') int? cancellationCharges,
+      @JsonKey(name: 'is_corporate_ride') int? isCorporateRide,
+      @JsonKey(name: 'base_fare') int? baseFare,
+      @JsonKey(name: 'fare_factor') int? fareFactor,
+      @JsonKey(name: 'jugnoo_balance') int? balance,
+      @JsonKey(name: 'total_rides_as_user') int? totalRides,
+      @JsonKey(name: 'created_at') DateTime? createdAt});
+}
+
+/// @nodoc
+class __$RideSummaryCopyWithImpl<$Res> extends _$RideSummaryCopyWithImpl<$Res>
+    implements _$RideSummaryCopyWith<$Res> {
+  __$RideSummaryCopyWithImpl(
+      _RideSummary _value, $Res Function(_RideSummary) _then)
+      : super(_value, (v) => _then(v as _RideSummary));
+
+  @override
+  _RideSummary get _value => super._value as _RideSummary;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? distance = freezed,
+    Object? status = freezed,
+    Object? currency = freezed,
+    Object? fare = freezed,
+    Object? error = freezed,
+    Object? message = freezed,
+    Object? pickupAddress = freezed,
+    Object? pickupLatitude = freezed,
+    Object? pickupLongitude = freezed,
+    Object? dropLatitude = freezed,
+    Object? dropLongitude = freezed,
+    Object? dropAddress = freezed,
+    Object? pickupTime = freezed,
+    Object? dropTime = freezed,
+    Object? rideDate = freezed,
+    Object? rideType = freezed,
+    Object? toPay = freezed,
+    Object? rideTime = freezed,
+    Object? vehicleType = freezed,
+    Object? driverId = freezed,
+    Object? driverRating = freezed,
+    Object? engagementId = freezed,
+    Object? userId = freezed,
+    Object? waitTime = freezed,
+    Object? distanceUnit = freezed,
+    Object? cancellationCharges = freezed,
+    Object? isCorporateRide = freezed,
+    Object? baseFare = freezed,
+    Object? fareFactor = freezed,
+    Object? balance = freezed,
+    Object? totalRides = freezed,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_RideSummary(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fare: fare == freezed
+          ? _value.fare
+          : fare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupAddress: pickupAddress == freezed
+          ? _value.pickupAddress
+          : pickupAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupLatitude: pickupLatitude == freezed
+          ? _value.pickupLatitude
+          : pickupLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      pickupLongitude: pickupLongitude == freezed
+          ? _value.pickupLongitude
+          : pickupLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropLatitude: dropLatitude == freezed
+          ? _value.dropLatitude
+          : dropLatitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropLongitude: dropLongitude == freezed
+          ? _value.dropLongitude
+          : dropLongitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      dropAddress: dropAddress == freezed
+          ? _value.dropAddress
+          : dropAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pickupTime: pickupTime == freezed
+          ? _value.pickupTime
+          : pickupTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      dropTime: dropTime == freezed
+          ? _value.dropTime
+          : dropTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rideDate: rideDate == freezed
+          ? _value.rideDate
+          : rideDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rideType: rideType == freezed
+          ? _value.rideType
+          : rideType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      toPay: toPay == freezed
+          ? _value.toPay
+          : toPay // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rideTime: rideTime == freezed
+          ? _value.rideTime
+          : rideTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      vehicleType: vehicleType == freezed
+          ? _value.vehicleType
+          : vehicleType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverRating: driverRating == freezed
+          ? _value.driverRating
+          : driverRating // ignore: cast_nullable_to_non_nullable
+              as int?,
+      engagementId: engagementId == freezed
+          ? _value.engagementId
+          : engagementId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      waitTime: waitTime == freezed
+          ? _value.waitTime
+          : waitTime // ignore: cast_nullable_to_non_nullable
+              as int?,
+      distanceUnit: distanceUnit == freezed
+          ? _value.distanceUnit
+          : distanceUnit // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancellationCharges: cancellationCharges == freezed
+          ? _value.cancellationCharges
+          : cancellationCharges // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isCorporateRide: isCorporateRide == freezed
+          ? _value.isCorporateRide
+          : isCorporateRide // ignore: cast_nullable_to_non_nullable
+              as int?,
+      baseFare: baseFare == freezed
+          ? _value.baseFare
+          : baseFare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fareFactor: fareFactor == freezed
+          ? _value.fareFactor
+          : fareFactor // ignore: cast_nullable_to_non_nullable
+              as int?,
+      balance: balance == freezed
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalRides: totalRides == freezed
+          ? _value.totalRides
+          : totalRides // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_RideSummary implements _RideSummary {
+  _$_RideSummary(
+      {this.flag,
+      this.distance,
+      this.status,
+      this.currency,
+      this.fare,
+      this.error,
+      this.message,
+      @JsonKey(name: 'pickup_address') this.pickupAddress,
+      @JsonKey(name: 'pickup_latitude') this.pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') this.pickupLongitude,
+      @JsonKey(name: 'drop_latitude') this.dropLatitude,
+      @JsonKey(name: 'drop_longitude') this.dropLongitude,
+      @JsonKey(name: 'drop_address') this.dropAddress,
+      @JsonKey(name: 'pickup_time') this.pickupTime,
+      @JsonKey(name: 'drop_time') this.dropTime,
+      @JsonKey(name: 'ride_date') this.rideDate,
+      @JsonKey(name: 'ride_type') this.rideType,
+      @JsonKey(name: 'to_pay') this.toPay,
+      @JsonKey(name: 'ride_time') this.rideTime,
+      @JsonKey(name: 'vehicle_type') this.vehicleType,
+      @JsonKey(name: 'driver_id') this.driverId,
+      @JsonKey(name: 'driver_rating') this.driverRating,
+      @JsonKey(name: 'engagement_id') this.engagementId,
+      @JsonKey(name: 'user_id') this.userId,
+      @JsonKey(name: 'wait_time') this.waitTime,
+      @JsonKey(name: 'distance_unit') this.distanceUnit,
+      @JsonKey(name: 'cancellation_charges') this.cancellationCharges,
+      @JsonKey(name: 'is_corporate_ride') this.isCorporateRide,
+      @JsonKey(name: 'base_fare') this.baseFare,
+      @JsonKey(name: 'fare_factor') this.fareFactor,
+      @JsonKey(name: 'jugnoo_balance') this.balance,
+      @JsonKey(name: 'total_rides_as_user') this.totalRides,
+      @JsonKey(name: 'created_at') this.createdAt});
+
+  factory _$_RideSummary.fromJson(Map<String, dynamic> json) =>
+      _$_$_RideSummaryFromJson(json);
+
+  @override
+  final int? flag;
+  @override
+  final double? distance;
+  @override
+  final int? status;
+  @override
+  final String? currency;
+  @override
+  final int? fare;
+  @override
+  final String? error;
+  @override
+  final String? message;
+  @override
+  @JsonKey(name: 'pickup_address')
+  final String? pickupAddress;
+  @override
+  @JsonKey(name: 'pickup_latitude')
+  final double? pickupLatitude;
+  @override
+  @JsonKey(name: 'pickup_longitude')
+  final double? pickupLongitude;
+  @override
+  @JsonKey(name: 'drop_latitude')
+  final double? dropLatitude;
+  @override
+  @JsonKey(name: 'drop_longitude')
+  final double? dropLongitude;
+  @override
+  @JsonKey(name: 'drop_address')
+  final String? dropAddress;
+  @override
+  @JsonKey(name: 'pickup_time')
+  final DateTime? pickupTime;
+  @override
+  @JsonKey(name: 'drop_time')
+  final DateTime? dropTime;
+  @override
+  @JsonKey(name: 'ride_date')
+  final DateTime? rideDate;
+  @override
+  @JsonKey(name: 'ride_type')
+  final int? rideType;
+  @override
+  @JsonKey(name: 'to_pay')
+  final int? toPay;
+  @override
+  @JsonKey(name: 'ride_time')
+  final int? rideTime;
+  @override
+  @JsonKey(name: 'vehicle_type')
+  final int? vehicleType;
+  @override
+  @JsonKey(name: 'driver_id')
+  final int? driverId;
+  @override
+  @JsonKey(name: 'driver_rating')
+  final int? driverRating;
+  @override
+  @JsonKey(name: 'engagement_id')
+  final int? engagementId;
+  @override
+  @JsonKey(name: 'user_id')
+  final int? userId;
+  @override
+  @JsonKey(name: 'wait_time')
+  final int? waitTime;
+  @override
+  @JsonKey(name: 'distance_unit')
+  final String? distanceUnit;
+  @override
+  @JsonKey(name: 'cancellation_charges')
+  final int? cancellationCharges;
+  @override
+  @JsonKey(name: 'is_corporate_ride')
+  final int? isCorporateRide;
+  @override
+  @JsonKey(name: 'base_fare')
+  final int? baseFare;
+  @override
+  @JsonKey(name: 'fare_factor')
+  final int? fareFactor;
+  @override
+  @JsonKey(name: 'jugnoo_balance')
+  final int? balance;
+  @override
+  @JsonKey(name: 'total_rides_as_user')
+  final int? totalRides;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+
+  @override
+  String toString() {
+    return 'RideSummary(flag: $flag, distance: $distance, status: $status, currency: $currency, fare: $fare, error: $error, message: $message, pickupAddress: $pickupAddress, pickupLatitude: $pickupLatitude, pickupLongitude: $pickupLongitude, dropLatitude: $dropLatitude, dropLongitude: $dropLongitude, dropAddress: $dropAddress, pickupTime: $pickupTime, dropTime: $dropTime, rideDate: $rideDate, rideType: $rideType, toPay: $toPay, rideTime: $rideTime, vehicleType: $vehicleType, driverId: $driverId, driverRating: $driverRating, engagementId: $engagementId, userId: $userId, waitTime: $waitTime, distanceUnit: $distanceUnit, cancellationCharges: $cancellationCharges, isCorporateRide: $isCorporateRide, baseFare: $baseFare, fareFactor: $fareFactor, balance: $balance, totalRides: $totalRides, createdAt: $createdAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _RideSummary &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.distance, distance) ||
+                const DeepCollectionEquality()
+                    .equals(other.distance, distance)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.currency, currency) ||
+                const DeepCollectionEquality()
+                    .equals(other.currency, currency)) &&
+            (identical(other.fare, fare) ||
+                const DeepCollectionEquality().equals(other.fare, fare)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.pickupAddress, pickupAddress) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupAddress, pickupAddress)) &&
+            (identical(other.pickupLatitude, pickupLatitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupLatitude, pickupLatitude)) &&
+            (identical(other.pickupLongitude, pickupLongitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupLongitude, pickupLongitude)) &&
+            (identical(other.dropLatitude, dropLatitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropLatitude, dropLatitude)) &&
+            (identical(other.dropLongitude, dropLongitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropLongitude, dropLongitude)) &&
+            (identical(other.dropAddress, dropAddress) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropAddress, dropAddress)) &&
+            (identical(other.pickupTime, pickupTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.pickupTime, pickupTime)) &&
+            (identical(other.dropTime, dropTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.dropTime, dropTime)) &&
+            (identical(other.rideDate, rideDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideDate, rideDate)) &&
+            (identical(other.rideType, rideType) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideType, rideType)) &&
+            (identical(other.toPay, toPay) ||
+                const DeepCollectionEquality().equals(other.toPay, toPay)) &&
+            (identical(other.rideTime, rideTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.rideTime, rideTime)) &&
+            (identical(other.vehicleType, vehicleType) ||
+                const DeepCollectionEquality()
+                    .equals(other.vehicleType, vehicleType)) &&
+            (identical(other.driverId, driverId) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverId, driverId)) &&
+            (identical(other.driverRating, driverRating) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverRating, driverRating)) &&
+            (identical(other.engagementId, engagementId) ||
+                const DeepCollectionEquality()
+                    .equals(other.engagementId, engagementId)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.waitTime, waitTime) ||
+                const DeepCollectionEquality().equals(other.waitTime, waitTime)) &&
+            (identical(other.distanceUnit, distanceUnit) || const DeepCollectionEquality().equals(other.distanceUnit, distanceUnit)) &&
+            (identical(other.cancellationCharges, cancellationCharges) || const DeepCollectionEquality().equals(other.cancellationCharges, cancellationCharges)) &&
+            (identical(other.isCorporateRide, isCorporateRide) || const DeepCollectionEquality().equals(other.isCorporateRide, isCorporateRide)) &&
+            (identical(other.baseFare, baseFare) || const DeepCollectionEquality().equals(other.baseFare, baseFare)) &&
+            (identical(other.fareFactor, fareFactor) || const DeepCollectionEquality().equals(other.fareFactor, fareFactor)) &&
+            (identical(other.balance, balance) || const DeepCollectionEquality().equals(other.balance, balance)) &&
+            (identical(other.totalRides, totalRides) || const DeepCollectionEquality().equals(other.totalRides, totalRides)) &&
+            (identical(other.createdAt, createdAt) || const DeepCollectionEquality().equals(other.createdAt, createdAt)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(distance) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(currency) ^
+      const DeepCollectionEquality().hash(fare) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(pickupAddress) ^
+      const DeepCollectionEquality().hash(pickupLatitude) ^
+      const DeepCollectionEquality().hash(pickupLongitude) ^
+      const DeepCollectionEquality().hash(dropLatitude) ^
+      const DeepCollectionEquality().hash(dropLongitude) ^
+      const DeepCollectionEquality().hash(dropAddress) ^
+      const DeepCollectionEquality().hash(pickupTime) ^
+      const DeepCollectionEquality().hash(dropTime) ^
+      const DeepCollectionEquality().hash(rideDate) ^
+      const DeepCollectionEquality().hash(rideType) ^
+      const DeepCollectionEquality().hash(toPay) ^
+      const DeepCollectionEquality().hash(rideTime) ^
+      const DeepCollectionEquality().hash(vehicleType) ^
+      const DeepCollectionEquality().hash(driverId) ^
+      const DeepCollectionEquality().hash(driverRating) ^
+      const DeepCollectionEquality().hash(engagementId) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(waitTime) ^
+      const DeepCollectionEquality().hash(distanceUnit) ^
+      const DeepCollectionEquality().hash(cancellationCharges) ^
+      const DeepCollectionEquality().hash(isCorporateRide) ^
+      const DeepCollectionEquality().hash(baseFare) ^
+      const DeepCollectionEquality().hash(fareFactor) ^
+      const DeepCollectionEquality().hash(balance) ^
+      const DeepCollectionEquality().hash(totalRides) ^
+      const DeepCollectionEquality().hash(createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  _$RideSummaryCopyWith<_RideSummary> get copyWith =>
+      __$RideSummaryCopyWithImpl<_RideSummary>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_RideSummaryToJson(this);
+  }
+}
+
+abstract class _RideSummary implements RideSummary {
+  factory _RideSummary(
+      {int? flag,
+      double? distance,
+      int? status,
+      String? currency,
+      int? fare,
+      String? error,
+      String? message,
+      @JsonKey(name: 'pickup_address') String? pickupAddress,
+      @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+      @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+      @JsonKey(name: 'drop_latitude') double? dropLatitude,
+      @JsonKey(name: 'drop_longitude') double? dropLongitude,
+      @JsonKey(name: 'drop_address') String? dropAddress,
+      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+      @JsonKey(name: 'drop_time') DateTime? dropTime,
+      @JsonKey(name: 'ride_date') DateTime? rideDate,
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'to_pay') int? toPay,
+      @JsonKey(name: 'ride_time') int? rideTime,
+      @JsonKey(name: 'vehicle_type') int? vehicleType,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'engagement_id') int? engagementId,
+      @JsonKey(name: 'user_id') int? userId,
+      @JsonKey(name: 'wait_time') int? waitTime,
+      @JsonKey(name: 'distance_unit') String? distanceUnit,
+      @JsonKey(name: 'cancellation_charges') int? cancellationCharges,
+      @JsonKey(name: 'is_corporate_ride') int? isCorporateRide,
+      @JsonKey(name: 'base_fare') int? baseFare,
+      @JsonKey(name: 'fare_factor') int? fareFactor,
+      @JsonKey(name: 'jugnoo_balance') int? balance,
+      @JsonKey(name: 'total_rides_as_user') int? totalRides,
+      @JsonKey(name: 'created_at') DateTime? createdAt}) = _$_RideSummary;
+
+  factory _RideSummary.fromJson(Map<String, dynamic> json) =
+      _$_RideSummary.fromJson;
+
+  @override
+  int? get flag => throw _privateConstructorUsedError;
+  @override
+  double? get distance => throw _privateConstructorUsedError;
+  @override
+  int? get status => throw _privateConstructorUsedError;
+  @override
+  String? get currency => throw _privateConstructorUsedError;
+  @override
+  int? get fare => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_address')
+  String? get pickupAddress => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_latitude')
+  double? get pickupLatitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_longitude')
+  double? get pickupLongitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_latitude')
+  double? get dropLatitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_longitude')
+  double? get dropLongitude => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_address')
+  String? get dropAddress => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'pickup_time')
+  DateTime? get pickupTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'drop_time')
+  DateTime? get dropTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_date')
+  DateTime? get rideDate => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_type')
+  int? get rideType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'to_pay')
+  int? get toPay => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'ride_time')
+  int? get rideTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'vehicle_type')
+  int? get vehicleType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_rating')
+  int? get driverRating => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'engagement_id')
+  int? get engagementId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'user_id')
+  int? get userId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'wait_time')
+  int? get waitTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'distance_unit')
+  String? get distanceUnit => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'cancellation_charges')
+  int? get cancellationCharges => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'is_corporate_ride')
+  int? get isCorporateRide => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'base_fare')
+  int? get baseFare => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'fare_factor')
+  int? get fareFactor => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'jugnoo_balance')
+  int? get balance => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'total_rides_as_user')
+  int? get totalRides => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$RideSummaryCopyWith<_RideSummary> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Corporate _$CorporateFromJson(Map<String, dynamic> json) {
   return _Corporate.fromJson(json);
 }
@@ -7739,10 +8748,13 @@ class _$VerifyResponseTearOff {
   const _$VerifyResponseTearOff();
 
   _VerifyResponse call(int flag,
-      {String? message, @JsonKey(name: 'user_data') User? userData}) {
+      {String? message,
+      String? error,
+      @JsonKey(name: 'user_data') User? userData}) {
     return _VerifyResponse(
       flag,
       message: message,
+      error: error,
       userData: userData,
     );
   }
@@ -7759,6 +8771,7 @@ const $VerifyResponse = _$VerifyResponseTearOff();
 mixin _$VerifyResponse {
   int get flag => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_data')
   User? get userData => throw _privateConstructorUsedError;
 
@@ -7774,7 +8787,10 @@ abstract class $VerifyResponseCopyWith<$Res> {
           VerifyResponse value, $Res Function(VerifyResponse) then) =
       _$VerifyResponseCopyWithImpl<$Res>;
   $Res call(
-      {int flag, String? message, @JsonKey(name: 'user_data') User? userData});
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'user_data') User? userData});
 
   $UserCopyWith<$Res>? get userData;
 }
@@ -7792,6 +8808,7 @@ class _$VerifyResponseCopyWithImpl<$Res>
   $Res call({
     Object? flag = freezed,
     Object? message = freezed,
+    Object? error = freezed,
     Object? userData = freezed,
   }) {
     return _then(_value.copyWith(
@@ -7802,6 +8819,10 @@ class _$VerifyResponseCopyWithImpl<$Res>
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String?,
       userData: userData == freezed
           ? _value.userData
@@ -7830,7 +8851,10 @@ abstract class _$VerifyResponseCopyWith<$Res>
       __$VerifyResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int flag, String? message, @JsonKey(name: 'user_data') User? userData});
+      {int flag,
+      String? message,
+      String? error,
+      @JsonKey(name: 'user_data') User? userData});
 
   @override
   $UserCopyWith<$Res>? get userData;
@@ -7851,6 +8875,7 @@ class __$VerifyResponseCopyWithImpl<$Res>
   $Res call({
     Object? flag = freezed,
     Object? message = freezed,
+    Object? error = freezed,
     Object? userData = freezed,
   }) {
     return _then(_VerifyResponse(
@@ -7861,6 +8886,10 @@ class __$VerifyResponseCopyWithImpl<$Res>
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String?,
       userData: userData == freezed
           ? _value.userData
@@ -7874,7 +8903,7 @@ class __$VerifyResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_VerifyResponse implements _VerifyResponse {
   _$_VerifyResponse(this.flag,
-      {this.message, @JsonKey(name: 'user_data') this.userData});
+      {this.message, this.error, @JsonKey(name: 'user_data') this.userData});
 
   factory _$_VerifyResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_VerifyResponseFromJson(json);
@@ -7884,12 +8913,14 @@ class _$_VerifyResponse implements _VerifyResponse {
   @override
   final String? message;
   @override
+  final String? error;
+  @override
   @JsonKey(name: 'user_data')
   final User? userData;
 
   @override
   String toString() {
-    return 'VerifyResponse(flag: $flag, message: $message, userData: $userData)';
+    return 'VerifyResponse(flag: $flag, message: $message, error: $error, userData: $userData)';
   }
 
   @override
@@ -7901,6 +8932,8 @@ class _$_VerifyResponse implements _VerifyResponse {
             (identical(other.message, message) ||
                 const DeepCollectionEquality()
                     .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
             (identical(other.userData, userData) ||
                 const DeepCollectionEquality()
                     .equals(other.userData, userData)));
@@ -7911,6 +8944,7 @@ class _$_VerifyResponse implements _VerifyResponse {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(flag) ^
       const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
       const DeepCollectionEquality().hash(userData);
 
   @JsonKey(ignore: true)
@@ -7927,6 +8961,7 @@ class _$_VerifyResponse implements _VerifyResponse {
 abstract class _VerifyResponse implements VerifyResponse {
   factory _VerifyResponse(int flag,
       {String? message,
+      String? error,
       @JsonKey(name: 'user_data') User? userData}) = _$_VerifyResponse;
 
   factory _VerifyResponse.fromJson(Map<String, dynamic> json) =
@@ -7936,6 +8971,8 @@ abstract class _VerifyResponse implements VerifyResponse {
   int get flag => throw _privateConstructorUsedError;
   @override
   String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'user_data')
   User? get userData => throw _privateConstructorUsedError;

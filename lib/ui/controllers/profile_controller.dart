@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,7 @@ class ProfileController extends GetxController {
             profileImage.path.isNotEmpty ? profileImage : null, profilePayload)
         .then(
       (data) {
+        log('upload succes here: $data');
         if (data.flag == SuccessFlags.updateProfile.successCode) {
           status(Status.success);
           reloadProfile();
@@ -97,6 +99,7 @@ class ProfileController extends GetxController {
   reloadProfile() {
     status(Status.loading);
     repository.reloadProfile().then((profileResponse) {
+      log('reload succes here: $profileResponse');
       if (profileResponse.flag == SuccessFlags.reloadProfile.successCode) {
         status(Status.success);
         authController.user = profileResponse;
@@ -172,6 +175,8 @@ class ProfileController extends GetxController {
 
         // update user profile
         Map<String, dynamic> payload = {};
+
+        log('crop image here: $profileImage');
 
         updateProfile(payload);
       } else {

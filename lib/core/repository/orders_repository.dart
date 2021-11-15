@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
@@ -52,6 +50,16 @@ class OrdersRepository implements IOrdersRepository {
       data: cancelSchedulePayload,
     );
     return BasicResponse.fromJson(response);
+  }
+
+  @override
+  Future<RideSummary> getRideSummary(String engagementID) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/get_ride_summary',
+      data: {'engagement_id': engagementID},
+    );
+    return RideSummary.fromJson(response);
   }
 
   @override

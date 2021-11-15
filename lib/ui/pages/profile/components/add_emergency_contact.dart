@@ -18,10 +18,12 @@ class AddEmergencyContact extends GetView<ProfileController> {
           children: [
             Text('add_new_contact'.tr, style: AppTheme.title2),
             const SizedBox(height: 20.0),
-            ContactList(
-              contacts: controller.contacts,
-              onAddContact: (emergencyContact) =>
-                  controller.addEmergencyContact(emergencyContact),
+            Expanded(
+              child: ContactList(
+                contacts: controller.contacts,
+                onAddContact: (emergencyContact) =>
+                    controller.addEmergencyContact(emergencyContact),
+              ),
             )
           ],
         ),

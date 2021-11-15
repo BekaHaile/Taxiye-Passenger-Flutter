@@ -47,7 +47,7 @@ class ApiClient {
         data['locale'] = Get.locale?.languageCode ?? 'en';
       }
 
-      // log('sent payload: $data');
+      log('sent payload: $data');
       dynamic response;
       switch (requestType) {
         case RequestType.get:
@@ -70,7 +70,7 @@ class ApiClient {
           throw "Request type not found.";
       }
 
-      // log('raw response: $response');
+      log('raw response: $response');
       return (response is String) ? jsonDecode(response) : response;
     } on DioError catch (e) {
       final errorMessage = NetworkExceptions.getErrorMessage(
@@ -129,33 +129,31 @@ class ApiClient {
     }
   }
 
-  Future<List<Files>> uploadFiles(List<File> files, String userId) async {
-    try {
-      // await dioClient.addAuthorizationInterceptor();
+  // Future<List<Files>> uploadFiles(List<File> files, String userId) async {
+  //   try {
+  //     List<MultipartFile> multipartFiles = [];
+  //     for (File file in files) {
+  //       String? mimeType = lookupMimeType(file.path);
+  //       List<String> splitMimeTypes = mimeType?.split('/') ?? [];
+  //       print(splitMimeTypes);
 
-      List<MultipartFile> multipartFiles = [];
-      for (File file in files) {
-        String? mimeType = lookupMimeType(file.path);
-        List<String> splitMimeTypes = mimeType?.split('/') ?? [];
-        print(splitMimeTypes);
+  //       if (splitMimeTypes.length > 1) {
+  //         multipartFiles.add(MultipartFile.fromFileSync(file.path,
+  //             contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1])));
+  //       }
+  //     }
 
-        if (splitMimeTypes.length > 1) {
-          multipartFiles.add(MultipartFile.fromFileSync(file.path,
-              contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1])));
-        }
-      }
-
-      var formData =
-          FormData.fromMap({'files': multipartFiles, 'userId': userId});
-      final response = await dioClient.post('/files', data: formData);
-      Iterable l = json.decode(jsonEncode(response));
-      return List<Files>.from(l.map((model) => Files.fromJson(model)).toList());
-    } on DioError catch (e) {
-      final errorMessage = NetworkExceptions.getErrorMessage(
-          NetworkExceptions.getDioException(e));
-      print(errorMessage);
-      toast('error', e.response?.data['message']);
-      return Future.error(errorMessage);
-    }
-  }
+  //     var formData =
+  //         FormData.fromMap({'files': multipartFiles, 'userId': userId});
+  //     final response = await dioClient.post('/files', data: formData);
+  //     Iterable l = json.decode(jsonEncode(response));
+  //     return List<Files>.from(l.map((model) => Files.fromJson(model)).toList());
+  //   } on DioError catch (e) {
+  //     final errorMessage = NetworkExceptions.getErrorMessage(
+  //         NetworkExceptions.getDioException(e));
+  //     print(errorMessage);
+  //     toast('error', e.response?.data['message']);
+  //     return Future.error(errorMessage);
+  //   }
+  // }
 }

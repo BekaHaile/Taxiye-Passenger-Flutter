@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
@@ -40,11 +42,11 @@ class WalletController extends GetxController {
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
-    getWalletBalance();
-    getTransactions();
+    _getWalletBalance();
+    _getTransactions();
   }
 
-  getWalletBalance() {
+  _getWalletBalance() {
     final walletPayload = {
       "latitude": _storage.read('latitude'),
       "is_access_token_new": "1",
@@ -70,7 +72,7 @@ class WalletController extends GetxController {
     );
   }
 
-  getTransactions() {
+  _getTransactions() {
     final Map<String, dynamic> transactionHistoryPayload = {
       "start_from": "0",
       "is_access_token_new": "1"
@@ -84,11 +86,17 @@ class WalletController extends GetxController {
           transactions = transactionHistoryResponse.transactions;
           status(Status.success);
         } else {
-          toast('error', transactionHistoryResponse.message ?? transactionHistoryResponse.error ?? '');
+          log('transaction error: ' + (transactionHistoryResponse.error ?? ''));
+          toast(
+              'error',
+              transactionHistoryResponse.message ??
+                  transactionHistoryResponse.error ??
+                  '');
           status(Status.error);
         }
       },
       onError: (err) {
+        log('$err');
         print("$err");
         status(Status.error);
       },
@@ -96,33 +104,33 @@ class WalletController extends GetxController {
   }
 
   transferWallet() {
-     final Map<String, dynamic> transferPayload = {
-      "phone_no": '${country.code}$phoneNumber', 
-      "amount": amount, 
-      "latitude":_storage.read('latitude'), 
-      "receiver_type": transferTo == WalletTransferTo.customer ? "0" : "1", 
-      "country_code": country.code, 
-      "engagement_id": "", 
+    final Map<String, dynamic> transferPayload = {
+      "phone_no": '${country.code}$phoneNumber',
+      "amount": amount,
+      "latitude": _storage.read('latitude'),
+      "receiver_type": transferTo == WalletTransferTo.customer ? "0" : "1",
+      "country_code": country.code,
+      "engagement_id": "",
       "longitude": _storage.read('longitude')
     };
 
-    
     status(Status.loading);
     repository.transfer(transferPayload).then(
       (transferResponse) {
-        if (transferResponse.flag ==
-            SuccessFlags.transfer.successCode) {
-            walletBalance = transferResponse.walletBalance;
-            status(Status.success);
-            getTransactions();
-            Get.back();
+        if (transferResponse.flag == SuccessFlags.transfer.successCode) {
+          walletBalance = transferResponse.walletBalance;
+          status(Status.success);
+          _getTransactions();
+          Get.back();
         } else {
-          toast('error', transferResponse.message ?? transferResponse.error ?? '');
+          toast('error',
+              transferResponse.message ?? transferResponse.error ?? '');
           status(Status.error);
         }
       },
       onError: (err) {
         print("$err");
+        toast('error', 'network_error'.tr);
         status(Status.error);
       },
     );

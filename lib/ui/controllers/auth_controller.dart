@@ -13,7 +13,6 @@ import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
-import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/pages/common/phone_input_dialog.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
@@ -212,7 +211,7 @@ class AuthController extends GetxService {
           _navigateUser();
         } else {
           print(data.message);
-          toast('error', data.message ?? 'api_error'.tr);
+          toast('error', data.error ?? data.message ?? '');
           status(Status.error);
         }
       },
@@ -269,7 +268,7 @@ class AuthController extends GetxService {
           Get.toNamed(Routes.home);
         } else {
           print(data.erorr);
-          toast('error', data.erorr ?? 'api_error'.tr);
+          toast('error', data.erorr ?? '');
           status(Status.error);
         }
       },
@@ -320,7 +319,7 @@ class AuthController extends GetxService {
       _storage.write('longitude', value.longitude);
     });
     await setGeneralInfo();
-    await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+    // await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     if (user.userName.isEmpty ?? true) {
       //Get current user if the user already loged in and route accordingly
       //else show welcome screen
@@ -329,8 +328,7 @@ class AuthController extends GetxService {
       if (userString != null) {
         user = User.fromJson(jsonDecode(userString));
         if (user.userName.isNotEmpty ?? false) {
-          getUser();
-          _navigateUser();
+          _getUser();
         }
       } else {
         if (isFirstTime ?? true) {
@@ -365,20 +363,26 @@ class AuthController extends GetxService {
     }
   }
 
-  getUser() {
+  _getUser() {
     final accessToken = _storage.read<String>('accessToken');
     if (accessToken != null) {
       // login user
       repository.loginUsingToken({
         'device_token': deviceToken,
-      }).then((value) {}, onError: (err) {
+      }).then((loginResponse) {
+        if (loginResponse.flag == SuccessFlags.login.successCode) {
+          _navigateUser();
+        } else {
+          toast('error', loginResponse.error ?? loginResponse.message ?? '');
+        }
+      }, onError: (err) {
+        toast('error', 'error_connection'.tr);
         print('Login error: $err');
       });
 
       // reload profile
       repository.reloadProfile().then((profileResponse) {
         if (profileResponse.flag == SuccessFlags.reloadProfile.successCode) {
-          print('reload profile success $profileResponse');
           status(Status.success);
           user = profileResponse;
         } else {

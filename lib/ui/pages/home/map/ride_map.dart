@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
@@ -35,10 +34,8 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
   }
 
   _setInitialCameraPosition() {
-    LatLng cameraLocation = controller.currentLocation != null
-        ? LatLng(controller.currentLocation!.latitude,
-            controller.currentLocation!.longitude)
-        : kInitialPosition;
+    LatLng cameraLocation = LatLng(controller.currentLocation.latitude,
+        controller.currentLocation.longitude);
     _initialCameraPosition = CameraPosition(
       target: cameraLocation,
       zoom: kCameraZoom,
@@ -51,7 +48,8 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
     mapCompleter.complete(mpController);
     controller.mapController = mpController;
     getCurrentLocation().then((currentLocation) async {
-      controller.currentLocation = currentLocation;
+      controller.currentLocation =
+          LatLng(currentLocation.latitude, currentLocation.longitude);
       // final GoogleMapController mapCtrl = await mapController.future;
       // String value = await DefaultAssetBundle.of(context)
       //     .loadString('assets/map/map_style.json');
@@ -59,21 +57,18 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
 
       // currentLocation.toString
 
-      LatLng locationCoordinate =
-          LatLng(currentLocation.latitude, currentLocation.longitude);
-
       // set current location place name
-      getPlaceNameFromCordinate(controller.testLocation).then((value) {
+      getPlaceNameFromCordinate(controller.currentLocation).then((value) {
         controller.currentLocationPlace = value;
       }, onError: (error) => print(error));
 
       controller.mapController.animateCamera(
         CameraUpdate.newCameraPosition(CameraPosition(
-          target: controller.testLocation,
+          target: controller.currentLocation,
           zoom: kCameraZoom,
         )),
       );
-      _setCurrentLocationMarker(controller.testLocation);
+      _setCurrentLocationMarker(controller.currentLocation);
     });
   }
 
@@ -145,7 +140,6 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
         return Get.height * 0.35;
       case TripStep.lookingDrivers:
       case TripStep.confirmPlace:
-        return Get.height * 0.3;
       case TripStep.tripStarted:
         return Get.height * 0.24;
       default:

@@ -154,10 +154,10 @@ class Transaction with _$Transaction {
   factory Transaction({
     @JsonKey(name: 'txn_id') int? transactionId,
     @JsonKey(name: 'txn_type') String? type,
-    @JsonKey(name: 'amount') int? amount,
+    @JsonKey(name: 'amount') double? amount,
     @JsonKey(name: 'txn_date') String? transactionDate,
     @JsonKey(name: 'txn_time') String? transactionTime,
-    @JsonKey(name: 'logged_on') String? loggedOn,
+    @JsonKey(name: 'logged_on') DateTime? loggedOn,
     @JsonKey(name: 'wallet_txn') int? walletTxn,
     @JsonKey(name: 'paytm') int? paytm,
     @JsonKey(name: 'mobikwik') int? mobikwik,
@@ -319,6 +319,48 @@ abstract class RideHistory with _$RideHistory {
 }
 
 @freezed
+abstract class RideSummary with _$RideSummary {
+  factory RideSummary({
+    int? flag,
+    double? distance,
+    int? status,
+    String? currency,
+    int? fare,
+    String? error,
+    String? message,
+    @JsonKey(name: 'pickup_address') String? pickupAddress,
+    @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+    @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+    @JsonKey(name: 'drop_latitude') double? dropLatitude,
+    @JsonKey(name: 'drop_longitude') double? dropLongitude,
+    @JsonKey(name: 'drop_address') String? dropAddress,
+    @JsonKey(name: 'pickup_time') DateTime? pickupTime,
+    @JsonKey(name: 'drop_time') DateTime? dropTime,
+    @JsonKey(name: 'ride_date') DateTime? rideDate,
+    @JsonKey(name: 'ride_type') int? rideType,
+    @JsonKey(name: 'to_pay') int? toPay,
+    @JsonKey(name: 'ride_time') int? rideTime,
+    @JsonKey(name: 'vehicle_type') int? vehicleType,
+    @JsonKey(name: 'driver_id') int? driverId,
+    @JsonKey(name: 'driver_rating') int? driverRating,
+    @JsonKey(name: 'engagement_id') int? engagementId,
+    @JsonKey(name: 'user_id') int? userId,
+    @JsonKey(name: 'wait_time') int? waitTime,
+    @JsonKey(name: 'distance_unit') String? distanceUnit,
+    @JsonKey(name: 'cancellation_charges') int? cancellationCharges,
+    @JsonKey(name: 'is_corporate_ride') int? isCorporateRide,
+    @JsonKey(name: 'base_fare') int? baseFare,
+    @JsonKey(name: 'fare_factor') int? fareFactor,
+    @JsonKey(name: 'jugnoo_balance') int? balance,
+    @JsonKey(name: 'total_rides_as_user') int? totalRides,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+  }) = _RideSummary;
+
+  factory RideSummary.fromJson(Map<String, dynamic> json) =>
+      _$RideSummaryFromJson(json);
+}
+
+@freezed
 abstract class Corporate with _$Corporate {
   factory Corporate({
     @JsonKey(name: 'business_id') int? businessId,
@@ -378,6 +420,7 @@ abstract class VerifyResponse with _$VerifyResponse {
   factory VerifyResponse(
     int flag, {
     String? message,
+    String? error,
     @JsonKey(name: 'user_data') User? userData,
   }) = _VerifyResponse;
 

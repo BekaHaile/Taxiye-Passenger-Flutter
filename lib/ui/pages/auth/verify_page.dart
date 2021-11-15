@@ -35,7 +35,8 @@ class VerifyPage extends GetView<AuthController> {
                             const SizedBox(height: 96.0),
                             TitleView(
                               title: 'verify_title'.tr,
-                              subTitle: 'verify_info'.tr,
+                              subTitle: 'verify_info'.tr +
+                                  ' ${controller.country.code}${controller.phoneNumber}',
                             ),
                             const SizedBox(height: 40.0),
                             PinPut(
@@ -90,16 +91,16 @@ class VerifyPage extends GetView<AuthController> {
                                                   controller.resendCode(),
                                             ),
                                             const SizedBox(width: 20.0),
-                                            ShadowButton(
-                                              text: 'call_me'.tr,
-                                              textStyle:
-                                                  AppTheme.title.copyWith(
-                                                fontSize: 14.0,
-                                                color: AppTheme.primaryColor,
-                                              ),
-                                              onPressed: () =>
-                                                  controller.callMe(),
-                                            ),
+                                            // ShadowButton(
+                                            //   text: 'call_me'.tr,
+                                            //   textStyle:
+                                            //       AppTheme.title.copyWith(
+                                            //     fontSize: 14.0,
+                                            //     color: AppTheme.primaryColor,
+                                            //   ),
+                                            //   onPressed: () =>
+                                            //       controller.callMe(),
+                                            // ),
                                           ],
                                         ),
                                       ],
