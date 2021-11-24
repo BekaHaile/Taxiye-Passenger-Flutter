@@ -143,6 +143,7 @@ class Order with _$Order {
 class Payment with _$Payment {
   factory Payment({
     String? name,
+    int? enabled,
   }) = _Payment;
 
   factory Payment.fromJson(Map<String, dynamic> json) =>
@@ -476,6 +477,7 @@ abstract class WalletResponse with _$WalletResponse {
     String? message,
     String? error,
     @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+    @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes,
   }) = _WalletResponse;
 
   factory WalletResponse.fromJson(Map<String, dynamic> json) =>

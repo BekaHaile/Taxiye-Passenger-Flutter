@@ -23,14 +23,19 @@ class PaymentList extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         final Payment payment = paymentMethods[index];
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(4.0, 20.0, 4.0, 0.0),
-          child: PaymentTile(
-            payment: payment,
-            isActive: selectedPayment != null && selectedPayment == payment,
-            onTap: () => onItemSelected(payment),
-          ),
-        );
+        if(payment.enabled == 1){
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(4.0, 20.0, 4.0, 0.0),
+            child: PaymentTile(
+              payment: payment,
+              isActive: selectedPayment != null && selectedPayment == payment,
+              onTap: () => onItemSelected(payment),
+            ),
+          );
+        }
+          else {
+             return Container();
+          }
       },
       itemCount: paymentMethods.length,
     );
@@ -80,7 +85,7 @@ class PaymentTile extends StatelessWidget {
                   'assets/icons/${payment.name ?? 'cbe_bank'}.png',
                   width: 50.0,
                   height: 50.0,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
                 title: Text(
                   (payment.name ?? '').tr,

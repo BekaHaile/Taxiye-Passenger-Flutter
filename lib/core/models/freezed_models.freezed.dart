@@ -2823,9 +2823,10 @@ Payment _$PaymentFromJson(Map<String, dynamic> json) {
 class _$PaymentTearOff {
   const _$PaymentTearOff();
 
-  _Payment call({String? name}) {
+  _Payment call({String? name, int? enabled}) {
     return _Payment(
       name: name,
+      enabled: enabled,
     );
   }
 
@@ -2840,6 +2841,7 @@ const $Payment = _$PaymentTearOff();
 /// @nodoc
 mixin _$Payment {
   String? get name => throw _privateConstructorUsedError;
+  int? get enabled => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2850,7 +2852,7 @@ mixin _$Payment {
 abstract class $PaymentCopyWith<$Res> {
   factory $PaymentCopyWith(Payment value, $Res Function(Payment) then) =
       _$PaymentCopyWithImpl<$Res>;
-  $Res call({String? name});
+  $Res call({String? name, int? enabled});
 }
 
 /// @nodoc
@@ -2864,12 +2866,17 @@ class _$PaymentCopyWithImpl<$Res> implements $PaymentCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
+    Object? enabled = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      enabled: enabled == freezed
+          ? _value.enabled
+          : enabled // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -2879,7 +2886,7 @@ abstract class _$PaymentCopyWith<$Res> implements $PaymentCopyWith<$Res> {
   factory _$PaymentCopyWith(_Payment value, $Res Function(_Payment) then) =
       __$PaymentCopyWithImpl<$Res>;
   @override
-  $Res call({String? name});
+  $Res call({String? name, int? enabled});
 }
 
 /// @nodoc
@@ -2894,12 +2901,17 @@ class __$PaymentCopyWithImpl<$Res> extends _$PaymentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? enabled = freezed,
   }) {
     return _then(_Payment(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      enabled: enabled == freezed
+          ? _value.enabled
+          : enabled // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -2907,17 +2919,19 @@ class __$PaymentCopyWithImpl<$Res> extends _$PaymentCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Payment implements _Payment {
-  _$_Payment({this.name});
+  _$_Payment({this.name, this.enabled});
 
   factory _$_Payment.fromJson(Map<String, dynamic> json) =>
       _$_$_PaymentFromJson(json);
 
   @override
   final String? name;
+  @override
+  final int? enabled;
 
   @override
   String toString() {
-    return 'Payment(name: $name)';
+    return 'Payment(name: $name, enabled: $enabled)';
   }
 
   @override
@@ -2925,12 +2939,16 @@ class _$_Payment implements _Payment {
     return identical(this, other) ||
         (other is _Payment &&
             (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)));
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.enabled, enabled) ||
+                const DeepCollectionEquality().equals(other.enabled, enabled)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(name);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(enabled);
 
   @JsonKey(ignore: true)
   @override
@@ -2944,12 +2962,14 @@ class _$_Payment implements _Payment {
 }
 
 abstract class _Payment implements Payment {
-  factory _Payment({String? name}) = _$_Payment;
+  factory _Payment({String? name, int? enabled}) = _$_Payment;
 
   factory _Payment.fromJson(Map<String, dynamic> json) = _$_Payment.fromJson;
 
   @override
   String? get name => throw _privateConstructorUsedError;
+  @override
+  int? get enabled => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PaymentCopyWith<_Payment> get copyWith =>
@@ -9624,12 +9644,14 @@ class _$WalletResponseTearOff {
   _WalletResponse call(int flag,
       {String? message,
       String? error,
-      @JsonKey(name: 'jugnoo_balance') double? walletBalance}) {
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+      @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes}) {
     return _WalletResponse(
       flag,
       message: message,
       error: error,
       walletBalance: walletBalance,
+      paymentModes: paymentModes,
     );
   }
 
@@ -9648,6 +9670,8 @@ mixin _$WalletResponse {
   String? get error => throw _privateConstructorUsedError;
   @JsonKey(name: 'jugnoo_balance')
   double? get walletBalance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'payment_mode_config_data')
+  List<Payment>? get paymentModes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -9664,7 +9688,8 @@ abstract class $WalletResponseCopyWith<$Res> {
       {int flag,
       String? message,
       String? error,
-      @JsonKey(name: 'jugnoo_balance') double? walletBalance});
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+      @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes});
 }
 
 /// @nodoc
@@ -9682,6 +9707,7 @@ class _$WalletResponseCopyWithImpl<$Res>
     Object? message = freezed,
     Object? error = freezed,
     Object? walletBalance = freezed,
+    Object? paymentModes = freezed,
   }) {
     return _then(_value.copyWith(
       flag: flag == freezed
@@ -9700,6 +9726,10 @@ class _$WalletResponseCopyWithImpl<$Res>
           ? _value.walletBalance
           : walletBalance // ignore: cast_nullable_to_non_nullable
               as double?,
+      paymentModes: paymentModes == freezed
+          ? _value.paymentModes
+          : paymentModes // ignore: cast_nullable_to_non_nullable
+              as List<Payment>?,
     ));
   }
 }
@@ -9715,7 +9745,8 @@ abstract class _$WalletResponseCopyWith<$Res>
       {int flag,
       String? message,
       String? error,
-      @JsonKey(name: 'jugnoo_balance') double? walletBalance});
+      @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+      @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes});
 }
 
 /// @nodoc
@@ -9735,6 +9766,7 @@ class __$WalletResponseCopyWithImpl<$Res>
     Object? message = freezed,
     Object? error = freezed,
     Object? walletBalance = freezed,
+    Object? paymentModes = freezed,
   }) {
     return _then(_WalletResponse(
       flag == freezed
@@ -9753,6 +9785,10 @@ class __$WalletResponseCopyWithImpl<$Res>
           ? _value.walletBalance
           : walletBalance // ignore: cast_nullable_to_non_nullable
               as double?,
+      paymentModes: paymentModes == freezed
+          ? _value.paymentModes
+          : paymentModes // ignore: cast_nullable_to_non_nullable
+              as List<Payment>?,
     ));
   }
 }
@@ -9763,7 +9799,8 @@ class _$_WalletResponse implements _WalletResponse {
   _$_WalletResponse(this.flag,
       {this.message,
       this.error,
-      @JsonKey(name: 'jugnoo_balance') this.walletBalance});
+      @JsonKey(name: 'jugnoo_balance') this.walletBalance,
+      @JsonKey(name: 'payment_mode_config_data') this.paymentModes});
 
   factory _$_WalletResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_WalletResponseFromJson(json);
@@ -9777,10 +9814,13 @@ class _$_WalletResponse implements _WalletResponse {
   @override
   @JsonKey(name: 'jugnoo_balance')
   final double? walletBalance;
+  @override
+  @JsonKey(name: 'payment_mode_config_data')
+  final List<Payment>? paymentModes;
 
   @override
   String toString() {
-    return 'WalletResponse(flag: $flag, message: $message, error: $error, walletBalance: $walletBalance)';
+    return 'WalletResponse(flag: $flag, message: $message, error: $error, walletBalance: $walletBalance, paymentModes: $paymentModes)';
   }
 
   @override
@@ -9796,7 +9836,10 @@ class _$_WalletResponse implements _WalletResponse {
                 const DeepCollectionEquality().equals(other.error, error)) &&
             (identical(other.walletBalance, walletBalance) ||
                 const DeepCollectionEquality()
-                    .equals(other.walletBalance, walletBalance)));
+                    .equals(other.walletBalance, walletBalance)) &&
+            (identical(other.paymentModes, paymentModes) ||
+                const DeepCollectionEquality()
+                    .equals(other.paymentModes, paymentModes)));
   }
 
   @override
@@ -9805,7 +9848,8 @@ class _$_WalletResponse implements _WalletResponse {
       const DeepCollectionEquality().hash(flag) ^
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(error) ^
-      const DeepCollectionEquality().hash(walletBalance);
+      const DeepCollectionEquality().hash(walletBalance) ^
+      const DeepCollectionEquality().hash(paymentModes);
 
   @JsonKey(ignore: true)
   @override
@@ -9819,11 +9863,14 @@ class _$_WalletResponse implements _WalletResponse {
 }
 
 abstract class _WalletResponse implements WalletResponse {
-  factory _WalletResponse(int flag,
-          {String? message,
-          String? error,
-          @JsonKey(name: 'jugnoo_balance') double? walletBalance}) =
-      _$_WalletResponse;
+  factory _WalletResponse(
+      int flag,
+      {String? message,
+      String? error,
+      @JsonKey(name: 'jugnoo_balance')
+          double? walletBalance,
+      @JsonKey(name: 'payment_mode_config_data')
+          List<Payment>? paymentModes}) = _$_WalletResponse;
 
   factory _WalletResponse.fromJson(Map<String, dynamic> json) =
       _$_WalletResponse.fromJson;
@@ -9837,6 +9884,9 @@ abstract class _WalletResponse implements WalletResponse {
   @override
   @JsonKey(name: 'jugnoo_balance')
   double? get walletBalance => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'payment_mode_config_data')
+  List<Payment>? get paymentModes => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$WalletResponseCopyWith<_WalletResponse> get copyWith =>

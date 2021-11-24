@@ -21,6 +21,7 @@ import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/payment_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
@@ -212,7 +213,7 @@ class HomeController extends GetxService {
     _findDrivers();
     _setPinIcons();
     _getUserCorporates();
-    _getPaymentMethods();
+  //  _getPaymentMethods();
     _getPaymentTypes();
     _getSavedPlaces();
   }
@@ -313,6 +314,7 @@ class HomeController extends GetxService {
       case SuccessFlags.rideStarted:
         // Ride started
         _onRideStarted();
+        _updateHomePayments();
         break;
       case SuccessFlags.rideEnd:
         // Ride ended
@@ -337,6 +339,10 @@ class HomeController extends GetxService {
         break;
       default:
     }
+  }
+
+  _updateHomePayments(){
+    PaymentController paymentController = Get.find();
   }
 
   _onRideAccepted(NotificationMessage notificationMessage) {

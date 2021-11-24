@@ -218,12 +218,14 @@ Map<String, dynamic> _$_$_OrderToJson(_$_Order instance) => <String, dynamic>{
 _$_Payment _$_$_PaymentFromJson(Map<String, dynamic> json) {
   return _$_Payment(
     name: json['name'] as String?,
+    enabled: json['enabled'] as int?,
   );
 }
 
 Map<String, dynamic> _$_$_PaymentToJson(_$_Payment instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'enabled': instance.enabled,
     };
 
 _$_Transaction _$_$_TransactionFromJson(Map<String, dynamic> json) {
@@ -751,6 +753,9 @@ _$_WalletResponse _$_$_WalletResponseFromJson(Map<String, dynamic> json) {
     message: json['message'] as String?,
     error: json['error'] as String?,
     walletBalance: (json['jugnoo_balance'] as num?)?.toDouble(),
+    paymentModes: (json['payment_mode_config_data'] as List<dynamic>?)
+        ?.map((e) => Payment.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -760,6 +765,7 @@ Map<String, dynamic> _$_$_WalletResponseToJson(_$_WalletResponse instance) =>
       'message': instance.message,
       'error': instance.error,
       'jugnoo_balance': instance.walletBalance,
+      'payment_mode_config_data': instance.paymentModes,
     };
 
 _$_TransactionHistoryResponse _$_$_TransactionHistoryResponseFromJson(

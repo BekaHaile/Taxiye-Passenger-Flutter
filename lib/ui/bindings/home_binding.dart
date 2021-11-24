@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/repository/common_repository.dart';
 import 'package:taxiye_passenger/core/repository/home_repository.dart';
+import 'package:taxiye_passenger/core/repository/payment_repository.dart';
 import 'package:taxiye_passenger/core/repository/profile_repository.dart';
 import 'package:taxiye_passenger/core/repository/wallet_repository.dart';
 import 'package:taxiye_passenger/core/services/google_map_service.dart';
@@ -10,6 +11,7 @@ import 'package:taxiye_passenger/core/services/notification_service.dart';
 import 'package:taxiye_passenger/ui/controllers/drivers_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/orders_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/payment_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/promotions_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/settings_controller.dart';
@@ -41,10 +43,14 @@ class HomeBinding implements Bindings {
     Get.lazyPut<IProfileRepository>(
         () => ProfileRepository(apiClient: Get.find()),
         fenix: true);
+    Get.lazyPut<IPaymentRepository>(
+        () => PaymentRepository(apiClient: Get.find()),
+        fenix: true);
     Get.lazyPut(() => HomeController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => WalletController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => OrdersController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => DriversController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => PaymentController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => PromotionsController(repository: Get.find()),
         fenix: true);
     Get.lazyPut(

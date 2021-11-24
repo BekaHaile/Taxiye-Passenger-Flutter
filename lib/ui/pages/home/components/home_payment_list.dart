@@ -25,6 +25,7 @@ class HomePaymentList extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           final Payment payment = paymentMethods[index];
+          if(payment.enabled == 1) {
           return Padding(
             padding: const EdgeInsets.fromLTRB(16.0, 0.0, 5.0, 20.0),
             child: PaymentTile(
@@ -33,6 +34,11 @@ class HomePaymentList extends StatelessWidget {
               onTap: () => onItemSelected(payment),
             ),
           );
+          }
+          else 
+          {
+            return Container();
+          }
         },
         itemCount: paymentMethods.length,
       ),
