@@ -343,6 +343,8 @@ final Map<String, String> enUs = {
   'remove': 'Remove',
   'setDefault': 'Set as default method',
 
+  'hello_cash' : 'Hello Cash',
+
   // app settings strings
   'sound_voice': 'Sound & Voice',
   'customize_sounds': 'Customize app sounds and more',

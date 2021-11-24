@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_payment_list.dart';
@@ -110,13 +111,23 @@ class TripDetail extends GetView<HomeController> {
               ),
             ),
             const SizedBox(height: 30.0),
-            Obx(() => HomePaymentList(
-                paymentMethods: controller.paymentMethods,
-                selectedPayment: controller.selectedPayment,
-                onItemSelected: (selectedPayment) {
-                  controller.selectedPayment = selectedPayment;
-                  // Todo: on Payment selected
-                })),
+            Obx(
+              () => HomePaymentList(
+                  paymentMethods: controller.paymentMethods,
+                  selectedPayment: controller.selectedPayment,
+                  onItemSelected: (selectedPayment) {
+                    controller.selectedPayment = selectedPayment;
+                    switch (selectedPayment.name) {
+                      case 'hellocash':
+                        Get.toNamed(Routes.hellocash);
+                        break;
+                      case 'mpesa':
+                        Get.toNamed(Routes.mpesa);
+                        break;
+                      default:
+                    }
+                  }),
+            ),
             RoundedButton(
                 text: 'pay_with_cash'.tr,
                 onPressed: () => controller.onPaymentProcessed())

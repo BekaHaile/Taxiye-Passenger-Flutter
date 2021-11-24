@@ -27,3 +27,5 @@ export 'package:taxiye_passenger/ui/pages/wallet/wallet_transfer_page.dart';
 export 'package:taxiye_passenger/ui/pages/profile/saved_places_page.dart';
 export 'package:taxiye_passenger/ui/pages/settings/privacy_setting_page.dart';
 export 'package:taxiye_passenger/ui/pages/legals/legal_detail_page.dart';
+export 'package:taxiye_passenger/ui/pages/payment/components/hello_cash.dart';
+export 'package:taxiye_passenger/ui/pages/payment/components/mpesa.dart';

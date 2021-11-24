@@ -90,7 +90,7 @@ class HomeController extends GetxService {
   Corporate? selectedCorporate;
 
   // Trip step
-  final _tripStep = TripStep.whereTo.obs;
+  final _tripStep = TripStep.tripDetail.obs;
   get tripStep => _tripStep.value;
   set tripStep(value) => _tripStep.value = value;
 
@@ -216,6 +216,7 @@ class HomeController extends GetxService {
   //  _getPaymentMethods();
     _getPaymentTypes();
     _getSavedPlaces();
+    _updateHomePayments();
   }
 
   onAppStateChange(AppLifecycleState appState) async {
@@ -314,7 +315,6 @@ class HomeController extends GetxService {
       case SuccessFlags.rideStarted:
         // Ride started
         _onRideStarted();
-        _updateHomePayments();
         break;
       case SuccessFlags.rideEnd:
         // Ride ended

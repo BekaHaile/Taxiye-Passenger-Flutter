@@ -4,14 +4,14 @@ import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
-class HelloCash extends StatefulWidget {
-  const HelloCash({Key? key}) : super(key: key);
+class Mpesa extends StatefulWidget {
+  const Mpesa({Key? key}) : super(key: key);
 
   @override
-  State<HelloCash> createState() => _HelloCashState();
+  State<Mpesa> createState() => _MpesaState();
 }
 
-class _HelloCashState extends State<HelloCash> {
+class _MpesaState extends State<Mpesa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class _HelloCashState extends State<HelloCash> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'hello_cash'.tr,
+              'mpessa'.tr,
               style: AppTheme.body.copyWith(
                 fontSize: 24.0,
                 color: AppTheme.darkColor,
