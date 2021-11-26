@@ -485,6 +485,32 @@ abstract class WalletResponse with _$WalletResponse {
 }
 
 @freezed
+abstract class PayWithHelloCashResponse with _$PayWithHelloCashResponse {
+  factory PayWithHelloCashResponse(
+    int flag, {
+    int? amount,
+    int? code,
+    String? message,
+    String? currency,
+    String? date,
+    String? description,
+    String? expires,
+    String? from,
+    @JsonKey(name: 'fromname') String? fromName,
+    String? id,
+    String? status,
+    @JsonKey(name: 'statusdetail') String? statusDetail,
+    @JsonKey(name: 'toname') String? toName,
+    String? to,
+    @JsonKey(name: 'isupcoming') String? isUpcoming,
+    String? error,
+  }) = _PayWithHelloCashResponse;
+
+  factory PayWithHelloCashResponse.fromJson(Map<String, dynamic> json) =>
+      _$PayWithHelloCashResponseFromJson(json);
+}
+
+@freezed
 abstract class TransactionHistoryResponse with _$TransactionHistoryResponse {
   factory TransactionHistoryResponse(
     int flag, {

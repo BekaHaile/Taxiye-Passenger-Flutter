@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
@@ -27,6 +29,13 @@ class PaymentController extends GetxController {
   get selectedPayment => _selectedPayment.value;
   set selectedPayment(value) => _selectedPayment.value = value;
 
+  //hellocash data
+  String phoneNumber = '';
+  List<String> partners = ['Lion', 'Wegagen'];
+  String selectedPartner = 'Lion';
+  String amount = '';
+  String driverId = '';
+
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
@@ -52,6 +61,74 @@ class PaymentController extends GetxController {
           _updateHomePayments();
         } else {
           toast('error', walletResponse.message ?? walletResponse.error ?? '');
+          status(Status.error);
+        }
+      },
+      onError: (err) {
+        print("$err");
+        status(Status.error);
+      },
+    );
+  }
+
+  payWithHelloCash() {
+    //Todo: Get payment Methods
+    final payWithHelloCashPayload = {
+      "payment_method": "HELLO-CASH",
+      "access_token": "1",
+      "driver_id": _storage.read('longitude'),
+      "amount": amount,
+      "phone_no": phoneNumber,
+      "system": selectedPartner
+    };
+
+    status(Status.loading);
+    repository.payWithHelloCash(payWithHelloCashPayload).then(
+      (payWithHelloCashResponse) {
+        if (payWithHelloCashResponse.flag ==
+            SuccessFlags.payWithHelloCash.successCode) {
+              //to do when succesfully paid
+            _checkHelloCashPayment(payWithHelloCashResponse.id);
+        } else {
+          toast('error', payWithHelloCashResponse.message ?? payWithHelloCashResponse.error ?? '');
+          status(Status.error);
+        }
+      },
+      onError: (err) {
+        print("$err");
+        status(Status.error);
+      },
+    );
+  }
+
+  _checkHelloCashPayment(String? paymentId){
+    int min = 0;
+    Timer.periodic(Duration(seconds: 10), (timer) {
+      if(min < 120){
+        min += 10;
+        _checkIfPaymentIsComplete(timer, paymentId);
+      }
+        else {
+        timer.cancel();
+      }
+    });
+  }
+
+  _checkIfPaymentIsComplete(Timer timer, String? paymentId) {
+    final payWithHelloCashPayload = {
+      "id": paymentId,
+    };
+
+    status(Status.loading);
+    repository.checkHelloCashPayment(payWithHelloCashPayload).then(
+      (payWithHelloCashResponse) {
+        status(Status.success);
+        if (payWithHelloCashResponse.flag ==
+            SuccessFlags.payWithHelloCash.successCode) {
+              //to do when succesfully paid
+              timer.cancel();
+        } else {
+          toast('error', payWithHelloCashResponse.message ?? payWithHelloCashResponse.error ?? '');
           status(Status.error);
         }
       },

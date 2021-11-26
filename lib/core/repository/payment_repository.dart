@@ -22,4 +22,24 @@ class PaymentRepository implements IPaymentRepository {
     );
     return WalletResponse.fromJson(response);
   }
+
+  @override
+  Future<PayWithHelloCashResponse> payWithHelloCash(Map<String, dynamic> payWithHelloCashPayload) async{
+   final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/payment/request',
+      data: payWithHelloCashPayload,
+    );
+    return PayWithHelloCashResponse.fromJson(response);
+  }
+
+  @override
+  Future<PayWithHelloCashResponse> checkHelloCashPayment(Map<String, dynamic> checkHelloCashPaymentPayload) async{
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/get/payment',
+      data: checkHelloCashPaymentPayload,
+    );
+    return PayWithHelloCashResponse.fromJson(response);
+  }
 }

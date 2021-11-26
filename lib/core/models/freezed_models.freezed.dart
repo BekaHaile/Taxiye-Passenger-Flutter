@@ -9893,6 +9893,564 @@ abstract class _WalletResponse implements WalletResponse {
       throw _privateConstructorUsedError;
 }
 
+PayWithHelloCashResponse _$PayWithHelloCashResponseFromJson(
+    Map<String, dynamic> json) {
+  return _PayWithHelloCashResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$PayWithHelloCashResponseTearOff {
+  const _$PayWithHelloCashResponseTearOff();
+
+  _PayWithHelloCashResponse call(int flag,
+      {int? amount,
+      int? code,
+      String? message,
+      String? currency,
+      String? date,
+      String? description,
+      String? expires,
+      String? from,
+      @JsonKey(name: 'fromname') String? fromName,
+      String? id,
+      String? status,
+      @JsonKey(name: 'statusdetail') String? statusDetail,
+      @JsonKey(name: 'toname') String? toName,
+      String? to,
+      @JsonKey(name: 'isupcoming') String? isUpcoming,
+      String? error}) {
+    return _PayWithHelloCashResponse(
+      flag,
+      amount: amount,
+      code: code,
+      message: message,
+      currency: currency,
+      date: date,
+      description: description,
+      expires: expires,
+      from: from,
+      fromName: fromName,
+      id: id,
+      status: status,
+      statusDetail: statusDetail,
+      toName: toName,
+      to: to,
+      isUpcoming: isUpcoming,
+      error: error,
+    );
+  }
+
+  PayWithHelloCashResponse fromJson(Map<String, Object> json) {
+    return PayWithHelloCashResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $PayWithHelloCashResponse = _$PayWithHelloCashResponseTearOff();
+
+/// @nodoc
+mixin _$PayWithHelloCashResponse {
+  int get flag => throw _privateConstructorUsedError;
+  int? get amount => throw _privateConstructorUsedError;
+  int? get code => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
+  String? get date => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get expires => throw _privateConstructorUsedError;
+  String? get from => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fromname')
+  String? get fromName => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'statusdetail')
+  String? get statusDetail => throw _privateConstructorUsedError;
+  @JsonKey(name: 'toname')
+  String? get toName => throw _privateConstructorUsedError;
+  String? get to => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isupcoming')
+  String? get isUpcoming => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PayWithHelloCashResponseCopyWith<PayWithHelloCashResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PayWithHelloCashResponseCopyWith<$Res> {
+  factory $PayWithHelloCashResponseCopyWith(PayWithHelloCashResponse value,
+          $Res Function(PayWithHelloCashResponse) then) =
+      _$PayWithHelloCashResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      int? amount,
+      int? code,
+      String? message,
+      String? currency,
+      String? date,
+      String? description,
+      String? expires,
+      String? from,
+      @JsonKey(name: 'fromname') String? fromName,
+      String? id,
+      String? status,
+      @JsonKey(name: 'statusdetail') String? statusDetail,
+      @JsonKey(name: 'toname') String? toName,
+      String? to,
+      @JsonKey(name: 'isupcoming') String? isUpcoming,
+      String? error});
+}
+
+/// @nodoc
+class _$PayWithHelloCashResponseCopyWithImpl<$Res>
+    implements $PayWithHelloCashResponseCopyWith<$Res> {
+  _$PayWithHelloCashResponseCopyWithImpl(this._value, this._then);
+
+  final PayWithHelloCashResponse _value;
+  // ignore: unused_field
+  final $Res Function(PayWithHelloCashResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? amount = freezed,
+    Object? code = freezed,
+    Object? message = freezed,
+    Object? currency = freezed,
+    Object? date = freezed,
+    Object? description = freezed,
+    Object? expires = freezed,
+    Object? from = freezed,
+    Object? fromName = freezed,
+    Object? id = freezed,
+    Object? status = freezed,
+    Object? statusDetail = freezed,
+    Object? toName = freezed,
+    Object? to = freezed,
+    Object? isUpcoming = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expires: expires == freezed
+          ? _value.expires
+          : expires // ignore: cast_nullable_to_non_nullable
+              as String?,
+      from: from == freezed
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fromName: fromName == freezed
+          ? _value.fromName
+          : fromName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      statusDetail: statusDetail == freezed
+          ? _value.statusDetail
+          : statusDetail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      toName: toName == freezed
+          ? _value.toName
+          : toName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      to: to == freezed
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isUpcoming: isUpcoming == freezed
+          ? _value.isUpcoming
+          : isUpcoming // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PayWithHelloCashResponseCopyWith<$Res>
+    implements $PayWithHelloCashResponseCopyWith<$Res> {
+  factory _$PayWithHelloCashResponseCopyWith(_PayWithHelloCashResponse value,
+          $Res Function(_PayWithHelloCashResponse) then) =
+      __$PayWithHelloCashResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      int? amount,
+      int? code,
+      String? message,
+      String? currency,
+      String? date,
+      String? description,
+      String? expires,
+      String? from,
+      @JsonKey(name: 'fromname') String? fromName,
+      String? id,
+      String? status,
+      @JsonKey(name: 'statusdetail') String? statusDetail,
+      @JsonKey(name: 'toname') String? toName,
+      String? to,
+      @JsonKey(name: 'isupcoming') String? isUpcoming,
+      String? error});
+}
+
+/// @nodoc
+class __$PayWithHelloCashResponseCopyWithImpl<$Res>
+    extends _$PayWithHelloCashResponseCopyWithImpl<$Res>
+    implements _$PayWithHelloCashResponseCopyWith<$Res> {
+  __$PayWithHelloCashResponseCopyWithImpl(_PayWithHelloCashResponse _value,
+      $Res Function(_PayWithHelloCashResponse) _then)
+      : super(_value, (v) => _then(v as _PayWithHelloCashResponse));
+
+  @override
+  _PayWithHelloCashResponse get _value =>
+      super._value as _PayWithHelloCashResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? amount = freezed,
+    Object? code = freezed,
+    Object? message = freezed,
+    Object? currency = freezed,
+    Object? date = freezed,
+    Object? description = freezed,
+    Object? expires = freezed,
+    Object? from = freezed,
+    Object? fromName = freezed,
+    Object? id = freezed,
+    Object? status = freezed,
+    Object? statusDetail = freezed,
+    Object? toName = freezed,
+    Object? to = freezed,
+    Object? isUpcoming = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_PayWithHelloCashResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      expires: expires == freezed
+          ? _value.expires
+          : expires // ignore: cast_nullable_to_non_nullable
+              as String?,
+      from: from == freezed
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fromName: fromName == freezed
+          ? _value.fromName
+          : fromName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      statusDetail: statusDetail == freezed
+          ? _value.statusDetail
+          : statusDetail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      toName: toName == freezed
+          ? _value.toName
+          : toName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      to: to == freezed
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isUpcoming: isUpcoming == freezed
+          ? _value.isUpcoming
+          : isUpcoming // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PayWithHelloCashResponse implements _PayWithHelloCashResponse {
+  _$_PayWithHelloCashResponse(this.flag,
+      {this.amount,
+      this.code,
+      this.message,
+      this.currency,
+      this.date,
+      this.description,
+      this.expires,
+      this.from,
+      @JsonKey(name: 'fromname') this.fromName,
+      this.id,
+      this.status,
+      @JsonKey(name: 'statusdetail') this.statusDetail,
+      @JsonKey(name: 'toname') this.toName,
+      this.to,
+      @JsonKey(name: 'isupcoming') this.isUpcoming,
+      this.error});
+
+  factory _$_PayWithHelloCashResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_PayWithHelloCashResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final int? amount;
+  @override
+  final int? code;
+  @override
+  final String? message;
+  @override
+  final String? currency;
+  @override
+  final String? date;
+  @override
+  final String? description;
+  @override
+  final String? expires;
+  @override
+  final String? from;
+  @override
+  @JsonKey(name: 'fromname')
+  final String? fromName;
+  @override
+  final String? id;
+  @override
+  final String? status;
+  @override
+  @JsonKey(name: 'statusdetail')
+  final String? statusDetail;
+  @override
+  @JsonKey(name: 'toname')
+  final String? toName;
+  @override
+  final String? to;
+  @override
+  @JsonKey(name: 'isupcoming')
+  final String? isUpcoming;
+  @override
+  final String? error;
+
+  @override
+  String toString() {
+    return 'PayWithHelloCashResponse(flag: $flag, amount: $amount, code: $code, message: $message, currency: $currency, date: $date, description: $description, expires: $expires, from: $from, fromName: $fromName, id: $id, status: $status, statusDetail: $statusDetail, toName: $toName, to: $to, isUpcoming: $isUpcoming, error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PayWithHelloCashResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.currency, currency) ||
+                const DeepCollectionEquality()
+                    .equals(other.currency, currency)) &&
+            (identical(other.date, date) ||
+                const DeepCollectionEquality().equals(other.date, date)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.expires, expires) ||
+                const DeepCollectionEquality()
+                    .equals(other.expires, expires)) &&
+            (identical(other.from, from) ||
+                const DeepCollectionEquality().equals(other.from, from)) &&
+            (identical(other.fromName, fromName) ||
+                const DeepCollectionEquality()
+                    .equals(other.fromName, fromName)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.statusDetail, statusDetail) ||
+                const DeepCollectionEquality()
+                    .equals(other.statusDetail, statusDetail)) &&
+            (identical(other.toName, toName) ||
+                const DeepCollectionEquality().equals(other.toName, toName)) &&
+            (identical(other.to, to) ||
+                const DeepCollectionEquality().equals(other.to, to)) &&
+            (identical(other.isUpcoming, isUpcoming) ||
+                const DeepCollectionEquality()
+                    .equals(other.isUpcoming, isUpcoming)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(code) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(currency) ^
+      const DeepCollectionEquality().hash(date) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(expires) ^
+      const DeepCollectionEquality().hash(from) ^
+      const DeepCollectionEquality().hash(fromName) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(statusDetail) ^
+      const DeepCollectionEquality().hash(toName) ^
+      const DeepCollectionEquality().hash(to) ^
+      const DeepCollectionEquality().hash(isUpcoming) ^
+      const DeepCollectionEquality().hash(error);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PayWithHelloCashResponseCopyWith<_PayWithHelloCashResponse> get copyWith =>
+      __$PayWithHelloCashResponseCopyWithImpl<_PayWithHelloCashResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_PayWithHelloCashResponseToJson(this);
+  }
+}
+
+abstract class _PayWithHelloCashResponse implements PayWithHelloCashResponse {
+  factory _PayWithHelloCashResponse(int flag,
+      {int? amount,
+      int? code,
+      String? message,
+      String? currency,
+      String? date,
+      String? description,
+      String? expires,
+      String? from,
+      @JsonKey(name: 'fromname') String? fromName,
+      String? id,
+      String? status,
+      @JsonKey(name: 'statusdetail') String? statusDetail,
+      @JsonKey(name: 'toname') String? toName,
+      String? to,
+      @JsonKey(name: 'isupcoming') String? isUpcoming,
+      String? error}) = _$_PayWithHelloCashResponse;
+
+  factory _PayWithHelloCashResponse.fromJson(Map<String, dynamic> json) =
+      _$_PayWithHelloCashResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  int? get amount => throw _privateConstructorUsedError;
+  @override
+  int? get code => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get currency => throw _privateConstructorUsedError;
+  @override
+  String? get date => throw _privateConstructorUsedError;
+  @override
+  String? get description => throw _privateConstructorUsedError;
+  @override
+  String? get expires => throw _privateConstructorUsedError;
+  @override
+  String? get from => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'fromname')
+  String? get fromName => throw _privateConstructorUsedError;
+  @override
+  String? get id => throw _privateConstructorUsedError;
+  @override
+  String? get status => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'statusdetail')
+  String? get statusDetail => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'toname')
+  String? get toName => throw _privateConstructorUsedError;
+  @override
+  String? get to => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'isupcoming')
+  String? get isUpcoming => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$PayWithHelloCashResponseCopyWith<_PayWithHelloCashResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 TransactionHistoryResponse _$TransactionHistoryResponseFromJson(
     Map<String, dynamic> json) {
   return _TransactionHistoryResponse.fromJson(json);

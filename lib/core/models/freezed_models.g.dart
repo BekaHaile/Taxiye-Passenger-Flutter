@@ -768,6 +768,51 @@ Map<String, dynamic> _$_$_WalletResponseToJson(_$_WalletResponse instance) =>
       'payment_mode_config_data': instance.paymentModes,
     };
 
+_$_PayWithHelloCashResponse _$_$_PayWithHelloCashResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_PayWithHelloCashResponse(
+    json['flag'] as int,
+    amount: json['amount'] as int?,
+    code: json['code'] as int?,
+    message: json['message'] as String?,
+    currency: json['currency'] as String?,
+    date: json['date'] as String?,
+    description: json['description'] as String?,
+    expires: json['expires'] as String?,
+    from: json['from'] as String?,
+    fromName: json['fromname'] as String?,
+    id: json['id'] as String?,
+    status: json['status'] as String?,
+    statusDetail: json['statusdetail'] as String?,
+    toName: json['toname'] as String?,
+    to: json['to'] as String?,
+    isUpcoming: json['isupcoming'] as String?,
+    error: json['error'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_PayWithHelloCashResponseToJson(
+        _$_PayWithHelloCashResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'amount': instance.amount,
+      'code': instance.code,
+      'message': instance.message,
+      'currency': instance.currency,
+      'date': instance.date,
+      'description': instance.description,
+      'expires': instance.expires,
+      'from': instance.from,
+      'fromname': instance.fromName,
+      'id': instance.id,
+      'status': instance.status,
+      'statusdetail': instance.statusDetail,
+      'toname': instance.toName,
+      'to': instance.to,
+      'isupcoming': instance.isUpcoming,
+      'error': instance.error,
+    };
+
 _$_TransactionHistoryResponse _$_$_TransactionHistoryResponseFromJson(
     Map<String, dynamic> json) {
   return _$_TransactionHistoryResponse(

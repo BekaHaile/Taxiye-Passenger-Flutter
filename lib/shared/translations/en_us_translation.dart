@@ -337,6 +337,7 @@ final Map<String, String> enUs = {
   'cbe': 'Commercial Bank of Ethiopia',
   'mpessa': 'M-PESSA',
   'telebirr': 'Tele Birr',
+  'select_partner': 'Select Partner',
 
   'new_payment_method': 'Select new payment method',
   'edit': 'Edit',

@@ -74,6 +74,7 @@ enum SuccessFlags {
   driversBusy,
   rateDriver,
   fetchWalletBalance,
+  payWithHelloCash,
   getTransactionHistory,
   transfer,
   reloadProfile,
@@ -115,6 +116,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.rideSummary: 115,
     SuccessFlags.emergencyContacts: 450,
     SuccessFlags.logout: 409,
+    SuccessFlags.payWithHelloCash: 143,
   };
 
   int get successCode => successCodes[this]!;
