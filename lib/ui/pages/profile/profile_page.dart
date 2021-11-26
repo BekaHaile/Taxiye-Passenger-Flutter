@@ -76,26 +76,27 @@ class ProfilePage extends GetView<ProfileController> {
                       color: AppTheme.lightSilverColor,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Todo: replace values with real data
-                        ProfileDetailTile(
-                          title: 'ratings'.tr,
-                          value: 4.5,
-                          icon: Icons.star,
-                        ),
-                        ProfileDetailTile(
-                          title: 'rides_completed'.tr,
-                          value: 45,
-                          icon: Icons.check_circle,
-                        ),
-                        ProfileDetailTile(
-                            title: 'rides_cancelled'.tr,
-                            value: 21,
-                            icon: Icons.block_rounded),
-                      ],
-                    ),
+                    child: Obx(() => Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ProfileDetailTile(
+                              title: 'rides_completed'.tr,
+                              value: controller.userRideCount.completedRides,
+                              icon: Icons.check_circle,
+                            ),
+                            ProfileDetailTile(
+                                title: 'rides_cancelled'.tr,
+                                value: controller.userRideCount.cancelledRides,
+                                icon: Icons.block_rounded),
+                            // Expanded(
+                            //   child: ProfileDetailTile(
+                            //     title: 'total_money_spent'.tr,
+                            //     value: controller.userRideCount.totalMoneySpent,
+                            //     icon: Icons.star,
+                            //   ),
+                            // ),
+                          ],
+                        )),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20.0),

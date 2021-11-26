@@ -134,14 +134,15 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
 
   double getMapBottomPadding() {
     switch (controller.tripStep) {
-      case TripStep.driverDetail:
       case TripStep.pickVehicle:
       case TripStep.tripDetail:
         return Get.height * 0.35;
+      case TripStep.driverDetail:
       case TripStep.lookingDrivers:
       case TripStep.confirmPlace:
-      case TripStep.tripStarted:
         return Get.height * 0.24;
+      case TripStep.tripStarted:
+        return Get.height * 0.2;
       default:
         return 0.0;
     }

@@ -37,17 +37,28 @@ class ApiClient {
       {required RequestType requestType,
       bool requiresAuth = true,
       bool requiresDefaultParams = true,
+      String? port,
       required String path,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? data}) async {
     try {
+      dioClient.updateBaseUrl(port ?? '8008');
       if (requiresAuth) await dioClient.addAuthorizationInterceptor();
       if (requiresDefaultParams && data != null) {
         data.addAll(defaultParams);
         data['locale'] = Get.locale?.languageCode ?? 'en';
       }
 
-      log('sent payload: $data');
+      if (requiresDefaultParams && queryParameters != null) {
+        queryParameters.addAll(defaultParams);
+        final accessToken = GetStorage().read('accessToken');
+        queryParameters.addAll({
+          'locale': Get.locale?.languageCode ?? 'en',
+          'access_token': accessToken,
+        });
+      }
+
+      // log('sent payload: $queryParameters');
       dynamic response;
       switch (requestType) {
         case RequestType.get:
@@ -70,7 +81,7 @@ class ApiClient {
           throw "Request type not found.";
       }
 
-      log('raw response: $response');
+      // log('raw response: $response');
       return (response is String) ? jsonDecode(response) : response;
     } on DioError catch (e) {
       final errorMessage = NetworkExceptions.getErrorMessage(
@@ -120,6 +131,63 @@ class ApiClient {
       // return List<Files>.from(l.map((model) => Files.fromJson(model)).toList());
 
       return User.fromJson(response);
+    } on DioError catch (e) {
+      final errorMessage = NetworkExceptions.getErrorMessage(
+          NetworkExceptions.getDioException(e));
+      print(errorMessage);
+      toast('error', e.response?.data['message']);
+      return Future.error(errorMessage);
+    }
+  }
+
+  // sends form data for single or multiple files
+  Future<Map<String, dynamic>> sendFormData({
+    required String fileFieldName,
+    required Map<String, dynamic> formPayload,
+    required String endPoint,
+    String? port,
+    File? file,
+    List<File>? files,
+  }) async {
+    try {
+      // For multiple files case
+      if (files?.isNotEmpty ?? false) {
+        List<MultipartFile> multipartFiles = [];
+        for (File file in files!) {
+          String? mimeType = lookupMimeType(file.path);
+          List<String> splitMimeTypes = mimeType?.split('/') ?? [];
+
+          final MultipartFile multipartFile = MultipartFile.fromFileSync(
+              file.path,
+              contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1]));
+
+          multipartFiles.add(multipartFile);
+        }
+
+        formPayload[fileFieldName] = multipartFiles;
+      } else if (file?.path.isNotEmpty ?? false) {
+        // case for single file form data
+        String? mimeType = lookupMimeType(file!.path);
+        List<String> splitMimeTypes = mimeType?.split('/') ?? [];
+
+        final MultipartFile multipartFile = MultipartFile.fromFileSync(
+            file.path,
+            contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1]));
+        formPayload[fileFieldName] = multipartFile;
+      }
+
+      formPayload.addAll(defaultParams);
+      final accessToken = GetStorage().read('accessToken');
+      formPayload['access_token'] = accessToken;
+      log('form payload here: $formPayload');
+      var formData = FormData.fromMap(formPayload);
+
+      dioClient.updateBaseUrl(port ?? '8008');
+      final response = await dioClient.post(endPoint, data: formData);
+      // Iterable l = json.decode(jsonEncode(response));
+      // return List<Files>.from(l.map((model) => Files.fromJson(model)).toList());
+
+      return (response is String) ? jsonDecode(response) : response;
     } on DioError catch (e) {
       final errorMessage = NetworkExceptions.getErrorMessage(
           NetworkExceptions.getDioException(e));

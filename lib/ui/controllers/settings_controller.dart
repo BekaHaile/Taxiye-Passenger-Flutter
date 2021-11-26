@@ -43,8 +43,8 @@ class SettingsController extends GetxController {
     repository.updateUser(null, languagePayload).then(
       (data) {
         if (data.flag == SuccessFlags.updateProfile.successCode) {
-          if (languagePayload.containsKey('locale')) {
-            String locale = languagePayload['locale'];
+          if (languagePayload.containsKey('updatedLocale')) {
+            String locale = languagePayload['updatedLocale'];
             Get.updateLocale(Locale(locale));
             reloadProfile();
           }

@@ -110,7 +110,7 @@ class PromotionsPage extends GetView<PromotionsController> {
               child: Text('ride_rewards'.tr, style: AppTheme.body),
             ),
             SizedBox(
-              height: 160.0,
+              height: 165.0,
               child: CouponList(
                 coupons: controller.coupons,
                 scrollDirection: Axis.horizontal,
@@ -123,7 +123,7 @@ class PromotionsPage extends GetView<PromotionsController> {
               child: Text('delivery_rewards'.tr, style: AppTheme.body),
             ),
             SizedBox(
-              height: 160.0,
+              height: 165.0,
               child: CouponList(
                 coupons: controller.coupons,
                 scrollDirection: Axis.horizontal,

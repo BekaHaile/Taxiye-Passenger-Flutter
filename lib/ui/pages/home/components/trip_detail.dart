@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
@@ -26,7 +27,9 @@ class TripDetail extends GetView<HomeController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'arrived_destination'.tr,
+              controller.selectedService == HomeServiceIndex.delivery
+                  ? 'order_delivered'.tr
+                  : 'arrived_destination'.tr,
               style: AppTheme.title.copyWith(fontSize: 18.0),
             ),
             const SizedBox(height: 20.0),

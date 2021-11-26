@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
@@ -33,7 +34,8 @@ import 'dart:math' show cos, sqrt, asin;
 */
 class HomeController extends GetxService {
   final IHomeRepository repository;
-  HomeController({required this.repository});
+  final IFileRepository fileRepository;
+  HomeController({required this.repository, required this.fileRepository});
 
   final status = Status.success.obs;
   final AuthController authController = Get.find();
@@ -45,9 +47,17 @@ class HomeController extends GetxService {
 
   List<Vehicle>? allVehicles;
 
+  // final _allVehicles = List<Vehicle>.empty(growable: true).obs;
+  // get allVehicles => _allVehicles.value;
+  // set allVehicles(value) => _allVehicles.value = value;
+
   final _vehicles = List<Vehicle>.empty(growable: true).obs;
   get vehicles => _vehicles.value;
   set vehicles(value) => _vehicles.assignAll(value);
+
+  final _deliveryVehicles = List<Vehicle>.empty(growable: true).obs;
+  get deliveryVehicles => _deliveryVehicles.value;
+  set deliveryVehicles(value) => _deliveryVehicles.assignAll(value);
 
   final _drivers = List<Driver>.empty(growable: true).obs;
   get drivers => _drivers.value;
@@ -81,6 +91,10 @@ class HomeController extends GetxService {
   final _selectedPayment = Payment(name: 'cash_payment').obs;
   get selectedPayment => _selectedPayment.value;
   set selectedPayment(value) => _selectedPayment.value = value;
+
+  final _currency = 'ETB'.obs;
+  get currency => _currency.value;
+  set currency(value) => _currency.value = value;
 
   final _userCorporates = List<Corporate>.empty(growable: true).obs;
   get userCorporates => _userCorporates.value;
@@ -136,6 +150,20 @@ class HomeController extends GetxService {
   get rideType => _rideType.value;
   set rideType(value) => _rideType.value = value;
 
+  // delivery
+  final _deliveryImages = List<File>.empty(growable: true).obs;
+  get deliveryImages => _deliveryImages.value;
+  set deliveryImages(value) => _deliveryImages.assignAll(value);
+
+  final _cancelOrderReasons = List<String>.empty(growable: true).obs;
+  get cancelOrderReasons => _cancelOrderReasons.value;
+  set cancelOrderReasons(value) => _cancelOrderReasons.value = value;
+
+  int? orderId;
+  int? deliveryId;
+  String orderText = '';
+  String? deliveryRecieverPhone;
+
   // final searchController = TextEditingController();
   Polyline? ridePolyline;
 
@@ -170,7 +198,6 @@ class HomeController extends GetxService {
   int paymentMode = 0;
   Timer? debounce;
 
-  late Timer _resendTimer;
   String feedbackComment = '';
   double driverRating = 0;
 
@@ -204,7 +231,6 @@ class HomeController extends GetxService {
       pickUpLocationSearch = place.placeName ?? '';
       pickupLocation = place;
     });
-    print('current location here: $currentLocation');
 
     // register for notification message listner
     repository.registerFCM(onMessageRecieved: onMessageRescieved);
@@ -250,8 +276,10 @@ class HomeController extends GetxService {
 
   _findDrivers({LatLng? destination, double? routeDistance}) async {
     Map<String, dynamic> findDriversPayload = {
-      'latitude': '${currentLocation.latitude}',
-      'longitude': '${currentLocation.longitude}',
+      'latitude':
+          '${pickupLocation?.location?.latitude ?? currentLocation.latitude}',
+      'longitude':
+          '${pickupLocation?.location?.longitude ?? currentLocation.longitude}',
     };
 
     if (destination != null) {
@@ -272,7 +300,8 @@ class HomeController extends GetxService {
         if (findDriverResponse.regions != null) {
           // add vehicles filteredby ride_type, show O || 2
           allVehicles = findDriverResponse.regions;
-
+          currency = findDriverResponse.currency;
+          _setVehiclesFareStructures(findDriverResponse.fareStructure);
           filterVehicles(0);
         }
       } else {
@@ -282,11 +311,25 @@ class HomeController extends GetxService {
     }, onError: (error) => print('Find Drivers error: $error'));
   }
 
+  _setVehiclesFareStructures(List<FareStructure>? fareStructures) {
+    if ((allVehicles?.isNotEmpty ?? false) &&
+        (fareStructures?.isNotEmpty ?? false)) {
+      // set fare structure for each vehicle
+      for (Vehicle vehicle in allVehicles!) {
+        if (vehicle.regionFare != null) {
+          allVehicles![allVehicles!.indexOf(vehicle)] = vehicle.copyWith(
+              fareStructure: fareStructures!.firstWhere(
+                  (element) => element.vehicleType == vehicle.vehicleType));
+        }
+      }
+    }
+  }
+
   _startDriverOnRouteTimer(int mins) {
     if ((mins * 60) != driverOnRouteCounter) {
       driverOnRouteCounter = mins * 60; // in seconds
       const oneSec = Duration(seconds: 1);
-      _resendTimer = Timer.periodic(
+      Timer.periodic(
         oneSec,
         (Timer timer) {
           if (driverOnRouteCounter < 1) {
@@ -335,6 +378,10 @@ class HomeController extends GetxService {
       case SuccessFlags.driversBusy:
         resetValues();
         break;
+      case SuccessFlags.delivery:
+        // change steps based on order status
+        _getOrderHistory();
+        break;
       default:
     }
   }
@@ -369,11 +416,15 @@ class HomeController extends GetxService {
     // set driver route
     // set origin to drivers current location
     final origin = PointLatLng(
-        notificationMessage.currentLocationLatitude ?? currentLocation.latitude,
+        notificationMessage.currentLocationLatitude ??
+            pickupLocation?.location?.latitude ??
+            currentLocation.latitude,
         notificationMessage.currentLocationLongitude ??
+            pickupLocation?.location?.longitude ??
             currentLocation.longitude);
-    final destination =
-        PointLatLng(currentLocation.latitude, currentLocation.longitude);
+    final destination = PointLatLng(
+        pickupLocation?.location?.latitude ?? currentLocation.latitude,
+        pickupLocation?.location?.longitude ?? currentLocation.longitude);
     // Get & set the polyLines
     repository.getRoutePolylines(origin, destination).then(
         (polylineCoordinates) {
@@ -397,18 +448,20 @@ class HomeController extends GetxService {
       );
     }, onError: (error) => log('Poly line error: $error'));
 
-    updateDriverLocation();
+    _updateDriverLocation();
   }
 
   _onRideStarted() {
     tripStep = TripStep.tripStarted;
-    _setMapPins(currentLocation, dropOffLocation!.location!);
+    _setMapPins(pickupLocation?.location ?? currentLocation,
+        dropOffLocation!.location!);
     if (ridePolyline != null) {
       _polyLines.clear();
       _polyLines.add(ridePolyline!);
 
-      final origin =
-          PointLatLng(currentLocation.latitude, currentLocation.longitude);
+      final origin = PointLatLng(
+          pickupLocation?.location?.latitude ?? currentLocation.latitude,
+          pickupLocation?.location?.longitude ?? currentLocation.longitude);
       final destination = PointLatLng(dropOffLocation!.location!.latitude,
           dropOffLocation!.location!.longitude);
 
@@ -476,7 +529,12 @@ class HomeController extends GetxService {
     }
 
     _locationSuggestions.clear();
-    Get.toNamed(Routes.pickLocation);
+
+    if (selectedService == HomeServiceIndex.delivery) {
+      Get.toNamed(Routes.deliveryDetail);
+    } else {
+      Get.toNamed(Routes.pickLocation);
+    }
   }
 
   // For location search
@@ -611,6 +669,9 @@ class HomeController extends GetxService {
           pickupLocation = place;
           pickUpLocationSearch = place.placeName;
           pickUpSearchController.text = place.placeName ?? '';
+          if (selectedService == HomeServiceIndex.delivery) {
+            _onDeliveryLocationPicked();
+          }
         } else {
           dropOffLocation = place;
           dropOffLocationSearch = place.placeName;
@@ -619,7 +680,11 @@ class HomeController extends GetxService {
           locationSuggestions.clear();
           if (!(tripStep == TripStep.addPlace ||
               tripStep == TripStep.confirmPlace)) {
-            onLocationPicked();
+            if (selectedService == HomeServiceIndex.delivery) {
+              _onDeliveryLocationPicked();
+            } else {
+              onLocationPicked();
+            }
           }
         }
 
@@ -658,40 +723,57 @@ class HomeController extends GetxService {
         placeName: savedAddress.addressName,
         location: LatLng(double.parse(savedAddress.latitude ?? ''),
             double.parse(savedAddress.longitude ?? '')));
-    onLocationPicked();
+    if (selectedService == HomeServiceIndex.delivery) {
+      _onDeliveryLocationPicked();
+    } else {
+      onLocationPicked();
+    }
   }
 
   confirmPickedLocation() {
     if (dropOffLocation == null) {
       Get.snackbar('error', 'destination_error');
     } else {
-      onLocationPicked();
+      if (selectedService == HomeServiceIndex.delivery) {
+        _onDeliveryLocationPicked();
+      } else {
+        onLocationPicked();
+      }
     }
   }
 
   onLocationPicked() {
     // get vehicle Fare estimations
-    _findDrivers(destination: dropOffLocation!.location);
+    if (selectedService == HomeServiceIndex.ride) {
+      _findDrivers(destination: dropOffLocation!.location);
+    } else if (selectedService == HomeServiceIndex.delivery) {
+      Get.back();
+    }
+
     Get.back();
     tripStep = TripStep.pickVehicle;
 
     // set the polylines
 
-    final origin =
-        PointLatLng(currentLocation.latitude, currentLocation.longitude);
+    final origin = PointLatLng(
+        pickupLocation?.location?.latitude ?? currentLocation.latitude,
+        pickupLocation?.location?.longitude ?? currentLocation.longitude);
     final destination = PointLatLng(dropOffLocation!.location!.latitude,
         dropOffLocation!.location!.longitude);
 
     // set origin and destination markers
-    _setMapPins(currentLocation, dropOffLocation!.location!);
+    _setMapPins(pickupLocation?.location ?? currentLocation,
+        dropOffLocation!.location!);
 
     // Get & set the polyLines
     repository.getRoutePolylines(origin, destination).then(
         (polylineCoordinates) {
       // get vehicles fare calculation
-      _findDrivers(
-          destination: dropOffLocation!.location,
-          routeDistance: getRouteDistance(polylineCoordinates));
+      if (selectedService == HomeServiceIndex.ride) {
+        _findDrivers(
+            destination: dropOffLocation!.location,
+            routeDistance: getRouteDistance(polylineCoordinates));
+      }
 
       Polyline polyline = Polyline(
           polylineId: const PolylineId("ride_polyline"),
@@ -762,6 +844,28 @@ class HomeController extends GetxService {
     );
   }
 
+  _onDeliveryLocationPicked() async {
+    // actions/requests made when delivery pickup, drop locations picked
+
+    if (focusedSearchLocation == LocationType.pickUp) {
+      await _getDeliveryAgents();
+      if (dropOffLocation != null) {
+        _addDeliveryVehiclesChargeDetails();
+      }
+    } else {
+      _addDeliveryVehiclesChargeDetails();
+    }
+  }
+
+  _addDeliveryVehiclesChargeDetails() {
+    // add charge details for each vehicle
+    for (Vehicle vehicle in deliveryVehicles) {
+      _getDeliveryDetail(vehicle);
+    }
+
+    onLocationPicked();
+  }
+
   onPaymentProcessed() {
     // Todo: o payment processed
     tripStep = TripStep.tripFeedback;
@@ -830,9 +934,7 @@ class HomeController extends GetxService {
       status(Status.loading);
       repository.requestRide(ridePayload).then((requestRideResponse) {
         if (requestRideResponse.flag == SuccessFlags.requestRide.successCode) {
-          print('requestRide success here $requestRideResponse');
           status(Status.success);
-
           sessionId = requestRideResponse.sessionId;
           // Go to looking for drivers step
           tripStep = TripStep.lookingDrivers;
@@ -959,6 +1061,36 @@ class HomeController extends GetxService {
     });
   }
 
+  submitDeliveryFeedback() {
+    final Map<String, dynamic> feedbackPayload = {
+      'rating': '$driverRating',
+      'rating_type': '1',
+      'feedback_order_id': '$orderId',
+      'integrated': '1'
+    };
+
+    status(Status.loading);
+    repository.submitDeliveryFeedBack(feedbackPayload).then((feedbackResponse) {
+      if (feedbackResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        status(Status.success);
+        Get.snackbar('succes'.tr, 'delivery_feedback_success'.tr);
+        resetValues();
+      } else {
+        print(feedbackResponse.error ?? '');
+        status(Status.error);
+        toast(
+            'error',
+            feedbackResponse.error ??
+                feedbackResponse.log ??
+                feedbackResponse.message ??
+                '');
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Delivery feedback error: $error');
+    });
+  }
+
   addFavouriteDriver() {
     // add driver in to favourites
     if (driver?.driverId != null && engagementId != null) {
@@ -1016,12 +1148,37 @@ class HomeController extends GetxService {
 
     selectedSavedPlace = Address();
 
-    mapController.animateCamera(
-      CameraUpdate.newCameraPosition(CameraPosition(
-        target: currentLocation,
-        zoom: kCameraZoom,
-      )),
-    );
+    orderId = null;
+    deliveryId = null;
+    orderText = '';
+    deliveryRecieverPhone = null;
+    deliveryImages.clear();
+    _refreshCurrentLocation();
+    _findDrivers();
+  }
+
+  _refreshCurrentLocation() {
+    getCurrentLocation().then((value) {
+      currentLocation = LatLng(value.latitude, value.longitude);
+
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(
+          target: currentLocation,
+          zoom: kCameraZoom,
+        )),
+      );
+
+      getPlaceNameFromCordinate(currentLocation).then((value) {
+        Place place = Place(
+            placeName:
+                '${value.name ?? ''}, ${value.subLocality ?? ''}, ${value.locality ?? ''}',
+            location: currentLocation);
+        pickUpLocationSearch = place.placeName ?? '';
+        pickupLocation = place;
+      });
+      _storage.write('latitude', value.latitude);
+      _storage.write('longitude', value.longitude);
+    });
   }
 
   updateSavedPlaces({
@@ -1135,7 +1292,7 @@ class HomeController extends GetxService {
     Get.toNamed(Routes.home);
   }
 
-  updateDriverLocation() async {
+  _updateDriverLocation() async {
     // update drivers marker while arriving towards the user
     // this is called every 10 sec to update drivers' location
     // untill trip starts
@@ -1156,7 +1313,6 @@ class HomeController extends GetxService {
           .then((driverLocationResponse) {
         if (driverLocationResponse.flag ==
             SuccessFlags.driverLocation.successCode) {
-          log('driver location response: $driverLocationResponse');
           if (driverLocationResponse.eta != null) {
             _startDriverOnRouteTimer(driverLocationResponse.eta!);
           }
@@ -1171,12 +1327,15 @@ class HomeController extends GetxService {
     }
   }
 
-  _updateDriverMarker(double latitude, double longitude) {
-    _markers.removeWhere((m) => m.markerId.value == 'driver_current_location');
+  _updateDriverMarker(double latitude, double longitude, {double? bearing}) {
+    _markers.removeWhere((m) =>
+        m.markerId.value == 'driver_current_location' ||
+        m.markerId.value == 'available_drivers');
     _markers.add(Marker(
         markerId: const MarkerId('driver_current_location'),
         position: LatLng(latitude, longitude),
-        icon: yellowCarIcon));
+        icon: yellowCarIcon,
+        rotation: bearing ?? 0.0));
   }
 
   liveTrackTrip() {
@@ -1184,7 +1343,10 @@ class HomeController extends GetxService {
             intervalDuration: const Duration(seconds: 5))
         .listen((Position? position) {
       if (tripStep == TripStep.tripStarted && position != null) {
-        _updateDriverMarker(position.latitude, position.longitude);
+        _updateDriverMarker(
+          position.latitude,
+          position.longitude,
+        );
       }
     });
   }
@@ -1233,6 +1395,351 @@ class HomeController extends GetxService {
       status(Status.error);
       print('Update emergency error: $error');
     });
+  }
+
+  // delivery
+  void getImage(ImageSource imageSource) async {
+    try {
+      final pickedFile = await fileRepository.getMedia(
+        imageSource,
+        'image',
+      );
+
+      _deliveryImages.add(pickedFile);
+    } on Exception catch (e) {
+      // print(Future.error(e.toString()));
+    }
+  }
+
+  // Delivery
+  removeDeliveryImage(File image) {
+    _deliveryImages.remove(image);
+  }
+
+  onContinueToDeliveryLocation() {
+    Get.toNamed(Routes.pickLocation);
+    _getDeliveryAgents();
+  }
+
+  _getDeliveryAgents() {
+    // Get Delivery vehicles
+    final Map<String, dynamic> getAgentsParams = {
+      'latitude':
+          pickupLocation?.location?.latitude ?? currentLocation.latitude,
+      'longitude':
+          pickupLocation?.location?.longitude ?? currentLocation.longitude,
+    };
+
+    status(Status.loading);
+    repository.getDeliveryAgents(getAgentsParams).then((deliveryAgentResponse) {
+      if (deliveryAgentResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        status(Status.success);
+        // set delivery vehicles
+        if (deliveryAgentResponse.vehiclesInfo?.isNotEmpty ?? false) {
+          deliveryVehicles = deliveryAgentResponse.vehiclesInfo;
+        }
+        currency = deliveryAgentResponse.currency;
+      } else {
+        print(deliveryAgentResponse.error ?? '');
+        status(Status.error);
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Get delivery agents error: $error');
+    });
+  }
+
+  _getDeliveryDetail(Vehicle vehicle) {
+    // get delivery detail, charges based on location and vehicle
+
+    final Map<String, dynamic> detailParams = {
+      'region_id': vehicle.regionId,
+      'vehicle_type': vehicle.type,
+      'ride_type': vehicle.rideType,
+      'from_latitude':
+          pickupLocation?.location?.latitude ?? currentLocation.latitude,
+      'from_longitude':
+          pickupLocation?.location?.longitude ?? currentLocation.longitude,
+      'to_latitude': dropOffLocation?.location?.latitude,
+      'to_longitude': dropOffLocation?.location?.longitude,
+    };
+
+    // Todo check deliveries param
+
+    repository.getDeliveryDetail(detailParams).then((deliveryDetailResponse) {
+      if (deliveryDetailResponse.flag ==
+          SuccessFlags.basicSuccess.successCode) {
+        // set delivery charge detail for the vehicle
+        if (deliveryDetailResponse.deliveryCharges != null) {
+          int vehicleIndex = deliveryVehicles.indexOf(vehicle);
+          //List<Vehicle> tempVehicles = deliveryVehicles;
+          if (vehicleIndex != -1) {
+            _deliveryVehicles[vehicleIndex] = deliveryVehicles[vehicleIndex]
+                .copyWith(
+                    deliveryCharge: deliveryDetailResponse.deliveryCharges);
+          }
+        }
+      } else {
+        print(deliveryDetailResponse.error ?? '');
+      }
+    }, onError: (error) {
+      print('Get delivery detail error: $error');
+    });
+  }
+
+  _getOrderHistory() {
+    // type can be statusChange or just liveTracking
+    // type can be either statusChange or liveTracking
+    final Map<String, dynamic> orderHistoryPayload = {
+      'order_id': orderId,
+      'integrated': '1',
+    };
+
+    // Todo check deliveries param
+    repository.getOrderHistory(orderHistoryPayload).then(
+        (orderHistoryResponse) {
+      log('order history here: $orderHistoryResponse');
+      if (orderHistoryResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        // Todo: set order History
+        if (orderHistoryResponse.orderHistory?.isNotEmpty ?? false) {
+          // if trip step is on driver detail, then order history is used just for live tracking
+          // othere wise it's status change
+          OrderHistory orderHistory = orderHistoryResponse.orderHistory![0];
+          deliveryId = orderHistory.deliveryId;
+          _onDeliveryStatusChange(orderHistory);
+        }
+      } else {
+        print(orderHistoryResponse.error ?? '');
+      }
+    }, onError: (error) {
+      print('Get Order History error: $error');
+    });
+  }
+
+  _onDeliveryStatusChange(OrderHistory orderHistory) {
+    switch (orderHistory.status) {
+      case 1:
+        _onDeliveryAccepted(orderHistory);
+        break;
+      case 2:
+        _onRideStarted();
+        break;
+      case 3:
+        // Delivery ended
+        positionStream?.cancel();
+        // set Delivery details
+        tripStep = TripStep.tripDetail;
+        rideDetail = RideDetail(
+          fare: orderHistory.amount ?? 0,
+          toPay: orderHistory.amount ?? 0,
+          distanceTraveled: orderHistory.totalDistance,
+          rideTime: orderHistory.totalTime,
+          distanceUnit: 'km',
+        );
+        break;
+      default:
+    }
+  }
+
+  _onDeliveryAccepted(OrderHistory orderHistory) {
+    // set driver and vehicle detail
+
+    driver = Driver(
+      userName: orderHistory.driverName ?? '',
+      driverId: orderHistory.liveTracking?.driverId ?? 0,
+      phoneNo: orderHistory.driverPhoneNo,
+      driverImage: orderHistory.liveTracking?.driverImage ?? '',
+    );
+
+    driverVehicle = Vehicle(
+      vehicleType: orderHistory.vehicleType,
+      regionName: '',
+      vehicleNumber: '',
+    );
+
+    // change ride step to waiting driver
+    tripStep = TripStep.driverDetail;
+    _liveDeliveryTracking(drawDriverPolyline: true);
+    _updateDeliveryLocation();
+  }
+
+  _updateDeliveryLocation() async {
+    // update drivers marker while arriving towards the delivery
+    // this is called every 10 sec to update drivers' location
+    // untill trip starts
+    Timer.periodic(const Duration(seconds: 10), (timer) {
+      if (tripStep != TripStep.driverDetail) {
+        timer.cancel();
+      }
+      _liveDeliveryTracking();
+    });
+  }
+
+  _getCancelOrderReasons() {
+    // Get Cancellation order Reasons
+    if (orderId != null) {
+      final Map<String, dynamic> reasonsParams = {
+        'order_id': orderId,
+        'product_type': "7",
+      };
+
+      // Todo: check where product id comes from
+      repository.getCancelDeliveryOrderReasons(reasonsParams).then(
+          (cancelReasonsResponse) {
+        if (cancelReasonsResponse.flag ==
+            SuccessFlags.basicSuccess.successCode) {
+          // set cancell reasons
+          if (cancelReasonsResponse.cancelOptions?.isNotEmpty ?? false) {
+            cancelOrderReasons = cancelReasonsResponse.cancelOptions;
+          }
+        } else {
+          print(cancelReasonsResponse.error ?? '');
+        }
+      }, onError: (error) {
+        print('Get cancell reasons error: $error');
+      });
+    }
+  }
+
+  cancelDelivery(String cancelReason) {
+    // cancel Delivery order
+    if (orderId != null) {
+      final Map<String, dynamic> cancelPayload = {
+        'reasons': cancelReason,
+        'addn_reason': '',
+        'order_id': orderId,
+        'integrated': '1',
+      };
+
+      status(Status.loading);
+      repository.cancelDelivery(cancelPayload).then((basicResponse) {
+        if (basicResponse.flag == SuccessFlags.basicSuccess.successCode) {
+          status(Status.success);
+          Get.snackbar('success'.tr, 'cancel_order_success'.tr);
+          resetValues();
+        } else {
+          print(basicResponse.error ?? '');
+          toast('error', basicResponse.error ?? basicResponse.message ?? '');
+          status(Status.error);
+        }
+      }, onError: (error) {
+        status(Status.error);
+        print('Cancel delivery order error: $error');
+      });
+    }
+  }
+
+  _liveDeliveryTracking({bool? drawDriverPolyline}) {
+    // live track delivery status
+    // called every $ome time while delivery is in progress
+    if (deliveryId != null) {
+      repository.liveDeliveryTracking('$deliveryId').then((trackingResponse) {
+        if (trackingResponse.flag == SuccessFlags.basicSuccess.successCode) {
+          // Todo: update delivery status
+          // since there is no data on how far/long the driver is away for the delivery
+          // we'll not show estimated time for the driver to delivery
+          // potentially we can calculate this fronm the distance difference on the frontend
+          // update driver marker.
+
+          if (trackingResponse.latitude != null &&
+              trackingResponse.longitude != null) {
+            _updateDriverMarker(
+                trackingResponse.latitude!, trackingResponse.longitude!,
+                bearing: trackingResponse.bearing);
+
+            if (drawDriverPolyline ?? false) {
+              _drawDeliveryDriverOnRoutePolyLine(PointLatLng(
+                  trackingResponse.latitude!, trackingResponse.longitude!));
+            }
+          }
+        } else {
+          print(trackingResponse.error ?? '');
+        }
+      }, onError: (error) {
+        print('Delivery live tracking error: $error');
+      });
+    }
+  }
+
+  _drawDeliveryDriverOnRoutePolyLine(PointLatLng origin) {
+    // take the destination to be the pickup location
+    // set driver route
+    final destination = PointLatLng(
+        pickupLocation?.location?.latitude ?? currentLocation.latitude,
+        pickupLocation?.location?.longitude ?? currentLocation.longitude);
+    // Get & set the polyLines
+    repository.getRoutePolylines(origin, destination).then(
+        (polylineCoordinates) {
+      Polyline polyline = Polyline(
+          polylineId: const PolylineId("poly"),
+          color: AppTheme.primaryColor,
+          width: 3,
+          points: polylineCoordinates);
+
+      _polyLines.clear();
+      _polyLines.add(polyline);
+
+      // animate camera to mid point between origin and destination
+      LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
+          (origin.longitude + destination.longitude) / 2);
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(
+          target: midPoint,
+          zoom: 15,
+        )),
+      );
+    }, onError: (error) => log('Poly line error: $error'));
+  }
+
+  orderDelivery() {
+    // place delivery order
+    // these will be form data
+
+    if (_isRideInputValid()) {
+      // check for delivery images
+      final Map<String, dynamic> orderPayload = {
+        'details': orderText,
+        'from_address': pickupLocation?.placeName,
+        'from_latitude': pickupLocation?.location?.latitude,
+        'from_longitude': pickupLocation?.location?.longitude,
+        'region_id': selectedVehicle.regionId,
+        'ride_type': selectedVehicle.rideType,
+        'vehicle_type': selectedVehicle.type,
+        'phone_no': deliveryRecieverPhone ?? authController.user.phoneNo,
+        'user_identifier': authController.user.userIdentifier,
+        'is_immediate': '1',
+        'payment_mode': '1',
+        'deliveries': [
+          {
+            'latitude': dropOffLocation?.location?.latitude,
+            'longitude': dropOffLocation?.location?.longitude,
+            'address': dropOffLocation?.placeName,
+          }
+        ]
+      };
+
+      //Todo: for scheduled delivery add 'delivery_time' field
+
+      status(Status.loading);
+      repository.orderDelivery(orderPayload, deliveryImages).then(
+          (orderResponse) {
+        if (orderResponse.flag == SuccessFlags.basicSuccess.successCode) {
+          status(Status.success);
+          Get.snackbar('success'.tr, 'order_delivery_succes'.tr);
+          // Go to looking for drivers step
+          orderId = orderResponse.orderId;
+          tripStep = TripStep.lookingDrivers;
+          _getCancelOrderReasons();
+        } else {
+          print(orderResponse.error ?? '');
+          toast('error', orderResponse.error ?? orderResponse.message ?? '');
+          status(Status.error);
+        }
+      }, onError: (error) {
+        status(Status.error);
+        print('Order delivery order error: $error');
+      });
+    }
   }
 
   onLogout() {

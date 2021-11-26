@@ -205,10 +205,11 @@ class AuthController extends GetxService {
       (data) {
         if (data.flag == SuccessFlags.verify.successCode) {
           status(Status.success);
-          if (data.userData != null) persistUser(data.userData!);
-          user = data.userData;
-          // Get.toNamed(Routes.setProfile);
           _navigateUser();
+          if (data.userData != null) {
+            user = data.userData;
+            persistUser(data.userData!);
+          }
         } else {
           print(data.message);
           toast('error', data.error ?? data.message ?? '');
@@ -372,6 +373,10 @@ class AuthController extends GetxService {
       }).then((loginResponse) {
         if (loginResponse.flag == SuccessFlags.login.successCode) {
           _navigateUser();
+          if (loginResponse.userData != null) {
+            user = loginResponse.userData;
+            persistUser(loginResponse.userData!);
+          }
         } else {
           toast('error', loginResponse.error ?? loginResponse.message ?? '');
         }

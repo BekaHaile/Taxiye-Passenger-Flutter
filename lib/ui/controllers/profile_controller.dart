@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:contacts_service/contacts_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -54,6 +53,10 @@ class ProfileController extends GetxController {
   get profileOPtions => _profileOPtions.value;
   set profileOPtions(value) => _profileOPtions.assignAll(value);
 
+  final _userRideCount = UserRideCount().obs;
+  get userRideCount => _userRideCount.value;
+  set userRideCount(value) => _userRideCount.value = value;
+
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   final GetStorage _storage = GetStorage();
 
@@ -62,6 +65,7 @@ class ProfileController extends GetxController {
     // Todo: Initialize and get any initial values here.
     super.onInit();
 
+    _getUserInfo();
     _setPinIcons();
     _setProfileInfos();
     _setProfileOPtions();
@@ -185,6 +189,14 @@ class ProfileController extends GetxController {
     } on Exception catch (e) {
       // print(Future.error(e.toString()));
     }
+  }
+
+  _getUserInfo() {
+    repository.getUserInfo().then((userInfo) {
+      userRideCount = userInfo;
+    }, onError: (error) {
+      print('Get emergency contacts error: $error');
+    });
   }
 
   _getEmergencyContacts() {

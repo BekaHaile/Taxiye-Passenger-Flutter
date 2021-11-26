@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
-import 'package:flutter/foundation.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 
@@ -102,14 +101,18 @@ class VehicleTile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 15.0, bottom: 5.0),
                 child: Text(
-                  (vehicle.regionName ?? '').tr,
+                  (vehicle.regionName ?? vehicle.name ?? '').tr,
                   style: AppTheme.title.copyWith(fontSize: 14.0),
                 ),
               ),
               Text(
-                vehicle.regionFare?.maxFare != null
-                    ? '${vehicle.regionFare?.maxFare} ${vehicle.regionFare?.currency}'
-                    : '',
+                vehicle.regionFare != null
+                    ? vehicle.regionFare?.maxFare != null
+                        ? '${vehicle.regionFare?.maxFare} ${vehicle.regionFare?.currency}'
+                        : ''
+                    : vehicle.deliveryCharge?.estimatedCharges != null
+                        ? '${vehicle.deliveryCharge?.estimatedCharges} ${vehicle.deliveryCharge?.currency}'
+                        : '',
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w700,

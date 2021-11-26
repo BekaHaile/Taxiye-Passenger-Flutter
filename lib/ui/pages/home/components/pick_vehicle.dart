@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
@@ -27,30 +28,42 @@ class PickVehicle extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'available_vehicles'.tr.toUpperCase(),
+                  controller.selectedService == HomeServiceIndex.delivery
+                      ? 'delivery_type'.tr.toUpperCase()
+                      : 'available_vehicles'.tr.toUpperCase(),
                   style: AppTheme.body.copyWith(color: AppTheme.darkColor),
                 ),
-                const Icon(
-                  Icons.menu,
-                  color: AppTheme.darkColor,
-                )
+                // const Icon(
+                //   Icons.menu,
+                //   color: AppTheme.darkColor,
+                // )
               ],
             ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              height: 35.0,
-              child: VehicleTypeList(
-                  hasCorporate: controller.userCorporates.length > 0,
-                  onFilterVehicle: (rideType) =>
-                      controller.filterVehicles(rideType)),
-            ),
+            if (controller.selectedService == HomeServiceIndex.ride)
+              const SizedBox(height: 10.0),
+            if (controller.selectedService == HomeServiceIndex.ride)
+              SizedBox(
+                height: 35.0,
+                child: VehicleTypeList(
+                    hasCorporate: controller.userCorporates.length > 0,
+                    onFilterVehicle: (rideType) =>
+                        controller.filterVehicles(rideType)),
+              ),
             const SizedBox(height: 16.0),
             Obx(() => VehicleList(
-                vehicles: controller.vehicles,
+                vehicles:
+                    controller.selectedService == HomeServiceIndex.delivery
+                        ? controller.deliveryVehicles
+                        : controller.vehicles,
                 selectedVehicle: controller.selectedVehicle,
                 onItemSelected: (selectedVehice) {
                   controller.selectedVehicle = selectedVehice;
-                  Get.bottomSheet(VehicleDetail(vehicle: selectedVehice),
+                  Get.bottomSheet(
+                      VehicleDetail(
+                        vehicle: selectedVehice,
+                        currency: controller.currency,
+                        serviceType: controller.selectedService,
+                      ),
                       isScrollControlled: true);
                 })),
             Obx(() => controller.rideType == 0 || controller.rideType == 2
@@ -97,16 +110,24 @@ class PickVehicle extends GetView<HomeController> {
                   )),
             const SizedBox(height: 16.0),
             RoundedButton(
-              text: controller.scheduleDate == null
-                  ? 'book_now'.tr
-                  : 'schedule_ride'.tr,
+              text: controller.selectedService == HomeServiceIndex.delivery
+                  ? 'order_now'.tr
+                  : controller.scheduleDate == null
+                      ? 'book_now'.tr
+                      : 'schedule_ride'.tr,
               subChild: controller.scheduleDate != null
                   ? Text(
                       '${formatDate(controller.scheduleDate!)} ${'at'.tr} ${controller.scheduleTime!.format(context)}')
                   : const SizedBox(),
-              onPressed: () => controller.scheduleDate == null
-                  ? controller.bookRide()
-                  : controller.scheduleRide(),
+              onPressed: () {
+                if (controller.selectedService == HomeServiceIndex.delivery) {
+                  controller.orderDelivery();
+                } else {
+                  controller.scheduleDate == null
+                      ? controller.bookRide()
+                      : controller.scheduleRide();
+                }
+              },
             )
           ],
         ),

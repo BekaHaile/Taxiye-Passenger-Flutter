@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'dart:io';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
@@ -176,6 +177,101 @@ class HomeRepository implements IHomeRepository {
       requestType: RequestType.post,
       path: endPoint,
       data: emergencyPayload,
+    );
+    return BasicResponse.fromJson(response);
+  }
+
+  // Delivery api calls
+  @override
+  Future<DeliveryAgentResponse> getDeliveryAgents(
+      Map<String, dynamic> getAgentsPayload) async {
+    final response = await apiClient.request(
+        requestType: RequestType.get,
+        path: '/nearby_agents',
+        port: '8006',
+        queryParameters: getAgentsPayload);
+    return DeliveryAgentResponse.fromJson(response);
+  }
+
+  @override
+  Future<DeliveryDetailResponse> getDeliveryDetail(
+      Map<String, dynamic> getDetailPayload) async {
+    final response = await apiClient.request(
+        requestType: RequestType.get,
+        path: '/get_all_details',
+        port: '8006',
+        queryParameters: getDetailPayload);
+
+    return DeliveryDetailResponse.fromJson(response);
+  }
+
+  @override
+  Future<CancellationReasonResponse> getCancelDeliveryOrderReasons(
+      Map<String, dynamic> reasonPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/fetch_cancellation_reasons',
+      port: '8006',
+      data: reasonPayload,
+    );
+    return CancellationReasonResponse.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> cancelDelivery(
+      Map<String, dynamic> cancelPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/cancel_order',
+      port: '8006',
+      data: cancelPayload,
+    );
+    return BasicResponse.fromJson(response);
+  }
+
+  @override
+  Future<DeliveryTrackingResponse> liveDeliveryTracking(
+      String deliveryId) async {
+    final response = await apiClient.request(
+        requestType: RequestType.post,
+        path: '/menus_live_tracking',
+        data: {'delivery_id': deliveryId});
+    return DeliveryTrackingResponse.fromJson(response);
+  }
+
+  @override
+  Future<OrderDeliveryResponse> orderDelivery(
+      Map<String, dynamic> orderPayload, List<File> deliveryImages) async {
+    final response = await apiClient.sendFormData(
+      fileFieldName: 'order_images',
+      formPayload: orderPayload,
+      endPoint: '/place_order',
+      files: deliveryImages,
+      port: '8006',
+    );
+    return OrderDeliveryResponse.fromJson(response);
+  }
+
+  @override
+  Future<OrderHistoryResponse> getOrderHistory(
+      Map<String, dynamic> orderHistoryPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/order_history',
+      port: '8006',
+      data: orderHistoryPayload,
+    );
+    return OrderHistoryResponse.fromJson(response);
+  }
+
+  @override
+  Future<BasicResponse> submitDeliveryFeedBack(
+      Map<String, dynamic> feedbackPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/submit_feedback',
+      port: '8006',
+      data: feedbackPayload,
     );
     return BasicResponse.fromJson(response);
   }

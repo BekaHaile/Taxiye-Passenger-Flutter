@@ -25,6 +25,7 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     cityId: json['city_id'] as int?,
     referralCode: json['referral_code'] as String?,
     userId: json['user_id'] as int?,
+    userIdentifier: json['user_identifier'] as String?,
     defaultClientId: json['default_client_id'] as String?,
   );
 }
@@ -47,6 +48,7 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'city_id': instance.cityId,
       'referral_code': instance.referralCode,
       'user_id': instance.userId,
+      'user_identifier': instance.userIdentifier,
       'default_client_id': instance.defaultClientId,
     };
 
@@ -82,6 +84,19 @@ Map<String, dynamic> _$_$_FilesToJson(_$_Files instance) => <String, dynamic>{
 
 _$_Vehicle _$_$_VehicleFromJson(Map<String, dynamic> json) {
   return _$_Vehicle(
+    images: json['images'] == null
+        ? null
+        : VehicleImage.fromJson(json['images'] as Map<String, dynamic>),
+    vehicleNumber: json['vehicleNumber'] as String?,
+    type: json['type'] as int?,
+    name: json['name'] as String?,
+    fareStructure: json['fareStructure'] == null
+        ? null
+        : FareStructure.fromJson(json['fareStructure'] as Map<String, dynamic>),
+    deliveryCharge: json['deliveryCharge'] == null
+        ? null
+        : DeliveryCharge.fromJson(
+            json['deliveryCharge'] as Map<String, dynamic>),
     regionId: json['region_id'] as int?,
     operatorId: json['operator_id'] as int?,
     regionName: json['region_name'] as String?,
@@ -92,15 +107,17 @@ _$_Vehicle _$_$_VehicleFromJson(Map<String, dynamic> json) {
     regionFare: json['region_fare'] == null
         ? null
         : VehicleFare.fromJson(json['region_fare'] as Map<String, dynamic>),
-    images: json['images'] == null
-        ? null
-        : VehicleImage.fromJson(json['images'] as Map<String, dynamic>),
-    vehicleNumber: json['vehicleNumber'] as String?,
   );
 }
 
 Map<String, dynamic> _$_$_VehicleToJson(_$_Vehicle instance) =>
     <String, dynamic>{
+      'images': instance.images,
+      'vehicleNumber': instance.vehicleNumber,
+      'type': instance.type,
+      'name': instance.name,
+      'fareStructure': instance.fareStructure,
+      'deliveryCharge': instance.deliveryCharge,
       'region_id': instance.regionId,
       'operator_id': instance.operatorId,
       'region_name': instance.regionName,
@@ -109,8 +126,6 @@ Map<String, dynamic> _$_$_VehicleToJson(_$_Vehicle instance) =>
       'ride_type': instance.rideType,
       'max_people': instance.maxPeople,
       'region_fare': instance.regionFare,
-      'images': instance.images,
-      'vehicleNumber': instance.vehicleNumber,
     };
 
 _$_VehicleFare _$_$_VehicleFareFromJson(Map<String, dynamic> json) {
@@ -118,6 +133,7 @@ _$_VehicleFare _$_$_VehicleFareFromJson(Map<String, dynamic> json) {
     fare: json['fare'] as int?,
     minFare: json['min_fare'] as int?,
     maxFare: json['max_fare'] as int?,
+    baseFare: json['base_fare'] as int?,
     originalFare: json['original_fare'] as int?,
     rideDistance: (json['ride_distance'] as num?)?.toDouble(),
     currency: json['currency'] as String?,
@@ -132,12 +148,36 @@ Map<String, dynamic> _$_$_VehicleFareToJson(_$_VehicleFare instance) =>
       'fare': instance.fare,
       'min_fare': instance.minFare,
       'max_fare': instance.maxFare,
+      'base_fare': instance.baseFare,
       'original_fare': instance.originalFare,
       'ride_distance': instance.rideDistance,
       'currency': instance.currency,
       'currency_symbol': instance.currencySymbol,
       'fare_text': instance.fareText,
       'distance_unit': instance.distanceUnit,
+    };
+
+_$_FareStructure _$_$_FareStructureFromJson(Map<String, dynamic> json) {
+  return _$_FareStructure(
+    fare: json['fare'] as int?,
+    fareFixed: json['fare_fixed'] as int?,
+    farePerKm: json['fare_per_km'] as int?,
+    farePerMin: json['fare_per_min'] as int?,
+    farePerWaitingMin: json['fare_per_waiting_min'] as int?,
+    vehicleType: json['vehicle_type'] as int?,
+    rideType: json['ride_type'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_FareStructureToJson(_$_FareStructure instance) =>
+    <String, dynamic>{
+      'fare': instance.fare,
+      'fare_fixed': instance.fareFixed,
+      'fare_per_km': instance.farePerKm,
+      'fare_per_min': instance.farePerMin,
+      'fare_per_waiting_min': instance.farePerWaitingMin,
+      'vehicle_type': instance.vehicleType,
+      'ride_type': instance.rideType,
     };
 
 _$_VehicleImage _$_$_VehicleImageFromJson(Map<String, dynamic> json) {
@@ -155,6 +195,31 @@ Map<String, dynamic> _$_$_VehicleImageToJson(_$_VehicleImage instance) =>
       'tab_highlighted': instance.tabHighlighted,
       'ride_now_normal': instance.rideNowNormal,
       'driver_icon': instance.driverIcon,
+    };
+
+_$_DeliveryCharge _$_$_DeliveryChargeFromJson(Map<String, dynamic> json) {
+  return _$_DeliveryCharge(
+    currency: json['currency'] as String?,
+    tnc: json['tnc'] as String?,
+    cityId: json['city_id'] as int?,
+    deliveryText: json['delivery_text'] as String?,
+    deliveryChargesInst: (json['delivery_charges_inst'] as List<dynamic>?)
+        ?.map((e) => Map<String, String>.from(e as Map))
+        .toList(),
+    estimatedDistance: json['estimated_distance'] as String?,
+    estimatedCharges: json['estimated_charges'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_DeliveryChargeToJson(_$_DeliveryCharge instance) =>
+    <String, dynamic>{
+      'currency': instance.currency,
+      'tnc': instance.tnc,
+      'city_id': instance.cityId,
+      'delivery_text': instance.deliveryText,
+      'delivery_charges_inst': instance.deliveryChargesInst,
+      'estimated_distance': instance.estimatedDistance,
+      'estimated_charges': instance.estimatedCharges,
     };
 
 _$_Driver _$_$_DriverFromJson(Map<String, dynamic> json) {
@@ -288,7 +353,6 @@ _$_NotificationMessage _$_$_NotificationMessageFromJson(
     rating: (json['rating'] as num?)?.toDouble(),
     fare: json['fare'] as String?,
     bearing: (json['bearing'] as num?)?.toDouble(),
-    timeTillDisplay: json['timeTillDisplay'] as String?,
     discount: json['discount'] as String?,
     log: json['log'] as String?,
     error: json['error'] as String?,
@@ -317,6 +381,7 @@ _$_NotificationMessage _$_$_NotificationMessageFromJson(
         (json['current_location_longitude'] as num?)?.toDouble(),
     isCorporateRide: json['is_corporate_ride'] as int?,
     markerIcon: json['marker_icon'] as String?,
+    orderStatus: json['order_status'] as int?,
   );
 }
 
@@ -329,7 +394,6 @@ Map<String, dynamic> _$_$_NotificationMessageToJson(
       'rating': instance.rating,
       'fare': instance.fare,
       'bearing': instance.bearing,
-      'timeTillDisplay': instance.timeTillDisplay,
       'discount': instance.discount,
       'log': instance.log,
       'error': instance.error,
@@ -356,6 +420,7 @@ Map<String, dynamic> _$_$_NotificationMessageToJson(
       'current_location_longitude': instance.currentLocationLongitude,
       'is_corporate_ride': instance.isCorporateRide,
       'marker_icon': instance.markerIcon,
+      'order_status': instance.orderStatus,
     };
 
 _$_RideDetail _$_$_RideDetailFromJson(Map<String, dynamic> json) {
@@ -700,6 +765,11 @@ _$_FindDriversResponse _$_$_FindDriversResponseFromJson(
     regions: (json['regions'] as List<dynamic>?)
         ?.map((e) => Vehicle.fromJson(e as Map<String, dynamic>))
         .toList(),
+    currency: json['currency'] as String?,
+    fareStructure: (json['fare_structure'] as List<dynamic>?)
+        ?.map((e) => FareStructure.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    distanceUnit: json['distance_unit'] as String?,
   );
 }
 
@@ -710,6 +780,9 @@ Map<String, dynamic> _$_$_FindDriversResponseToJson(
       'error': instance.error,
       'drivers': instance.drivers,
       'regions': instance.regions,
+      'currency': instance.currency,
+      'fare_structure': instance.fareStructure,
+      'distance_unit': instance.distanceUnit,
     };
 
 _$_RequestRideResponse _$_$_RequestRideResponseFromJson(
@@ -843,6 +916,257 @@ Map<String, dynamic> _$_$_DriverLocationResponseToJson(
       'bearing': instance.bearing,
     };
 
+_$_DeliveryDetailResponse _$_$_DeliveryDetailResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_DeliveryDetailResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    deliveryCharges: json['delivery_charges'] == null
+        ? null
+        : DeliveryCharge.fromJson(
+            json['delivery_charges'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$_$_DeliveryDetailResponseToJson(
+        _$_DeliveryDetailResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'delivery_charges': instance.deliveryCharges,
+    };
+
+_$_DeliveryAgentResponse _$_$_DeliveryAgentResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_DeliveryAgentResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    currency: json['currency'] as String?,
+    vehiclesInfo: (json['vehicles_info'] as List<dynamic>?)
+        ?.map((e) => Vehicle.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    currencyCode: json['currency_code'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_DeliveryAgentResponseToJson(
+        _$_DeliveryAgentResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'currency': instance.currency,
+      'vehicles_info': instance.vehiclesInfo,
+      'currency_code': instance.currencyCode,
+    };
+
+_$_DeliveryTrackingResponse _$_$_DeliveryTrackingResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_DeliveryTrackingResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    status: json['status'] as int?,
+    latitude: (json['latitude'] as num?)?.toDouble(),
+    longitude: (json['longitude'] as num?)?.toDouble(),
+    bearing: (json['bearing'] as num?)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$_$_DeliveryTrackingResponseToJson(
+        _$_DeliveryTrackingResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'status': instance.status,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'bearing': instance.bearing,
+    };
+
+_$_OrderHistory _$_$_OrderHistoryFromJson(Map<String, dynamic> json) {
+  return _$_OrderHistory(
+    status: json['status'] as int?,
+    category: json['category'] as int?,
+    amount: (json['amount'] as num?)?.toDouble(),
+    currency: json['currency'] as String?,
+    details: json['details'] as String?,
+    orderId: json['order_id'] as int?,
+    fromAddress: json['from_address'] as String?,
+    fromLatitude: (json['from_latitude'] as num?)?.toDouble(),
+    fromLongitude: (json['from_longitude'] as num?)?.toDouble(),
+    toAddress: json['to_address'] as String?,
+    toLatitude: (json['to_latitude'] as num?)?.toDouble(),
+    toLongitude: (json['to_longitude'] as num?)?.toDouble(),
+    vehicleType: json['vehicle_type'] as int?,
+    isImmediate: json['is_immediate'] as int?,
+    deliveryId: json['delivery_id'] as int?,
+    orderStatusInt: json['order_status_int'] as int?,
+    deliveryCharges: (json['delivery_charges'] as num?)?.toDouble(),
+    totalDistance: (json['total_distance'] as num?)?.toDouble(),
+    totalTime: json['total_time'] as int?,
+    driverName: json['driver_name'] as String?,
+    paymentMode: json['payment_mode'] as int?,
+    cityId: json['city_id'] as int?,
+    currencyCode: json['currency_code'] as String?,
+    driverPhoneNo: json['driver_phone_no'] as String?,
+    productType: json['product_type'] as int?,
+    orderStatus: json['order_status'] as String?,
+    liveTracking: json['live_tracking'] == null
+        ? null
+        : LiveTracking.fromJson(json['live_tracking'] as Map<String, dynamic>),
+    orderTime: json['order_time'] == null
+        ? null
+        : DateTime.parse(json['order_time'] as String),
+    createdAt: json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String),
+  );
+}
+
+Map<String, dynamic> _$_$_OrderHistoryToJson(_$_OrderHistory instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'category': instance.category,
+      'amount': instance.amount,
+      'currency': instance.currency,
+      'details': instance.details,
+      'order_id': instance.orderId,
+      'from_address': instance.fromAddress,
+      'from_latitude': instance.fromLatitude,
+      'from_longitude': instance.fromLongitude,
+      'to_address': instance.toAddress,
+      'to_latitude': instance.toLatitude,
+      'to_longitude': instance.toLongitude,
+      'vehicle_type': instance.vehicleType,
+      'is_immediate': instance.isImmediate,
+      'delivery_id': instance.deliveryId,
+      'order_status_int': instance.orderStatusInt,
+      'delivery_charges': instance.deliveryCharges,
+      'total_distance': instance.totalDistance,
+      'total_time': instance.totalTime,
+      'driver_name': instance.driverName,
+      'payment_mode': instance.paymentMode,
+      'city_id': instance.cityId,
+      'currency_code': instance.currencyCode,
+      'driver_phone_no': instance.driverPhoneNo,
+      'product_type': instance.productType,
+      'order_status': instance.orderStatus,
+      'live_tracking': instance.liveTracking,
+      'order_time': instance.orderTime?.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+    };
+
+_$_LiveTracking _$_$_LiveTrackingFromJson(Map<String, dynamic> json) {
+  return _$_LiveTracking(
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    status: json['status'] as int?,
+    deliveryId: json['delivery_id'] as int?,
+    deliveryLatitude: (json['delivery_latitude'] as num?)?.toDouble(),
+    deliveryLongitude: (json['delivery_longitude'] as num?)?.toDouble(),
+    pickupLatitude: (json['pickup_latitude'] as num?)?.toDouble(),
+    pickupLongitude: (json['pickup_longitude'] as num?)?.toDouble(),
+    driverPhoneNo: json['driver_phone_no'] as String?,
+    driverName: json['driver_name'] as String?,
+    driverImage: json['driver_image'] as String?,
+    driverId: json['driver_id'] as int?,
+    pickupCompleted: json['pickup_completed'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_LiveTrackingToJson(_$_LiveTracking instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+      'error': instance.error,
+      'status': instance.status,
+      'delivery_id': instance.deliveryId,
+      'delivery_latitude': instance.deliveryLatitude,
+      'delivery_longitude': instance.deliveryLongitude,
+      'pickup_latitude': instance.pickupLatitude,
+      'pickup_longitude': instance.pickupLongitude,
+      'driver_phone_no': instance.driverPhoneNo,
+      'driver_name': instance.driverName,
+      'driver_image': instance.driverImage,
+      'driver_id': instance.driverId,
+      'pickup_completed': instance.pickupCompleted,
+    };
+
+_$_OrderHistoryResponse _$_$_OrderHistoryResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_OrderHistoryResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    orderHistory: (json['order_history'] as List<dynamic>?)
+        ?.map((e) => OrderHistory.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    historySize: json['history_size'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_OrderHistoryResponseToJson(
+        _$_OrderHistoryResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'order_history': instance.orderHistory,
+      'history_size': instance.historySize,
+    };
+
+_$_CancellationReasonResponse _$_$_CancellationReasonResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_CancellationReasonResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    cancelOptions: (json['cancel_options'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList(),
+    additionalReasons: json['additional_reasons'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_CancellationReasonResponseToJson(
+        _$_CancellationReasonResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'cancel_options': instance.cancelOptions,
+      'additional_reasons': instance.additionalReasons,
+    };
+
+_$_OrderDeliveryResponse _$_$_OrderDeliveryResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_OrderDeliveryResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    status: json['status'] as int?,
+    orderId: json['order_id'] as int?,
+    channelName: json['fugu_channel_name'] as String?,
+    channelId: json['fugu_channel_id'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_OrderDeliveryResponseToJson(
+        _$_OrderDeliveryResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'status': instance.status,
+      'order_id': instance.orderId,
+      'fugu_channel_name': instance.channelName,
+      'fugu_channel_id': instance.channelId,
+    };
+
 _$_EmergencyContactsResponse _$_$_EmergencyContactsResponseFromJson(
     Map<String, dynamic> json) {
   return _$_EmergencyContactsResponse(
@@ -864,6 +1188,21 @@ Map<String, dynamic> _$_$_EmergencyContactsResponseToJson(
       'error': instance.error,
       'log': instance.log,
       'emergency_contacts': instance.emergencyContacts,
+    };
+
+_$_UserRideCount _$_$_UserRideCountFromJson(Map<String, dynamic> json) {
+  return _$_UserRideCount(
+    completedRides: json['completed_rides'] as int?,
+    cancelledRides: json['cancelled_rides'] as int?,
+    totalMoneySpent: json['total_money_spent'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_UserRideCountToJson(_$_UserRideCount instance) =>
+    <String, dynamic>{
+      'completed_rides': instance.completedRides,
+      'cancelled_rides': instance.cancelledRides,
+      'total_money_spent': instance.totalMoneySpent,
     };
 
 _$_LegalResponse _$_$_LegalResponseFromJson(Map<String, dynamic> json) {

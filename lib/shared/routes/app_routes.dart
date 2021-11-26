@@ -21,6 +21,7 @@ abstract class Routes {
   // Home routes
   static const home = '/home';
   static const pickLocation = '/pickLocation';
+  static const deliveryDetail = '/deliveryDetail';
 
   // wallet routes
   static const wallet = '/wallet';

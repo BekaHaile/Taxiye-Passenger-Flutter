@@ -33,6 +33,7 @@ class User with _$User {
     @JsonKey(name: 'city_id') int? cityId,
     @JsonKey(name: 'referral_code') String? referralCode,
     @JsonKey(name: 'user_id') int? userId,
+    @JsonKey(name: 'user_identifier') String? userIdentifier,
     @JsonKey(name: 'default_client_id') String? defaultClientId,
   }) = _User;
 
@@ -57,6 +58,12 @@ abstract class Files with _$Files {
 @freezed
 class Vehicle with _$Vehicle {
   factory Vehicle({
+    VehicleImage? images,
+    String? vehicleNumber,
+    int? type,
+    String? name,
+    FareStructure? fareStructure,
+    DeliveryCharge? deliveryCharge,
     @JsonKey(name: 'region_id') int? regionId,
     @JsonKey(name: 'operator_id') int? operatorId,
     @JsonKey(name: 'region_name') String? regionName,
@@ -65,8 +72,6 @@ class Vehicle with _$Vehicle {
     @JsonKey(name: 'ride_type') int? rideType,
     @JsonKey(name: 'max_people') int? maxPeople,
     @JsonKey(name: 'region_fare') VehicleFare? regionFare,
-    VehicleImage? images,
-    String? vehicleNumber,
   }) = _Vehicle;
 
   factory Vehicle.fromJson(Map<String, dynamic> json) =>
@@ -79,6 +84,7 @@ class VehicleFare with _$VehicleFare {
     int? fare,
     @JsonKey(name: 'min_fare') int? minFare,
     @JsonKey(name: 'max_fare') int? maxFare,
+    @JsonKey(name: 'base_fare') int? baseFare,
     @JsonKey(name: 'original_fare') int? originalFare,
     @JsonKey(name: 'ride_distance') double? rideDistance,
     String? currency,
@@ -92,6 +98,22 @@ class VehicleFare with _$VehicleFare {
 }
 
 @freezed
+class FareStructure with _$FareStructure {
+  factory FareStructure({
+    int? fare,
+    @JsonKey(name: 'fare_fixed') int? fareFixed,
+    @JsonKey(name: 'fare_per_km') int? farePerKm,
+    @JsonKey(name: 'fare_per_min') int? farePerMin,
+    @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
+    @JsonKey(name: 'vehicle_type') int? vehicleType,
+    @JsonKey(name: 'ride_type') int? rideType,
+  }) = _FareStructure;
+
+  factory FareStructure.fromJson(Map<String, dynamic> json) =>
+      _$FareStructureFromJson(json);
+}
+
+@freezed
 class VehicleImage with _$VehicleImage {
   factory VehicleImage({
     @JsonKey(name: 'tab_normal') String? tabNormal,
@@ -102,6 +124,23 @@ class VehicleImage with _$VehicleImage {
 
   factory VehicleImage.fromJson(Map<String, dynamic> json) =>
       _$VehicleImageFromJson(json);
+}
+
+@freezed
+class DeliveryCharge with _$DeliveryCharge {
+  factory DeliveryCharge({
+    String? currency,
+    String? tnc,
+    @JsonKey(name: 'city_id') int? cityId,
+    @JsonKey(name: 'delivery_text') String? deliveryText,
+    @JsonKey(name: 'delivery_charges_inst')
+        List<Map<String, String>>? deliveryChargesInst,
+    @JsonKey(name: 'estimated_distance') String? estimatedDistance,
+    @JsonKey(name: 'estimated_charges') String? estimatedCharges,
+  }) = _DeliveryCharge;
+
+  factory DeliveryCharge.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryChargeFromJson(json);
 }
 
 @freezed
@@ -191,7 +230,6 @@ class NotificationMessage with _$NotificationMessage {
     double? rating,
     String? fare,
     double? bearing,
-    String? timeTillDisplay,
     String? discount,
     String? log,
     String? error,
@@ -219,6 +257,7 @@ class NotificationMessage with _$NotificationMessage {
         double? currentLocationLongitude,
     @JsonKey(name: 'is_corporate_ride') int? isCorporateRide,
     @JsonKey(name: 'marker_icon') String? markerIcon,
+    @JsonKey(name: 'order_status') int? orderStatus,
   }) = _NotificationMessage;
 
   factory NotificationMessage.fromJson(Map<String, dynamic> json) =>
@@ -443,6 +482,9 @@ abstract class FindDriversResponse with _$FindDriversResponse {
     String? error,
     List<Driver>? drivers,
     List<Vehicle>? regions,
+    String? currency,
+    @JsonKey(name: 'fare_structure') List<FareStructure>? fareStructure,
+    @JsonKey(name: 'distance_unit') String? distanceUnit,
   }) = _FindDriversResponse;
 
   factory FindDriversResponse.fromJson(Map<String, dynamic> json) =>
@@ -536,6 +578,154 @@ abstract class DriverLocationResponse with _$DriverLocationResponse {
 }
 
 @freezed
+abstract class DeliveryDetailResponse with _$DeliveryDetailResponse {
+  factory DeliveryDetailResponse(
+    int flag, {
+    String? message,
+    String? error,
+    @JsonKey(name: 'delivery_charges') DeliveryCharge? deliveryCharges,
+  }) = _DeliveryDetailResponse;
+
+  factory DeliveryDetailResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryDetailResponseFromJson(json);
+}
+
+@freezed
+abstract class DeliveryAgentResponse with _$DeliveryAgentResponse {
+  factory DeliveryAgentResponse(
+    int flag, {
+    String? message,
+    String? error,
+    String? currency,
+    @JsonKey(name: 'vehicles_info') List<Vehicle>? vehiclesInfo,
+    @JsonKey(name: 'currency_code') String? currencyCode,
+  }) = _DeliveryAgentResponse;
+
+  factory DeliveryAgentResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryAgentResponseFromJson(json);
+}
+
+@freezed
+abstract class DeliveryTrackingResponse with _$DeliveryTrackingResponse {
+  factory DeliveryTrackingResponse(
+    int flag, {
+    String? message,
+    String? error,
+    int? status,
+    double? latitude,
+    double? longitude,
+    double? bearing,
+  }) = _DeliveryTrackingResponse;
+
+  factory DeliveryTrackingResponse.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryTrackingResponseFromJson(json);
+}
+
+@freezed
+abstract class OrderHistory with _$OrderHistory {
+  factory OrderHistory({
+    int? status,
+    int? category,
+    double? amount,
+    String? currency,
+    String? details,
+    @JsonKey(name: 'order_id') int? orderId,
+    @JsonKey(name: 'from_address') String? fromAddress,
+    @JsonKey(name: 'from_latitude') double? fromLatitude,
+    @JsonKey(name: 'from_longitude') double? fromLongitude,
+    @JsonKey(name: 'to_address') String? toAddress,
+    @JsonKey(name: 'to_latitude') double? toLatitude,
+    @JsonKey(name: 'to_longitude') double? toLongitude,
+    @JsonKey(name: 'vehicle_type') int? vehicleType,
+    @JsonKey(name: 'is_immediate') int? isImmediate,
+    @JsonKey(name: 'delivery_id') int? deliveryId,
+    @JsonKey(name: 'order_status_int') int? orderStatusInt,
+    @JsonKey(name: 'delivery_charges') double? deliveryCharges,
+    @JsonKey(name: 'total_distance') double? totalDistance,
+    @JsonKey(name: 'total_time') int? totalTime,
+    @JsonKey(name: 'driver_name') String? driverName,
+    @JsonKey(name: 'payment_mode') int? paymentMode,
+    @JsonKey(name: 'city_id') int? cityId,
+    @JsonKey(name: 'currency_code') String? currencyCode,
+    @JsonKey(name: 'driver_phone_no') String? driverPhoneNo,
+    @JsonKey(name: 'product_type') int? productType,
+    @JsonKey(name: 'order_status') String? orderStatus,
+    @JsonKey(name: 'live_tracking') LiveTracking? liveTracking,
+    @JsonKey(name: 'order_time') DateTime? orderTime,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+  }) = _OrderHistory;
+
+  factory OrderHistory.fromJson(Map<String, dynamic> json) =>
+      _$OrderHistoryFromJson(json);
+}
+
+@freezed
+abstract class LiveTracking with _$LiveTracking {
+  factory LiveTracking({
+    String? message,
+    String? error,
+    int? status,
+    @JsonKey(name: 'delivery_id') int? deliveryId,
+    @JsonKey(name: 'delivery_latitude') double? deliveryLatitude,
+    @JsonKey(name: 'delivery_longitude') double? deliveryLongitude,
+    @JsonKey(name: 'pickup_latitude') double? pickupLatitude,
+    @JsonKey(name: 'pickup_longitude') double? pickupLongitude,
+    @JsonKey(name: 'driver_phone_no') String? driverPhoneNo,
+    @JsonKey(name: 'driver_name') String? driverName,
+    @JsonKey(name: 'driver_image') String? driverImage,
+    @JsonKey(name: 'driver_id') int? driverId,
+    @JsonKey(name: 'pickup_completed') int? pickupCompleted,
+  }) = _LiveTracking;
+
+  factory LiveTracking.fromJson(Map<String, dynamic> json) =>
+      _$LiveTrackingFromJson(json);
+}
+
+@freezed
+abstract class OrderHistoryResponse with _$OrderHistoryResponse {
+  factory OrderHistoryResponse(
+    int flag, {
+    String? message,
+    String? error,
+    @JsonKey(name: 'order_history') List<OrderHistory>? orderHistory,
+    @JsonKey(name: 'history_size') int? historySize,
+  }) = _OrderHistoryResponse;
+
+  factory OrderHistoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$OrderHistoryResponseFromJson(json);
+}
+
+@freezed
+abstract class CancellationReasonResponse with _$CancellationReasonResponse {
+  factory CancellationReasonResponse(
+    int flag, {
+    String? message,
+    String? error,
+    @JsonKey(name: 'cancel_options') List<String>? cancelOptions,
+    @JsonKey(name: 'additional_reasons') String? additionalReasons,
+  }) = _CancellationReasonResponse;
+
+  factory CancellationReasonResponse.fromJson(Map<String, dynamic> json) =>
+      _$CancellationReasonResponseFromJson(json);
+}
+
+@freezed
+abstract class OrderDeliveryResponse with _$OrderDeliveryResponse {
+  factory OrderDeliveryResponse(
+    int flag, {
+    String? message,
+    String? error,
+    int? status,
+    @JsonKey(name: 'order_id') int? orderId,
+    @JsonKey(name: 'fugu_channel_name') String? channelName,
+    @JsonKey(name: 'fugu_channel_id') String? channelId,
+  }) = _OrderDeliveryResponse;
+
+  factory OrderDeliveryResponse.fromJson(Map<String, dynamic> json) =>
+      _$OrderDeliveryResponseFromJson(json);
+}
+
+@freezed
 abstract class EmergencyContactsResponse with _$EmergencyContactsResponse {
   factory EmergencyContactsResponse(
     int flag, {
@@ -548,6 +738,18 @@ abstract class EmergencyContactsResponse with _$EmergencyContactsResponse {
 
   factory EmergencyContactsResponse.fromJson(Map<String, dynamic> json) =>
       _$EmergencyContactsResponseFromJson(json);
+}
+
+@freezed
+abstract class UserRideCount with _$UserRideCount {
+  factory UserRideCount({
+    @JsonKey(name: 'completed_rides') int? completedRides,
+    @JsonKey(name: 'cancelled_rides') int? cancelledRides,
+    @JsonKey(name: 'total_money_spent') int? totalMoneySpent,
+  }) = _UserRideCount;
+
+  factory UserRideCount.fromJson(Map<String, dynamic> json) =>
+      _$UserRideCountFromJson(json);
 }
 
 @freezed

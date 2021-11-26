@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
@@ -41,6 +42,10 @@ class DioClient {
     //       request: false,
     //       requestBody: false));
     // }
+  }
+
+  updateBaseUrl(String port) {
+    _dio.options.baseUrl = '$kBaseUrl:$port';
   }
 
   Future addAuthorizationInterceptor() async {

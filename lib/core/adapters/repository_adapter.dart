@@ -74,6 +74,24 @@ abstract class IHomeRepository {
   Future<ListResponse<Corporate>> getUserCorporates();
   Future<BasicResponse> updateEmergency(
       Map<String, dynamic> emergencyPayload, EmergencyStatus emergencyStatus);
+
+  // delivery requests
+  Future<DeliveryAgentResponse> getDeliveryAgents(
+      Map<String, dynamic> getAgentsParams);
+  Future<DeliveryDetailResponse> getDeliveryDetail(
+      Map<String, dynamic> getDetailParams);
+  Future<CancellationReasonResponse> getCancelDeliveryOrderReasons(
+      Map<String, dynamic> reasonPayload);
+
+  Future<BasicResponse> cancelDelivery(Map<String, dynamic> cancelPayload);
+  Future<DeliveryTrackingResponse> liveDeliveryTracking(String trackPayload);
+  Future<OrderDeliveryResponse> orderDelivery(
+      Map<String, dynamic> orderPayload, List<File> deliveryImages);
+  Future<OrderHistoryResponse> getOrderHistory(
+      Map<String, dynamic> orderHistoryPayload);
+
+  Future<BasicResponse> submitDeliveryFeedBack(
+      Map<String, dynamic> feedbackPayload);
 }
 
 abstract class ICommonRepository {
@@ -106,6 +124,8 @@ abstract class IProfileRepository {
   Future<BasicResponse> removeEmergencyContact(String contactId);
   Future<BasicResponse> addEmergencyContact(
       Map<String, dynamic> contactPayload);
+
+  Future<UserRideCount> getUserInfo();
 }
 
 abstract class IPaymentRepository {

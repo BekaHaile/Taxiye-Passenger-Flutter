@@ -60,6 +60,11 @@ abstract class AppPages {
       page: () => const PickLocationPage(),
     ),
 
+    GetPage(
+      name: Routes.deliveryDetail,
+      page: () => const DeliveryDetailPage(),
+    ),
+
     // wallet Pages
     GetPage(
       name: Routes.wallet,

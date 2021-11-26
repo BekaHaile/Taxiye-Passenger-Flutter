@@ -8,6 +8,7 @@ import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/cancel_reason_dialog.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/confirm_place.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/emergency_status_dialog.dart';
@@ -27,7 +28,6 @@ import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage>
   void initState() {
     WidgetsBinding.instance?.addObserver(this);
     drawerIndex = DrawerIndex.home;
-    screenView = ProfilePage();
+    screenView = const ProfilePage();
     iconAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 0));
 
@@ -208,7 +208,23 @@ class _HomePageState extends State<HomePage>
         return const PickVehicle();
       case TripStep.lookingDrivers:
         return LookingDrivers(
-          onCancelDriverSearch: () => controller.onCancelRide(),
+          selectedService: controller.selectedService,
+          onCancelDriverSearch: () {
+            Get.dialog(CancelReasonDialog(
+                title: 'cancel_reason'.tr,
+                reasons: controller.cancelOrderReasons,
+                onSelectReason: (reason) {
+                  switch (controller.selectedService) {
+                    case HomeServiceIndex.ride:
+                      controller.onCancelRide();
+                      break;
+                    case HomeServiceIndex.delivery:
+                      controller.cancelDelivery(reason);
+                      break;
+                    default:
+                  }
+                }));
+          },
         );
       case TripStep.driverDetail:
         return const DriverDetail();

@@ -41,7 +41,10 @@ class HomeBinding implements Bindings {
     Get.lazyPut<IProfileRepository>(
         () => ProfileRepository(apiClient: Get.find()),
         fenix: true);
-    Get.lazyPut(() => HomeController(repository: Get.find()), fenix: true);
+    Get.lazyPut(
+        () =>
+            HomeController(repository: Get.find(), fileRepository: Get.find()),
+        fenix: true);
     Get.lazyPut(() => WalletController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => OrdersController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => DriversController(repository: Get.find()), fenix: true);

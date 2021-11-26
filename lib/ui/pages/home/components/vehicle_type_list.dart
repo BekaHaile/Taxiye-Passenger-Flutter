@@ -26,7 +26,7 @@ class _VehicleTypeListState extends State<VehicleTypeList> {
   void initState() {
     vehicleTypes = [
       const VehicleType(type: 'normal', rideType: 0),
-      const VehicleType(type: 'shared', rideType: 2),
+      //const VehicleType(type: 'shared', rideType: 2),
     ];
 
     if (widget.hasCorporate) {

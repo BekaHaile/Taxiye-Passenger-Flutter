@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
@@ -19,7 +20,9 @@ class TripProgress extends GetView<HomeController> {
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'ride_started'.tr,
+              controller.selectedService == HomeServiceIndex.delivery
+                  ? 'delivery_started'.tr
+                  : 'ride_started'.tr,
               style: AppTheme.title.copyWith(fontSize: 18.0),
             ),
             const SizedBox(height: 5.0),

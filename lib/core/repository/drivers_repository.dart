@@ -16,11 +16,10 @@ class DriversRepository implements IDriversRepository {
   // Todo: Add drivers api requests here.
   @override
   Future<ListResponse<Driver>> getFavouriteDrivers() async {
-    final accessToken = GetStorage().read('accessToken');
     final response = await apiClient.request(
         requestType: RequestType.get,
         path: '/customer/fetch_user_driver_mapping',
-        queryParameters: {'access_token': accessToken});
+        queryParameters: {});
     return ListResponse<Driver>.fromJson(response);
   }
 

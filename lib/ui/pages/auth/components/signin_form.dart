@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
-import 'package:taxiye_passenger/ui/pages/auth/components/passcode_input.dart';
 import 'package:taxiye_passenger/ui/widgets/phone_input.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/ui/widgets/title_view.dart';

@@ -90,4 +90,19 @@ class ProfileRepository implements IProfileRepository {
     );
     return BasicResponse.fromJson(response);
   }
+
+  @override
+  Future<UserRideCount> getUserInfo() async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/customer/fetch_user_info',
+      data: {},
+    );
+
+    if (response.containsKey('userRideCount')) {
+      return UserRideCount.fromJson(response['userRideCount']);
+    }
+
+    return UserRideCount();
+  }
 }

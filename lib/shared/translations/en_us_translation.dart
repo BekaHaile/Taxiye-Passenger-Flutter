@@ -91,6 +91,7 @@ final Map<String, String> enUs = {
   'ratings': 'Ratings',
   'rides_completed': 'Rides Completed',
   'rides_cancelled': 'Rides Cancelled',
+  'total_money_spent': 'Total money spent',
 
   'remove_emergency_contact': 'Remove emergency contact?',
   'remove_emergency_contact_info':
@@ -200,15 +201,18 @@ final Map<String, String> enUs = {
 
   'per_kilometer': 'Per Kilometer',
   'per_minute': 'Per Minute',
-  'congestion_change': 'Congestion changes per minutes',
+  'congestion_charges': 'Congestion changes per minutes',
+  'delivery_fare': 'Delivery Fare',
 
   // Looking drivers string
   'looking_for_drivers': 'We are looking for drivers...',
   'ride_starts_soon': 'Your ride will start soon.',
+  'delivery_starts_soon': 'Your delivery will start soon.',
   'side_to_cancel': 'Slide to Cancel',
 
   'driver_on_route': 'Driver on route!',
   'ride_started': 'Your ride has started!',
+  'delivery_started': 'Your delivery is on the way!',
 
   // Trip started strings
   'emrgency_status': 'Emergency Status',
@@ -219,6 +223,7 @@ final Map<String, String> enUs = {
 
   // Trip details strings
   'arrived_destination': 'You’ve arrived at your destination.',
+  'order_delivered': 'Your order has been delivered.',
   'pay_with_cash': 'Pay With Cash',
   'distance': 'Distance',
   'duration': 'Duration',
@@ -242,11 +247,30 @@ final Map<String, String> enUs = {
   'add_to_favourites': 'Add to favourites',
   'submit': 'Submit',
   'how_was_trip': 'How was your Trip?',
+  'how_was_delivery': 'How was the delivery?',
 
   'feadback_info':
       'Your feedback will help us improve your next driving experience.',
+  'delivery_feadback_info':
+      'Your feedback will help us improve your next order experience.',
   'additional_comments': 'Additional comments here...',
   'add_favourite_driver_success': 'Driver has been added as favourite',
+
+  // delivery strings
+  'what_do_you_need': 'What do you need?',
+  'delivery_hint': 'Tell us about it here...',
+  'upload_pictures': 'Upload Pictures',
+  'deliver_to_me': 'Deliver the package to me.',
+
+  'recievers_number': 'Reciever’s Phone Number',
+  'delivery_type': 'Delivery Type',
+  'order_now': 'Order Now',
+
+  'order_delivery_succes': 'Order placed successfully',
+  'cancel_order_success': 'Your order has been cancelled',
+  'cancel_reason': 'Cancel Reason',
+
+  'delivery_feedback_success': 'Thanks for your valuable feedback.',
 
   // Wallet strings
   'your_wallet': 'Your Wallet',
@@ -403,4 +427,6 @@ final Map<String, String> enUs = {
   'fetch_ride_summary_error': 'Unable to fetch ride summary.',
   'network_error':
       'Oops unable to perform operation, Please check your internet connection!',
+
+  'error_select_reason': 'Please select your reason',
 };

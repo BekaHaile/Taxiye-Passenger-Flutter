@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
@@ -27,19 +28,21 @@ class DriverDetail extends GetView<HomeController> {
                   style: AppTheme.title.copyWith(fontSize: 18.0),
                 ),
                 const SizedBox(width: 10.0),
-                Obx(() => Text(
-                    '0${controller.driverOnRouteCounter ~/ 60}:${controller.driverOnRouteCounter % 60}',
-                    style: AppTheme.title.copyWith(
-                        fontSize: 17.0, color: AppTheme.primaryColor)))
+                if (controller.selectedService == HomeServiceIndex.ride)
+                  Obx(() => Text(
+                      '0${controller.driverOnRouteCounter ~/ 60}:${controller.driverOnRouteCounter % 60}',
+                      style: AppTheme.title.copyWith(
+                          fontSize: 17.0, color: AppTheme.primaryColor)))
               ],
             ),
             const SizedBox(height: 20.0),
             DriverTile(
                 driver: controller.driver!, vehicle: controller.driverVehicle),
             const SizedBox(height: 20.0),
-            SlideCancel(
-              onCancel: () => controller.onCancelRide(),
-            )
+            if (controller.selectedService == HomeServiceIndex.ride)
+              SlideCancel(
+                onCancel: () => controller.onCancelRide(),
+              )
           ],
         ),
       ),
