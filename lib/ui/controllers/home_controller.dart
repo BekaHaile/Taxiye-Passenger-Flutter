@@ -1066,6 +1066,7 @@ class HomeController extends GetxService {
       'rating': '$driverRating',
       'rating_type': '1',
       'feedback_order_id': '$orderId',
+      'review_desc': feedbackComment,
       'integrated': '1'
     };
 

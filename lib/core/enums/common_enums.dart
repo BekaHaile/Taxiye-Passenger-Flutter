@@ -50,6 +50,8 @@ enum ExchangePointOption {
   transfer,
   bookRide,
   donate,
+  transactions,
+  airtimeHistory,
 }
 
 enum Gender {
@@ -84,6 +86,7 @@ enum SuccessFlags {
   rideHistory,
   rideSummary,
   emergencyContacts,
+  transferPoints,
   logout,
   dummy
 }
@@ -116,6 +119,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.rideHistory: 173,
     SuccessFlags.rideSummary: 115,
     SuccessFlags.emergencyContacts: 450,
+    SuccessFlags.transferPoints: 1,
     SuccessFlags.logout: 409,
   };
 

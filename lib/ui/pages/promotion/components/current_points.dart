@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/ui/controllers/promotions_controller.dart';
 
-class CurrentPoints extends StatelessWidget {
+class CurrentPoints extends GetView<PromotionsController> {
   const CurrentPoints({
     Key? key,
   }) : super(key: key);
@@ -31,16 +32,17 @@ class CurrentPoints extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                child: Text(
-                  '3250',
-                  style: TextStyle(
-                    fontSize: 48.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
+                child: Obx(() => Text(
+                      '${controller.walletBalance}',
+                      style: const TextStyle(
+                        fontSize: 48.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    )),
               ),
             ),
             const SizedBox(height: 5.0),

@@ -158,7 +158,6 @@ class WalletTransferPage extends GetView<WalletController> {
                             final form = _formKey.currentState;
                             if (form?.validate() ?? false) {
                               form?.save();
-                              log('This called');
                               controller.transferWallet();
                             }
                           },

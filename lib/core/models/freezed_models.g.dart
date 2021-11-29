@@ -1205,6 +1205,81 @@ Map<String, dynamic> _$_$_UserRideCountToJson(_$_UserRideCount instance) =>
       'total_money_spent': instance.totalMoneySpent,
     };
 
+_$_OffersResponse _$_$_OffersResponseFromJson(Map<String, dynamic> json) {
+  return _$_OffersResponse(
+    flag: json['flag'] as int?,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    promotions: json['promotions'] as bool?,
+    airtime: json['airtime'] as bool?,
+    transfer: json['transfer'] as bool?,
+    donate: json['donate'] as bool?,
+    walletBalance: json['wallet_balance'] as int?,
+  );
+}
+
+Map<String, dynamic> _$_$_OffersResponseToJson(_$_OffersResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'promotions': instance.promotions,
+      'airtime': instance.airtime,
+      'transfer': instance.transfer,
+      'donate': instance.donate,
+      'wallet_balance': instance.walletBalance,
+    };
+
+_$_PointTransaction _$_$_PointTransactionFromJson(Map<String, dynamic> json) {
+  return _$_PointTransaction(
+    type: json['type'] as String?,
+    points: json['points'] as int?,
+    time: json['time'] == null ? null : DateTime.parse(json['time'] as String),
+  );
+}
+
+Map<String, dynamic> _$_$_PointTransactionToJson(
+        _$_PointTransaction instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'points': instance.points,
+      'time': instance.time?.toIso8601String(),
+    };
+
+_$_PointTransactionResponse _$_$_PointTransactionResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_PointTransactionResponse(
+    json['flag'] as int,
+    error: json['error'] as String?,
+    message: (json['message'] as List<dynamic>?)
+        ?.map((e) => PointTransaction.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$_$_PointTransactionResponseToJson(
+        _$_PointTransactionResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'error': instance.error,
+      'message': instance.message,
+    };
+
+_$_AirtimeHistory _$_$_AirtimeHistoryFromJson(Map<String, dynamic> json) {
+  return _$_AirtimeHistory(
+    amount: json['amount'] as int?,
+    date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
+    voucherNumber: json['voucher_number'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_AirtimeHistoryToJson(_$_AirtimeHistory instance) =>
+    <String, dynamic>{
+      'amount': instance.amount,
+      'date': instance.date?.toIso8601String(),
+      'voucher_number': instance.voucherNumber,
+    };
+
 _$_LegalResponse _$_$_LegalResponseFromJson(Map<String, dynamic> json) {
   return _$_LegalResponse(
     data: json['data'] as String?,

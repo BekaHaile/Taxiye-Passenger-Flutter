@@ -28,3 +28,7 @@ export 'package:taxiye_passenger/ui/pages/profile/saved_places_page.dart';
 export 'package:taxiye_passenger/ui/pages/settings/privacy_setting_page.dart';
 export 'package:taxiye_passenger/ui/pages/legals/legal_detail_page.dart';
 export 'package:taxiye_passenger/ui/pages/home/delivery_detail_page.dart';
+export 'package:taxiye_passenger/ui/pages/promotion/buy_airtime_page.dart';
+export 'package:taxiye_passenger/ui/pages/promotion/transfer_points_page.dart';
+export 'package:taxiye_passenger/ui/pages/promotion/airtime_history_page.dart';
+export 'package:taxiye_passenger/ui/pages/promotion/transactions_page.dart';

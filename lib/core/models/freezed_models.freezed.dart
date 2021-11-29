@@ -15284,6 +15284,928 @@ abstract class _UserRideCount implements UserRideCount {
       throw _privateConstructorUsedError;
 }
 
+OffersResponse _$OffersResponseFromJson(Map<String, dynamic> json) {
+  return _OffersResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$OffersResponseTearOff {
+  const _$OffersResponseTearOff();
+
+  _OffersResponse call(
+      {int? flag,
+      String? message,
+      String? error,
+      bool? promotions,
+      bool? airtime,
+      bool? transfer,
+      bool? donate,
+      @JsonKey(name: 'wallet_balance') int? walletBalance}) {
+    return _OffersResponse(
+      flag: flag,
+      message: message,
+      error: error,
+      promotions: promotions,
+      airtime: airtime,
+      transfer: transfer,
+      donate: donate,
+      walletBalance: walletBalance,
+    );
+  }
+
+  OffersResponse fromJson(Map<String, Object> json) {
+    return OffersResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $OffersResponse = _$OffersResponseTearOff();
+
+/// @nodoc
+mixin _$OffersResponse {
+  int? get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  bool? get promotions => throw _privateConstructorUsedError;
+  bool? get airtime => throw _privateConstructorUsedError;
+  bool? get transfer => throw _privateConstructorUsedError;
+  bool? get donate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wallet_balance')
+  int? get walletBalance => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OffersResponseCopyWith<OffersResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OffersResponseCopyWith<$Res> {
+  factory $OffersResponseCopyWith(
+          OffersResponse value, $Res Function(OffersResponse) then) =
+      _$OffersResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int? flag,
+      String? message,
+      String? error,
+      bool? promotions,
+      bool? airtime,
+      bool? transfer,
+      bool? donate,
+      @JsonKey(name: 'wallet_balance') int? walletBalance});
+}
+
+/// @nodoc
+class _$OffersResponseCopyWithImpl<$Res>
+    implements $OffersResponseCopyWith<$Res> {
+  _$OffersResponseCopyWithImpl(this._value, this._then);
+
+  final OffersResponse _value;
+  // ignore: unused_field
+  final $Res Function(OffersResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? promotions = freezed,
+    Object? airtime = freezed,
+    Object? transfer = freezed,
+    Object? donate = freezed,
+    Object? walletBalance = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      promotions: promotions == freezed
+          ? _value.promotions
+          : promotions // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      airtime: airtime == freezed
+          ? _value.airtime
+          : airtime // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      transfer: transfer == freezed
+          ? _value.transfer
+          : transfer // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      donate: donate == freezed
+          ? _value.donate
+          : donate // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      walletBalance: walletBalance == freezed
+          ? _value.walletBalance
+          : walletBalance // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$OffersResponseCopyWith<$Res>
+    implements $OffersResponseCopyWith<$Res> {
+  factory _$OffersResponseCopyWith(
+          _OffersResponse value, $Res Function(_OffersResponse) then) =
+      __$OffersResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int? flag,
+      String? message,
+      String? error,
+      bool? promotions,
+      bool? airtime,
+      bool? transfer,
+      bool? donate,
+      @JsonKey(name: 'wallet_balance') int? walletBalance});
+}
+
+/// @nodoc
+class __$OffersResponseCopyWithImpl<$Res>
+    extends _$OffersResponseCopyWithImpl<$Res>
+    implements _$OffersResponseCopyWith<$Res> {
+  __$OffersResponseCopyWithImpl(
+      _OffersResponse _value, $Res Function(_OffersResponse) _then)
+      : super(_value, (v) => _then(v as _OffersResponse));
+
+  @override
+  _OffersResponse get _value => super._value as _OffersResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? promotions = freezed,
+    Object? airtime = freezed,
+    Object? transfer = freezed,
+    Object? donate = freezed,
+    Object? walletBalance = freezed,
+  }) {
+    return _then(_OffersResponse(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      promotions: promotions == freezed
+          ? _value.promotions
+          : promotions // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      airtime: airtime == freezed
+          ? _value.airtime
+          : airtime // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      transfer: transfer == freezed
+          ? _value.transfer
+          : transfer // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      donate: donate == freezed
+          ? _value.donate
+          : donate // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      walletBalance: walletBalance == freezed
+          ? _value.walletBalance
+          : walletBalance // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OffersResponse implements _OffersResponse {
+  _$_OffersResponse(
+      {this.flag,
+      this.message,
+      this.error,
+      this.promotions,
+      this.airtime,
+      this.transfer,
+      this.donate,
+      @JsonKey(name: 'wallet_balance') this.walletBalance});
+
+  factory _$_OffersResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_OffersResponseFromJson(json);
+
+  @override
+  final int? flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  final bool? promotions;
+  @override
+  final bool? airtime;
+  @override
+  final bool? transfer;
+  @override
+  final bool? donate;
+  @override
+  @JsonKey(name: 'wallet_balance')
+  final int? walletBalance;
+
+  @override
+  String toString() {
+    return 'OffersResponse(flag: $flag, message: $message, error: $error, promotions: $promotions, airtime: $airtime, transfer: $transfer, donate: $donate, walletBalance: $walletBalance)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _OffersResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.promotions, promotions) ||
+                const DeepCollectionEquality()
+                    .equals(other.promotions, promotions)) &&
+            (identical(other.airtime, airtime) ||
+                const DeepCollectionEquality()
+                    .equals(other.airtime, airtime)) &&
+            (identical(other.transfer, transfer) ||
+                const DeepCollectionEquality()
+                    .equals(other.transfer, transfer)) &&
+            (identical(other.donate, donate) ||
+                const DeepCollectionEquality().equals(other.donate, donate)) &&
+            (identical(other.walletBalance, walletBalance) ||
+                const DeepCollectionEquality()
+                    .equals(other.walletBalance, walletBalance)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(promotions) ^
+      const DeepCollectionEquality().hash(airtime) ^
+      const DeepCollectionEquality().hash(transfer) ^
+      const DeepCollectionEquality().hash(donate) ^
+      const DeepCollectionEquality().hash(walletBalance);
+
+  @JsonKey(ignore: true)
+  @override
+  _$OffersResponseCopyWith<_OffersResponse> get copyWith =>
+      __$OffersResponseCopyWithImpl<_OffersResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_OffersResponseToJson(this);
+  }
+}
+
+abstract class _OffersResponse implements OffersResponse {
+  factory _OffersResponse(
+      {int? flag,
+      String? message,
+      String? error,
+      bool? promotions,
+      bool? airtime,
+      bool? transfer,
+      bool? donate,
+      @JsonKey(name: 'wallet_balance') int? walletBalance}) = _$_OffersResponse;
+
+  factory _OffersResponse.fromJson(Map<String, dynamic> json) =
+      _$_OffersResponse.fromJson;
+
+  @override
+  int? get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  bool? get promotions => throw _privateConstructorUsedError;
+  @override
+  bool? get airtime => throw _privateConstructorUsedError;
+  @override
+  bool? get transfer => throw _privateConstructorUsedError;
+  @override
+  bool? get donate => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'wallet_balance')
+  int? get walletBalance => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$OffersResponseCopyWith<_OffersResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PointTransaction _$PointTransactionFromJson(Map<String, dynamic> json) {
+  return _PointTransaction.fromJson(json);
+}
+
+/// @nodoc
+class _$PointTransactionTearOff {
+  const _$PointTransactionTearOff();
+
+  _PointTransaction call({String? type, int? points, DateTime? time}) {
+    return _PointTransaction(
+      type: type,
+      points: points,
+      time: time,
+    );
+  }
+
+  PointTransaction fromJson(Map<String, Object> json) {
+    return PointTransaction.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $PointTransaction = _$PointTransactionTearOff();
+
+/// @nodoc
+mixin _$PointTransaction {
+  String? get type => throw _privateConstructorUsedError;
+  int? get points => throw _privateConstructorUsedError;
+  DateTime? get time => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PointTransactionCopyWith<PointTransaction> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PointTransactionCopyWith<$Res> {
+  factory $PointTransactionCopyWith(
+          PointTransaction value, $Res Function(PointTransaction) then) =
+      _$PointTransactionCopyWithImpl<$Res>;
+  $Res call({String? type, int? points, DateTime? time});
+}
+
+/// @nodoc
+class _$PointTransactionCopyWithImpl<$Res>
+    implements $PointTransactionCopyWith<$Res> {
+  _$PointTransactionCopyWithImpl(this._value, this._then);
+
+  final PointTransaction _value;
+  // ignore: unused_field
+  final $Res Function(PointTransaction) _then;
+
+  @override
+  $Res call({
+    Object? type = freezed,
+    Object? points = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_value.copyWith(
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      points: points == freezed
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int?,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PointTransactionCopyWith<$Res>
+    implements $PointTransactionCopyWith<$Res> {
+  factory _$PointTransactionCopyWith(
+          _PointTransaction value, $Res Function(_PointTransaction) then) =
+      __$PointTransactionCopyWithImpl<$Res>;
+  @override
+  $Res call({String? type, int? points, DateTime? time});
+}
+
+/// @nodoc
+class __$PointTransactionCopyWithImpl<$Res>
+    extends _$PointTransactionCopyWithImpl<$Res>
+    implements _$PointTransactionCopyWith<$Res> {
+  __$PointTransactionCopyWithImpl(
+      _PointTransaction _value, $Res Function(_PointTransaction) _then)
+      : super(_value, (v) => _then(v as _PointTransaction));
+
+  @override
+  _PointTransaction get _value => super._value as _PointTransaction;
+
+  @override
+  $Res call({
+    Object? type = freezed,
+    Object? points = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_PointTransaction(
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      points: points == freezed
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int?,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PointTransaction implements _PointTransaction {
+  _$_PointTransaction({this.type, this.points, this.time});
+
+  factory _$_PointTransaction.fromJson(Map<String, dynamic> json) =>
+      _$_$_PointTransactionFromJson(json);
+
+  @override
+  final String? type;
+  @override
+  final int? points;
+  @override
+  final DateTime? time;
+
+  @override
+  String toString() {
+    return 'PointTransaction(type: $type, points: $points, time: $time)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PointTransaction &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.points, points) ||
+                const DeepCollectionEquality().equals(other.points, points)) &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(points) ^
+      const DeepCollectionEquality().hash(time);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PointTransactionCopyWith<_PointTransaction> get copyWith =>
+      __$PointTransactionCopyWithImpl<_PointTransaction>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_PointTransactionToJson(this);
+  }
+}
+
+abstract class _PointTransaction implements PointTransaction {
+  factory _PointTransaction({String? type, int? points, DateTime? time}) =
+      _$_PointTransaction;
+
+  factory _PointTransaction.fromJson(Map<String, dynamic> json) =
+      _$_PointTransaction.fromJson;
+
+  @override
+  String? get type => throw _privateConstructorUsedError;
+  @override
+  int? get points => throw _privateConstructorUsedError;
+  @override
+  DateTime? get time => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$PointTransactionCopyWith<_PointTransaction> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PointTransactionResponse _$PointTransactionResponseFromJson(
+    Map<String, dynamic> json) {
+  return _PointTransactionResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$PointTransactionResponseTearOff {
+  const _$PointTransactionResponseTearOff();
+
+  _PointTransactionResponse call(int flag,
+      {String? error, List<PointTransaction>? message}) {
+    return _PointTransactionResponse(
+      flag,
+      error: error,
+      message: message,
+    );
+  }
+
+  PointTransactionResponse fromJson(Map<String, Object> json) {
+    return PointTransactionResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $PointTransactionResponse = _$PointTransactionResponseTearOff();
+
+/// @nodoc
+mixin _$PointTransactionResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  List<PointTransaction>? get message => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PointTransactionResponseCopyWith<PointTransactionResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PointTransactionResponseCopyWith<$Res> {
+  factory $PointTransactionResponseCopyWith(PointTransactionResponse value,
+          $Res Function(PointTransactionResponse) then) =
+      _$PointTransactionResponseCopyWithImpl<$Res>;
+  $Res call({int flag, String? error, List<PointTransaction>? message});
+}
+
+/// @nodoc
+class _$PointTransactionResponseCopyWithImpl<$Res>
+    implements $PointTransactionResponseCopyWith<$Res> {
+  _$PointTransactionResponseCopyWithImpl(this._value, this._then);
+
+  final PointTransactionResponse _value;
+  // ignore: unused_field
+  final $Res Function(PointTransactionResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? error = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as List<PointTransaction>?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PointTransactionResponseCopyWith<$Res>
+    implements $PointTransactionResponseCopyWith<$Res> {
+  factory _$PointTransactionResponseCopyWith(_PointTransactionResponse value,
+          $Res Function(_PointTransactionResponse) then) =
+      __$PointTransactionResponseCopyWithImpl<$Res>;
+  @override
+  $Res call({int flag, String? error, List<PointTransaction>? message});
+}
+
+/// @nodoc
+class __$PointTransactionResponseCopyWithImpl<$Res>
+    extends _$PointTransactionResponseCopyWithImpl<$Res>
+    implements _$PointTransactionResponseCopyWith<$Res> {
+  __$PointTransactionResponseCopyWithImpl(_PointTransactionResponse _value,
+      $Res Function(_PointTransactionResponse) _then)
+      : super(_value, (v) => _then(v as _PointTransactionResponse));
+
+  @override
+  _PointTransactionResponse get _value =>
+      super._value as _PointTransactionResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? error = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_PointTransactionResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as List<PointTransaction>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PointTransactionResponse implements _PointTransactionResponse {
+  _$_PointTransactionResponse(this.flag, {this.error, this.message});
+
+  factory _$_PointTransactionResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_PointTransactionResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? error;
+  @override
+  final List<PointTransaction>? message;
+
+  @override
+  String toString() {
+    return 'PointTransactionResponse(flag: $flag, error: $error, message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PointTransactionResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(message);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PointTransactionResponseCopyWith<_PointTransactionResponse> get copyWith =>
+      __$PointTransactionResponseCopyWithImpl<_PointTransactionResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_PointTransactionResponseToJson(this);
+  }
+}
+
+abstract class _PointTransactionResponse implements PointTransactionResponse {
+  factory _PointTransactionResponse(int flag,
+      {String? error,
+      List<PointTransaction>? message}) = _$_PointTransactionResponse;
+
+  factory _PointTransactionResponse.fromJson(Map<String, dynamic> json) =
+      _$_PointTransactionResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  List<PointTransaction>? get message => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$PointTransactionResponseCopyWith<_PointTransactionResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+AirtimeHistory _$AirtimeHistoryFromJson(Map<String, dynamic> json) {
+  return _AirtimeHistory.fromJson(json);
+}
+
+/// @nodoc
+class _$AirtimeHistoryTearOff {
+  const _$AirtimeHistoryTearOff();
+
+  _AirtimeHistory call(
+      {int? amount,
+      DateTime? date,
+      @JsonKey(name: 'voucher_number') String? voucherNumber}) {
+    return _AirtimeHistory(
+      amount: amount,
+      date: date,
+      voucherNumber: voucherNumber,
+    );
+  }
+
+  AirtimeHistory fromJson(Map<String, Object> json) {
+    return AirtimeHistory.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $AirtimeHistory = _$AirtimeHistoryTearOff();
+
+/// @nodoc
+mixin _$AirtimeHistory {
+  int? get amount => throw _privateConstructorUsedError;
+  DateTime? get date => throw _privateConstructorUsedError;
+  @JsonKey(name: 'voucher_number')
+  String? get voucherNumber => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $AirtimeHistoryCopyWith<AirtimeHistory> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AirtimeHistoryCopyWith<$Res> {
+  factory $AirtimeHistoryCopyWith(
+          AirtimeHistory value, $Res Function(AirtimeHistory) then) =
+      _$AirtimeHistoryCopyWithImpl<$Res>;
+  $Res call(
+      {int? amount,
+      DateTime? date,
+      @JsonKey(name: 'voucher_number') String? voucherNumber});
+}
+
+/// @nodoc
+class _$AirtimeHistoryCopyWithImpl<$Res>
+    implements $AirtimeHistoryCopyWith<$Res> {
+  _$AirtimeHistoryCopyWithImpl(this._value, this._then);
+
+  final AirtimeHistory _value;
+  // ignore: unused_field
+  final $Res Function(AirtimeHistory) _then;
+
+  @override
+  $Res call({
+    Object? amount = freezed,
+    Object? date = freezed,
+    Object? voucherNumber = freezed,
+  }) {
+    return _then(_value.copyWith(
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      voucherNumber: voucherNumber == freezed
+          ? _value.voucherNumber
+          : voucherNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$AirtimeHistoryCopyWith<$Res>
+    implements $AirtimeHistoryCopyWith<$Res> {
+  factory _$AirtimeHistoryCopyWith(
+          _AirtimeHistory value, $Res Function(_AirtimeHistory) then) =
+      __$AirtimeHistoryCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int? amount,
+      DateTime? date,
+      @JsonKey(name: 'voucher_number') String? voucherNumber});
+}
+
+/// @nodoc
+class __$AirtimeHistoryCopyWithImpl<$Res>
+    extends _$AirtimeHistoryCopyWithImpl<$Res>
+    implements _$AirtimeHistoryCopyWith<$Res> {
+  __$AirtimeHistoryCopyWithImpl(
+      _AirtimeHistory _value, $Res Function(_AirtimeHistory) _then)
+      : super(_value, (v) => _then(v as _AirtimeHistory));
+
+  @override
+  _AirtimeHistory get _value => super._value as _AirtimeHistory;
+
+  @override
+  $Res call({
+    Object? amount = freezed,
+    Object? date = freezed,
+    Object? voucherNumber = freezed,
+  }) {
+    return _then(_AirtimeHistory(
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      voucherNumber: voucherNumber == freezed
+          ? _value.voucherNumber
+          : voucherNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_AirtimeHistory implements _AirtimeHistory {
+  _$_AirtimeHistory(
+      {this.amount,
+      this.date,
+      @JsonKey(name: 'voucher_number') this.voucherNumber});
+
+  factory _$_AirtimeHistory.fromJson(Map<String, dynamic> json) =>
+      _$_$_AirtimeHistoryFromJson(json);
+
+  @override
+  final int? amount;
+  @override
+  final DateTime? date;
+  @override
+  @JsonKey(name: 'voucher_number')
+  final String? voucherNumber;
+
+  @override
+  String toString() {
+    return 'AirtimeHistory(amount: $amount, date: $date, voucherNumber: $voucherNumber)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _AirtimeHistory &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.date, date) ||
+                const DeepCollectionEquality().equals(other.date, date)) &&
+            (identical(other.voucherNumber, voucherNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.voucherNumber, voucherNumber)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(date) ^
+      const DeepCollectionEquality().hash(voucherNumber);
+
+  @JsonKey(ignore: true)
+  @override
+  _$AirtimeHistoryCopyWith<_AirtimeHistory> get copyWith =>
+      __$AirtimeHistoryCopyWithImpl<_AirtimeHistory>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_AirtimeHistoryToJson(this);
+  }
+}
+
+abstract class _AirtimeHistory implements AirtimeHistory {
+  factory _AirtimeHistory(
+          {int? amount,
+          DateTime? date,
+          @JsonKey(name: 'voucher_number') String? voucherNumber}) =
+      _$_AirtimeHistory;
+
+  factory _AirtimeHistory.fromJson(Map<String, dynamic> json) =
+      _$_AirtimeHistory.fromJson;
+
+  @override
+  int? get amount => throw _privateConstructorUsedError;
+  @override
+  DateTime? get date => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'voucher_number')
+  String? get voucherNumber => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$AirtimeHistoryCopyWith<_AirtimeHistory> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 LegalResponse _$LegalResponseFromJson(Map<String, dynamic> json) {
   return _LegalResponse.fromJson(json);
 }

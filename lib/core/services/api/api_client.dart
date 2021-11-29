@@ -82,7 +82,11 @@ class ApiClient {
       }
 
       // log('raw response: $response');
-      return (response is String) ? jsonDecode(response) : response;
+      return (response is String)
+          ? jsonDecode(response)
+          : (response is List)
+              ? {'flag': 143, 'data': response}
+              : response;
     } on DioError catch (e) {
       final errorMessage = NetworkExceptions.getErrorMessage(
           NetworkExceptions.getDioException(e));

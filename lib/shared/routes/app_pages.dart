@@ -5,6 +5,7 @@ import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/orders_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
+import 'package:taxiye_passenger/ui/bindings/promotions_binding.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
 part 'app_routes.dart';
 
@@ -85,6 +86,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.promotions,
       page: () => const PromotionsPage(),
+      binding: PromotionsBinding(),
     ),
     GetPage(
       name: Routes.exchangePoints,
@@ -103,10 +105,27 @@ abstract class AppPages {
       page: () => const ReferFriendPage(),
     ),
 
+    GetPage(
+      name: Routes.buyAirtime,
+      page: () => const BuyAirtimePage(),
+    ),
+    GetPage(
+      name: Routes.transferPoints,
+      page: () => const TransferPointsPage(),
+    ),
+    GetPage(
+      name: Routes.transactions,
+      page: () => const TransactionsPage(),
+    ),
+    GetPage(
+      name: Routes.airtimeHistory,
+      page: () => const AirtimeHistoryPage(),
+    ),
+
     // Profile Pages
     GetPage(
       name: Routes.profile,
-      page: () => ProfilePage(),
+      page: () => const ProfilePage(),
       binding: ProfileBinding(),
     ),
     GetPage(

@@ -205,11 +205,11 @@ class AuthController extends GetxService {
       (data) {
         if (data.flag == SuccessFlags.verify.successCode) {
           status(Status.success);
-          _navigateUser();
           if (data.userData != null) {
             user = data.userData;
             persistUser(data.userData!);
           }
+          _navigateUser();
         } else {
           print(data.message);
           toast('error', data.error ?? data.message ?? '');

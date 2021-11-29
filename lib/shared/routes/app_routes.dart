@@ -35,6 +35,11 @@ abstract class Routes {
   static const coupons = '/coupons';
   static const referFreind = '/referFreind';
 
+  static const buyAirtime = '/buyAirtime';
+  static const transferPoints = '/transferPoints';
+  static const transactions = '/transactions';
+  static const airtimeHistory = '/airtimeHistory';
+
   // Payment routes
   static const payment = '/payment';
 

@@ -149,3 +149,14 @@ abstract class IDriversRepository {
   Future<ListResponse<Driver>> getFavouriteDrivers();
   Future<BasicResponse> removeFavouriteDriver(int driverId);
 }
+
+abstract class IPromotionsRepository {
+  // Todo: Add promotions request class signitures (interfaces) here.
+  Future<OffersResponse> getPromotionBalance();
+  Future<BasicResponse> applyPromotionCode(String code);
+  Future<BasicResponse> buyAirTime(String amount);
+  Future<BasicResponse> transferPoints(Map<String, dynamic> transferPayload);
+
+  Future<PointTransactionResponse> getPointTransactions();
+  Future<ListResponse<AirtimeHistory>> getAirtimeHistory();
+}

@@ -122,6 +122,7 @@ class WalletController extends GetxController {
           status(Status.success);
           _getTransactions();
           Get.back();
+          Get.snackbar('success'.tr, 'trasnsfer_success'.tr);
         } else {
           toast('error',
               transferResponse.message ?? transferResponse.error ?? '');

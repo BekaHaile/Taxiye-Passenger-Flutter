@@ -9,10 +9,12 @@ class RoundedButton extends StatelessWidget {
     this.height = 50.0,
     this.textStyle,
     this.color = AppTheme.primaryColor,
+    this.disabledColor = Colors.grey,
     this.leadingIcon,
     this.trailingIcon,
     this.elevation = 2.0,
     this.child,
+    this.enabled = true,
     this.subChild = const SizedBox(),
     required this.onPressed,
   }) : super(key: key);
@@ -21,12 +23,14 @@ class RoundedButton extends StatelessWidget {
   final double? width;
   final double height;
   final Color? color;
+  final Color? disabledColor;
   final TextStyle? textStyle;
   final IconData? leadingIcon;
   final IconData? trailingIcon;
   final double elevation;
   final Widget? child;
   final Widget subChild;
+  final bool enabled;
   final VoidCallback onPressed;
 
   @override
@@ -37,13 +41,13 @@ class RoundedButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: elevation,
-          primary: color,
+          primary: enabled ? color : disabledColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(45.0),
             // side: const BorderSide(color: AppTheme.primaryColor),
           ),
         ),
-        onPressed: onPressed,
+        onPressed: enabled ? onPressed : null,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: Column(

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
+import 'package:taxiye_passenger/ui/controllers/promotions_controller.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
-class ReferFriendPage extends StatelessWidget {
+class ReferFriendPage extends GetView<PromotionsController> {
   const ReferFriendPage({Key? key}) : super(key: key);
 
   final contentSpacing = const SizedBox(height: 30.0);
@@ -62,12 +64,12 @@ class ReferFriendPage extends StatelessWidget {
                         color: AppTheme.lightSilverColor,
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 10.0),
                         child: Text(
-                          '251911399631',
-                          style: TextStyle(
+                          controller.referralNumber,
+                          style: const TextStyle(
                             fontSize: 24.0,
                             fontWeight: FontWeight.w700,
                             color: AppTheme.darkColor,
@@ -82,9 +84,7 @@ class ReferFriendPage extends StatelessWidget {
             contentSpacing,
             RoundedButton(
                 text: 'share'.tr,
-                onPressed: () {
-                  // Todo: share code.
-                })
+                onPressed: () => Share.share(controller.referralNumber))
           ],
         ),
       ),

@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/promotions_controller.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/components/current_points.dart';
@@ -59,12 +62,20 @@ class ExchangePointsPage extends GetView<PromotionsController> {
                       // Todo: action based on exchangePointType
                       switch (exchangeOption.option) {
                         case ExchangePointOption.mobileCard:
+                          Get.toNamed(Routes.buyAirtime);
                           break;
                         case ExchangePointOption.transfer:
+                          Get.toNamed(Routes.transferPoints);
                           break;
                         case ExchangePointOption.bookRide:
                           break;
                         case ExchangePointOption.donate:
+                          break;
+                        case ExchangePointOption.transactions:
+                          Get.toNamed(Routes.transactions);
+                          break;
+                        case ExchangePointOption.airtimeHistory:
+                          Get.toNamed(Routes.airtimeHistory);
                           break;
                         default:
                       }

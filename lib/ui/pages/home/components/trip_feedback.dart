@@ -59,29 +59,30 @@ class TripFeadback extends GetView<HomeController> {
                 ],
               ),
               const SizedBox(height: 10.0),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Todo: uncomment this when the functionality is supported
-                  // ShadowButton(
-                  //     height: 40,
-                  //     text: 'block'.tr,
-                  //     borderColor: AppTheme.primaryColor,
-                  //     onPressed: () {
-                  //       //Todo: on block driver
-                  //     }),
-                  // const SizedBox(width: 20.0),
-                  RoundedButton(
-                      width: 170.0,
-                      height: 40.0,
-                      text: 'add_to_favourites'.tr,
-                      textStyle: AppTheme.title.copyWith(
-                        fontSize: 14.0,
-                        color: Colors.white,
-                      ),
-                      onPressed: () => controller.addFavouriteDriver()),
-                ],
-              ),
+              if (controller.selectedService == HomeServiceIndex.ride)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Todo: uncomment this when the functionality is supported
+                    // ShadowButton(
+                    //     height: 40,
+                    //     text: 'block'.tr,
+                    //     borderColor: AppTheme.primaryColor,
+                    //     onPressed: () {
+                    //       //Todo: on block driver
+                    //     }),
+                    // const SizedBox(width: 20.0),
+                    RoundedButton(
+                        width: 170.0,
+                        height: 40.0,
+                        text: 'add_to_favourites'.tr,
+                        textStyle: AppTheme.title.copyWith(
+                          fontSize: 14.0,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => controller.addFavouriteDriver()),
+                  ],
+                ),
               const SizedBox(height: 20.0),
               Text(
                 controller.selectedService == HomeServiceIndex.delivery

@@ -118,7 +118,7 @@ Future<Position> getCurrentLocation() async {
     // Location services are not enabled don't continue
     // accessing the position and request users of the
     // App to enable the location services.
-    // Geolocator.openLocationSettings();
+    Geolocator.openLocationSettings();
     return Future.error('Location services are disabled.');
   }
 

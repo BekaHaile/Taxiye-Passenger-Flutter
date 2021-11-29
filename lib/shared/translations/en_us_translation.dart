@@ -313,6 +313,8 @@ final Map<String, String> enUs = {
   'book_ride_with_points': 'Book Ride with Points',
   'donate_points': 'Donate Points',
 
+  'transactions': 'Transactions',
+  'airtime_history': 'Airtime History',
   'your_coupons': 'Your Coupons',
   'points': 'points',
   'refer_friend_info':
@@ -322,6 +324,15 @@ final Map<String, String> enUs = {
 
   'promo_details': 'Promo Details',
   'detail': 'Detail',
+  'promotion_code_success': 'Promotion code applied successfully.',
+
+  'buy_airtime': 'Buy AirtTime',
+  'buy_airtime_info': 'Are you sure you want to buy',
+  'airtime': 'airtime?',
+  'buy': 'Buy',
+  'buy_airtime_success': 'Buy airtime success.',
+
+  'trasnsfer_success': 'Transferred successfully.',
 
   // Orders strings
   'your_orders': 'Your Orders',
@@ -429,4 +440,5 @@ final Map<String, String> enUs = {
       'Oops unable to perform operation, Please check your internet connection!',
 
   'error_select_reason': 'Please select your reason',
+  'error_promotion_code': 'Please provide promotion code',
 };

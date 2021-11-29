@@ -753,6 +753,59 @@ abstract class UserRideCount with _$UserRideCount {
 }
 
 @freezed
+abstract class OffersResponse with _$OffersResponse {
+  factory OffersResponse({
+    int? flag,
+    String? message,
+    String? error,
+    bool? promotions,
+    bool? airtime,
+    bool? transfer,
+    bool? donate,
+    @JsonKey(name: 'wallet_balance') int? walletBalance,
+  }) = _OffersResponse;
+
+  factory OffersResponse.fromJson(Map<String, dynamic> json) =>
+      _$OffersResponseFromJson(json);
+}
+
+@freezed
+class PointTransaction with _$PointTransaction {
+  factory PointTransaction({
+    String? type,
+    int? points,
+    DateTime? time,
+  }) = _PointTransaction;
+
+  factory PointTransaction.fromJson(Map<String, dynamic> json) =>
+      _$PointTransactionFromJson(json);
+}
+
+@freezed
+abstract class PointTransactionResponse with _$PointTransactionResponse {
+  factory PointTransactionResponse(
+    int flag, {
+    String? error,
+    List<PointTransaction>? message,
+  }) = _PointTransactionResponse;
+
+  factory PointTransactionResponse.fromJson(Map<String, dynamic> json) =>
+      _$PointTransactionResponseFromJson(json);
+}
+
+@freezed
+class AirtimeHistory with _$AirtimeHistory {
+  factory AirtimeHistory({
+    int? amount,
+    DateTime? date,
+    @JsonKey(name: 'voucher_number') String? voucherNumber,
+  }) = _AirtimeHistory;
+
+  factory AirtimeHistory.fromJson(Map<String, dynamic> json) =>
+      _$AirtimeHistoryFromJson(json);
+}
+
+@freezed
 abstract class LegalResponse with _$LegalResponse {
   factory LegalResponse({
     String? data,
@@ -806,6 +859,8 @@ class DataConverter<T> implements JsonConverter<T, Object?> {
         return Driver.fromJson(json as Map<String, dynamic>) as T;
       case Corporate:
         return Corporate.fromJson(json as Map<String, dynamic>) as T;
+      case AirtimeHistory:
+        return AirtimeHistory.fromJson(json as Map<String, dynamic>) as T;
       default:
         throw Exception("Class type not found!");
     }
