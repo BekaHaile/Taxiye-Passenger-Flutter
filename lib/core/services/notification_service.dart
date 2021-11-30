@@ -111,6 +111,7 @@ handleNotification(RemoteMessage message,
     switch (notificationMessage.flag) {
       case 4:
         showNotification(
+          notificationMessage.flag,
           'ride_completed'.tr,
           '${'your_fare_was'.tr} ${(notificationMessage.toPay ?? '')} ETB',
         );
@@ -119,6 +120,7 @@ handleNotification(RemoteMessage message,
         break;
       default:
         showNotification(
+          notificationMessage.flag,
           notificationMessage.title ?? '',
           notificationMessage.message ??
               notificationMessage.log ??
@@ -155,7 +157,7 @@ handleNotification(RemoteMessage message,
   // }
 }
 
-showNotification(String title, String body) async {
+showNotification(int flag, String title, String body) async {
   final GetStorage _storage = GetStorage();
 
   // check if notification is enabled for different notification types
@@ -165,6 +167,20 @@ showNotification(String title, String body) async {
       _storage.read<bool>('showDeliveryNotifications');
   bool? showTransactionNotifications =
       _storage.read<bool>('showTransactionNotifications');
+
+  switch (flag) {
+    case 21:
+      // Transaction notifications
+      if (!(showTransactionNotifications ?? true)) return;
+      break;
+    case 54:
+      // Delivery notifications
+      if (!(showDeliveryNotifications ?? true)) return;
+      break;
+
+    default:
+      if (!(showRideNotifications ?? true)) return;
+  }
 
   var androidPlatformChannelSpecifics =
       const lNotification.AndroidNotificationDetails(
@@ -185,15 +201,13 @@ showNotification(String title, String body) async {
 
   // Todo: check notification type from body
 
-  if (showRideNotifications ?? true) {
-    await lNotification.FlutterLocalNotificationsPlugin().show(
-      0,
-      title,
-      body,
-      platformChannelSpecifics,
-      // payload: json.encode(message),
-    );
-  }
+  await lNotification.FlutterLocalNotificationsPlugin().show(
+    0,
+    title,
+    body,
+    platformChannelSpecifics,
+    // payload: json.encode(message),
+  );
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

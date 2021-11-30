@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -352,8 +353,7 @@ class AuthController extends GetxService {
     // else to home page
     // for now check for gender and username
     // user?.gender == null ||
-
-    if (user.userName.isEmpty || user.userName.split('').length < 2) {
+    if (user.userName.isEmpty || user.userName.split(' ').length < 2) {
       Future.delayed(Duration.zero, () {
         Get.offAllNamed(Routes.setProfile);
       });

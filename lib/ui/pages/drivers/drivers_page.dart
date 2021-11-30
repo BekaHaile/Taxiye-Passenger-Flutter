@@ -38,9 +38,10 @@ class DriversPage extends GetView<DriversController> {
                         TabTitle(
                             text: describeEnum(DriverPreference.favourite),
                             icon: Icons.star),
-                        TabTitle(
-                            text: describeEnum(DriverPreference.blocked),
-                            icon: Icons.block),
+                        // Todo: uncomment this when blocked drivers is supported
+                        // TabTitle(
+                        //     text: describeEnum(DriverPreference.blocked),
+                        //     icon: Icons.block),
                       ],
                       selectedTitle: describeEnum(controller.driverPreference),
                       onSelectTab: (selectedTab) {

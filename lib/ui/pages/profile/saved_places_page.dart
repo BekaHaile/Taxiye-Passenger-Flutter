@@ -8,6 +8,7 @@ import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
+import 'package:taxiye_passenger/ui/pages/common/empty_state.dart';
 import 'package:taxiye_passenger/ui/pages/profile/components/add_new.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
@@ -21,74 +22,107 @@ class SavedPlacesPage extends GetView<HomeController> {
     return Stack(
       children: [
         Scaffold(
-          appBar: const WhiteAppBar(),
-          body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'saved_places'.tr,
-                    style: AppTheme.body.copyWith(fontSize: 24.0),
-                  ),
-                  const SizedBox(height: 20.0),
-                  AddNew(
-                    title: 'add_new_place'.tr,
-                    onTap: () {
-                      controller.tripStep = TripStep.addPlace;
-                      controller.updateFrom = 'profile';
-                      Get.toNamed(Routes.home);
-                    },
-                  ),
-                  const SizedBox(height: 20.0),
-                  Obx(
-                    () => ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final Address place = controller.savedPlaces[index];
-                        return SavedPlaceTile(
-                            place: place,
-                            sourceIcon: controller.sourceIcon,
-                            onEditTab: () => controller.onEditSavedPlace(place),
-                            onDeleteTab: () => controller.updateSavedPlaces(
-                                updateMode: UpdateMode.delete, address: place));
-                      },
-                      itemCount: controller.savedPlaces.length,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      'recent_locations'.tr,
-                      style: AppTheme.subtitle.copyWith(fontSize: 18.0),
-                    ),
-                  ),
-                  Obx(
-                    () => ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final Address place = controller.recentLocations[index];
-                        return SavedPlaceTile(
-                          place: place,
-                          sourceIcon: controller.sourceIcon,
-                        );
-                      },
-                      itemCount: controller.recentLocations.length,
+            appBar: const WhiteAppBar(),
+            body: controller.recentLocations.isEmpty &&
+                    controller.savedPlaces.isEmpty
+                ? Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kPagePadding),
+                    child: Column(
+                      children: const [TopUI(), EmptyState()],
                     ),
                   )
-                ],
-              ),
-            ),
-          ),
-        ),
+                : SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: kPagePadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TopUI(),
+                          Obx(
+                            () => ListView.builder(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final Address place =
+                                    controller.savedPlaces[index];
+                                return SavedPlaceTile(
+                                    place: place,
+                                    sourceIcon: controller.sourceIcon,
+                                    onEditTab: () =>
+                                        controller.onEditSavedPlace(place),
+                                    onDeleteTab: () =>
+                                        controller.updateSavedPlaces(
+                                            updateMode: UpdateMode.delete,
+                                            address: place));
+                              },
+                              itemCount: controller.savedPlaces.length,
+                            ),
+                          ),
+                          if (controller.recentLocations.isNotEmpty)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                'recent_locations'.tr,
+                                style:
+                                    AppTheme.subtitle.copyWith(fontSize: 18.0),
+                              ),
+                            ),
+                          Obx(
+                            () => ListView.builder(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final Address place =
+                                    controller.recentLocations[index];
+                                return SavedPlaceTile(
+                                  place: place,
+                                  sourceIcon: controller.sourceIcon,
+                                );
+                              },
+                              itemCount: controller.recentLocations.length,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
         Obx(() => ModalProgressHUD(
               child: const SizedBox(),
               inAsyncCall: controller.status.value == Status.loading,
             ))
+      ],
+    );
+  }
+}
+
+class TopUI extends GetView<HomeController> {
+  const TopUI({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'saved_places'.tr,
+          style: AppTheme.body.copyWith(fontSize: 24.0),
+        ),
+        const SizedBox(height: 20.0),
+        AddNew(
+          title: 'add_new_place'.tr,
+          onTap: () {
+            controller.tripStep = TripStep.addPlace;
+            controller.updateFrom = 'profile';
+            Get.toNamed(Routes.home);
+          },
+        ),
+        const SizedBox(height: 20.0),
       ],
     );
   }

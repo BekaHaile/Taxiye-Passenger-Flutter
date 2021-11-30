@@ -85,14 +85,9 @@ class SettingsController extends GetxController {
       Option(
           title: 'transaction_updates',
           subtitle: 'transaction_updates_info',
-          isActive: false,
           toggleValue: true),
       Option(title: 'rides', subtitle: 'rides_info', toggleValue: true),
-      Option(
-          title: 'delivery',
-          subtitle: 'delivery_info',
-          isActive: false,
-          toggleValue: true),
+      Option(title: 'delivery', subtitle: 'delivery_info', toggleValue: true),
     ];
   }
 
