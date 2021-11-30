@@ -211,17 +211,6 @@ class Transaction with _$Transaction {
 }
 
 @freezed
-class Coupon with _$Coupon {
-  factory Coupon({
-    String? name,
-    int? point,
-    DateTime? expireDate,
-  }) = _Coupon;
-
-  factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
-}
-
-@freezed
 class NotificationMessage with _$NotificationMessage {
   factory NotificationMessage(
     int flag, {
@@ -803,6 +792,58 @@ class AirtimeHistory with _$AirtimeHistory {
 
   factory AirtimeHistory.fromJson(Map<String, dynamic> json) =>
       _$AirtimeHistoryFromJson(json);
+}
+
+@freezed
+class Promotion with _$Promotion {
+  factory Promotion({
+    String? title,
+    int? city,
+    @JsonKey(name: 'promo_id') int? promoId,
+    @JsonKey(name: 'promo_type') int? promoType,
+    @JsonKey(name: 'start_from') DateTime? startFrom,
+    @JsonKey(name: 'end_on') DateTime? endOn,
+    @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+    @JsonKey(name: 'per_day_limit') int? perDayLimit,
+    @JsonKey(name: 'validity_text') String? validityText,
+    @JsonKey(name: 'promo_text') String? promoText,
+  }) = _Promotion;
+
+  factory Promotion.fromJson(Map<String, dynamic> json) =>
+      _$PromotionFromJson(json);
+}
+
+@freezed
+class Coupon with _$Coupon {
+  factory Coupon({
+    String? title,
+    String? subtitle,
+    String? description,
+    int? type,
+    int? discount,
+    int? maximum,
+    int? status,
+    @JsonKey(name: 'coupon_id') int? couponId,
+    @JsonKey(name: 'coupon_type') int? couponType,
+    @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+    @JsonKey(name: 'expiry_date') DateTime? expiryDate,
+  }) = _Coupon;
+
+  factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
+}
+
+@freezed
+abstract class PromotionsResponse with _$PromotionsResponse {
+  factory PromotionsResponse(
+    int flag, {
+    String? message,
+    String? error,
+    List<Coupon>? coupons,
+    List<Promotion>? promotions,
+  }) = _PromotionsResponse;
+
+  factory PromotionsResponse.fromJson(Map<String, dynamic> json) =>
+      _$PromotionsResponseFromJson(json);
 }
 
 @freezed

@@ -159,4 +159,6 @@ abstract class IPromotionsRepository {
 
   Future<PointTransactionResponse> getPointTransactions();
   Future<ListResponse<AirtimeHistory>> getAirtimeHistory();
+  Future<PromotionsResponse> getPromotionsAndCoupons(
+      Map<String, dynamic> promotionsPayload);
 }

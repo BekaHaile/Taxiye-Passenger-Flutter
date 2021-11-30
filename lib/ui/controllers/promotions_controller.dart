@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
@@ -33,6 +34,10 @@ class PromotionsController extends GetxController {
   get coupons => _coupons.value;
   set coupons(value) => _coupons.assignAll(value);
 
+  final _promotions = List<Promotion>.empty(growable: true).obs;
+  get promotions => _promotions.value;
+  set promotions(value) => _promotions.assignAll(value);
+
   final _transactions = List<PointTransaction>.empty(growable: true).obs;
   get transactions => _transactions.value;
   set transactions(value) => _transactions.assignAll(value);
@@ -46,6 +51,7 @@ class PromotionsController extends GetxController {
   String referralNumber = '';
 
   String currency = 'ETB';
+  final GetStorage _storage = GetStorage();
 
   @override
   void onInit() async {
@@ -57,9 +63,9 @@ class PromotionsController extends GetxController {
     // test.phoneNo
     referralNumber =
         _authController.user.phoneNo?.replaceAll(RegExp('[\\D]'), '') ?? '';
+    // _getPromotionsAndCoupons();
     _getPromotionBalance();
-    getExchangePointOptions();
-    getCoupons();
+    _getExchangePointOptions();
     _getPointTransactions();
     _getAirtimeHistory();
   }
@@ -78,6 +84,36 @@ class PromotionsController extends GetxController {
       },
       onError: (err) {
         print("$err");
+        status(Status.error);
+      },
+    );
+  }
+
+  _getPromotionsAndCoupons() {
+    final promotionsPayload = {
+      'latitude': _storage.read('latitude'),
+      'longitude': _storage.read('longitude'),
+    };
+    status(Status.loading);
+    repository.getPromotionsAndCoupons(promotionsPayload).then(
+      (promotionsResponse) {
+        if (promotionsResponse.flag == SuccessFlags.promotions.successCode) {
+          status(Status.success);
+          // check and set promotions and coupons
+          if (promotionsResponse.promotions?.isNotEmpty ?? false) {
+            promotions = promotionsResponse.promotions;
+          }
+          if (promotionsResponse.coupons?.isNotEmpty ?? false) {
+            coupons = promotionsResponse.coupons;
+          }
+        } else {
+          toast('error',
+              promotionsResponse.message ?? promotionsResponse.error ?? '');
+          status(Status.error);
+        }
+      },
+      onError: (err) {
+        print('Get promotions error: $err');
         status(Status.error);
       },
     );
@@ -108,7 +144,7 @@ class PromotionsController extends GetxController {
     }
   }
 
-  getExchangePointOptions() {
+  _getExchangePointOptions() {
     exchangePointOPtions = const [
       ExchangePoint(
           text: 'convert_to_mobile_card',
@@ -134,24 +170,6 @@ class PromotionsController extends GetxController {
           text: 'airtime_history',
           icon: Icons.add,
           option: ExchangePointOption.airtimeHistory),
-    ];
-  }
-
-  getCoupons() {
-    // Todo: fetch available coupons and user coupons
-    coupons = [
-      Coupon(
-          name: 'Book 2 trips a week', point: 500, expireDate: DateTime.now()),
-      Coupon(
-          name: 'Book 5 trips a week', point: 1000, expireDate: DateTime.now()),
-      Coupon(
-          name: 'Order ride for someone',
-          point: 1000,
-          expireDate: DateTime.now()),
-      Coupon(
-          name: 'Top up wallet 150 Birr',
-          point: 750,
-          expireDate: DateTime.now()),
     ];
   }
 
@@ -232,7 +250,6 @@ class PromotionsController extends GetxController {
   _getAirtimeHistory() {
     repository.getAirtimeHistory().then(
       (airTimeHistoryResponse) {
-        log('airtime history response here: $airTimeHistoryResponse');
         if (airTimeHistoryResponse.flag ==
             SuccessFlags.basicSuccess.successCode) {
           if (airTimeHistoryResponse.data?.isNotEmpty ?? false) {

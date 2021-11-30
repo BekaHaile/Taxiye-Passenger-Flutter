@@ -70,7 +70,7 @@ class PromoDetailPage extends GetView<PromotionsController> {
                                         children: [
                                           TextSpan(
                                             text:
-                                                '${controller.selectedCoupon?.point} ',
+                                                '${controller.selectedCoupon?.discount} ',
                                             style: const TextStyle(
                                               fontSize: 34.0,
                                               fontWeight: FontWeight.w700,
@@ -87,7 +87,7 @@ class PromoDetailPage extends GetView<PromotionsController> {
                                     ),
                                     const SizedBox(height: 5.0),
                                     Text(
-                                      controller.selectedCoupon?.name ?? '',
+                                      controller.selectedCoupon?.title ?? '',
                                       style: AppTheme.title.copyWith(
                                         fontSize: 14.0,
                                         color: AppTheme.darkTextColor,
@@ -109,7 +109,7 @@ class PromoDetailPage extends GetView<PromotionsController> {
                         ),
                         const SizedBox(height: 5.0),
                         Text(
-                          formatDate(controller.selectedCoupon?.expireDate ??
+                          formatDate(controller.selectedCoupon?.expiryDate ??
                               DateTime.now()),
                           style: AppTheme.title.copyWith(
                               fontSize: 16.0, color: AppTheme.primaryColor),
@@ -124,7 +124,7 @@ class PromoDetailPage extends GetView<PromotionsController> {
                         ),
                         const SizedBox(height: 10.0),
                         Text(
-                          'Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.',
+                          controller.selectedCoupon?.description ?? '',
                           style: AppTheme.title.copyWith(
                             fontSize: 14.0,
                             color: AppTheme.darkTextColor,

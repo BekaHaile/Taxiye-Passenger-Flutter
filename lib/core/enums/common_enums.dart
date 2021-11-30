@@ -87,6 +87,7 @@ enum SuccessFlags {
   rideSummary,
   emergencyContacts,
   transferPoints,
+  promotions,
   logout,
   dummy
 }
@@ -120,6 +121,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.rideSummary: 115,
     SuccessFlags.emergencyContacts: 450,
     SuccessFlags.transferPoints: 1,
+    SuccessFlags.promotions: 140,
     SuccessFlags.logout: 409,
   };
 

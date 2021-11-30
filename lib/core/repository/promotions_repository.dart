@@ -73,4 +73,15 @@ class PromotionsRepository implements IPromotionsRepository {
     );
     return ListResponse<AirtimeHistory>.fromJson(response);
   }
+
+  @override
+  Future<PromotionsResponse> getPromotionsAndCoupons(
+      Map<String, dynamic> promotionsPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/get_coupons_and_promotions',
+      data: promotionsPayload,
+    );
+    return PromotionsResponse.fromJson(response);
+  }
 }

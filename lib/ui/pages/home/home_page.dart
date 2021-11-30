@@ -28,6 +28,7 @@ import 'package:taxiye_passenger/ui/widgets/circle_nav.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -273,12 +274,30 @@ class _HomePageState extends State<HomePage>
         // nav to legals page
         Get.toNamed(Routes.settings);
         break;
+      case DrawerIndex.email:
+        // nav to emails page
+        final Uri emailLaunchUri = Uri(
+          scheme: 'mailto',
+          path: 'support@taxiye.com',
+          query: encodeQueryParameters(
+            <String, String>{'subject': 'passenger_email_support'.tr},
+          ),
+        );
+        launch(emailLaunchUri.toString());
+        break;
       case DrawerIndex.legals:
         // nav to legals page
         Get.toNamed(Routes.legals);
         break;
       default:
     }
+  }
+
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
   }
 }
 

@@ -6,6 +6,7 @@ enum DrawerIndex {
   myDrivers,
   paymentMethod,
   settings,
+  email,
   legals,
 }
 

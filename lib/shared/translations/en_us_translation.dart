@@ -149,6 +149,10 @@ final Map<String, String> enUs = {
   'speak_real_person': 'Speak to a real person.',
   'speak_person_info': 'Just to talk or book a cab.',
 
+  'email_support': 'Email support',
+  'email_contact_us': 'Contact us with email',
+  'passenger_email_support': 'Passenger email support',
+
   // home strings
   'where_to': 'Where to?',
   'now': 'Now',
@@ -412,6 +416,9 @@ final Map<String, String> enUs = {
   //notification Strings
   'ride_completed': 'Ride Completed',
   'your_fare_was': 'your fare was',
+
+  // Empty state strings
+  'empty_state_title': 'Sorry! No Data Found.',
 
   // Error messages
   'invalid_passcode': 'Invalid Passcode',

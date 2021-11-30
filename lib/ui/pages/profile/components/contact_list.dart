@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
+import 'package:taxiye_passenger/ui/pages/common/empty_state.dart';
 
 class ContactList extends StatelessWidget {
   const ContactList({
@@ -18,21 +19,24 @@ class ContactList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        final EmergencyContact contact = contacts[index];
-        return EmergencyContactTile(
-          contact: contact,
-          onDelete:
-              onDeleteContact != null ? () => onDeleteContact!(contact) : null,
-          onAddContact:
-              onAddContact != null ? () => onAddContact!(contact) : null,
-        );
-      },
-      itemCount: contacts.length,
-    );
+    return contacts.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              final EmergencyContact contact = contacts[index];
+              return EmergencyContactTile(
+                contact: contact,
+                onDelete: onDeleteContact != null
+                    ? () => onDeleteContact!(contact)
+                    : null,
+                onAddContact:
+                    onAddContact != null ? () => onAddContact!(contact) : null,
+              );
+            },
+            itemCount: contacts.length,
+          )
+        : const EmptyState();
   }
 }
 

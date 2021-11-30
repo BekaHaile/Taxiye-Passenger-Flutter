@@ -109,32 +109,38 @@ class PromotionsPage extends GetView<PromotionsController> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: contentPadding,
-                  child: Text('ride_rewards'.tr, style: AppTheme.body),
-                ),
-                SizedBox(
-                  height: 165.0,
-                  child: CouponList(
-                    coupons: controller.coupons,
-                    scrollDirection: Axis.horizontal,
-                    onItemSelect: (selectedCoupon) =>
-                        controller.onSelectCoupon(selectedCoupon),
-                  ),
-                ),
-                Padding(
-                  padding: contentPadding,
-                  child: Text('delivery_rewards'.tr, style: AppTheme.body),
-                ),
-                SizedBox(
-                  height: 165.0,
-                  child: CouponList(
-                    coupons: controller.coupons,
-                    scrollDirection: Axis.horizontal,
-                    onItemSelect: (selectedCoupon) =>
-                        controller.onSelectCoupon(selectedCoupon),
-                  ),
-                ),
+                Obx(() => controller.promotions.isNotEmpty
+                    ? Padding(
+                        padding: contentPadding,
+                        child: Text('ride_rewards'.tr, style: AppTheme.body),
+                      )
+                    : const SizedBox()),
+                Obx(() => controller.promotions.isNotEmpty
+                    ? SizedBox(
+                        height: 165.0,
+                        child: CouponList(
+                          promotions: controller.promotions,
+                          scrollDirection: Axis.horizontal,
+                          onPromotionSelect: (selectedPromotion) {
+                            //Todo: onPromotion selected
+                          },
+                        ),
+                      )
+                    : const SizedBox()),
+                // Todo: uncomment this when the functionsality is supported
+                // Padding(
+                //   padding: contentPadding,
+                //   child: Text('delivery_rewards'.tr, style: AppTheme.body),
+                // ),
+                // SizedBox(
+                //   height: 165.0,
+                //   child: CouponList(
+                //     coupons: controller.coupons,
+                //     scrollDirection: Axis.horizontal,
+                //     onItemSelect: (selectedCoupon) =>
+                //         controller.onSelectCoupon(selectedCoupon),
+                //   ),
+                // ),
               ],
             ),
           ),

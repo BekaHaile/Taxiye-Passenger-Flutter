@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
+import 'package:taxiye_passenger/ui/pages/common/empty_state.dart';
 import 'package:taxiye_passenger/ui/pages/profile/components/contact_list.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 

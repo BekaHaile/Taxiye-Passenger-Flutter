@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/promotions_controller.dart';
+import 'package:taxiye_passenger/ui/pages/common/empty_state.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/components/coupon_list.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
@@ -14,27 +14,26 @@ class CouponsPage extends GetView<PromotionsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const WhiteAppBar(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
-              child: Text(
-                'your_coupons'.tr,
-                style: AppTheme.body.copyWith(fontSize: 24.0),
-              ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kPagePadding),
+            child: Text(
+              'your_coupons'.tr,
+              style: AppTheme.body.copyWith(fontSize: 24.0),
             ),
-            const SizedBox(height: 30.0),
-            CouponList(
-              coupons: controller.coupons,
-              showExpires: true,
-              onItemSelect: (selectedCoupon) =>
-                  controller.onSelectCoupon(selectedCoupon),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 30.0),
+          Obx(() => controller.coupons.isNotEmpty
+              ? CouponList(
+                  coupons: controller.coupons,
+                  showExpires: true,
+                  onCouponSelect: (selectedCoupon) =>
+                      controller.onSelectCoupon(selectedCoupon),
+                )
+              : const EmptyState()),
+        ],
       ),
     );
   }

@@ -4295,186 +4295,6 @@ abstract class _Transaction implements Transaction {
       throw _privateConstructorUsedError;
 }
 
-Coupon _$CouponFromJson(Map<String, dynamic> json) {
-  return _Coupon.fromJson(json);
-}
-
-/// @nodoc
-class _$CouponTearOff {
-  const _$CouponTearOff();
-
-  _Coupon call({String? name, int? point, DateTime? expireDate}) {
-    return _Coupon(
-      name: name,
-      point: point,
-      expireDate: expireDate,
-    );
-  }
-
-  Coupon fromJson(Map<String, Object> json) {
-    return Coupon.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Coupon = _$CouponTearOff();
-
-/// @nodoc
-mixin _$Coupon {
-  String? get name => throw _privateConstructorUsedError;
-  int? get point => throw _privateConstructorUsedError;
-  DateTime? get expireDate => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $CouponCopyWith<Coupon> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CouponCopyWith<$Res> {
-  factory $CouponCopyWith(Coupon value, $Res Function(Coupon) then) =
-      _$CouponCopyWithImpl<$Res>;
-  $Res call({String? name, int? point, DateTime? expireDate});
-}
-
-/// @nodoc
-class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
-  _$CouponCopyWithImpl(this._value, this._then);
-
-  final Coupon _value;
-  // ignore: unused_field
-  final $Res Function(Coupon) _then;
-
-  @override
-  $Res call({
-    Object? name = freezed,
-    Object? point = freezed,
-    Object? expireDate = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      point: point == freezed
-          ? _value.point
-          : point // ignore: cast_nullable_to_non_nullable
-              as int?,
-      expireDate: expireDate == freezed
-          ? _value.expireDate
-          : expireDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
-  factory _$CouponCopyWith(_Coupon value, $Res Function(_Coupon) then) =
-      __$CouponCopyWithImpl<$Res>;
-  @override
-  $Res call({String? name, int? point, DateTime? expireDate});
-}
-
-/// @nodoc
-class __$CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
-    implements _$CouponCopyWith<$Res> {
-  __$CouponCopyWithImpl(_Coupon _value, $Res Function(_Coupon) _then)
-      : super(_value, (v) => _then(v as _Coupon));
-
-  @override
-  _Coupon get _value => super._value as _Coupon;
-
-  @override
-  $Res call({
-    Object? name = freezed,
-    Object? point = freezed,
-    Object? expireDate = freezed,
-  }) {
-    return _then(_Coupon(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      point: point == freezed
-          ? _value.point
-          : point // ignore: cast_nullable_to_non_nullable
-              as int?,
-      expireDate: expireDate == freezed
-          ? _value.expireDate
-          : expireDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_Coupon implements _Coupon {
-  _$_Coupon({this.name, this.point, this.expireDate});
-
-  factory _$_Coupon.fromJson(Map<String, dynamic> json) =>
-      _$_$_CouponFromJson(json);
-
-  @override
-  final String? name;
-  @override
-  final int? point;
-  @override
-  final DateTime? expireDate;
-
-  @override
-  String toString() {
-    return 'Coupon(name: $name, point: $point, expireDate: $expireDate)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Coupon &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.point, point) ||
-                const DeepCollectionEquality().equals(other.point, point)) &&
-            (identical(other.expireDate, expireDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.expireDate, expireDate)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(point) ^
-      const DeepCollectionEquality().hash(expireDate);
-
-  @JsonKey(ignore: true)
-  @override
-  _$CouponCopyWith<_Coupon> get copyWith =>
-      __$CouponCopyWithImpl<_Coupon>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_CouponToJson(this);
-  }
-}
-
-abstract class _Coupon implements Coupon {
-  factory _Coupon({String? name, int? point, DateTime? expireDate}) = _$_Coupon;
-
-  factory _Coupon.fromJson(Map<String, dynamic> json) = _$_Coupon.fromJson;
-
-  @override
-  String? get name => throw _privateConstructorUsedError;
-  @override
-  int? get point => throw _privateConstructorUsedError;
-  @override
-  DateTime? get expireDate => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  _$CouponCopyWith<_Coupon> get copyWith => throw _privateConstructorUsedError;
-}
-
 NotificationMessage _$NotificationMessageFromJson(Map<String, dynamic> json) {
   return _NotificationMessage.fromJson(json);
 }
@@ -16203,6 +16023,1057 @@ abstract class _AirtimeHistory implements AirtimeHistory {
   @override
   @JsonKey(ignore: true)
   _$AirtimeHistoryCopyWith<_AirtimeHistory> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Promotion _$PromotionFromJson(Map<String, dynamic> json) {
+  return _Promotion.fromJson(json);
+}
+
+/// @nodoc
+class _$PromotionTearOff {
+  const _$PromotionTearOff();
+
+  _Promotion call(
+      {String? title,
+      int? city,
+      @JsonKey(name: 'promo_id') int? promoId,
+      @JsonKey(name: 'promo_type') int? promoType,
+      @JsonKey(name: 'start_from') DateTime? startFrom,
+      @JsonKey(name: 'end_on') DateTime? endOn,
+      @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+      @JsonKey(name: 'per_day_limit') int? perDayLimit,
+      @JsonKey(name: 'validity_text') String? validityText,
+      @JsonKey(name: 'promo_text') String? promoText}) {
+    return _Promotion(
+      title: title,
+      city: city,
+      promoId: promoId,
+      promoType: promoType,
+      startFrom: startFrom,
+      endOn: endOn,
+      allowedVehicles: allowedVehicles,
+      perDayLimit: perDayLimit,
+      validityText: validityText,
+      promoText: promoText,
+    );
+  }
+
+  Promotion fromJson(Map<String, Object> json) {
+    return Promotion.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Promotion = _$PromotionTearOff();
+
+/// @nodoc
+mixin _$Promotion {
+  String? get title => throw _privateConstructorUsedError;
+  int? get city => throw _privateConstructorUsedError;
+  @JsonKey(name: 'promo_id')
+  int? get promoId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'promo_type')
+  int? get promoType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'start_from')
+  DateTime? get startFrom => throw _privateConstructorUsedError;
+  @JsonKey(name: 'end_on')
+  DateTime? get endOn => throw _privateConstructorUsedError;
+  @JsonKey(name: 'allowed_vehicles')
+  List<int>? get allowedVehicles => throw _privateConstructorUsedError;
+  @JsonKey(name: 'per_day_limit')
+  int? get perDayLimit => throw _privateConstructorUsedError;
+  @JsonKey(name: 'validity_text')
+  String? get validityText => throw _privateConstructorUsedError;
+  @JsonKey(name: 'promo_text')
+  String? get promoText => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PromotionCopyWith<Promotion> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PromotionCopyWith<$Res> {
+  factory $PromotionCopyWith(Promotion value, $Res Function(Promotion) then) =
+      _$PromotionCopyWithImpl<$Res>;
+  $Res call(
+      {String? title,
+      int? city,
+      @JsonKey(name: 'promo_id') int? promoId,
+      @JsonKey(name: 'promo_type') int? promoType,
+      @JsonKey(name: 'start_from') DateTime? startFrom,
+      @JsonKey(name: 'end_on') DateTime? endOn,
+      @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+      @JsonKey(name: 'per_day_limit') int? perDayLimit,
+      @JsonKey(name: 'validity_text') String? validityText,
+      @JsonKey(name: 'promo_text') String? promoText});
+}
+
+/// @nodoc
+class _$PromotionCopyWithImpl<$Res> implements $PromotionCopyWith<$Res> {
+  _$PromotionCopyWithImpl(this._value, this._then);
+
+  final Promotion _value;
+  // ignore: unused_field
+  final $Res Function(Promotion) _then;
+
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? city = freezed,
+    Object? promoId = freezed,
+    Object? promoType = freezed,
+    Object? startFrom = freezed,
+    Object? endOn = freezed,
+    Object? allowedVehicles = freezed,
+    Object? perDayLimit = freezed,
+    Object? validityText = freezed,
+    Object? promoText = freezed,
+  }) {
+    return _then(_value.copyWith(
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      city: city == freezed
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as int?,
+      promoId: promoId == freezed
+          ? _value.promoId
+          : promoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      promoType: promoType == freezed
+          ? _value.promoType
+          : promoType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      startFrom: startFrom == freezed
+          ? _value.startFrom
+          : startFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endOn: endOn == freezed
+          ? _value.endOn
+          : endOn // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      allowedVehicles: allowedVehicles == freezed
+          ? _value.allowedVehicles
+          : allowedVehicles // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      perDayLimit: perDayLimit == freezed
+          ? _value.perDayLimit
+          : perDayLimit // ignore: cast_nullable_to_non_nullable
+              as int?,
+      validityText: validityText == freezed
+          ? _value.validityText
+          : validityText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      promoText: promoText == freezed
+          ? _value.promoText
+          : promoText // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PromotionCopyWith<$Res> implements $PromotionCopyWith<$Res> {
+  factory _$PromotionCopyWith(
+          _Promotion value, $Res Function(_Promotion) then) =
+      __$PromotionCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String? title,
+      int? city,
+      @JsonKey(name: 'promo_id') int? promoId,
+      @JsonKey(name: 'promo_type') int? promoType,
+      @JsonKey(name: 'start_from') DateTime? startFrom,
+      @JsonKey(name: 'end_on') DateTime? endOn,
+      @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+      @JsonKey(name: 'per_day_limit') int? perDayLimit,
+      @JsonKey(name: 'validity_text') String? validityText,
+      @JsonKey(name: 'promo_text') String? promoText});
+}
+
+/// @nodoc
+class __$PromotionCopyWithImpl<$Res> extends _$PromotionCopyWithImpl<$Res>
+    implements _$PromotionCopyWith<$Res> {
+  __$PromotionCopyWithImpl(_Promotion _value, $Res Function(_Promotion) _then)
+      : super(_value, (v) => _then(v as _Promotion));
+
+  @override
+  _Promotion get _value => super._value as _Promotion;
+
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? city = freezed,
+    Object? promoId = freezed,
+    Object? promoType = freezed,
+    Object? startFrom = freezed,
+    Object? endOn = freezed,
+    Object? allowedVehicles = freezed,
+    Object? perDayLimit = freezed,
+    Object? validityText = freezed,
+    Object? promoText = freezed,
+  }) {
+    return _then(_Promotion(
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      city: city == freezed
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as int?,
+      promoId: promoId == freezed
+          ? _value.promoId
+          : promoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      promoType: promoType == freezed
+          ? _value.promoType
+          : promoType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      startFrom: startFrom == freezed
+          ? _value.startFrom
+          : startFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endOn: endOn == freezed
+          ? _value.endOn
+          : endOn // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      allowedVehicles: allowedVehicles == freezed
+          ? _value.allowedVehicles
+          : allowedVehicles // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      perDayLimit: perDayLimit == freezed
+          ? _value.perDayLimit
+          : perDayLimit // ignore: cast_nullable_to_non_nullable
+              as int?,
+      validityText: validityText == freezed
+          ? _value.validityText
+          : validityText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      promoText: promoText == freezed
+          ? _value.promoText
+          : promoText // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Promotion implements _Promotion {
+  _$_Promotion(
+      {this.title,
+      this.city,
+      @JsonKey(name: 'promo_id') this.promoId,
+      @JsonKey(name: 'promo_type') this.promoType,
+      @JsonKey(name: 'start_from') this.startFrom,
+      @JsonKey(name: 'end_on') this.endOn,
+      @JsonKey(name: 'allowed_vehicles') this.allowedVehicles,
+      @JsonKey(name: 'per_day_limit') this.perDayLimit,
+      @JsonKey(name: 'validity_text') this.validityText,
+      @JsonKey(name: 'promo_text') this.promoText});
+
+  factory _$_Promotion.fromJson(Map<String, dynamic> json) =>
+      _$_$_PromotionFromJson(json);
+
+  @override
+  final String? title;
+  @override
+  final int? city;
+  @override
+  @JsonKey(name: 'promo_id')
+  final int? promoId;
+  @override
+  @JsonKey(name: 'promo_type')
+  final int? promoType;
+  @override
+  @JsonKey(name: 'start_from')
+  final DateTime? startFrom;
+  @override
+  @JsonKey(name: 'end_on')
+  final DateTime? endOn;
+  @override
+  @JsonKey(name: 'allowed_vehicles')
+  final List<int>? allowedVehicles;
+  @override
+  @JsonKey(name: 'per_day_limit')
+  final int? perDayLimit;
+  @override
+  @JsonKey(name: 'validity_text')
+  final String? validityText;
+  @override
+  @JsonKey(name: 'promo_text')
+  final String? promoText;
+
+  @override
+  String toString() {
+    return 'Promotion(title: $title, city: $city, promoId: $promoId, promoType: $promoType, startFrom: $startFrom, endOn: $endOn, allowedVehicles: $allowedVehicles, perDayLimit: $perDayLimit, validityText: $validityText, promoText: $promoText)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Promotion &&
+            (identical(other.title, title) ||
+                const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)) &&
+            (identical(other.promoId, promoId) ||
+                const DeepCollectionEquality()
+                    .equals(other.promoId, promoId)) &&
+            (identical(other.promoType, promoType) ||
+                const DeepCollectionEquality()
+                    .equals(other.promoType, promoType)) &&
+            (identical(other.startFrom, startFrom) ||
+                const DeepCollectionEquality()
+                    .equals(other.startFrom, startFrom)) &&
+            (identical(other.endOn, endOn) ||
+                const DeepCollectionEquality().equals(other.endOn, endOn)) &&
+            (identical(other.allowedVehicles, allowedVehicles) ||
+                const DeepCollectionEquality()
+                    .equals(other.allowedVehicles, allowedVehicles)) &&
+            (identical(other.perDayLimit, perDayLimit) ||
+                const DeepCollectionEquality()
+                    .equals(other.perDayLimit, perDayLimit)) &&
+            (identical(other.validityText, validityText) ||
+                const DeepCollectionEquality()
+                    .equals(other.validityText, validityText)) &&
+            (identical(other.promoText, promoText) ||
+                const DeepCollectionEquality()
+                    .equals(other.promoText, promoText)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(city) ^
+      const DeepCollectionEquality().hash(promoId) ^
+      const DeepCollectionEquality().hash(promoType) ^
+      const DeepCollectionEquality().hash(startFrom) ^
+      const DeepCollectionEquality().hash(endOn) ^
+      const DeepCollectionEquality().hash(allowedVehicles) ^
+      const DeepCollectionEquality().hash(perDayLimit) ^
+      const DeepCollectionEquality().hash(validityText) ^
+      const DeepCollectionEquality().hash(promoText);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PromotionCopyWith<_Promotion> get copyWith =>
+      __$PromotionCopyWithImpl<_Promotion>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_PromotionToJson(this);
+  }
+}
+
+abstract class _Promotion implements Promotion {
+  factory _Promotion(
+      {String? title,
+      int? city,
+      @JsonKey(name: 'promo_id') int? promoId,
+      @JsonKey(name: 'promo_type') int? promoType,
+      @JsonKey(name: 'start_from') DateTime? startFrom,
+      @JsonKey(name: 'end_on') DateTime? endOn,
+      @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+      @JsonKey(name: 'per_day_limit') int? perDayLimit,
+      @JsonKey(name: 'validity_text') String? validityText,
+      @JsonKey(name: 'promo_text') String? promoText}) = _$_Promotion;
+
+  factory _Promotion.fromJson(Map<String, dynamic> json) =
+      _$_Promotion.fromJson;
+
+  @override
+  String? get title => throw _privateConstructorUsedError;
+  @override
+  int? get city => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'promo_id')
+  int? get promoId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'promo_type')
+  int? get promoType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'start_from')
+  DateTime? get startFrom => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'end_on')
+  DateTime? get endOn => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'allowed_vehicles')
+  List<int>? get allowedVehicles => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'per_day_limit')
+  int? get perDayLimit => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'validity_text')
+  String? get validityText => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'promo_text')
+  String? get promoText => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$PromotionCopyWith<_Promotion> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Coupon _$CouponFromJson(Map<String, dynamic> json) {
+  return _Coupon.fromJson(json);
+}
+
+/// @nodoc
+class _$CouponTearOff {
+  const _$CouponTearOff();
+
+  _Coupon call(
+      {String? title,
+      String? subtitle,
+      String? description,
+      int? type,
+      int? discount,
+      int? maximum,
+      int? status,
+      @JsonKey(name: 'coupon_id') int? couponId,
+      @JsonKey(name: 'coupon_type') int? couponType,
+      @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+      @JsonKey(name: 'expiry_date') DateTime? expiryDate}) {
+    return _Coupon(
+      title: title,
+      subtitle: subtitle,
+      description: description,
+      type: type,
+      discount: discount,
+      maximum: maximum,
+      status: status,
+      couponId: couponId,
+      couponType: couponType,
+      allowedVehicles: allowedVehicles,
+      expiryDate: expiryDate,
+    );
+  }
+
+  Coupon fromJson(Map<String, Object> json) {
+    return Coupon.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $Coupon = _$CouponTearOff();
+
+/// @nodoc
+mixin _$Coupon {
+  String? get title => throw _privateConstructorUsedError;
+  String? get subtitle => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  int? get type => throw _privateConstructorUsedError;
+  int? get discount => throw _privateConstructorUsedError;
+  int? get maximum => throw _privateConstructorUsedError;
+  int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coupon_id')
+  int? get couponId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coupon_type')
+  int? get couponType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'allowed_vehicles')
+  List<int>? get allowedVehicles => throw _privateConstructorUsedError;
+  @JsonKey(name: 'expiry_date')
+  DateTime? get expiryDate => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CouponCopyWith<Coupon> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CouponCopyWith<$Res> {
+  factory $CouponCopyWith(Coupon value, $Res Function(Coupon) then) =
+      _$CouponCopyWithImpl<$Res>;
+  $Res call(
+      {String? title,
+      String? subtitle,
+      String? description,
+      int? type,
+      int? discount,
+      int? maximum,
+      int? status,
+      @JsonKey(name: 'coupon_id') int? couponId,
+      @JsonKey(name: 'coupon_type') int? couponType,
+      @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+      @JsonKey(name: 'expiry_date') DateTime? expiryDate});
+}
+
+/// @nodoc
+class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
+  _$CouponCopyWithImpl(this._value, this._then);
+
+  final Coupon _value;
+  // ignore: unused_field
+  final $Res Function(Coupon) _then;
+
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? subtitle = freezed,
+    Object? description = freezed,
+    Object? type = freezed,
+    Object? discount = freezed,
+    Object? maximum = freezed,
+    Object? status = freezed,
+    Object? couponId = freezed,
+    Object? couponType = freezed,
+    Object? allowedVehicles = freezed,
+    Object? expiryDate = freezed,
+  }) {
+    return _then(_value.copyWith(
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subtitle: subtitle == freezed
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as int?,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maximum: maximum == freezed
+          ? _value.maximum
+          : maximum // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      couponId: couponId == freezed
+          ? _value.couponId
+          : couponId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      couponType: couponType == freezed
+          ? _value.couponType
+          : couponType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      allowedVehicles: allowedVehicles == freezed
+          ? _value.allowedVehicles
+          : allowedVehicles // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      expiryDate: expiryDate == freezed
+          ? _value.expiryDate
+          : expiryDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
+  factory _$CouponCopyWith(_Coupon value, $Res Function(_Coupon) then) =
+      __$CouponCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String? title,
+      String? subtitle,
+      String? description,
+      int? type,
+      int? discount,
+      int? maximum,
+      int? status,
+      @JsonKey(name: 'coupon_id') int? couponId,
+      @JsonKey(name: 'coupon_type') int? couponType,
+      @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+      @JsonKey(name: 'expiry_date') DateTime? expiryDate});
+}
+
+/// @nodoc
+class __$CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
+    implements _$CouponCopyWith<$Res> {
+  __$CouponCopyWithImpl(_Coupon _value, $Res Function(_Coupon) _then)
+      : super(_value, (v) => _then(v as _Coupon));
+
+  @override
+  _Coupon get _value => super._value as _Coupon;
+
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? subtitle = freezed,
+    Object? description = freezed,
+    Object? type = freezed,
+    Object? discount = freezed,
+    Object? maximum = freezed,
+    Object? status = freezed,
+    Object? couponId = freezed,
+    Object? couponType = freezed,
+    Object? allowedVehicles = freezed,
+    Object? expiryDate = freezed,
+  }) {
+    return _then(_Coupon(
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subtitle: subtitle == freezed
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as int?,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maximum: maximum == freezed
+          ? _value.maximum
+          : maximum // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      couponId: couponId == freezed
+          ? _value.couponId
+          : couponId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      couponType: couponType == freezed
+          ? _value.couponType
+          : couponType // ignore: cast_nullable_to_non_nullable
+              as int?,
+      allowedVehicles: allowedVehicles == freezed
+          ? _value.allowedVehicles
+          : allowedVehicles // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      expiryDate: expiryDate == freezed
+          ? _value.expiryDate
+          : expiryDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Coupon implements _Coupon {
+  _$_Coupon(
+      {this.title,
+      this.subtitle,
+      this.description,
+      this.type,
+      this.discount,
+      this.maximum,
+      this.status,
+      @JsonKey(name: 'coupon_id') this.couponId,
+      @JsonKey(name: 'coupon_type') this.couponType,
+      @JsonKey(name: 'allowed_vehicles') this.allowedVehicles,
+      @JsonKey(name: 'expiry_date') this.expiryDate});
+
+  factory _$_Coupon.fromJson(Map<String, dynamic> json) =>
+      _$_$_CouponFromJson(json);
+
+  @override
+  final String? title;
+  @override
+  final String? subtitle;
+  @override
+  final String? description;
+  @override
+  final int? type;
+  @override
+  final int? discount;
+  @override
+  final int? maximum;
+  @override
+  final int? status;
+  @override
+  @JsonKey(name: 'coupon_id')
+  final int? couponId;
+  @override
+  @JsonKey(name: 'coupon_type')
+  final int? couponType;
+  @override
+  @JsonKey(name: 'allowed_vehicles')
+  final List<int>? allowedVehicles;
+  @override
+  @JsonKey(name: 'expiry_date')
+  final DateTime? expiryDate;
+
+  @override
+  String toString() {
+    return 'Coupon(title: $title, subtitle: $subtitle, description: $description, type: $type, discount: $discount, maximum: $maximum, status: $status, couponId: $couponId, couponType: $couponType, allowedVehicles: $allowedVehicles, expiryDate: $expiryDate)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Coupon &&
+            (identical(other.title, title) ||
+                const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.subtitle, subtitle) ||
+                const DeepCollectionEquality()
+                    .equals(other.subtitle, subtitle)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.discount, discount) ||
+                const DeepCollectionEquality()
+                    .equals(other.discount, discount)) &&
+            (identical(other.maximum, maximum) ||
+                const DeepCollectionEquality()
+                    .equals(other.maximum, maximum)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.couponId, couponId) ||
+                const DeepCollectionEquality()
+                    .equals(other.couponId, couponId)) &&
+            (identical(other.couponType, couponType) ||
+                const DeepCollectionEquality()
+                    .equals(other.couponType, couponType)) &&
+            (identical(other.allowedVehicles, allowedVehicles) ||
+                const DeepCollectionEquality()
+                    .equals(other.allowedVehicles, allowedVehicles)) &&
+            (identical(other.expiryDate, expiryDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.expiryDate, expiryDate)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(subtitle) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(discount) ^
+      const DeepCollectionEquality().hash(maximum) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(couponId) ^
+      const DeepCollectionEquality().hash(couponType) ^
+      const DeepCollectionEquality().hash(allowedVehicles) ^
+      const DeepCollectionEquality().hash(expiryDate);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CouponCopyWith<_Coupon> get copyWith =>
+      __$CouponCopyWithImpl<_Coupon>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CouponToJson(this);
+  }
+}
+
+abstract class _Coupon implements Coupon {
+  factory _Coupon(
+      {String? title,
+      String? subtitle,
+      String? description,
+      int? type,
+      int? discount,
+      int? maximum,
+      int? status,
+      @JsonKey(name: 'coupon_id') int? couponId,
+      @JsonKey(name: 'coupon_type') int? couponType,
+      @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
+      @JsonKey(name: 'expiry_date') DateTime? expiryDate}) = _$_Coupon;
+
+  factory _Coupon.fromJson(Map<String, dynamic> json) = _$_Coupon.fromJson;
+
+  @override
+  String? get title => throw _privateConstructorUsedError;
+  @override
+  String? get subtitle => throw _privateConstructorUsedError;
+  @override
+  String? get description => throw _privateConstructorUsedError;
+  @override
+  int? get type => throw _privateConstructorUsedError;
+  @override
+  int? get discount => throw _privateConstructorUsedError;
+  @override
+  int? get maximum => throw _privateConstructorUsedError;
+  @override
+  int? get status => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'coupon_id')
+  int? get couponId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'coupon_type')
+  int? get couponType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'allowed_vehicles')
+  List<int>? get allowedVehicles => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'expiry_date')
+  DateTime? get expiryDate => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CouponCopyWith<_Coupon> get copyWith => throw _privateConstructorUsedError;
+}
+
+PromotionsResponse _$PromotionsResponseFromJson(Map<String, dynamic> json) {
+  return _PromotionsResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$PromotionsResponseTearOff {
+  const _$PromotionsResponseTearOff();
+
+  _PromotionsResponse call(int flag,
+      {String? message,
+      String? error,
+      List<Coupon>? coupons,
+      List<Promotion>? promotions}) {
+    return _PromotionsResponse(
+      flag,
+      message: message,
+      error: error,
+      coupons: coupons,
+      promotions: promotions,
+    );
+  }
+
+  PromotionsResponse fromJson(Map<String, Object> json) {
+    return PromotionsResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $PromotionsResponse = _$PromotionsResponseTearOff();
+
+/// @nodoc
+mixin _$PromotionsResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  List<Coupon>? get coupons => throw _privateConstructorUsedError;
+  List<Promotion>? get promotions => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PromotionsResponseCopyWith<PromotionsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PromotionsResponseCopyWith<$Res> {
+  factory $PromotionsResponseCopyWith(
+          PromotionsResponse value, $Res Function(PromotionsResponse) then) =
+      _$PromotionsResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      List<Coupon>? coupons,
+      List<Promotion>? promotions});
+}
+
+/// @nodoc
+class _$PromotionsResponseCopyWithImpl<$Res>
+    implements $PromotionsResponseCopyWith<$Res> {
+  _$PromotionsResponseCopyWithImpl(this._value, this._then);
+
+  final PromotionsResponse _value;
+  // ignore: unused_field
+  final $Res Function(PromotionsResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? coupons = freezed,
+    Object? promotions = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      coupons: coupons == freezed
+          ? _value.coupons
+          : coupons // ignore: cast_nullable_to_non_nullable
+              as List<Coupon>?,
+      promotions: promotions == freezed
+          ? _value.promotions
+          : promotions // ignore: cast_nullable_to_non_nullable
+              as List<Promotion>?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$PromotionsResponseCopyWith<$Res>
+    implements $PromotionsResponseCopyWith<$Res> {
+  factory _$PromotionsResponseCopyWith(
+          _PromotionsResponse value, $Res Function(_PromotionsResponse) then) =
+      __$PromotionsResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      List<Coupon>? coupons,
+      List<Promotion>? promotions});
+}
+
+/// @nodoc
+class __$PromotionsResponseCopyWithImpl<$Res>
+    extends _$PromotionsResponseCopyWithImpl<$Res>
+    implements _$PromotionsResponseCopyWith<$Res> {
+  __$PromotionsResponseCopyWithImpl(
+      _PromotionsResponse _value, $Res Function(_PromotionsResponse) _then)
+      : super(_value, (v) => _then(v as _PromotionsResponse));
+
+  @override
+  _PromotionsResponse get _value => super._value as _PromotionsResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? coupons = freezed,
+    Object? promotions = freezed,
+  }) {
+    return _then(_PromotionsResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      coupons: coupons == freezed
+          ? _value.coupons
+          : coupons // ignore: cast_nullable_to_non_nullable
+              as List<Coupon>?,
+      promotions: promotions == freezed
+          ? _value.promotions
+          : promotions // ignore: cast_nullable_to_non_nullable
+              as List<Promotion>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PromotionsResponse implements _PromotionsResponse {
+  _$_PromotionsResponse(this.flag,
+      {this.message, this.error, this.coupons, this.promotions});
+
+  factory _$_PromotionsResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_PromotionsResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  final List<Coupon>? coupons;
+  @override
+  final List<Promotion>? promotions;
+
+  @override
+  String toString() {
+    return 'PromotionsResponse(flag: $flag, message: $message, error: $error, coupons: $coupons, promotions: $promotions)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PromotionsResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.coupons, coupons) ||
+                const DeepCollectionEquality()
+                    .equals(other.coupons, coupons)) &&
+            (identical(other.promotions, promotions) ||
+                const DeepCollectionEquality()
+                    .equals(other.promotions, promotions)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(coupons) ^
+      const DeepCollectionEquality().hash(promotions);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PromotionsResponseCopyWith<_PromotionsResponse> get copyWith =>
+      __$PromotionsResponseCopyWithImpl<_PromotionsResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_PromotionsResponseToJson(this);
+  }
+}
+
+abstract class _PromotionsResponse implements PromotionsResponse {
+  factory _PromotionsResponse(int flag,
+      {String? message,
+      String? error,
+      List<Coupon>? coupons,
+      List<Promotion>? promotions}) = _$_PromotionsResponse;
+
+  factory _PromotionsResponse.fromJson(Map<String, dynamic> json) =
+      _$_PromotionsResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  List<Coupon>? get coupons => throw _privateConstructorUsedError;
+  @override
+  List<Promotion>? get promotions => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$PromotionsResponseCopyWith<_PromotionsResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

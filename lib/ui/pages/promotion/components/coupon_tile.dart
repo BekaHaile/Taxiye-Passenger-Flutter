@@ -7,12 +7,14 @@ import 'package:taxiye_passenger/utils/functions.dart';
 class CouponTile extends StatelessWidget {
   const CouponTile({
     Key? key,
-    required this.coupon,
+    this.coupon,
+    this.promotion,
     required this.onTap,
     required this.showExpires,
   }) : super(key: key);
 
-  final Coupon coupon;
+  final Coupon? coupon;
+  final Promotion? promotion;
   final VoidCallback onTap;
   final bool showExpires;
 
@@ -49,7 +51,11 @@ class CouponTile extends StatelessWidget {
                         ),
                         const SizedBox(height: 5.0),
                         Text(
-                          formatDate(coupon.expireDate ?? DateTime.now()),
+                          coupon?.expiryDate != null || promotion?.endOn != null
+                              ? formatDate(coupon?.expiryDate ??
+                                  promotion?.endOn ??
+                                  DateTime.now())
+                              : '',
                           style: AppTheme.title.copyWith(
                             fontSize: 14.0,
                             color: AppTheme.darkTextColor,
@@ -63,16 +69,19 @@ class CouponTile extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           children: [
-                            TextSpan(
-                              text: '${coupon.point} ',
-                              style: const TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w700,
-                                color: AppTheme.primaryColor,
+                            if (coupon != null)
+                              TextSpan(
+                                text: '${coupon?.discount}',
+                                style: const TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppTheme.primaryColor,
+                                ),
                               ),
-                            ),
                             TextSpan(
-                              text: 'points'.tr,
+                              text: coupon != null
+                                  ? 'points'.tr
+                                  : promotion?.title ?? '',
                               style: const TextStyle(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w600,
@@ -84,7 +93,7 @@ class CouponTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 5.0),
                       Text(
-                        coupon.name ?? '',
+                        coupon?.title ?? promotion?.promoText ?? '',
                         style: AppTheme.title.copyWith(
                           fontSize: 14.0,
                           color: AppTheme.darkTextColor,

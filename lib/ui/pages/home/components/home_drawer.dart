@@ -63,6 +63,12 @@ class HomeDrawer extends GetView<HomeController> {
         icon: Icons.settings,
       ),
       DrawerList(
+        index: DrawerIndex.email,
+        title: 'email_support'.tr,
+        subtitle: 'email_contact_us',
+        icon: Icons.email,
+      ),
+      DrawerList(
         index: DrawerIndex.legals,
         title: 'legals'.tr,
         subtitle: 'legals_info',

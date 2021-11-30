@@ -5,14 +5,18 @@ import 'package:taxiye_passenger/ui/pages/promotion/components/coupon_tile.dart'
 class CouponList extends StatelessWidget {
   const CouponList({
     Key? key,
-    required this.coupons,
-    required this.onItemSelect,
+    this.coupons,
+    this.promotions,
+    this.onCouponSelect,
+    this.onPromotionSelect,
     this.scrollDirection = Axis.vertical,
     this.showExpires = false,
   }) : super(key: key);
 
-  final List<Coupon> coupons;
-  final Function(Coupon selectedItem) onItemSelect;
+  final List<Coupon>? coupons;
+  final List<Promotion>? promotions;
+  final Function(Coupon selectedItem)? onCouponSelect;
+  final Function(Promotion selectedItem)? onPromotionSelect;
   final Axis scrollDirection;
   final bool showExpires;
 
@@ -23,17 +27,26 @@ class CouponList extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       scrollDirection: scrollDirection,
       itemBuilder: (context, index) {
-        final Coupon coupon = coupons[index];
+        final Coupon? coupon = coupons != null ? coupons![index] : null;
+        final Promotion? promotion =
+            promotions != null ? promotions![index] : null;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
           child: CouponTile(
             coupon: coupon,
+            promotion: promotion,
             showExpires: showExpires,
-            onTap: () => onItemSelect(coupon),
+            onTap: () {
+              if (coupons != null && onCouponSelect != null) {
+                onCouponSelect!(coupon!);
+              } else if (promotions != null && onPromotionSelect != null) {
+                onPromotionSelect!(promotion!);
+              }
+            },
           ),
         );
       },
-      itemCount: coupons.length,
+      itemCount: coupons?.length ?? promotions?.length,
     );
   }
 }

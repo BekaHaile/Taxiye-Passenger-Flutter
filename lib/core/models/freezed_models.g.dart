@@ -328,22 +328,6 @@ Map<String, dynamic> _$_$_TransactionToJson(_$_Transaction instance) =>
       'comment': instance.comment,
     };
 
-_$_Coupon _$_$_CouponFromJson(Map<String, dynamic> json) {
-  return _$_Coupon(
-    name: json['name'] as String?,
-    point: json['point'] as int?,
-    expireDate: json['expireDate'] == null
-        ? null
-        : DateTime.parse(json['expireDate'] as String),
-  );
-}
-
-Map<String, dynamic> _$_$_CouponToJson(_$_Coupon instance) => <String, dynamic>{
-      'name': instance.name,
-      'point': instance.point,
-      'expireDate': instance.expireDate?.toIso8601String(),
-    };
-
 _$_NotificationMessage _$_$_NotificationMessageFromJson(
     Map<String, dynamic> json) {
   return _$_NotificationMessage(
@@ -1278,6 +1262,100 @@ Map<String, dynamic> _$_$_AirtimeHistoryToJson(_$_AirtimeHistory instance) =>
       'amount': instance.amount,
       'date': instance.date?.toIso8601String(),
       'voucher_number': instance.voucherNumber,
+    };
+
+_$_Promotion _$_$_PromotionFromJson(Map<String, dynamic> json) {
+  return _$_Promotion(
+    title: json['title'] as String?,
+    city: json['city'] as int?,
+    promoId: json['promo_id'] as int?,
+    promoType: json['promo_type'] as int?,
+    startFrom: json['start_from'] == null
+        ? null
+        : DateTime.parse(json['start_from'] as String),
+    endOn: json['end_on'] == null
+        ? null
+        : DateTime.parse(json['end_on'] as String),
+    allowedVehicles: (json['allowed_vehicles'] as List<dynamic>?)
+        ?.map((e) => e as int)
+        .toList(),
+    perDayLimit: json['per_day_limit'] as int?,
+    validityText: json['validity_text'] as String?,
+    promoText: json['promo_text'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_PromotionToJson(_$_Promotion instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'city': instance.city,
+      'promo_id': instance.promoId,
+      'promo_type': instance.promoType,
+      'start_from': instance.startFrom?.toIso8601String(),
+      'end_on': instance.endOn?.toIso8601String(),
+      'allowed_vehicles': instance.allowedVehicles,
+      'per_day_limit': instance.perDayLimit,
+      'validity_text': instance.validityText,
+      'promo_text': instance.promoText,
+    };
+
+_$_Coupon _$_$_CouponFromJson(Map<String, dynamic> json) {
+  return _$_Coupon(
+    title: json['title'] as String?,
+    subtitle: json['subtitle'] as String?,
+    description: json['description'] as String?,
+    type: json['type'] as int?,
+    discount: json['discount'] as int?,
+    maximum: json['maximum'] as int?,
+    status: json['status'] as int?,
+    couponId: json['coupon_id'] as int?,
+    couponType: json['coupon_type'] as int?,
+    allowedVehicles: (json['allowed_vehicles'] as List<dynamic>?)
+        ?.map((e) => e as int)
+        .toList(),
+    expiryDate: json['expiry_date'] == null
+        ? null
+        : DateTime.parse(json['expiry_date'] as String),
+  );
+}
+
+Map<String, dynamic> _$_$_CouponToJson(_$_Coupon instance) => <String, dynamic>{
+      'title': instance.title,
+      'subtitle': instance.subtitle,
+      'description': instance.description,
+      'type': instance.type,
+      'discount': instance.discount,
+      'maximum': instance.maximum,
+      'status': instance.status,
+      'coupon_id': instance.couponId,
+      'coupon_type': instance.couponType,
+      'allowed_vehicles': instance.allowedVehicles,
+      'expiry_date': instance.expiryDate?.toIso8601String(),
+    };
+
+_$_PromotionsResponse _$_$_PromotionsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_PromotionsResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    coupons: (json['coupons'] as List<dynamic>?)
+        ?.map((e) => Coupon.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    promotions: (json['promotions'] as List<dynamic>?)
+        ?.map((e) => Promotion.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$_$_PromotionsResponseToJson(
+        _$_PromotionsResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'coupons': instance.coupons,
+      'promotions': instance.promotions,
     };
 
 _$_LegalResponse _$_$_LegalResponseFromJson(Map<String, dynamic> json) {
