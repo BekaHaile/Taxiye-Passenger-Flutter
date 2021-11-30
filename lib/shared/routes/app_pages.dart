@@ -130,11 +130,6 @@ abstract class AppPages {
       page: () => const HelloCash(),
     ),
 
-     GetPage(
-      name: Routes.mpesa,
-      page: () => const Mpesa(),
-    ),
-
     // Settings pages
     GetPage(
       name: Routes.settings,

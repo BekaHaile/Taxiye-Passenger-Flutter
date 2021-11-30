@@ -90,7 +90,7 @@ class HomeController extends GetxService {
   Corporate? selectedCorporate;
 
   // Trip step
-  final _tripStep = TripStep.tripDetail.obs;
+  final _tripStep = TripStep.whereTo.obs;
   get tripStep => _tripStep.value;
   set tripStep(value) => _tripStep.value = value;
 
@@ -336,6 +336,16 @@ class HomeController extends GetxService {
       case SuccessFlags.driverCancelRide:
       case SuccessFlags.driversBusy:
         resetValues();
+        break;
+      case SuccessFlags.payWithMpesa:
+        if(tripStep == TripStep.tripDetail){
+          tripStep = TripStep.tripFeedback;
+        }
+        break;
+      case SuccessFlags.payWithMpesaFailed:
+        if(tripStep == TripStep.tripDetail){
+          status(Status.error);
+        }
         break;
       default:
     }
@@ -1271,5 +1281,26 @@ class HomeController extends GetxService {
   void onClose() {
     positionStream?.cancel();
     super.onClose();
+  }
+
+  onHelloCashSelected(){
+    if(driver?.driverId != null){
+      PaymentController paymentController = Get.find();
+      paymentController.amount = '${rideDetail?.toPay?.round()}';
+      paymentController.driverId = '${driver?.driverId}';
+      Get.toNamed(Routes.hellocash);
+    }
+  }
+
+  onMpesaSelected() async{
+    if(driver?.driverId != null){
+      PaymentController paymentController = Get.find();
+      status(Status.loading);
+      paymentController.payWithMpesa('$engagementId');
+
+      await Future<dynamic>.delayed(const Duration(seconds: 40));
+      status(Status.error);
+
+    }
   }
 }

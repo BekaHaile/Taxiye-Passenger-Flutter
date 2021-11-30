@@ -119,10 +119,10 @@ class TripDetail extends GetView<HomeController> {
                     controller.selectedPayment = selectedPayment;
                     switch (selectedPayment.name) {
                       case 'hellocash':
-                        Get.toNamed(Routes.hellocash);
+                        controller.onHelloCashSelected();
                         break;
                       case 'mpesa':
-                        Get.toNamed(Routes.mpesa);
+                        controller.onMpesaSelected();
                         break;
                       default:
                     }

@@ -42,4 +42,14 @@ class PaymentRepository implements IPaymentRepository {
     );
     return PayWithHelloCashResponse.fromJson(response);
   }
+
+  @override
+  Future<BasicResponse> payWithMpesa(Map<String, dynamic> payWithMpesaPayload) async{
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/edit_driver_tip',
+      data: payWithMpesaPayload,
+    );
+    return BasicResponse.fromJson(response);
+  }
 }

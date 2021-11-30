@@ -338,6 +338,8 @@ final Map<String, String> enUs = {
   'mpessa': 'M-PESSA',
   'telebirr': 'Tele Birr',
   'select_partner': 'Select Partner',
+  'payment': 'Payment',
+  'hello_cash_pay_fare': 'Pleae dial *912# and complete the payment.',
 
   'new_payment_method': 'Select new payment method',
   'edit': 'Edit',

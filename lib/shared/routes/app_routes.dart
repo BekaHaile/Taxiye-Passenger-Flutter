@@ -37,7 +37,6 @@ abstract class Routes {
   // Payment routes
   static const payment = '/payment';
   static const hellocash = '/hellocash';
-  static const mpesa = '/mpesa';
 
   // Settings routes
   static const settings = '/settings';

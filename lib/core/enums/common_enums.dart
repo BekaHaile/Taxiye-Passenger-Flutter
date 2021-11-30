@@ -85,7 +85,9 @@ enum SuccessFlags {
   rideSummary,
   emergencyContacts,
   logout,
-  dummy
+  dummy,
+  payWithMpesa,
+  payWithMpesaFailed
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
@@ -117,6 +119,8 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.emergencyContacts: 450,
     SuccessFlags.logout: 409,
     SuccessFlags.payWithHelloCash: 143,
+    SuccessFlags.payWithMpesa: 93,
+    SuccessFlags.payWithMpesaFailed: 94,
   };
 
   int get successCode => successCodes[this]!;
