@@ -130,6 +130,10 @@ abstract class IProfileRepository {
 
 abstract class IPaymentRepository {
   // Todo: Add profile request class signitures (interfaces) here.
+  Future<WalletResponse> fetchWalletBalance(Map<String, dynamic> walletPayload);
+  Future<PayWithHelloCashResponse> payWithHelloCash(Map<String, dynamic> payWithHelloCashPayload);
+  Future<PayWithHelloCashResponse> checkHelloCashPayment(Map<String, dynamic> checkHelloCashPaymentPayload);
+  Future<BasicResponse> payWithMpesa(Map<String, dynamic> payWithMpesaPayload);
 }
 
 abstract class IOrdersRepository {

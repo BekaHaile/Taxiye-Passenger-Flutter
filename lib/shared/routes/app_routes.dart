@@ -42,6 +42,7 @@ abstract class Routes {
 
   // Payment routes
   static const payment = '/payment';
+  static const hellocash = '/hellocash';
 
   // Settings routes
   static const settings = '/settings';
@@ -57,4 +58,5 @@ abstract class Routes {
   // orders routes
   static const orders = '/orders';
   static const orderDetails = '/orderDetails';
+
 }

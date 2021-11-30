@@ -22,6 +22,7 @@ import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/payment_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
@@ -238,9 +239,10 @@ class HomeController extends GetxService {
     _findDrivers();
     _setPinIcons();
     _getUserCorporates();
-    _getPaymentMethods();
+    //  _getPaymentMethods();
     _getPaymentTypes();
     _getSavedPlaces();
+    _updateHomePayments();
   }
 
   onAppStateChange(AppLifecycleState appState) async {
@@ -382,8 +384,22 @@ class HomeController extends GetxService {
         // change steps based on order status
         _getOrderHistory();
         break;
+      case SuccessFlags.payWithMpesa:
+        if (tripStep == TripStep.tripDetail) {
+          tripStep = TripStep.tripFeedback;
+        }
+        break;
+      case SuccessFlags.payWithMpesaFailed:
+        if (tripStep == TripStep.tripDetail) {
+          status(Status.error);
+        }
+        break;
       default:
     }
+  }
+
+  _updateHomePayments() {
+    PaymentController paymentController = Get.find();
   }
 
   _onRideAccepted(NotificationMessage notificationMessage) {
@@ -1773,5 +1789,25 @@ class HomeController extends GetxService {
   void onClose() {
     positionStream?.cancel();
     super.onClose();
+  }
+
+  onHelloCashSelected() {
+    if (driver?.driverId != null) {
+      PaymentController paymentController = Get.find();
+      paymentController.amount = '${rideDetail?.toPay?.round()}';
+      paymentController.driverId = '${driver?.driverId}';
+      Get.toNamed(Routes.hellocash);
+    }
+  }
+
+  onMpesaSelected() async {
+    if (driver?.driverId != null) {
+      PaymentController paymentController = Get.find();
+      status(Status.loading);
+      paymentController.payWithMpesa('$engagementId');
+
+      await Future<dynamic>.delayed(const Duration(seconds: 40));
+      status(Status.error);
+    }
   }
 }

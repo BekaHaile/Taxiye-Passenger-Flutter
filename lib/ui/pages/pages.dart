@@ -32,3 +32,4 @@ export 'package:taxiye_passenger/ui/pages/promotion/buy_airtime_page.dart';
 export 'package:taxiye_passenger/ui/pages/promotion/transfer_points_page.dart';
 export 'package:taxiye_passenger/ui/pages/promotion/airtime_history_page.dart';
 export 'package:taxiye_passenger/ui/pages/promotion/transactions_page.dart';
+export 'package:taxiye_passenger/ui/pages/payment/components/hello_cash.dart';

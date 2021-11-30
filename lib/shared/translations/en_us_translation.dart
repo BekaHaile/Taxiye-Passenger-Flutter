@@ -376,11 +376,16 @@ final Map<String, String> enUs = {
   'cbe': 'Commercial Bank of Ethiopia',
   'mpessa': 'M-PESSA',
   'telebirr': 'Tele Birr',
+  'select_partner': 'Select Partner',
+  'payment': 'Payment',
+  'hello_cash_pay_fare': 'Pleae dial *912# and complete the payment.',
 
   'new_payment_method': 'Select new payment method',
   'edit': 'Edit',
   'remove': 'Remove',
   'setDefault': 'Set as default method',
+
+  'hello_cash' : 'Hello Cash',
 
   // app settings strings
   'sound_voice': 'Sound & Voice',

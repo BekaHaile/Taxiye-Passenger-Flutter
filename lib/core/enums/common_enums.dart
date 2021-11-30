@@ -77,6 +77,7 @@ enum SuccessFlags {
   rateDriver,
   delivery,
   fetchWalletBalance,
+  payWithHelloCash,
   getTransactionHistory,
   transfer,
   reloadProfile,
@@ -89,7 +90,9 @@ enum SuccessFlags {
   transferPoints,
   promotions,
   logout,
-  dummy
+  dummy,
+  payWithMpesa,
+  payWithMpesaFailed
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
@@ -123,6 +126,9 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.transferPoints: 1,
     SuccessFlags.promotions: 140,
     SuccessFlags.logout: 409,
+    SuccessFlags.payWithHelloCash: 143,
+    SuccessFlags.payWithMpesa: 93,
+    SuccessFlags.payWithMpesaFailed: 94,
   };
 
   int get successCode => successCodes[this]!;

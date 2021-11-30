@@ -148,6 +148,12 @@ abstract class AppPages {
       binding: PaymentBinding(),
     ),
 
+     // HelloCash Page
+    GetPage(
+      name: Routes.hellocash,
+      page: () => const HelloCash(),
+    ),
+
     // Settings pages
     GetPage(
       name: Routes.settings,
@@ -188,5 +194,6 @@ abstract class AppPages {
       name: Routes.orderDetails,
       page: () => const OrderDetailsPage(),
     ),
+
   ];
 }

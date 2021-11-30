@@ -182,6 +182,7 @@ class Order with _$Order {
 class Payment with _$Payment {
   factory Payment({
     String? name,
+    int? enabled,
   }) = _Payment;
 
   factory Payment.fromJson(Map<String, dynamic> json) =>
@@ -507,10 +508,37 @@ abstract class WalletResponse with _$WalletResponse {
     String? message,
     String? error,
     @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+    @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes,
   }) = _WalletResponse;
 
   factory WalletResponse.fromJson(Map<String, dynamic> json) =>
       _$WalletResponseFromJson(json);
+}
+
+@freezed
+abstract class PayWithHelloCashResponse with _$PayWithHelloCashResponse {
+  factory PayWithHelloCashResponse(
+    int flag, {
+    int? amount,
+    int? code,
+    String? message,
+    String? currency,
+    String? date,
+    String? description,
+    String? expires,
+    String? from,
+    @JsonKey(name: 'fromname') String? fromName,
+    String? id,
+    String? status,
+    @JsonKey(name: 'statusdetail') String? statusDetail,
+    @JsonKey(name: 'toname') String? toName,
+    String? to,
+    @JsonKey(name: 'isupcoming') String? isUpcoming,
+    String? error,
+  }) = _PayWithHelloCashResponse;
+
+  factory PayWithHelloCashResponse.fromJson(Map<String, dynamic> json) =>
+      _$PayWithHelloCashResponseFromJson(json);
 }
 
 @freezed
