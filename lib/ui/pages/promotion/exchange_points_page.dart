@@ -51,9 +51,12 @@ class ExchangePointsPage extends GetView<PromotionsController> {
                         color: AppTheme.lightSilverColor,
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       ),
-                      child: Icon(
-                        exchangeOption.icon,
-                        color: AppTheme.darkTextColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ImageIcon(
+                          AssetImage(exchangeOption.icon),
+                          color: AppTheme.darkTextColor,
+                        ),
                       ),
                     ),
                     trailing: const Icon(Icons.chevron_right,

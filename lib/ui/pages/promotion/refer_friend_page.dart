@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
@@ -84,7 +86,17 @@ class ReferFriendPage extends GetView<PromotionsController> {
             contentSpacing,
             RoundedButton(
                 text: 'share'.tr,
-                onPressed: () => Share.share(controller.referralNumber))
+                onPressed: () {
+                  // set app link for android and IOS
+                  // Todo: change app store link
+                  String downloadLink = Platform.isAndroid
+                      ? 'https://taxiye.app.link/9wlGrQIXBlb'
+                      : 'https://taxiye.app.link/9wlGrQIXBlb';
+
+                  Share.share('${'share_referral'.trParams({
+                        'code': controller.referralNumber
+                      })} \n $downloadLink');
+                })
           ],
         ),
       ),

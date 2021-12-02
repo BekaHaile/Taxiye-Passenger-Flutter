@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
@@ -8,6 +10,7 @@ import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_list.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_type_list.dart';
+import 'package:taxiye_passenger/ui/pages/promotion/components/pick_coupon.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -57,57 +60,80 @@ class PickVehicle extends GetView<HomeController> {
                         : controller.vehicles,
                 selectedVehicle: controller.selectedVehicle,
                 onItemSelected: (selectedVehice) {
+                  if (controller.selectedVehicle == selectedVehice) {
+                    Get.bottomSheet(
+                        VehicleDetail(
+                          vehicle: selectedVehice,
+                          currency: controller.currency,
+                          serviceType: controller.selectedService,
+                        ),
+                        isScrollControlled: true);
+                  }
                   controller.selectedVehicle = selectedVehice;
-                  Get.bottomSheet(
-                      VehicleDetail(
-                        vehicle: selectedVehice,
-                        currency: controller.currency,
-                        serviceType: controller.selectedService,
-                      ),
-                      isScrollControlled: true);
                 })),
-            Obx(() => controller.rideType == 0 || controller.rideType == 2
-                ? SizedBox(
-                    height: 32.0,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final PaymentType paymentType =
-                            controller.paymentTypes[index];
-                        return CustomChip(
-                          text: paymentType.text,
-                          icon: paymentType.icon,
-                          iconColor: paymentType.iconColor,
-                          onTap: () {
-                            // Todo: on Tap one of the payment types
-                          },
-                        );
-                      },
-                      itemCount: controller.paymentTypes.length,
-                    ),
-                  )
-                : SizedBox(
-                    height: 32.0,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final Corporate corporate =
-                            controller.userCorporates[index];
-                        return CustomChip(
-                          text: corporate.partnerName ?? '',
-                          onTap: () {
-                            controller.selectedCorporate = corporate;
-                            controller.filterVehicles(1);
-                          },
-                        );
-                      },
-                      itemCount: controller.userCorporates.length,
-                    ),
-                  )),
+            Obx(
+              () => controller.rideType == 0 || controller.rideType == 2
+                  ? SizedBox(
+                      height: 32.0,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final PaymentType paymentType =
+                              controller.paymentTypes[index];
+                          return Obx(() => CustomChip(
+                                text: paymentType.text,
+                                icon: paymentType.icon,
+                                iconColor: paymentType.iconColor,
+                                isActive: controller.paymentMode ==
+                                    paymentType.paymentMode,
+                                onTap: () {
+                                  // on  one of the payment types
+                                  switch (paymentType.paymentMode) {
+                                    case 0:
+                                      controller.paymentMode =
+                                          paymentType.paymentMode;
+                                      break;
+                                    case 1:
+                                      controller.paymentMode =
+                                          paymentType.paymentMode;
+                                      Get.bottomSheet(const PickCoupon());
+                                      break;
+                                    case 2:
+                                      //Todo: on notes selected
+                                      break;
+                                    default:
+                                  }
+                                },
+                              ));
+                        },
+                        itemCount: controller.paymentTypes.length,
+                      ),
+                    )
+                  : SizedBox(
+                      height: 32.0,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final Corporate corporate =
+                              controller.userCorporates[index];
+                          return Obx(() => CustomChip(
+                                text: corporate.partnerName ?? '',
+                                isActive:
+                                    controller.selectedCorporate == corporate,
+                                onTap: () {
+                                  // Todo: set payment mode here too.
+                                  controller.selectedCorporate = corporate;
+                                  controller.filterVehicles(1);
+                                },
+                              ));
+                        },
+                        itemCount: controller.userCorporates.length,
+                      )),
+            ),
             const SizedBox(height: 16.0),
             RoundedButton(
               text: controller.selectedService == HomeServiceIndex.delivery
@@ -142,12 +168,14 @@ class CustomChip extends StatelessWidget {
     required this.text,
     this.icon,
     this.iconColor,
+    this.isActive = false,
     required this.onTap,
   }) : super(key: key);
 
   final String text;
   final IconData? icon;
   final Color? iconColor;
+  final bool isActive;
   final VoidCallback onTap;
 
   @override
@@ -169,6 +197,9 @@ class CustomChip extends StatelessWidget {
                 offset: const Offset(2, 2),
               ),
             ],
+            border: Border.all(
+                color: isActive ? AppTheme.yellowColor : Colors.transparent,
+                width: 2.0),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

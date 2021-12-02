@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -236,8 +238,8 @@ class _HomePageState extends State<HomePage>
           rideDetail: controller.rideDetail ?? RideDetail(),
         );
       case TripStep.tripFeedback:
-        return TripFeadback(
-            driver: controller.driver!, vehicle: controller.driverVehicle);
+        log('driver: ${controller.driver}');
+        return const TripFeadback();
       case TripStep.confirmPlace:
         return const ConfirmPlace();
       case TripStep.scheduleDetail:

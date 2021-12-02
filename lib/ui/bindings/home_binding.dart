@@ -5,6 +5,7 @@ import 'package:taxiye_passenger/core/repository/common_repository.dart';
 import 'package:taxiye_passenger/core/repository/home_repository.dart';
 import 'package:taxiye_passenger/core/repository/payment_repository.dart';
 import 'package:taxiye_passenger/core/repository/profile_repository.dart';
+import 'package:taxiye_passenger/core/repository/promotions_repository.dart';
 import 'package:taxiye_passenger/core/repository/wallet_repository.dart';
 import 'package:taxiye_passenger/core/services/google_map_service.dart';
 import 'package:taxiye_passenger/core/services/notification_service.dart';
@@ -49,6 +50,9 @@ class HomeBinding implements Bindings {
         fenix: true);
     Get.lazyPut<IPaymentRepository>(
         () => PaymentRepository(apiClient: Get.find()),
+        fenix: true);
+    Get.lazyPut<IPromotionsRepository>(
+        () => PromotionsRepository(apiClient: Get.find()),
         fenix: true);
     Get.lazyPut(() => WalletController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => OrdersController(repository: Get.find()), fenix: true);

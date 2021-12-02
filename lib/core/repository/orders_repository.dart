@@ -36,6 +36,7 @@ class OrdersRepository implements IOrdersRepository {
       data: {
         'start_from': '0',
         'show_custom_fields': '1',
+        'fetch_make_data_and_name': '1',
       },
     );
     return ListResponse<RideHistory>.fromJson(response);

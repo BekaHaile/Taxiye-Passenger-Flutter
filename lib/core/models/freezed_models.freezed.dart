@@ -6639,6 +6639,8 @@ class _$RideHistoryTearOff {
       @JsonKey(name: 'ride_time') int? rideTime,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_name') String? driverName,
+      @JsonKey(name: 'driver_image') String? driverImage,
       @JsonKey(name: 'driver_rating') int? driverRating,
       @JsonKey(name: 'region_name') String? regionName,
       @JsonKey(name: 'engagement_id') int? engagementId,
@@ -6667,6 +6669,8 @@ class _$RideHistoryTearOff {
       rideTime: rideTime,
       vehicleType: vehicleType,
       driverId: driverId,
+      driverName: driverName,
+      driverImage: driverImage,
       driverRating: driverRating,
       regionName: regionName,
       engagementId: engagementId,
@@ -6718,6 +6722,10 @@ mixin _$RideHistory {
   int? get vehicleType => throw _privateConstructorUsedError;
   @JsonKey(name: 'driver_id')
   int? get driverId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_name')
+  String? get driverName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_image')
+  String? get driverImage => throw _privateConstructorUsedError;
   @JsonKey(name: 'driver_rating')
   int? get driverRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'region_name')
@@ -6767,6 +6775,8 @@ abstract class $RideHistoryCopyWith<$Res> {
       @JsonKey(name: 'ride_time') int? rideTime,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_name') String? driverName,
+      @JsonKey(name: 'driver_image') String? driverImage,
       @JsonKey(name: 'driver_rating') int? driverRating,
       @JsonKey(name: 'region_name') String? regionName,
       @JsonKey(name: 'engagement_id') int? engagementId,
@@ -6806,6 +6816,8 @@ class _$RideHistoryCopyWithImpl<$Res> implements $RideHistoryCopyWith<$Res> {
     Object? rideTime = freezed,
     Object? vehicleType = freezed,
     Object? driverId = freezed,
+    Object? driverName = freezed,
+    Object? driverImage = freezed,
     Object? driverRating = freezed,
     Object? regionName = freezed,
     Object? engagementId = freezed,
@@ -6889,6 +6901,14 @@ class _$RideHistoryCopyWithImpl<$Res> implements $RideHistoryCopyWith<$Res> {
           ? _value.driverId
           : driverId // ignore: cast_nullable_to_non_nullable
               as int?,
+      driverName: driverName == freezed
+          ? _value.driverName
+          : driverName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverImage: driverImage == freezed
+          ? _value.driverImage
+          : driverImage // ignore: cast_nullable_to_non_nullable
+              as String?,
       driverRating: driverRating == freezed
           ? _value.driverRating
           : driverRating // ignore: cast_nullable_to_non_nullable
@@ -6955,6 +6975,8 @@ abstract class _$RideHistoryCopyWith<$Res>
       @JsonKey(name: 'ride_time') int? rideTime,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_name') String? driverName,
+      @JsonKey(name: 'driver_image') String? driverImage,
       @JsonKey(name: 'driver_rating') int? driverRating,
       @JsonKey(name: 'region_name') String? regionName,
       @JsonKey(name: 'engagement_id') int? engagementId,
@@ -6996,6 +7018,8 @@ class __$RideHistoryCopyWithImpl<$Res> extends _$RideHistoryCopyWithImpl<$Res>
     Object? rideTime = freezed,
     Object? vehicleType = freezed,
     Object? driverId = freezed,
+    Object? driverName = freezed,
+    Object? driverImage = freezed,
     Object? driverRating = freezed,
     Object? regionName = freezed,
     Object? engagementId = freezed,
@@ -7079,6 +7103,14 @@ class __$RideHistoryCopyWithImpl<$Res> extends _$RideHistoryCopyWithImpl<$Res>
           ? _value.driverId
           : driverId // ignore: cast_nullable_to_non_nullable
               as int?,
+      driverName: driverName == freezed
+          ? _value.driverName
+          : driverName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverImage: driverImage == freezed
+          ? _value.driverImage
+          : driverImage // ignore: cast_nullable_to_non_nullable
+              as String?,
       driverRating: driverRating == freezed
           ? _value.driverRating
           : driverRating // ignore: cast_nullable_to_non_nullable
@@ -7141,6 +7173,8 @@ class _$_RideHistory implements _RideHistory {
       @JsonKey(name: 'ride_time') this.rideTime,
       @JsonKey(name: 'vehicle_type') this.vehicleType,
       @JsonKey(name: 'driver_id') this.driverId,
+      @JsonKey(name: 'driver_name') this.driverName,
+      @JsonKey(name: 'driver_image') this.driverImage,
       @JsonKey(name: 'driver_rating') this.driverRating,
       @JsonKey(name: 'region_name') this.regionName,
       @JsonKey(name: 'engagement_id') this.engagementId,
@@ -7202,6 +7236,12 @@ class _$_RideHistory implements _RideHistory {
   @JsonKey(name: 'driver_id')
   final int? driverId;
   @override
+  @JsonKey(name: 'driver_name')
+  final String? driverName;
+  @override
+  @JsonKey(name: 'driver_image')
+  final String? driverImage;
+  @override
   @JsonKey(name: 'driver_rating')
   final int? driverRating;
   @override
@@ -7231,7 +7271,7 @@ class _$_RideHistory implements _RideHistory {
 
   @override
   String toString() {
-    return 'RideHistory(distance: $distance, longitude: $longitude, status: $status, modifiable: $modifiable, amount: $amount, currency: $currency, date: $date, pickupAddress: $pickupAddress, pickupLatitude: $pickupLatitude, pickupLongitude: $pickupLongitude, dropLatitude: $dropLatitude, dropLongitude: $dropLongitude, dropAddress: $dropAddress, rideType: $rideType, isCancelledRide: $isCancelledRide, rideTime: $rideTime, vehicleType: $vehicleType, driverId: $driverId, driverRating: $driverRating, regionName: $regionName, engagementId: $engagementId, userId: $userId, manuallyEdited: $manuallyEdited, waitTime: $waitTime, autosStatusText: $autosStatusText, distanceUnit: $distanceUnit, createdAt: $createdAt)';
+    return 'RideHistory(distance: $distance, longitude: $longitude, status: $status, modifiable: $modifiable, amount: $amount, currency: $currency, date: $date, pickupAddress: $pickupAddress, pickupLatitude: $pickupLatitude, pickupLongitude: $pickupLongitude, dropLatitude: $dropLatitude, dropLongitude: $dropLongitude, dropAddress: $dropAddress, rideType: $rideType, isCancelledRide: $isCancelledRide, rideTime: $rideTime, vehicleType: $vehicleType, driverId: $driverId, driverName: $driverName, driverImage: $driverImage, driverRating: $driverRating, regionName: $regionName, engagementId: $engagementId, userId: $userId, manuallyEdited: $manuallyEdited, waitTime: $waitTime, autosStatusText: $autosStatusText, distanceUnit: $distanceUnit, createdAt: $createdAt)';
   }
 
   @override
@@ -7289,6 +7329,12 @@ class _$_RideHistory implements _RideHistory {
             (identical(other.driverId, driverId) ||
                 const DeepCollectionEquality()
                     .equals(other.driverId, driverId)) &&
+            (identical(other.driverName, driverName) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverName, driverName)) &&
+            (identical(other.driverImage, driverImage) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverImage, driverImage)) &&
             (identical(other.driverRating, driverRating) ||
                 const DeepCollectionEquality()
                     .equals(other.driverRating, driverRating)) &&
@@ -7298,13 +7344,9 @@ class _$_RideHistory implements _RideHistory {
             (identical(other.engagementId, engagementId) ||
                 const DeepCollectionEquality()
                     .equals(other.engagementId, engagementId)) &&
-            (identical(other.userId, userId) ||
-                const DeepCollectionEquality().equals(other.userId, userId)) &&
-            (identical(other.manuallyEdited, manuallyEdited) ||
-                const DeepCollectionEquality()
-                    .equals(other.manuallyEdited, manuallyEdited)) &&
-            (identical(other.waitTime, waitTime) ||
-                const DeepCollectionEquality().equals(other.waitTime, waitTime)) &&
+            (identical(other.userId, userId) || const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.manuallyEdited, manuallyEdited) || const DeepCollectionEquality().equals(other.manuallyEdited, manuallyEdited)) &&
+            (identical(other.waitTime, waitTime) || const DeepCollectionEquality().equals(other.waitTime, waitTime)) &&
             (identical(other.autosStatusText, autosStatusText) || const DeepCollectionEquality().equals(other.autosStatusText, autosStatusText)) &&
             (identical(other.distanceUnit, distanceUnit) || const DeepCollectionEquality().equals(other.distanceUnit, distanceUnit)) &&
             (identical(other.createdAt, createdAt) || const DeepCollectionEquality().equals(other.createdAt, createdAt)));
@@ -7331,6 +7373,8 @@ class _$_RideHistory implements _RideHistory {
       const DeepCollectionEquality().hash(rideTime) ^
       const DeepCollectionEquality().hash(vehicleType) ^
       const DeepCollectionEquality().hash(driverId) ^
+      const DeepCollectionEquality().hash(driverName) ^
+      const DeepCollectionEquality().hash(driverImage) ^
       const DeepCollectionEquality().hash(driverRating) ^
       const DeepCollectionEquality().hash(regionName) ^
       const DeepCollectionEquality().hash(engagementId) ^
@@ -7372,6 +7416,8 @@ abstract class _RideHistory implements RideHistory {
       @JsonKey(name: 'ride_time') int? rideTime,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'driver_name') String? driverName,
+      @JsonKey(name: 'driver_image') String? driverImage,
       @JsonKey(name: 'driver_rating') int? driverRating,
       @JsonKey(name: 'region_name') String? regionName,
       @JsonKey(name: 'engagement_id') int? engagementId,
@@ -7432,6 +7478,12 @@ abstract class _RideHistory implements RideHistory {
   @override
   @JsonKey(name: 'driver_id')
   int? get driverId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_name')
+  String? get driverName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_image')
+  String? get driverImage => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'driver_rating')
   int? get driverRating => throw _privateConstructorUsedError;
@@ -13022,6 +13074,7 @@ class _$OrderHistoryTearOff {
       @JsonKey(name: 'product_type') int? productType,
       @JsonKey(name: 'order_status') String? orderStatus,
       @JsonKey(name: 'live_tracking') LiveTracking? liveTracking,
+      @JsonKey(name: 'driver_info') Driver? driverInfo,
       @JsonKey(name: 'order_time') DateTime? orderTime,
       @JsonKey(name: 'created_at') DateTime? createdAt}) {
     return _OrderHistory(
@@ -13052,6 +13105,7 @@ class _$OrderHistoryTearOff {
       productType: productType,
       orderStatus: orderStatus,
       liveTracking: liveTracking,
+      driverInfo: driverInfo,
       orderTime: orderTime,
       createdAt: createdAt,
     );
@@ -13116,6 +13170,8 @@ mixin _$OrderHistory {
   String? get orderStatus => throw _privateConstructorUsedError;
   @JsonKey(name: 'live_tracking')
   LiveTracking? get liveTracking => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_info')
+  Driver? get driverInfo => throw _privateConstructorUsedError;
   @JsonKey(name: 'order_time')
   DateTime? get orderTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -13160,10 +13216,12 @@ abstract class $OrderHistoryCopyWith<$Res> {
       @JsonKey(name: 'product_type') int? productType,
       @JsonKey(name: 'order_status') String? orderStatus,
       @JsonKey(name: 'live_tracking') LiveTracking? liveTracking,
+      @JsonKey(name: 'driver_info') Driver? driverInfo,
       @JsonKey(name: 'order_time') DateTime? orderTime,
       @JsonKey(name: 'created_at') DateTime? createdAt});
 
   $LiveTrackingCopyWith<$Res>? get liveTracking;
+  $DriverCopyWith<$Res>? get driverInfo;
 }
 
 /// @nodoc
@@ -13203,6 +13261,7 @@ class _$OrderHistoryCopyWithImpl<$Res> implements $OrderHistoryCopyWith<$Res> {
     Object? productType = freezed,
     Object? orderStatus = freezed,
     Object? liveTracking = freezed,
+    Object? driverInfo = freezed,
     Object? orderTime = freezed,
     Object? createdAt = freezed,
   }) {
@@ -13315,6 +13374,10 @@ class _$OrderHistoryCopyWithImpl<$Res> implements $OrderHistoryCopyWith<$Res> {
           ? _value.liveTracking
           : liveTracking // ignore: cast_nullable_to_non_nullable
               as LiveTracking?,
+      driverInfo: driverInfo == freezed
+          ? _value.driverInfo
+          : driverInfo // ignore: cast_nullable_to_non_nullable
+              as Driver?,
       orderTime: orderTime == freezed
           ? _value.orderTime
           : orderTime // ignore: cast_nullable_to_non_nullable
@@ -13334,6 +13397,17 @@ class _$OrderHistoryCopyWithImpl<$Res> implements $OrderHistoryCopyWith<$Res> {
 
     return $LiveTrackingCopyWith<$Res>(_value.liveTracking!, (value) {
       return _then(_value.copyWith(liveTracking: value));
+    });
+  }
+
+  @override
+  $DriverCopyWith<$Res>? get driverInfo {
+    if (_value.driverInfo == null) {
+      return null;
+    }
+
+    return $DriverCopyWith<$Res>(_value.driverInfo!, (value) {
+      return _then(_value.copyWith(driverInfo: value));
     });
   }
 }
@@ -13373,11 +13447,14 @@ abstract class _$OrderHistoryCopyWith<$Res>
       @JsonKey(name: 'product_type') int? productType,
       @JsonKey(name: 'order_status') String? orderStatus,
       @JsonKey(name: 'live_tracking') LiveTracking? liveTracking,
+      @JsonKey(name: 'driver_info') Driver? driverInfo,
       @JsonKey(name: 'order_time') DateTime? orderTime,
       @JsonKey(name: 'created_at') DateTime? createdAt});
 
   @override
   $LiveTrackingCopyWith<$Res>? get liveTracking;
+  @override
+  $DriverCopyWith<$Res>? get driverInfo;
 }
 
 /// @nodoc
@@ -13419,6 +13496,7 @@ class __$OrderHistoryCopyWithImpl<$Res> extends _$OrderHistoryCopyWithImpl<$Res>
     Object? productType = freezed,
     Object? orderStatus = freezed,
     Object? liveTracking = freezed,
+    Object? driverInfo = freezed,
     Object? orderTime = freezed,
     Object? createdAt = freezed,
   }) {
@@ -13531,6 +13609,10 @@ class __$OrderHistoryCopyWithImpl<$Res> extends _$OrderHistoryCopyWithImpl<$Res>
           ? _value.liveTracking
           : liveTracking // ignore: cast_nullable_to_non_nullable
               as LiveTracking?,
+      driverInfo: driverInfo == freezed
+          ? _value.driverInfo
+          : driverInfo // ignore: cast_nullable_to_non_nullable
+              as Driver?,
       orderTime: orderTime == freezed
           ? _value.orderTime
           : orderTime // ignore: cast_nullable_to_non_nullable
@@ -13574,6 +13656,7 @@ class _$_OrderHistory implements _OrderHistory {
       @JsonKey(name: 'product_type') this.productType,
       @JsonKey(name: 'order_status') this.orderStatus,
       @JsonKey(name: 'live_tracking') this.liveTracking,
+      @JsonKey(name: 'driver_info') this.driverInfo,
       @JsonKey(name: 'order_time') this.orderTime,
       @JsonKey(name: 'created_at') this.createdAt});
 
@@ -13657,6 +13740,9 @@ class _$_OrderHistory implements _OrderHistory {
   @JsonKey(name: 'live_tracking')
   final LiveTracking? liveTracking;
   @override
+  @JsonKey(name: 'driver_info')
+  final Driver? driverInfo;
+  @override
   @JsonKey(name: 'order_time')
   final DateTime? orderTime;
   @override
@@ -13665,7 +13751,7 @@ class _$_OrderHistory implements _OrderHistory {
 
   @override
   String toString() {
-    return 'OrderHistory(status: $status, category: $category, amount: $amount, currency: $currency, details: $details, orderId: $orderId, fromAddress: $fromAddress, fromLatitude: $fromLatitude, fromLongitude: $fromLongitude, toAddress: $toAddress, toLatitude: $toLatitude, toLongitude: $toLongitude, vehicleType: $vehicleType, isImmediate: $isImmediate, deliveryId: $deliveryId, orderStatusInt: $orderStatusInt, deliveryCharges: $deliveryCharges, totalDistance: $totalDistance, totalTime: $totalTime, driverName: $driverName, paymentMode: $paymentMode, cityId: $cityId, currencyCode: $currencyCode, driverPhoneNo: $driverPhoneNo, productType: $productType, orderStatus: $orderStatus, liveTracking: $liveTracking, orderTime: $orderTime, createdAt: $createdAt)';
+    return 'OrderHistory(status: $status, category: $category, amount: $amount, currency: $currency, details: $details, orderId: $orderId, fromAddress: $fromAddress, fromLatitude: $fromLatitude, fromLongitude: $fromLongitude, toAddress: $toAddress, toLatitude: $toLatitude, toLongitude: $toLongitude, vehicleType: $vehicleType, isImmediate: $isImmediate, deliveryId: $deliveryId, orderStatusInt: $orderStatusInt, deliveryCharges: $deliveryCharges, totalDistance: $totalDistance, totalTime: $totalTime, driverName: $driverName, paymentMode: $paymentMode, cityId: $cityId, currencyCode: $currencyCode, driverPhoneNo: $driverPhoneNo, productType: $productType, orderStatus: $orderStatus, liveTracking: $liveTracking, driverInfo: $driverInfo, orderTime: $orderTime, createdAt: $createdAt)';
   }
 
   @override
@@ -13742,6 +13828,7 @@ class _$_OrderHistory implements _OrderHistory {
             (identical(other.productType, productType) || const DeepCollectionEquality().equals(other.productType, productType)) &&
             (identical(other.orderStatus, orderStatus) || const DeepCollectionEquality().equals(other.orderStatus, orderStatus)) &&
             (identical(other.liveTracking, liveTracking) || const DeepCollectionEquality().equals(other.liveTracking, liveTracking)) &&
+            (identical(other.driverInfo, driverInfo) || const DeepCollectionEquality().equals(other.driverInfo, driverInfo)) &&
             (identical(other.orderTime, orderTime) || const DeepCollectionEquality().equals(other.orderTime, orderTime)) &&
             (identical(other.createdAt, createdAt) || const DeepCollectionEquality().equals(other.createdAt, createdAt)));
   }
@@ -13776,6 +13863,7 @@ class _$_OrderHistory implements _OrderHistory {
       const DeepCollectionEquality().hash(productType) ^
       const DeepCollectionEquality().hash(orderStatus) ^
       const DeepCollectionEquality().hash(liveTracking) ^
+      const DeepCollectionEquality().hash(driverInfo) ^
       const DeepCollectionEquality().hash(orderTime) ^
       const DeepCollectionEquality().hash(createdAt);
 
@@ -13819,6 +13907,7 @@ abstract class _OrderHistory implements OrderHistory {
       @JsonKey(name: 'product_type') int? productType,
       @JsonKey(name: 'order_status') String? orderStatus,
       @JsonKey(name: 'live_tracking') LiveTracking? liveTracking,
+      @JsonKey(name: 'driver_info') Driver? driverInfo,
       @JsonKey(name: 'order_time') DateTime? orderTime,
       @JsonKey(name: 'created_at') DateTime? createdAt}) = _$_OrderHistory;
 
@@ -13901,6 +13990,9 @@ abstract class _OrderHistory implements OrderHistory {
   @override
   @JsonKey(name: 'live_tracking')
   LiveTracking? get liveTracking => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_info')
+  Driver? get driverInfo => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'order_time')
   DateTime? get orderTime => throw _privateConstructorUsedError;

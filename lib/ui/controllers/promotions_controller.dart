@@ -9,6 +9,7 @@ import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
 /*
@@ -21,6 +22,7 @@ class PromotionsController extends GetxController {
 
   final status = Status.success.obs;
   final AuthController _authController = Get.find();
+  final HomeController _homeController = Get.find();
 
   final _walletBalance = 0.obs;
   get walletBalance => _walletBalance.value;
@@ -63,7 +65,7 @@ class PromotionsController extends GetxController {
     // test.phoneNo
     referralNumber =
         _authController.user.phoneNo?.replaceAll(RegExp('[\\D]'), '') ?? '';
-    // _getPromotionsAndCoupons();
+    _getPromotionsAndCoupons();
     _getPromotionBalance();
     _getExchangePointOptions();
     _getPointTransactions();
@@ -148,11 +150,11 @@ class PromotionsController extends GetxController {
     exchangePointOPtions = const [
       ExchangePoint(
           text: 'convert_to_mobile_card',
-          icon: Icons.add,
+          icon: 'assets/icons/exchange.png',
           option: ExchangePointOption.mobileCard),
       ExchangePoint(
           text: 'transfer_points',
-          icon: Icons.add,
+          icon: 'assets/icons/transfer.png',
           option: ExchangePointOption.transfer),
       // ExchangePoint(
       //     text: 'book_ride_with_points',
@@ -164,11 +166,11 @@ class PromotionsController extends GetxController {
       //     option: ExchangePointOption.donate),
       ExchangePoint(
           text: 'transactions',
-          icon: Icons.add,
+          icon: 'assets/icons/history.png',
           option: ExchangePointOption.transactions),
       ExchangePoint(
           text: 'airtime_history',
-          icon: Icons.add,
+          icon: 'assets/icons/history.png',
           option: ExchangePointOption.airtimeHistory),
     ];
   }
@@ -176,6 +178,11 @@ class PromotionsController extends GetxController {
   onSelectCoupon(Coupon coupon) {
     selectedCoupon = coupon;
     Get.toNamed(Routes.promoDetail);
+  }
+
+  onPickOffer(Coupon coupon) {
+    _homeController.selectedCoupon = coupon;
+    Get.back();
   }
 
   onBuyAirtime(int amount) {
@@ -267,5 +274,10 @@ class PromotionsController extends GetxController {
         print('Get Airtime History error: $err');
       },
     );
+  }
+
+  onCouponBookNow() {
+    _homeController.selectedCoupon = selectedCoupon;
+    Get.toNamed(Routes.home);
   }
 }

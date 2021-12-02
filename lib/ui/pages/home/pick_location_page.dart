@@ -87,6 +87,10 @@ class PickLocationPage extends GetView<HomeController> {
                                 onTap: () {
                                   controller.tripStep = TripStep.pickOnMap;
                                   Get.back();
+                                  if (controller.selectedService ==
+                                      HomeServiceIndex.delivery) {
+                                    Get.back();
+                                  }
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(

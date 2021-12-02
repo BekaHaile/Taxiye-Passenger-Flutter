@@ -518,6 +518,8 @@ _$_RideHistory _$_$_RideHistoryFromJson(Map<String, dynamic> json) {
     rideTime: json['ride_time'] as int?,
     vehicleType: json['vehicle_type'] as int?,
     driverId: json['driver_id'] as int?,
+    driverName: json['driver_name'] as String?,
+    driverImage: json['driver_image'] as String?,
     driverRating: json['driver_rating'] as int?,
     regionName: json['region_name'] as String?,
     engagementId: json['engagement_id'] as int?,
@@ -552,6 +554,8 @@ Map<String, dynamic> _$_$_RideHistoryToJson(_$_RideHistory instance) =>
       'ride_time': instance.rideTime,
       'vehicle_type': instance.vehicleType,
       'driver_id': instance.driverId,
+      'driver_name': instance.driverName,
+      'driver_image': instance.driverImage,
       'driver_rating': instance.driverRating,
       'region_name': instance.regionName,
       'engagement_id': instance.engagementId,
@@ -1054,6 +1058,9 @@ _$_OrderHistory _$_$_OrderHistoryFromJson(Map<String, dynamic> json) {
     liveTracking: json['live_tracking'] == null
         ? null
         : LiveTracking.fromJson(json['live_tracking'] as Map<String, dynamic>),
+    driverInfo: json['driver_info'] == null
+        ? null
+        : Driver.fromJson(json['driver_info'] as Map<String, dynamic>),
     orderTime: json['order_time'] == null
         ? null
         : DateTime.parse(json['order_time'] as String),
@@ -1092,6 +1099,7 @@ Map<String, dynamic> _$_$_OrderHistoryToJson(_$_OrderHistory instance) =>
       'product_type': instance.productType,
       'order_status': instance.orderStatus,
       'live_tracking': instance.liveTracking,
+      'driver_info': instance.driverInfo,
       'order_time': instance.orderTime?.toIso8601String(),
       'created_at': instance.createdAt?.toIso8601String(),
     };

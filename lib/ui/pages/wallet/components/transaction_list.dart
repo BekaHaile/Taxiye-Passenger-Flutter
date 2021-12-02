@@ -35,18 +35,19 @@ List<Widget> getDateOrderedTransactions({
   ScrollController? scrollController,
 }) {
   if (transactions.isNotEmpty) {
-    DateTime? date = transactions[0].loggedOn;
     Map<DateTime, List<Transaction>> dateList = {};
 
     // group transactions by date
     for (var transaction in transactions) {
-      if (dateList[transaction.loggedOn] == null) {
-        dateList[transaction.loggedOn ?? DateTime.now()] = [];
+      if (transaction.loggedOn != null) {
+        DateTime date = DateTime(transaction.loggedOn!.year,
+            transaction.loggedOn!.month, transaction.loggedOn!.day);
+        if (dateList.containsKey(date)) {
+          dateList[date]!.add(transaction);
+        } else {
+          dateList[date] = [transaction];
+        }
       }
-      if (transaction.loggedOn != date) {
-        date = transaction.loggedOn;
-      }
-      dateList[date]!.add(transaction);
     }
     List<Widget> transactionTileList = [];
     dateList.forEach((key, value) {

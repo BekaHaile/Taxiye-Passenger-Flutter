@@ -174,7 +174,7 @@ class OrderTile extends StatelessWidget {
                       if (order?.isCancelledRide == 0)
                         const VerticalDivider(
                           thickness: 1,
-                          width: 20,
+                          width: 5,
                           color: AppTheme.greyColor3,
                         ),
                       if (order?.isCancelledRide == 0)
@@ -186,9 +186,9 @@ class OrderTile extends StatelessWidget {
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
+                                      horizontal: 4.0),
                                   child: Text(
-                                    'Driver Name',
+                                    order?.driverName ?? '',
                                     style:
                                         AppTheme.body.copyWith(fontSize: 12.0),
                                     textAlign: TextAlign.end,
@@ -196,17 +196,18 @@ class OrderTile extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                height: 40,
-                                width: 40,
+                                height: 35,
+                                width: 35,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border:
                                       Border.all(color: AppTheme.primaryColor),
                                 ),
-                                child: const ProfileAvatar(
+                                child: ProfileAvatar(
                                   canEdit: false,
-                                  radius: 20.0,
+                                  radius: 18.0,
                                   name: '',
+                                  imageUrl: order?.driverImage,
                                   iconSize: 25.0,
                                 ),
                               ),

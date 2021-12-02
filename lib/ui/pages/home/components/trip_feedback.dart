@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
-import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/drivers/components/driver_tile.dart';
@@ -10,14 +9,7 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/widgets/shadow_button.dart';
 
 class TripFeadback extends GetView<HomeController> {
-  const TripFeadback({
-    Key? key,
-    required this.driver,
-    required this.vehicle,
-  }) : super(key: key);
-
-  final Driver driver;
-  final Vehicle vehicle;
+  const TripFeadback({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +23,18 @@ class TripFeadback extends GetView<HomeController> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              DriverAvator(driver: driver, vehicle: vehicle),
+              DriverAvator(
+                  driver: controller.driver, vehicle: controller.driverVehicle),
               const SizedBox(height: 25.0),
               Text(
-                driver.userName ?? '',
+                controller.driver.userName ?? '',
                 style: AppTheme.title2,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RatingBarIndicator(
-                    rating: driver.rating ?? 0,
+                    rating: controller.driver.rating ?? 0,
                     itemBuilder: (context, _) => const Icon(
                       Icons.star,
                       color: AppTheme.primaryColor,
@@ -53,7 +46,7 @@ class TripFeadback extends GetView<HomeController> {
                   ),
                   const SizedBox(width: 5.0),
                   Text(
-                    driver.rating?.toStringAsFixed(1) ?? '',
+                    controller.driver.rating?.toStringAsFixed(1) ?? '',
                     style: AppTheme.title.copyWith(fontSize: 14.0),
                   ),
                 ],

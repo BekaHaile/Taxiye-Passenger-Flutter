@@ -81,13 +81,28 @@ class SettingsController extends GetxController {
   }
 
   _setPrivacyOptions() {
+    bool? showRideNotifications = _storage.read<bool>('showRideNotifications');
+    bool? showDeliveryNotifications =
+        _storage.read<bool>('showDeliveryNotifications');
+    bool? showTransactionNotifications =
+        _storage.read<bool>('showTransactionNotifications');
+
     privacyOptions = [
       Option(
           title: 'transaction_updates',
           subtitle: 'transaction_updates_info',
-          toggleValue: true),
-      Option(title: 'rides', subtitle: 'rides_info', toggleValue: true),
-      Option(title: 'delivery', subtitle: 'delivery_info', toggleValue: true),
+          leadingIconAsset: 'assets/icons/transfer.png',
+          toggleValue: showTransactionNotifications ?? true),
+      Option(
+          title: 'rides',
+          subtitle: 'rides_info',
+          leadingIconAsset: 'assets/icons/ride.png',
+          toggleValue: showRideNotifications ?? true),
+      Option(
+          title: 'delivery',
+          subtitle: 'delivery_info',
+          leadingIconAsset: 'assets/icons/delivery.png',
+          toggleValue: showDeliveryNotifications ?? true),
     ];
   }
 

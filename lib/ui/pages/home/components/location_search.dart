@@ -76,9 +76,15 @@ class LocationSearch extends GetView<HomeController> {
   }
 
   _setInitialValues() {
-    getSearchController().text = locationType == LocationType.pickUp
+    String initialText = locationType == LocationType.pickUp
         ? controller.pickupLocation?.placeName ?? ''
         : controller.dropOffLocation?.placeName ?? '';
+    getSearchController().text = initialText;
+    if (locationType == LocationType.pickUp) {
+      controller.pickUpLocationSearch = initialText;
+    } else {
+      controller.dropOffLocationSearch = initialText;
+    }
   }
 
   TextEditingController getSearchController() =>

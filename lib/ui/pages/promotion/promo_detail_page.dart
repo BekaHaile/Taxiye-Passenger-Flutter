@@ -142,9 +142,7 @@ class PromoDetailPage extends GetView<PromotionsController> {
                 alignment: Alignment.bottomCenter,
                 child: RoundedButton(
                     text: 'book_now'.tr,
-                    onPressed: () {
-                      //Todo: on coupon action
-                    }),
+                    onPressed: () => controller.onCouponBookNow()),
               ),
             )
           ],

@@ -332,6 +332,8 @@ abstract class RideHistory with _$RideHistory {
     @JsonKey(name: 'ride_time') int? rideTime,
     @JsonKey(name: 'vehicle_type') int? vehicleType,
     @JsonKey(name: 'driver_id') int? driverId,
+    @JsonKey(name: 'driver_name') String? driverName,
+    @JsonKey(name: 'driver_image') String? driverImage,
     @JsonKey(name: 'driver_rating') int? driverRating,
     @JsonKey(name: 'region_name') String? regionName,
     @JsonKey(name: 'engagement_id') int? engagementId,
@@ -668,6 +670,7 @@ abstract class OrderHistory with _$OrderHistory {
     @JsonKey(name: 'product_type') int? productType,
     @JsonKey(name: 'order_status') String? orderStatus,
     @JsonKey(name: 'live_tracking') LiveTracking? liveTracking,
+    @JsonKey(name: 'driver_info') Driver? driverInfo,
     @JsonKey(name: 'order_time') DateTime? orderTime,
     @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _OrderHistory;

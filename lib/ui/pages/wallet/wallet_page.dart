@@ -149,8 +149,11 @@ class WalletPage extends GetView<WalletController> {
                             height: 40,
                             horzontalPadding: 36.0,
                             text: 'transfer'.tr,
-                            leadingIcon:
-                                const Icon(Icons.transfer_within_a_station),
+                            leadingIcon: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: ImageIcon(
+                                  AssetImage('assets/icons/transfer.png')),
+                            ),
                             onPressed: () {
                               // show Transfer
                               Get.toNamed(Routes.walletTransfer);

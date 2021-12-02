@@ -40,8 +40,14 @@ class LegalsController extends GetxController {
 
   _setLegalOptions() {
     legalsOptions = [
-      Option(title: 'terms_conditions', subtitle: 'view_terms_conditions'),
-      Option(title: 'privacy_policy', subtitle: 'privacy_info'),
+      Option(
+          title: 'terms_conditions',
+          subtitle: 'view_terms_conditions',
+          leadingIconAsset: 'assets/icons/terms_conditions.png'),
+      Option(
+          title: 'privacy_policy',
+          subtitle: 'privacy_info',
+          leadingIconAsset: 'assets/icons/privacy_policy.png'),
       Option(title: 'about_us', subtitle: 'know_us'),
     ];
   }

@@ -151,11 +151,11 @@ class ProfileController extends GetxController {
       Option(
           title: 'emergency_contacts',
           subtitle: '${emergencyContacts.length} people',
-          leadingIcon: Icons.call),
+          leadingIconAsset: 'assets/icons/emergency_contacts.png'),
       Option(
           title: 'saved_places',
           subtitle: '${savedPlacesCount ?? 0} places',
-          leadingIcon: Icons.call),
+          leadingIconAsset: 'assets/icons/saved_places.png'),
     ];
   }
 

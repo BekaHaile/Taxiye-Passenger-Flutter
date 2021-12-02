@@ -101,8 +101,6 @@ class HomeController extends GetxService {
   get userCorporates => _userCorporates.value;
   set userCorporates(value) => _userCorporates.assignAll(value);
 
-  Corporate? selectedCorporate;
-
   // Trip step
   final _tripStep = TripStep.whereTo.obs;
   get tripStep => _tripStep.value;
@@ -140,6 +138,14 @@ class HomeController extends GetxService {
   get dropOffLocationSearch => _dropOffLocationSearch.value;
   set dropOffLocationSearch(value) => _dropOffLocationSearch.value = value;
 
+  final _driver = Driver().obs;
+  get driver => _driver.value;
+  set driver(value) => _driver.value = value;
+
+  final _driverVehicle = Vehicle().obs;
+  get driverVehicle => _driverVehicle.value;
+  set driverVehicle(value) => _driverVehicle.value = value;
+
   final pickUpSearchController = TextEditingController();
   final dropOffSearchController = TextEditingController();
 
@@ -160,22 +166,25 @@ class HomeController extends GetxService {
   get cancelOrderReasons => _cancelOrderReasons.value;
   set cancelOrderReasons(value) => _cancelOrderReasons.value = value;
 
+  final _paymentMode = 0.obs;
+  get paymentMode => _paymentMode.value;
+  set paymentMode(value) => _paymentMode.value = value;
+
+  final _selectedCorporate = Corporate().obs;
+  get selectedCorporate => _selectedCorporate.value;
+  set selectedCorporate(value) => _selectedCorporate.value = value;
+
   int? orderId;
   int? deliveryId;
   String orderText = '';
   String? deliveryRecieverPhone;
-
-  // final searchController = TextEditingController();
   Polyline? ridePolyline;
 
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor yellowCarIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor whiteCarIcon = BitmapDescriptor.defaultMarker;
-
   late GoogleMapController mapController;
-  Driver? driver;
-  Vehicle driverVehicle = Vehicle();
 
   // Location search
   LatLng currentLocation = kInitialPosition;
@@ -196,7 +205,6 @@ class HomeController extends GetxService {
   RideDetail? rideDetail;
   Place? pickupLocation;
   Place? dropOffLocation;
-  int paymentMode = 0;
   Timer? debounce;
 
   String feedbackComment = '';
@@ -211,6 +219,8 @@ class HomeController extends GetxService {
   TimeOfDay? scheduleTime;
   String updateFrom = 'home';
   EmergencyStatus emergencyStatus = EmergencyStatus.disable;
+
+  Coupon? selectedCoupon;
 
   @override
   void onInit() async {
@@ -239,7 +249,6 @@ class HomeController extends GetxService {
     _findDrivers();
     _setPinIcons();
     _getUserCorporates();
-    //  _getPaymentMethods();
     _getPaymentTypes();
     _getSavedPlaces();
     _updateHomePayments();
@@ -604,6 +613,7 @@ class HomeController extends GetxService {
           SuccessFlags.basicSuccess.successCode) {
         if (userCorporatesResponse.data?.isNotEmpty ?? false) {
           userCorporates = userCorporatesResponse.data;
+          selectedCorporate = userCorporates.first;
         }
       } else {
         print(userCorporatesResponse.error ??
@@ -615,30 +625,23 @@ class HomeController extends GetxService {
     });
   }
 
-  _getPaymentMethods() {
-    //Todo: Get payment Methods
-    paymentMethods = [
-      Payment(name: 'cash'),
-      Payment(name: 'cbe'),
-      Payment(name: 'mpessa'),
-      Payment(name: 'telebirr'),
-    ];
-  }
-
   _getPaymentTypes() {
     //Todo: Get payment Types
     paymentTypes = [
       PaymentType(
+        paymentMode: 0,
         text: 'cash'.tr,
         icon: CustomIcons.payment,
         iconColor: AppTheme.greenColor,
       ),
       PaymentType(
+        paymentMode: 1,
         text: 'offers'.tr,
         icon: CustomIcons.offer,
         iconColor: AppTheme.primaryColor,
       ),
       const PaymentType(
+        paymentMode: 2,
         text: 'notes',
         icon: CustomIcons.notes,
         iconColor: AppTheme.yellowColor,
@@ -711,6 +714,20 @@ class HomeController extends GetxService {
 
   onPickLocationFromMap(LatLng position) async {
     searchLoading = true;
+
+    // set marker and focus onPicked location
+    _markers.add(Marker(
+        markerId: const MarkerId('destinationPin'),
+        position: position,
+        icon: BitmapDescriptor.defaultMarker));
+
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(CameraPosition(
+        target: position,
+        zoom: 15,
+      )),
+    );
+
     getPlaceNameFromCordinate(position).then((value) {
       // print(value);
       searchLoading = false;
@@ -1145,7 +1162,7 @@ class HomeController extends GetxService {
     // Reset all values to there initial values
     sessionId = null;
     engagementId = null;
-    driver = null;
+    driver = Driver();
     driverVehicle = Vehicle();
 
     feedbackComment = '';
@@ -1170,6 +1187,10 @@ class HomeController extends GetxService {
     orderText = '';
     deliveryRecieverPhone = null;
     deliveryImages.clear();
+
+    paymentMode = 0;
+    selectedCorporate = Corporate();
+    selectedCoupon = null;
     _refreshCurrentLocation();
     _findDrivers();
   }
@@ -1515,13 +1536,14 @@ class HomeController extends GetxService {
     // Todo check deliveries param
     repository.getOrderHistory(orderHistoryPayload).then(
         (orderHistoryResponse) {
-      log('order history here: $orderHistoryResponse');
+      // log('order history here: $orderHistoryResponse');
       if (orderHistoryResponse.flag == SuccessFlags.basicSuccess.successCode) {
         // Todo: set order History
         if (orderHistoryResponse.orderHistory?.isNotEmpty ?? false) {
           // if trip step is on driver detail, then order history is used just for live tracking
           // othere wise it's status change
           OrderHistory orderHistory = orderHistoryResponse.orderHistory![0];
+          //log('orderHistory here: $orderHistory');
           deliveryId = orderHistory.deliveryId;
           _onDeliveryStatusChange(orderHistory);
         }
@@ -1536,12 +1558,18 @@ class HomeController extends GetxService {
   _onDeliveryStatusChange(OrderHistory orderHistory) {
     switch (orderHistory.status) {
       case 1:
-        _onDeliveryAccepted(orderHistory);
+        // change ride step to waiting driver
+        _setDriverInfo(orderHistory);
+        tripStep = TripStep.driverDetail;
+        _liveDeliveryTracking(drawDriverPolyline: true);
+        _updateDeliveryLocation();
         break;
       case 2:
+        _setDriverInfo(orderHistory);
         _onRideStarted();
         break;
       case 3:
+        _setDriverInfo(orderHistory);
         // Delivery ended
         positionStream?.cancel();
         // set Delivery details
@@ -1558,26 +1586,22 @@ class HomeController extends GetxService {
     }
   }
 
-  _onDeliveryAccepted(OrderHistory orderHistory) {
+  _setDriverInfo(OrderHistory orderHistory) {
     // set driver and vehicle detail
-
     driver = Driver(
       userName: orderHistory.driverName ?? '',
       driverId: orderHistory.liveTracking?.driverId ?? 0,
       phoneNo: orderHistory.driverPhoneNo,
       driverImage: orderHistory.liveTracking?.driverImage ?? '',
+      rating: orderHistory.driverInfo?.rating ?? 0,
+      vehicleNo: orderHistory.driverInfo?.vehicleNo ?? '',
     );
 
     driverVehicle = Vehicle(
       vehicleType: orderHistory.vehicleType,
       regionName: '',
-      vehicleNumber: '',
+      vehicleNumber: orderHistory.driverInfo?.vehicleNo ?? '',
     );
-
-    // change ride step to waiting driver
-    tripStep = TripStep.driverDetail;
-    _liveDeliveryTracking(drawDriverPolyline: true);
-    _updateDeliveryLocation();
   }
 
   _updateDeliveryLocation() async {

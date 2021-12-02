@@ -63,6 +63,7 @@ enum Gender {
 enum SuccessFlags {
   basicSuccess,
   login,
+  tokenExpire,
   signUp,
   verify,
   updateProfile,
@@ -99,6 +100,7 @@ extension SuccessFlagsExtension on SuccessFlags {
   static const Map<SuccessFlags, int> successCodes = {
     SuccessFlags.basicSuccess: 143,
     SuccessFlags.login: 407,
+    SuccessFlags.tokenExpire: 101,
     SuccessFlags.signUp: 143,
     SuccessFlags.verify: 407,
     SuccessFlags.updateProfile: 416,

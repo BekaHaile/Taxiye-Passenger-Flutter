@@ -86,7 +86,7 @@ class PromotionsPage extends GetView<PromotionsController> {
                       Expanded(
                         child: PromotionOptionBox(
                           title: 'exchange_points',
-                          icon: Icons.add,
+                          iconAsset: 'assets/icons/exchange.png',
                           onTap: () => Get.toNamed(Routes.exchangePoints),
                         ),
                       ),
@@ -94,7 +94,7 @@ class PromotionsPage extends GetView<PromotionsController> {
                       Expanded(
                         child: PromotionOptionBox(
                           title: 'my_coupons',
-                          icon: Icons.add,
+                          iconAsset: 'assets/icons/coupon.png',
                           onTap: () => Get.toNamed(Routes.coupons),
                         ),
                       ),
@@ -102,7 +102,7 @@ class PromotionsPage extends GetView<PromotionsController> {
                       Expanded(
                         child: PromotionOptionBox(
                           title: 'refer_friend',
-                          icon: Icons.add,
+                          iconAsset: 'assets/icons/refer_friend.png',
                           onTap: () => Get.toNamed(Routes.referFreind),
                         ),
                       )
@@ -158,12 +158,12 @@ class PromotionOptionBox extends StatelessWidget {
   const PromotionOptionBox({
     Key? key,
     required this.title,
-    required this.icon,
+    required this.iconAsset,
     required this.onTap,
   }) : super(key: key);
 
   final String title;
-  final IconData icon;
+  final String iconAsset;
   final VoidCallback onTap;
 
   @override
@@ -188,8 +188,8 @@ class PromotionOptionBox extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
+              ImageIcon(
+                AssetImage(iconAsset),
                 color: AppTheme.darkTextColor,
               ),
               const SizedBox(height: 15.0),

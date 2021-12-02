@@ -48,6 +48,7 @@ final Map<String, String> enUs = {
 
   'resend_code': 'Resend Code',
   'call_me': 'Call me',
+  'token_expired': 'Your session expired, please login again.',
 
   // setup profile
   'setup_profile': 'Setup your profile\ninformation',
@@ -197,6 +198,7 @@ final Map<String, String> enUs = {
 
   'schedule_ride_success': 'Scheduled ride successfully',
   'upcoming_ride_scheduled': 'Upcoming ride scheduled!',
+  'pick_offer': 'Pick Offer',
 
   // vehicle detail
   'fare_details': 'Fare Details',
@@ -325,6 +327,8 @@ final Map<String, String> enUs = {
       'Invite your friends and family to use this app and earn points!',
   'your_referal_code': 'Your Referral Code',
   'share': 'Share',
+  'share_referral':
+      'Dear User, As requested use my code @code to download the app from Taxiye Referral',
 
   'promo_details': 'Promo Details',
   'detail': 'Detail',
@@ -385,7 +389,7 @@ final Map<String, String> enUs = {
   'remove': 'Remove',
   'setDefault': 'Set as default method',
 
-  'hello_cash' : 'Hello Cash',
+  'hello_cash': 'Hello Cash',
 
   // app settings strings
   'sound_voice': 'Sound & Voice',
@@ -453,4 +457,5 @@ final Map<String, String> enUs = {
 
   'error_select_reason': 'Please select your reason',
   'error_promotion_code': 'Please provide promotion code',
+  'error_delivery_detail': 'Please provide delivery detail',
 };

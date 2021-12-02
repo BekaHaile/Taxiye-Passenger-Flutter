@@ -377,6 +377,10 @@ class AuthController extends GetxService {
             user = loginResponse.userData;
             persistUser(loginResponse.userData!);
           }
+        } else if (loginResponse.flag == SuccessFlags.tokenExpire.successCode) {
+          Get.offAllNamed(Routes.auth);
+          Get.snackbar('', 'token_expired'.tr);
+          _storage.remove('user');
         } else {
           toast('error', loginResponse.error ?? loginResponse.message ?? '');
         }

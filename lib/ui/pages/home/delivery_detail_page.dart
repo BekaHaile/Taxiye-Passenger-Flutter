@@ -46,7 +46,7 @@ class DeliveryDetailPage extends GetView<HomeController> {
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) => value?.trim().isEmpty ?? true
-                          ? 'error_label'.tr
+                          ? 'error_delivery_detail'.tr
                           : null,
                     ),
                     const SizedBox(height: 20.0),

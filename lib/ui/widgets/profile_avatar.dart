@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -93,7 +92,11 @@ class ProfileAvatar extends StatelessWidget {
                             radius: radius,
                             // backgroundImage:
                             //     const AssetImage('assets/images/profile_placeholder.png'),
-                            child: Icon(Icons.person, size: iconSize),
+                            child: Icon(
+                              Icons.person,
+                              size: iconSize,
+                              color: AppTheme.greyColor,
+                            ),
                             // child: Image.asset(
                             //   'assets/images/profile_placeholder.png',
                             //   fit: BoxFit.fill,

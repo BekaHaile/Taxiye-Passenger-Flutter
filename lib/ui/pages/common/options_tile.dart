@@ -35,10 +35,18 @@ class _OptionTileState extends State<OptionTile> {
           color: AppTheme.lightSilverColor,
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
         ),
-        child: Icon(
-          widget.option.leadingIcon,
-          color: AppTheme.darkTextColor,
-        ),
+        child: widget.option.leadingIconAsset != null
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ImageIcon(
+                  AssetImage(widget.option.leadingIconAsset!),
+                  color: AppTheme.darkTextColor,
+                ),
+              )
+            : Icon(
+                widget.option.leadingIcon ?? Icons.info,
+                color: AppTheme.darkTextColor,
+              ),
       ),
       title: Text(
         widget.option.title.tr,
