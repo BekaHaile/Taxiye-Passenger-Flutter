@@ -1073,6 +1073,7 @@ class _$VehicleTearOff {
       String? name,
       FareStructure? fareStructure,
       DeliveryCharge? deliveryCharge,
+      bool? hasPromoCoupon,
       @JsonKey(name: 'region_id') int? regionId,
       @JsonKey(name: 'operator_id') int? operatorId,
       @JsonKey(name: 'region_name') String? regionName,
@@ -1088,6 +1089,7 @@ class _$VehicleTearOff {
       name: name,
       fareStructure: fareStructure,
       deliveryCharge: deliveryCharge,
+      hasPromoCoupon: hasPromoCoupon,
       regionId: regionId,
       operatorId: operatorId,
       regionName: regionName,
@@ -1115,6 +1117,7 @@ mixin _$Vehicle {
   String? get name => throw _privateConstructorUsedError;
   FareStructure? get fareStructure => throw _privateConstructorUsedError;
   DeliveryCharge? get deliveryCharge => throw _privateConstructorUsedError;
+  bool? get hasPromoCoupon => throw _privateConstructorUsedError;
   @JsonKey(name: 'region_id')
   int? get regionId => throw _privateConstructorUsedError;
   @JsonKey(name: 'operator_id')
@@ -1148,6 +1151,7 @@ abstract class $VehicleCopyWith<$Res> {
       String? name,
       FareStructure? fareStructure,
       DeliveryCharge? deliveryCharge,
+      bool? hasPromoCoupon,
       @JsonKey(name: 'region_id') int? regionId,
       @JsonKey(name: 'operator_id') int? operatorId,
       @JsonKey(name: 'region_name') String? regionName,
@@ -1179,6 +1183,7 @@ class _$VehicleCopyWithImpl<$Res> implements $VehicleCopyWith<$Res> {
     Object? name = freezed,
     Object? fareStructure = freezed,
     Object? deliveryCharge = freezed,
+    Object? hasPromoCoupon = freezed,
     Object? regionId = freezed,
     Object? operatorId = freezed,
     Object? regionName = freezed,
@@ -1213,6 +1218,10 @@ class _$VehicleCopyWithImpl<$Res> implements $VehicleCopyWith<$Res> {
           ? _value.deliveryCharge
           : deliveryCharge // ignore: cast_nullable_to_non_nullable
               as DeliveryCharge?,
+      hasPromoCoupon: hasPromoCoupon == freezed
+          ? _value.hasPromoCoupon
+          : hasPromoCoupon // ignore: cast_nullable_to_non_nullable
+              as bool?,
       regionId: regionId == freezed
           ? _value.regionId
           : regionId // ignore: cast_nullable_to_non_nullable
@@ -1305,6 +1314,7 @@ abstract class _$VehicleCopyWith<$Res> implements $VehicleCopyWith<$Res> {
       String? name,
       FareStructure? fareStructure,
       DeliveryCharge? deliveryCharge,
+      bool? hasPromoCoupon,
       @JsonKey(name: 'region_id') int? regionId,
       @JsonKey(name: 'operator_id') int? operatorId,
       @JsonKey(name: 'region_name') String? regionName,
@@ -1341,6 +1351,7 @@ class __$VehicleCopyWithImpl<$Res> extends _$VehicleCopyWithImpl<$Res>
     Object? name = freezed,
     Object? fareStructure = freezed,
     Object? deliveryCharge = freezed,
+    Object? hasPromoCoupon = freezed,
     Object? regionId = freezed,
     Object? operatorId = freezed,
     Object? regionName = freezed,
@@ -1375,6 +1386,10 @@ class __$VehicleCopyWithImpl<$Res> extends _$VehicleCopyWithImpl<$Res>
           ? _value.deliveryCharge
           : deliveryCharge // ignore: cast_nullable_to_non_nullable
               as DeliveryCharge?,
+      hasPromoCoupon: hasPromoCoupon == freezed
+          ? _value.hasPromoCoupon
+          : hasPromoCoupon // ignore: cast_nullable_to_non_nullable
+              as bool?,
       regionId: regionId == freezed
           ? _value.regionId
           : regionId // ignore: cast_nullable_to_non_nullable
@@ -1421,6 +1436,7 @@ class _$_Vehicle implements _Vehicle {
       this.name,
       this.fareStructure,
       this.deliveryCharge,
+      this.hasPromoCoupon,
       @JsonKey(name: 'region_id') this.regionId,
       @JsonKey(name: 'operator_id') this.operatorId,
       @JsonKey(name: 'region_name') this.regionName,
@@ -1445,6 +1461,8 @@ class _$_Vehicle implements _Vehicle {
   final FareStructure? fareStructure;
   @override
   final DeliveryCharge? deliveryCharge;
+  @override
+  final bool? hasPromoCoupon;
   @override
   @JsonKey(name: 'region_id')
   final int? regionId;
@@ -1472,7 +1490,7 @@ class _$_Vehicle implements _Vehicle {
 
   @override
   String toString() {
-    return 'Vehicle(images: $images, vehicleNumber: $vehicleNumber, type: $type, name: $name, fareStructure: $fareStructure, deliveryCharge: $deliveryCharge, regionId: $regionId, operatorId: $operatorId, regionName: $regionName, vehicleType: $vehicleType, iconSet: $iconSet, rideType: $rideType, maxPeople: $maxPeople, regionFare: $regionFare)';
+    return 'Vehicle(images: $images, vehicleNumber: $vehicleNumber, type: $type, name: $name, fareStructure: $fareStructure, deliveryCharge: $deliveryCharge, hasPromoCoupon: $hasPromoCoupon, regionId: $regionId, operatorId: $operatorId, regionName: $regionName, vehicleType: $vehicleType, iconSet: $iconSet, rideType: $rideType, maxPeople: $maxPeople, regionFare: $regionFare)';
   }
 
   @override
@@ -1494,6 +1512,9 @@ class _$_Vehicle implements _Vehicle {
             (identical(other.deliveryCharge, deliveryCharge) ||
                 const DeepCollectionEquality()
                     .equals(other.deliveryCharge, deliveryCharge)) &&
+            (identical(other.hasPromoCoupon, hasPromoCoupon) ||
+                const DeepCollectionEquality()
+                    .equals(other.hasPromoCoupon, hasPromoCoupon)) &&
             (identical(other.regionId, regionId) ||
                 const DeepCollectionEquality()
                     .equals(other.regionId, regionId)) &&
@@ -1529,6 +1550,7 @@ class _$_Vehicle implements _Vehicle {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(fareStructure) ^
       const DeepCollectionEquality().hash(deliveryCharge) ^
+      const DeepCollectionEquality().hash(hasPromoCoupon) ^
       const DeepCollectionEquality().hash(regionId) ^
       const DeepCollectionEquality().hash(operatorId) ^
       const DeepCollectionEquality().hash(regionName) ^
@@ -1557,6 +1579,7 @@ abstract class _Vehicle implements Vehicle {
       String? name,
       FareStructure? fareStructure,
       DeliveryCharge? deliveryCharge,
+      bool? hasPromoCoupon,
       @JsonKey(name: 'region_id') int? regionId,
       @JsonKey(name: 'operator_id') int? operatorId,
       @JsonKey(name: 'region_name') String? regionName,
@@ -1580,6 +1603,8 @@ abstract class _Vehicle implements Vehicle {
   FareStructure? get fareStructure => throw _privateConstructorUsedError;
   @override
   DeliveryCharge? get deliveryCharge => throw _privateConstructorUsedError;
+  @override
+  bool? get hasPromoCoupon => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'region_id')
   int? get regionId => throw _privateConstructorUsedError;
@@ -9501,11 +9526,17 @@ class _$VerifyResponseTearOff {
   _VerifyResponse call(int flag,
       {String? message,
       String? error,
+      List<String>? cancelReasons,
+      String? locale,
+      String? callCenterNumber,
       @JsonKey(name: 'user_data') User? userData}) {
     return _VerifyResponse(
       flag,
       message: message,
       error: error,
+      cancelReasons: cancelReasons,
+      locale: locale,
+      callCenterNumber: callCenterNumber,
       userData: userData,
     );
   }
@@ -9523,6 +9554,9 @@ mixin _$VerifyResponse {
   int get flag => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  List<String>? get cancelReasons => throw _privateConstructorUsedError;
+  String? get locale => throw _privateConstructorUsedError;
+  String? get callCenterNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_data')
   User? get userData => throw _privateConstructorUsedError;
 
@@ -9541,6 +9575,9 @@ abstract class $VerifyResponseCopyWith<$Res> {
       {int flag,
       String? message,
       String? error,
+      List<String>? cancelReasons,
+      String? locale,
+      String? callCenterNumber,
       @JsonKey(name: 'user_data') User? userData});
 
   $UserCopyWith<$Res>? get userData;
@@ -9560,6 +9597,9 @@ class _$VerifyResponseCopyWithImpl<$Res>
     Object? flag = freezed,
     Object? message = freezed,
     Object? error = freezed,
+    Object? cancelReasons = freezed,
+    Object? locale = freezed,
+    Object? callCenterNumber = freezed,
     Object? userData = freezed,
   }) {
     return _then(_value.copyWith(
@@ -9574,6 +9614,18 @@ class _$VerifyResponseCopyWithImpl<$Res>
       error: error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cancelReasons: cancelReasons == freezed
+          ? _value.cancelReasons
+          : cancelReasons // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      locale: locale == freezed
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String?,
+      callCenterNumber: callCenterNumber == freezed
+          ? _value.callCenterNumber
+          : callCenterNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       userData: userData == freezed
           ? _value.userData
@@ -9605,6 +9657,9 @@ abstract class _$VerifyResponseCopyWith<$Res>
       {int flag,
       String? message,
       String? error,
+      List<String>? cancelReasons,
+      String? locale,
+      String? callCenterNumber,
       @JsonKey(name: 'user_data') User? userData});
 
   @override
@@ -9627,6 +9682,9 @@ class __$VerifyResponseCopyWithImpl<$Res>
     Object? flag = freezed,
     Object? message = freezed,
     Object? error = freezed,
+    Object? cancelReasons = freezed,
+    Object? locale = freezed,
+    Object? callCenterNumber = freezed,
     Object? userData = freezed,
   }) {
     return _then(_VerifyResponse(
@@ -9642,6 +9700,18 @@ class __$VerifyResponseCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      cancelReasons: cancelReasons == freezed
+          ? _value.cancelReasons
+          : cancelReasons // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      locale: locale == freezed
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String?,
+      callCenterNumber: callCenterNumber == freezed
+          ? _value.callCenterNumber
+          : callCenterNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
       userData: userData == freezed
           ? _value.userData
           : userData // ignore: cast_nullable_to_non_nullable
@@ -9654,7 +9724,12 @@ class __$VerifyResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_VerifyResponse implements _VerifyResponse {
   _$_VerifyResponse(this.flag,
-      {this.message, this.error, @JsonKey(name: 'user_data') this.userData});
+      {this.message,
+      this.error,
+      this.cancelReasons,
+      this.locale,
+      this.callCenterNumber,
+      @JsonKey(name: 'user_data') this.userData});
 
   factory _$_VerifyResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_VerifyResponseFromJson(json);
@@ -9666,12 +9741,18 @@ class _$_VerifyResponse implements _VerifyResponse {
   @override
   final String? error;
   @override
+  final List<String>? cancelReasons;
+  @override
+  final String? locale;
+  @override
+  final String? callCenterNumber;
+  @override
   @JsonKey(name: 'user_data')
   final User? userData;
 
   @override
   String toString() {
-    return 'VerifyResponse(flag: $flag, message: $message, error: $error, userData: $userData)';
+    return 'VerifyResponse(flag: $flag, message: $message, error: $error, cancelReasons: $cancelReasons, locale: $locale, callCenterNumber: $callCenterNumber, userData: $userData)';
   }
 
   @override
@@ -9685,6 +9766,14 @@ class _$_VerifyResponse implements _VerifyResponse {
                     .equals(other.message, message)) &&
             (identical(other.error, error) ||
                 const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.cancelReasons, cancelReasons) ||
+                const DeepCollectionEquality()
+                    .equals(other.cancelReasons, cancelReasons)) &&
+            (identical(other.locale, locale) ||
+                const DeepCollectionEquality().equals(other.locale, locale)) &&
+            (identical(other.callCenterNumber, callCenterNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.callCenterNumber, callCenterNumber)) &&
             (identical(other.userData, userData) ||
                 const DeepCollectionEquality()
                     .equals(other.userData, userData)));
@@ -9696,6 +9785,9 @@ class _$_VerifyResponse implements _VerifyResponse {
       const DeepCollectionEquality().hash(flag) ^
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(cancelReasons) ^
+      const DeepCollectionEquality().hash(locale) ^
+      const DeepCollectionEquality().hash(callCenterNumber) ^
       const DeepCollectionEquality().hash(userData);
 
   @JsonKey(ignore: true)
@@ -9713,6 +9805,9 @@ abstract class _VerifyResponse implements VerifyResponse {
   factory _VerifyResponse(int flag,
       {String? message,
       String? error,
+      List<String>? cancelReasons,
+      String? locale,
+      String? callCenterNumber,
       @JsonKey(name: 'user_data') User? userData}) = _$_VerifyResponse;
 
   factory _VerifyResponse.fromJson(Map<String, dynamic> json) =
@@ -9724,6 +9819,12 @@ abstract class _VerifyResponse implements VerifyResponse {
   String? get message => throw _privateConstructorUsedError;
   @override
   String? get error => throw _privateConstructorUsedError;
+  @override
+  List<String>? get cancelReasons => throw _privateConstructorUsedError;
+  @override
+  String? get locale => throw _privateConstructorUsedError;
+  @override
+  String? get callCenterNumber => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'user_data')
   User? get userData => throw _privateConstructorUsedError;
@@ -17140,6 +17241,7 @@ class _$CouponTearOff {
       int? maximum,
       int? status,
       @JsonKey(name: 'coupon_id') int? couponId,
+      @JsonKey(name: 'account_id') int? accountId,
       @JsonKey(name: 'coupon_type') int? couponType,
       @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
       @JsonKey(name: 'expiry_date') DateTime? expiryDate}) {
@@ -17152,6 +17254,7 @@ class _$CouponTearOff {
       maximum: maximum,
       status: status,
       couponId: couponId,
+      accountId: accountId,
       couponType: couponType,
       allowedVehicles: allowedVehicles,
       expiryDate: expiryDate,
@@ -17177,6 +17280,8 @@ mixin _$Coupon {
   int? get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'coupon_id')
   int? get couponId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'account_id')
+  int? get accountId => throw _privateConstructorUsedError;
   @JsonKey(name: 'coupon_type')
   int? get couponType => throw _privateConstructorUsedError;
   @JsonKey(name: 'allowed_vehicles')
@@ -17202,6 +17307,7 @@ abstract class $CouponCopyWith<$Res> {
       int? maximum,
       int? status,
       @JsonKey(name: 'coupon_id') int? couponId,
+      @JsonKey(name: 'account_id') int? accountId,
       @JsonKey(name: 'coupon_type') int? couponType,
       @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
       @JsonKey(name: 'expiry_date') DateTime? expiryDate});
@@ -17225,6 +17331,7 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
     Object? maximum = freezed,
     Object? status = freezed,
     Object? couponId = freezed,
+    Object? accountId = freezed,
     Object? couponType = freezed,
     Object? allowedVehicles = freezed,
     Object? expiryDate = freezed,
@@ -17262,6 +17369,10 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
           ? _value.couponId
           : couponId // ignore: cast_nullable_to_non_nullable
               as int?,
+      accountId: accountId == freezed
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as int?,
       couponType: couponType == freezed
           ? _value.couponType
           : couponType // ignore: cast_nullable_to_non_nullable
@@ -17292,6 +17403,7 @@ abstract class _$CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
       int? maximum,
       int? status,
       @JsonKey(name: 'coupon_id') int? couponId,
+      @JsonKey(name: 'account_id') int? accountId,
       @JsonKey(name: 'coupon_type') int? couponType,
       @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
       @JsonKey(name: 'expiry_date') DateTime? expiryDate});
@@ -17316,6 +17428,7 @@ class __$CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
     Object? maximum = freezed,
     Object? status = freezed,
     Object? couponId = freezed,
+    Object? accountId = freezed,
     Object? couponType = freezed,
     Object? allowedVehicles = freezed,
     Object? expiryDate = freezed,
@@ -17353,6 +17466,10 @@ class __$CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
           ? _value.couponId
           : couponId // ignore: cast_nullable_to_non_nullable
               as int?,
+      accountId: accountId == freezed
+          ? _value.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as int?,
       couponType: couponType == freezed
           ? _value.couponType
           : couponType // ignore: cast_nullable_to_non_nullable
@@ -17381,6 +17498,7 @@ class _$_Coupon implements _Coupon {
       this.maximum,
       this.status,
       @JsonKey(name: 'coupon_id') this.couponId,
+      @JsonKey(name: 'account_id') this.accountId,
       @JsonKey(name: 'coupon_type') this.couponType,
       @JsonKey(name: 'allowed_vehicles') this.allowedVehicles,
       @JsonKey(name: 'expiry_date') this.expiryDate});
@@ -17406,6 +17524,9 @@ class _$_Coupon implements _Coupon {
   @JsonKey(name: 'coupon_id')
   final int? couponId;
   @override
+  @JsonKey(name: 'account_id')
+  final int? accountId;
+  @override
   @JsonKey(name: 'coupon_type')
   final int? couponType;
   @override
@@ -17417,7 +17538,7 @@ class _$_Coupon implements _Coupon {
 
   @override
   String toString() {
-    return 'Coupon(title: $title, subtitle: $subtitle, description: $description, type: $type, discount: $discount, maximum: $maximum, status: $status, couponId: $couponId, couponType: $couponType, allowedVehicles: $allowedVehicles, expiryDate: $expiryDate)';
+    return 'Coupon(title: $title, subtitle: $subtitle, description: $description, type: $type, discount: $discount, maximum: $maximum, status: $status, couponId: $couponId, accountId: $accountId, couponType: $couponType, allowedVehicles: $allowedVehicles, expiryDate: $expiryDate)';
   }
 
   @override
@@ -17445,6 +17566,9 @@ class _$_Coupon implements _Coupon {
             (identical(other.couponId, couponId) ||
                 const DeepCollectionEquality()
                     .equals(other.couponId, couponId)) &&
+            (identical(other.accountId, accountId) ||
+                const DeepCollectionEquality()
+                    .equals(other.accountId, accountId)) &&
             (identical(other.couponType, couponType) ||
                 const DeepCollectionEquality()
                     .equals(other.couponType, couponType)) &&
@@ -17467,6 +17591,7 @@ class _$_Coupon implements _Coupon {
       const DeepCollectionEquality().hash(maximum) ^
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(couponId) ^
+      const DeepCollectionEquality().hash(accountId) ^
       const DeepCollectionEquality().hash(couponType) ^
       const DeepCollectionEquality().hash(allowedVehicles) ^
       const DeepCollectionEquality().hash(expiryDate);
@@ -17492,6 +17617,7 @@ abstract class _Coupon implements Coupon {
       int? maximum,
       int? status,
       @JsonKey(name: 'coupon_id') int? couponId,
+      @JsonKey(name: 'account_id') int? accountId,
       @JsonKey(name: 'coupon_type') int? couponType,
       @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
       @JsonKey(name: 'expiry_date') DateTime? expiryDate}) = _$_Coupon;
@@ -17515,6 +17641,9 @@ abstract class _Coupon implements Coupon {
   @override
   @JsonKey(name: 'coupon_id')
   int? get couponId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'account_id')
+  int? get accountId => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'coupon_type')
   int? get couponType => throw _privateConstructorUsedError;

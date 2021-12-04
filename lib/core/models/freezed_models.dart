@@ -64,6 +64,7 @@ class Vehicle with _$Vehicle {
     String? name,
     FareStructure? fareStructure,
     DeliveryCharge? deliveryCharge,
+    bool? hasPromoCoupon,
     @JsonKey(name: 'region_id') int? regionId,
     @JsonKey(name: 'operator_id') int? operatorId,
     @JsonKey(name: 'region_name') String? regionName,
@@ -452,6 +453,9 @@ abstract class VerifyResponse with _$VerifyResponse {
     int flag, {
     String? message,
     String? error,
+    List<String>? cancelReasons,
+    String? locale,
+    String? callCenterNumber,
     @JsonKey(name: 'user_data') User? userData,
   }) = _VerifyResponse;
 
@@ -855,6 +859,7 @@ class Coupon with _$Coupon {
     int? maximum,
     int? status,
     @JsonKey(name: 'coupon_id') int? couponId,
+    @JsonKey(name: 'account_id') int? accountId,
     @JsonKey(name: 'coupon_type') int? couponType,
     @JsonKey(name: 'allowed_vehicles') List<int>? allowedVehicles,
     @JsonKey(name: 'expiry_date') DateTime? expiryDate,

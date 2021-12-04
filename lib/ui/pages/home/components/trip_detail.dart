@@ -114,25 +114,28 @@ class TripDetail extends GetView<HomeController> {
               ),
             ),
             const SizedBox(height: 30.0),
-            Obx(
-              () => HomePaymentList(
-                  paymentMethods: controller.paymentMethods,
-                  selectedPayment: controller.selectedPayment,
-                  onItemSelected: (selectedPayment) {
-                    controller.selectedPayment = selectedPayment;
-                    switch (selectedPayment.name) {
-                      case 'hellocash':
-                        controller.onHelloCashSelected();
-                        break;
-                      case 'mpesa':
-                        controller.onMpesaSelected();
-                        break;
-                      default:
-                    }
-                  }),
-            ),
+            if (controller.rideType != 1)
+              Obx(
+                () => HomePaymentList(
+                    paymentMethods: controller.paymentMethods,
+                    selectedPayment: controller.selectedPayment,
+                    onItemSelected: (selectedPayment) {
+                      controller.selectedPayment = selectedPayment;
+                      switch (selectedPayment.name) {
+                        case 'hellocash':
+                          controller.onHelloCashSelected();
+                          break;
+                        case 'mpesa':
+                          controller.onMpesaSelected();
+                          break;
+                        default:
+                      }
+                    }),
+              ),
             RoundedButton(
-                text: 'pay_with_cash'.tr,
+                text: controller.rideType != 1
+                    ? 'pay_with_cash'.tr
+                    : 'continue'.tr,
                 onPressed: () => controller.onPaymentProcessed())
           ],
         ),

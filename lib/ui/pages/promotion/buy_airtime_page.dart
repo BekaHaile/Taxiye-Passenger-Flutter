@@ -24,7 +24,9 @@ class _BuyAirtimePageState extends State<BuyAirtimePage> {
   @override
   void initState() {
     super.initState();
-    airtimeValues = [5, 10, 15, 25, 50, 100, 250, 500, 1000];
+    airtimeValues = controller.countryCode == kCountries.first.code
+        ? [5, 10, 15, 25, 50, 100, 250, 500, 1000]
+        : [50, 100];
   }
 
   @override

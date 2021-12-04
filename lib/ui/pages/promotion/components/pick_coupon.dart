@@ -29,7 +29,7 @@ class PickCoupon extends GetView<PromotionsController> {
                             coupons: controller.coupons,
                             showExpires: true,
                             onCouponSelect: (selectedCoupon) =>
-                                controller.onPickOffer(selectedCoupon),
+                                controller.onPickOffer(coupon: selectedCoupon),
                           )
                         : const EmptyState()))
               ],

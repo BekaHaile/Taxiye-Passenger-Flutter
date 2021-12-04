@@ -162,6 +162,9 @@ class HomeController extends GetxService {
   get deliveryImages => _deliveryImages.value;
   set deliveryImages(value) => _deliveryImages.assignAll(value);
 
+  List<String> rideCancellReasons = [];
+  String rideNote = '';
+
   final _cancelOrderReasons = List<String>.empty(growable: true).obs;
   get cancelOrderReasons => _cancelOrderReasons.value;
   set cancelOrderReasons(value) => _cancelOrderReasons.value = value;
@@ -189,18 +192,13 @@ class HomeController extends GetxService {
   // Location search
   LatLng currentLocation = kInitialPosition;
   Placemark? currentLocationPlace;
-  // Getu commercial
-  // LatLng testLocation = const LatLng(9.003432689703812, 38.769641840207235);
-  // yemeru senay
-  // LatLng testLocation = const LatLng(9.003620646534136, 38.80093371322263);
-  // LatLng testLocation = const LatLng(9.065387872139096, 38.67130131804619);
-  // LatLng testLocation = const LatLng(9.051552111443572, 38.72762157250847);
-  // LatLng testLocation = const LatLng(37.4220371, -122.0841212);
+  String callCenterNumber = kTaxiyePhoneNumber;
 
   String sessionToken = const Uuid().v4();
   // trip started variables
   int? sessionId;
   int? engagementId;
+  double routeDistance = 0.0;
 
   RideDetail? rideDetail;
   Place? pickupLocation;
@@ -221,6 +219,7 @@ class HomeController extends GetxService {
   EmergencyStatus emergencyStatus = EmergencyStatus.disable;
 
   Coupon? selectedCoupon;
+  Promotion? selectedPromotion;
 
   @override
   void onInit() async {
@@ -230,10 +229,12 @@ class HomeController extends GetxService {
     scheduleDate = DateTime.now();
     scheduleTime = TimeOfDay.now();
     prefs = await SharedPreferences.getInstance();
-    // Todo: uncomment this for current location
-    // set current location
+
     currentLocation = LatLng(authController.currentLocation.latitude,
         authController.currentLocation.longitude);
+    rideCancellReasons = authController.rideCancellationReasons;
+    callCenterNumber = authController.callCenterNumber;
+
     getPlaceNameFromCordinate(currentLocation).then((value) {
       Place place = Place(
           placeName:
@@ -301,6 +302,13 @@ class HomeController extends GetxService {
       });
     }
 
+    if (selectedCoupon != null) {
+      findDriversPayload['coupon_to_apply'] = '${selectedCoupon?.accountId}';
+    }
+    if (selectedPromotion != null) {
+      findDriversPayload['promo_to_apply'] = '${selectedPromotion?.promoId}';
+    }
+
     await repository.findDrivers(findDriversPayload).then((findDriverResponse) {
       if (findDriverResponse.flag == SuccessFlags.findDriver.successCode) {
         if (destination == null && findDriverResponse.drivers != null) {
@@ -314,6 +322,7 @@ class HomeController extends GetxService {
           currency = findDriverResponse.currency;
           _setVehiclesFareStructures(findDriverResponse.fareStructure);
           filterVehicles(0);
+          _setPromoTags();
         }
       } else {
         print(findDriverResponse.error);
@@ -523,6 +532,24 @@ class HomeController extends GetxService {
       } else {
         vehicles =
             allVehicles?.where((vehicle) => vehicle.rideType == rideType);
+      }
+    }
+  }
+
+  _setPromoTags() {
+    // if promotion and coupon is selected, tag those cars where the selected
+    // promo is available.
+    if (selectedPromotion?.allowedVehicles?.isNotEmpty ?? false) {
+      for (Vehicle vehicle in vehicles) {
+        _vehicles[vehicles.indexOf(vehicle)] = vehicle.copyWith(
+            hasPromoCoupon:
+                selectedPromotion?.allowedVehicles?.contains(vehicle.regionId));
+      }
+    } else if (selectedCoupon?.allowedVehicles?.isNotEmpty ?? false) {
+      for (Vehicle vehicle in vehicles) {
+        _vehicles[vehicles.indexOf(vehicle)] = vehicle.copyWith(
+            hasPromoCoupon:
+                selectedCoupon?.allowedVehicles?.contains(vehicle.regionId));
       }
     }
   }
@@ -803,9 +830,10 @@ class HomeController extends GetxService {
         (polylineCoordinates) {
       // get vehicles fare calculation
       if (selectedService == HomeServiceIndex.ride) {
+        routeDistance = getRouteDistance(polylineCoordinates);
         _findDrivers(
             destination: dropOffLocation!.location,
-            routeDistance: getRouteDistance(polylineCoordinates));
+            routeDistance: routeDistance);
       }
 
       Polyline polyline = Polyline(
@@ -856,11 +884,11 @@ class HomeController extends GetxService {
     return 12742 * asin(sqrt(a));
   }
 
-  onCancelRide() {
+  onCancelRide({String? reason}) {
     // cancell ride based on current ride step
     Map<String, dynamic> cancelPayload = tripStep == TripStep.lookingDrivers
         ? {'session_id': '$sessionId'}
-        : {'reasons': ''};
+        : {'reasons': reason ?? ''};
 
     status(Status.loading);
     repository.cancelRide(cancelPayload, tripStep).then(
@@ -949,7 +977,7 @@ class HomeController extends GetxService {
         'op_drop_latitude': '${dropOffLocation?.location?.latitude}',
         'op_drop_longitude': '${dropOffLocation?.location?.longitude}',
         'duplicate_flag': '0',
-        'preferred_payment_mode': '$paymentMode',
+        'preferred_payment_mode': '0',
         'vehicle_type': '${selectedVehicle.vehicleType}',
         'region_id': '${selectedVehicle.regionId}',
         'reverse_bid': '0',
@@ -958,11 +986,24 @@ class HomeController extends GetxService {
         'customer_fare_factor': '1.0',
         'pickup_location_address': '${pickupLocation?.placeName}',
         'drop_location_address': '${dropOffLocation?.placeName}',
-        'coupon_to_apply': '-1',
+        'coupon_to_apply':
+            selectedCoupon != null && (selectedVehicle.hasPromoCoupon ?? false)
+                ? '${selectedCoupon?.accountId}'
+                : '-1',
+        'promo_to_apply': selectedPromotion != null &&
+                (selectedVehicle.hasPromoCoupon ?? false)
+            ? '${selectedPromotion?.promoId}'
+            : '-1',
         'is_bluetooth_tracker': '0',
+        'customer_note': rideNote,
       };
 
-      log('book ride request: $ridePayload');
+      // check if ride type is corporate
+      if (rideType == 1 && selectedCorporate.businessId != null) {
+        ridePayload['is_manual'] = selectedCorporate.businessId;
+      }
+
+      //log('book ride request: $ridePayload');
 
       status(Status.loading);
       repository.requestRide(ridePayload).then((requestRideResponse) {
@@ -1171,6 +1212,7 @@ class HomeController extends GetxService {
 
     driverOnRouteCounter = 0;
     rideCounter = 0;
+    rideType = 0;
 
     dropOffLocation = null;
     _polyLines.clear();
@@ -1191,6 +1233,10 @@ class HomeController extends GetxService {
     paymentMode = 0;
     selectedCorporate = Corporate();
     selectedCoupon = null;
+    selectedPromotion = null;
+
+    routeDistance = 0.0;
+    rideNote = '';
     _refreshCurrentLocation();
     _findDrivers();
   }
@@ -1781,6 +1827,14 @@ class HomeController extends GetxService {
         print('Order delivery order error: $error');
       });
     }
+  }
+
+  onPromoCouponSelected({Coupon? coupon, Promotion? promotion}) {
+    selectedCoupon = coupon;
+    selectedPromotion = promotion;
+    _setPromoTags();
+    _findDrivers(
+        destination: dropOffLocation?.location, routeDistance: routeDistance);
   }
 
   onLogout() {

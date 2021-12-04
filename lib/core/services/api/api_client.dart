@@ -28,7 +28,7 @@ class ApiClient {
           'login_type': '0',
           'operator_token': kOperatorToken,
           'customer_package_name': packageInfo.packageName,
-          'locale': Get.locale?.languageCode ?? 'en',
+          //'locale': Get.locale?.languageCode ?? 'en',
           'client_id': kClientId,
         }));
   }
@@ -45,15 +45,18 @@ class ApiClient {
       dioClient.updateBaseUrl(port ?? '8008');
       if (requiresAuth) await dioClient.addAuthorizationInterceptor();
       if (requiresDefaultParams && data != null) {
+        String locale = GetStorage().read<String>('locale') ?? 'en';
         data.addAll(defaultParams);
-        data['locale'] = Get.locale?.languageCode ?? 'en';
+        data['locale'] = locale;
       }
 
       if (requiresDefaultParams && queryParameters != null) {
         queryParameters.addAll(defaultParams);
-        final accessToken = GetStorage().read('accessToken');
+        GetStorage storage = GetStorage();
+        final accessToken = storage.read('accessToken');
+        String locale = storage.read<String>('locale') ?? 'en';
         queryParameters.addAll({
-          'locale': Get.locale?.languageCode ?? 'en',
+          'locale': locale,
           'access_token': accessToken,
         });
       }

@@ -20,7 +20,12 @@ class VehicleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 170.0,
+      height: vehicles.isNotEmpty &&
+              vehicles[0].regionFare != null &&
+              vehicles[0].regionFare?.fare !=
+                  vehicles[0].regionFare?.originalFare
+          ? 190.0
+          : 170,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
@@ -73,54 +78,84 @@ class VehicleTile extends StatelessWidget {
               color: isActive ? AppTheme.yellowColor : Colors.transparent,
               width: 2.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          child: Column(
-            children: [
-              vehicle.images?.tabNormal?.isNotEmpty ?? false
-                  ? CachedNetworkImage(
-                      imageUrl: vehicle.images!.tabNormal!,
-                      width: 100.0,
-                      height: 50.0,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) => const Center(
-                        child: SpinKitFadingCircle(
-                            color: AppTheme.primaryColor, size: 30),
-                        // CircularProgressIndicator(
-                        //     value: downloadProgress.progress),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    )
-                  : // Todo: get default asset image based on the category name
-                  Image.asset(
-                      'assets/images/Taxiye - Sedan.png',
-                      width: 100.0,
-                      height: 50.0,
-                    ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15.0, bottom: 5.0),
-                child: Text(
-                  (vehicle.regionName ?? vehicle.name ?? '').tr,
-                  style: AppTheme.title.copyWith(fontSize: 14.0),
+        child: Stack(
+          children: [
+            if (vehicle.hasPromoCoupon ?? false)
+              Positioned(
+                right: 2.0,
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: Image.asset(
+                    'assets/images/coupon.png',
+                    height: 30.0,
+                    width: 30.0,
+                  ),
                 ),
               ),
-              Text(
-                vehicle.regionFare != null
-                    ? vehicle.regionFare?.maxFare != null
-                        ? '${vehicle.regionFare?.maxFare} ${vehicle.regionFare?.currency}'
-                        : ''
-                    : vehicle.deliveryCharge?.estimatedCharges != null
-                        ? '${vehicle.deliveryCharge?.estimatedCharges} ${vehicle.deliveryCharge?.currency}'
-                        : '',
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w700,
-                  color: AppTheme.primaryColor,
-                ),
-              )
-            ],
-          ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              child: Column(
+                children: [
+                  vehicle.images?.tabNormal?.isNotEmpty ?? false
+                      ? CachedNetworkImage(
+                          imageUrl: vehicle.images!.tabNormal!,
+                          width: 100.0,
+                          height: 50.0,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => const Center(
+                            child: SpinKitFadingCircle(
+                                color: AppTheme.primaryColor, size: 30),
+                            // CircularProgressIndicator(
+                            //     value: downloadProgress.progress),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        )
+                      : // Todo: get default asset image based on the category name
+                      Image.asset(
+                          'assets/images/Taxiye - Sedan.png',
+                          width: 100.0,
+                          height: 50.0,
+                        ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 5.0),
+                    child: Text(
+                      (vehicle.regionName ?? vehicle.name ?? '').tr,
+                      style: AppTheme.title.copyWith(fontSize: 14.0),
+                    ),
+                  ),
+                  Text(
+                    vehicle.regionFare != null
+                        ? vehicle.regionFare?.fare != null
+                            ? '${vehicle.regionFare?.fare} ${vehicle.regionFare?.currency}'
+                            : ''
+                        : vehicle.deliveryCharge?.estimatedCharges != null
+                            ? '${vehicle.deliveryCharge?.estimatedCharges} ${vehicle.deliveryCharge?.currency}'
+                            : '',
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700,
+                      color: AppTheme.primaryColor,
+                    ),
+                  ),
+                  if ((vehicle.hasPromoCoupon ?? false) &&
+                      vehicle.regionFare != null &&
+                      vehicle.regionFare?.fare !=
+                          vehicle.regionFare?.originalFare)
+                    Text(
+                      '${vehicle.regionFare?.originalFare} ${vehicle.regionFare?.currency}',
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.yellowColor,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

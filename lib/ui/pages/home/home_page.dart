@@ -213,20 +213,16 @@ class _HomePageState extends State<HomePage>
         return LookingDrivers(
           selectedService: controller.selectedService,
           onCancelDriverSearch: () {
-            Get.dialog(CancelReasonDialog(
-                title: 'cancel_reason'.tr,
-                reasons: controller.cancelOrderReasons,
-                onSelectReason: (reason) {
-                  switch (controller.selectedService) {
-                    case HomeServiceIndex.ride:
-                      controller.onCancelRide();
-                      break;
-                    case HomeServiceIndex.delivery:
-                      controller.cancelDelivery(reason);
-                      break;
-                    default:
-                  }
-                }));
+            if (controller.selectedService == HomeServiceIndex.delivery) {
+              // show cancellationn reasons
+              Get.dialog(CancelReasonDialog(
+                  title: 'cancel_reason'.tr,
+                  reasons: controller.cancelOrderReasons,
+                  onSelectReason: (reason) =>
+                      controller.cancelDelivery(reason)));
+            } else {
+              controller.onCancelRide();
+            }
           },
         );
       case TripStep.driverDetail:

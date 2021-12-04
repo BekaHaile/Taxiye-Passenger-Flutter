@@ -222,7 +222,8 @@ class HomeDrawer extends GetView<HomeController> {
                           ],
                         ),
                         GestureDetector(
-                          onTap: () => launch('tel:$kTaxiyePhoneNumber'),
+                          onTap: () =>
+                              launch('tel:${controller.callCenterNumber}'),
                           child: const CircleAvatar(
                               radius: 25.0,
                               backgroundColor: AppTheme.primaryColor,

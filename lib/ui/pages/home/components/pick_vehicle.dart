@@ -7,6 +7,7 @@ import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/ride_note.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_list.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_type_list.dart';
@@ -101,7 +102,10 @@ class PickVehicle extends GetView<HomeController> {
                                       Get.bottomSheet(const PickCoupon());
                                       break;
                                     case 2:
-                                      //Todo: on notes selected
+                                      // on notes selected
+                                      Get.dialog(RideNote(
+                                          actionCallback: (note) =>
+                                              controller.rideNote = note));
                                       break;
                                     default:
                                   }

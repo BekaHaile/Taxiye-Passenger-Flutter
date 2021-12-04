@@ -42,7 +42,7 @@ class _EditProfileBottomSheetState extends State<EditProfileBottomSheet> {
         orElse: () => kCountries.first);
 
     activeLanguage = kLanguages.firstWhere(
-        (language) => language.code == widget.user.locale,
+        (language) => language.code == (Get.locale?.languageCode ?? 'en'),
         orElse: () => kLanguages.first);
   }
 

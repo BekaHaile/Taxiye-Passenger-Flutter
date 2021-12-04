@@ -115,7 +115,23 @@ class AuthRepository implements IAuthRepository {
       path: '/v3/customer/login_using_access_token',
       data: loginPayload,
     );
-    return VerifyResponse.fromJson(response);
+
+    // add cancellation reasons
+    VerifyResponse verifyResponse = VerifyResponse.fromJson(response);
+    if (response.containsKey('autos')) {
+      if (response['autos'].containsKey('cancellation')) {
+        verifyResponse = verifyResponse.copyWith(
+            cancelReasons: List<String>.from(
+                response['autos']['cancellation']['reasons']));
+      }
+
+      verifyResponse = verifyResponse.copyWith(
+        locale: response['autos']['locale'],
+        callCenterNumber: response['autos']['call_center_number'],
+      );
+    }
+
+    return verifyResponse;
   }
 
   @override

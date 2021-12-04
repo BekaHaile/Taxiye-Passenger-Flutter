@@ -16,11 +16,13 @@ class Country {
     required this.name,
     required this.code,
     required this.isoCode,
+    required this.currency,
   });
 
   final String name;
   final String code;
   final String isoCode;
+  final String currency;
 }
 
 class Option {

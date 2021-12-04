@@ -67,12 +67,13 @@ class AuthController extends GetxService {
 
   final GetStorage _storage = GetStorage();
   late Map<String, dynamic> defaultParams;
+  List<String> rideCancellationReasons = [];
+  String callCenterNumber = kTaxiyePhoneNumber;
 
   @override
   void onInit() async {
     // Todo: initialize values and get any auth values here.
     super.onInit();
-    setLocale();
   }
 
   setGeneralInfo() async {
@@ -85,8 +86,9 @@ class AuthController extends GetxService {
     ]);
   }
 
-  setLocale() {
-    String locale = _storage.read<String>('locale') ?? 'en';
+  setLocale(String locale) {
+    _storage.write('locale', locale);
+    //String locale = _storage.read<String>('locale') ?? 'en';
     Get.updateLocale(Locale(locale));
   }
 
@@ -372,6 +374,11 @@ class AuthController extends GetxService {
         'device_token': deviceToken,
       }).then((loginResponse) {
         if (loginResponse.flag == SuccessFlags.login.successCode) {
+          rideCancellationReasons = loginResponse.cancelReasons ?? [];
+          setLocale(loginResponse.locale ?? 'en');
+          callCenterNumber =
+              loginResponse.callCenterNumber ?? kTaxiyePhoneNumber;
+
           _navigateUser();
           if (loginResponse.userData != null) {
             user = loginResponse.userData;

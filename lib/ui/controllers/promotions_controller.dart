@@ -10,6 +10,7 @@ import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
 /*
@@ -49,10 +50,12 @@ class PromotionsController extends GetxController {
   set airtimeHistories(value) => _airtimeHistories.assignAll(value);
 
   Coupon? selectedCoupon;
+  Promotion? selectedPromotion;
   String promotionCode = '';
   String referralNumber = '';
 
-  String currency = 'ETB';
+  String currency = kCountries.first.currency;
+  String countryCode = kCountries.first.code;
   final GetStorage _storage = GetStorage();
 
   @override
@@ -65,6 +68,12 @@ class PromotionsController extends GetxController {
     // test.phoneNo
     referralNumber =
         _authController.user.phoneNo?.replaceAll(RegExp('[\\D]'), '') ?? '';
+    countryCode = _authController.user.countryCode ?? kCountries.first.code;
+    currency = kCountries
+        .firstWhere(
+            (element) => element.code == _authController.user.countryCode,
+            orElse: () => kCountries.first)
+        .currency;
     _getPromotionsAndCoupons();
     _getPromotionBalance();
     _getExchangePointOptions();
@@ -175,13 +184,14 @@ class PromotionsController extends GetxController {
     ];
   }
 
-  onSelectCoupon(Coupon coupon) {
+  onSelectCoupon({Coupon? coupon, Promotion? promotion}) {
     selectedCoupon = coupon;
+    selectedPromotion = promotion;
     Get.toNamed(Routes.promoDetail);
   }
 
-  onPickOffer(Coupon coupon) {
-    _homeController.selectedCoupon = coupon;
+  onPickOffer({Coupon? coupon, Promotion? promotion}) {
+    _homeController.onPromoCouponSelected(coupon: coupon, promotion: promotion);
     Get.back();
   }
 
@@ -277,7 +287,8 @@ class PromotionsController extends GetxController {
   }
 
   onCouponBookNow() {
-    _homeController.selectedCoupon = selectedCoupon;
+    _homeController.onPromoCouponSelected(
+        coupon: selectedCoupon, promotion: selectedPromotion);
     Get.toNamed(Routes.home);
   }
 }

@@ -30,10 +30,13 @@ class SettingsController extends GetxController {
   set privacyOptions(value) => _privacyOptions.assignAll(value);
 
   final GetStorage _storage = GetStorage();
+  String locale = 'en';
 
   @override
   void onInit() async {
     super.onInit();
+
+    locale = _storage.read<String>('locale') ?? 'en';
     _setSettingOptions();
     _setPrivacyOptions();
   }
@@ -45,6 +48,8 @@ class SettingsController extends GetxController {
         if (data.flag == SuccessFlags.updateProfile.successCode) {
           if (languagePayload.containsKey('updatedLocale')) {
             String locale = languagePayload['updatedLocale'];
+            _storage.write('locale', locale);
+            this.locale = locale;
             Get.updateLocale(Locale(locale));
             reloadProfile();
           }
@@ -72,8 +77,7 @@ class SettingsController extends GetxController {
       Option(
           title: 'language',
           subtitle: kLanguages
-              .firstWhere(
-                  (language) => language.code == authController.user.locale,
+              .firstWhere((language) => language.code == locale,
                   orElse: () => kLanguages.first)
               .name),
       Option(title: 'privacy_settings', subtitle: 'customize_privacy'),

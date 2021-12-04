@@ -14,10 +14,10 @@ const kDioReceiveTimeout = 50000;
 const kPagePadding = 20.0;
 const ktitleTopPadding = 76.0;
 const List<Country> kCountries = [
-  Country(name: 'Ethiopia', code: '+251', isoCode: 'ET'),
-  Country(name: 'Kenya', code: '+254', isoCode: 'KE'),
-  Country(name: 'USA', code: '+1', isoCode: 'US'),
-  Country(name: 'Sudan', code: '+249', isoCode: 'SD')
+  Country(name: 'Ethiopia', code: '+251', isoCode: 'ET', currency: 'ETB'),
+  Country(name: 'Kenya', code: '+254', isoCode: 'KE', currency: 'KSH'),
+  Country(name: 'USA', code: '+1', isoCode: 'US', currency: '\$'),
+  Country(name: 'Sudan', code: '+249', isoCode: 'SD', currency: 'ج.س')
 ];
 
 const List<Language> kLanguages = [

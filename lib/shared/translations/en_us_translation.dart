@@ -200,6 +200,10 @@ final Map<String, String> enUs = {
   'upcoming_ride_scheduled': 'Upcoming ride scheduled!',
   'pick_offer': 'Pick Offer',
 
+  'ride_note': 'Ride Note',
+  'save_note': 'Save Note',
+  'note_hint': 'Write your note here ...',
+
   // vehicle detail
   'fare_details': 'Fare Details',
   'close': 'Close',

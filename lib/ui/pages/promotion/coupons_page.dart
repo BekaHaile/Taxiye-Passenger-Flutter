@@ -30,7 +30,7 @@ class CouponsPage extends GetView<PromotionsController> {
                   coupons: controller.coupons,
                   showExpires: true,
                   onCouponSelect: (selectedCoupon) =>
-                      controller.onSelectCoupon(selectedCoupon),
+                      controller.onSelectCoupon(coupon: selectedCoupon),
                 )
               : const EmptyState()),
         ],

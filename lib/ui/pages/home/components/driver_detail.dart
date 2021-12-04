@@ -4,6 +4,7 @@ import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/drivers/components/driver_tile.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/cancel_reason_dialog.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/slide_cancel.dart';
 
 class DriverDetail extends GetView<HomeController> {
@@ -41,7 +42,11 @@ class DriverDetail extends GetView<HomeController> {
             const SizedBox(height: 20.0),
             if (controller.selectedService == HomeServiceIndex.ride)
               SlideCancel(
-                onCancel: () => controller.onCancelRide(),
+                onCancel: () => Get.dialog(CancelReasonDialog(
+                    title: 'cancel_reason'.tr,
+                    reasons: controller.rideCancellReasons,
+                    onSelectReason: (reason) =>
+                        controller.onCancelRide(reason: reason))),
               )
           ],
         ),

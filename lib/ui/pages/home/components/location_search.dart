@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
@@ -85,6 +87,9 @@ class LocationSearch extends GetView<HomeController> {
     } else {
       controller.dropOffLocationSearch = initialText;
     }
+
+    log('mode: ${LocationType.pickUp}');
+    log('mode: $initialText');
   }
 
   TextEditingController getSearchController() =>

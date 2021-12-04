@@ -97,6 +97,7 @@ _$_Vehicle _$_$_VehicleFromJson(Map<String, dynamic> json) {
         ? null
         : DeliveryCharge.fromJson(
             json['deliveryCharge'] as Map<String, dynamic>),
+    hasPromoCoupon: json['hasPromoCoupon'] as bool?,
     regionId: json['region_id'] as int?,
     operatorId: json['operator_id'] as int?,
     regionName: json['region_name'] as String?,
@@ -118,6 +119,7 @@ Map<String, dynamic> _$_$_VehicleToJson(_$_Vehicle instance) =>
       'name': instance.name,
       'fareStructure': instance.fareStructure,
       'deliveryCharge': instance.deliveryCharge,
+      'hasPromoCoupon': instance.hasPromoCoupon,
       'region_id': instance.regionId,
       'operator_id': instance.operatorId,
       'region_name': instance.regionName,
@@ -730,6 +732,11 @@ _$_VerifyResponse _$_$_VerifyResponseFromJson(Map<String, dynamic> json) {
     json['flag'] as int,
     message: json['message'] as String?,
     error: json['error'] as String?,
+    cancelReasons: (json['cancelReasons'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList(),
+    locale: json['locale'] as String?,
+    callCenterNumber: json['callCenterNumber'] as String?,
     userData: json['user_data'] == null
         ? null
         : User.fromJson(json['user_data'] as Map<String, dynamic>),
@@ -741,6 +748,9 @@ Map<String, dynamic> _$_$_VerifyResponseToJson(_$_VerifyResponse instance) =>
       'flag': instance.flag,
       'message': instance.message,
       'error': instance.error,
+      'cancelReasons': instance.cancelReasons,
+      'locale': instance.locale,
+      'callCenterNumber': instance.callCenterNumber,
       'user_data': instance.userData,
     };
 
@@ -1368,6 +1378,7 @@ _$_Coupon _$_$_CouponFromJson(Map<String, dynamic> json) {
     maximum: json['maximum'] as int?,
     status: json['status'] as int?,
     couponId: json['coupon_id'] as int?,
+    accountId: json['account_id'] as int?,
     couponType: json['coupon_type'] as int?,
     allowedVehicles: (json['allowed_vehicles'] as List<dynamic>?)
         ?.map((e) => e as int)
@@ -1387,6 +1398,7 @@ Map<String, dynamic> _$_$_CouponToJson(_$_Coupon instance) => <String, dynamic>{
       'maximum': instance.maximum,
       'status': instance.status,
       'coupon_id': instance.couponId,
+      'account_id': instance.accountId,
       'coupon_type': instance.couponType,
       'allowed_vehicles': instance.allowedVehicles,
       'expiry_date': instance.expiryDate?.toIso8601String(),

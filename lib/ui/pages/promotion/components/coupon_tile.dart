@@ -71,7 +71,7 @@ class CouponTile extends StatelessWidget {
                           children: [
                             if (coupon != null)
                               TextSpan(
-                                text: '${coupon?.discount}',
+                                text: '${coupon?.discount} ',
                                 style: const TextStyle(
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w700,

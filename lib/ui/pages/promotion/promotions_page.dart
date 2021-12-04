@@ -121,9 +121,8 @@ class PromotionsPage extends GetView<PromotionsController> {
                         child: CouponList(
                           promotions: controller.promotions,
                           scrollDirection: Axis.horizontal,
-                          onPromotionSelect: (selectedPromotion) {
-                            //Todo: onPromotion selected
-                          },
+                          onPromotionSelect: (selectedPromotion) => controller
+                              .onSelectCoupon(promotion: selectedPromotion),
                         ),
                       )
                     : const SizedBox()),
