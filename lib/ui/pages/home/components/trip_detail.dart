@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
-import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_payment_list.dart';
@@ -63,7 +62,8 @@ class TripDetail extends GetView<HomeController> {
                             vertical: 20.0, horizontal: 25.0),
                         child: Column(
                           children: [
-                            if (rideDetail.fare != rideDetail.toPay)
+                            if (controller.rideType == 1 ||
+                                rideDetail.fare != rideDetail.toPay)
                               Text(
                                 '${rideDetail.fare?.round()} ${'birr'.tr}',
                                 style: const TextStyle(
@@ -75,7 +75,7 @@ class TripDetail extends GetView<HomeController> {
                               ),
                             const SizedBox(height: 5.0),
                             Text(
-                              '${rideDetail.toPay?.round()} ${'birr'.tr}',
+                              '${controller.rideType == 1 ? 0 : rideDetail.toPay?.round()} ${'birr'.tr}',
                               style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.w700,
@@ -105,7 +105,7 @@ class TripDetail extends GetView<HomeController> {
                         DistanceInfo(
                           title: 'duration',
                           value: controller.rideCounter,
-                          //value: rideDetail.rideTime ?? 0,
+                          // value: rideDetail.rideTime ?? 0,
                         ),
                       ],
                     )
@@ -119,24 +119,30 @@ class TripDetail extends GetView<HomeController> {
                 () => HomePaymentList(
                     paymentMethods: controller.paymentMethods,
                     selectedPayment: controller.selectedPayment,
-                    onItemSelected: (selectedPayment) {
-                      controller.selectedPayment = selectedPayment;
-                      switch (selectedPayment.name) {
-                        case 'hellocash':
-                          controller.onHelloCashSelected();
-                          break;
-                        case 'mpesa':
-                          controller.onMpesaSelected();
-                          break;
-                        default:
-                      }
-                    }),
+                    onItemSelected: (selectedPayment) =>
+                        controller.selectedPayment = selectedPayment),
               ),
-            RoundedButton(
+            Obx(() => RoundedButton(
                 text: controller.rideType != 1
-                    ? 'pay_with_cash'.tr
+                    ? 'pay_with'.trParams({
+                        'mode':
+                            controller.selectedPayment.name == 'cash_payment'
+                                ? 'cash'
+                                : controller.selectedPayment.name
+                      })
                     : 'continue'.tr,
-                onPressed: () => controller.onPaymentProcessed())
+                onPressed: () {
+                  switch (controller.selectedPayment.name) {
+                    case 'hellocash':
+                      controller.onHelloCashSelected();
+                      break;
+                    case 'mpesa':
+                      controller.onMpesaSelected();
+                      break;
+                    default:
+                      controller.onPaymentProcessed();
+                  }
+                }))
           ],
         ),
       ),

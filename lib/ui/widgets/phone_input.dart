@@ -12,10 +12,12 @@ class PhoneInput extends StatelessWidget {
     this.onChanged,
     this.onCountryChange,
     this.validator,
+    this.intialValue = '',
   }) : super(key: key);
 
   final Function(String? value)? onSaved;
   final Function(String value)? onChanged;
+  final String intialValue;
   final Function(Country? value)? onCountryChange;
   final FormFieldValidator<String>? validator;
 
@@ -23,12 +25,15 @@ class PhoneInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       // controller: phoneController,
+      initialValue: intialValue,
+      maxLength: 12,
       keyboardType: TextInputType.phone,
       onChanged: onChanged,
       onSaved: onSaved,
       style: AppTheme.title2,
       decoration: AppTheme.textFieldDecoration.copyWith(
         hintText: 'phone_number'.tr,
+        counterText: '',
         prefixIconConstraints: const BoxConstraints(maxWidth: 100.0),
         prefixIcon: Padding(
           padding: const EdgeInsets.only(right: 12.0),

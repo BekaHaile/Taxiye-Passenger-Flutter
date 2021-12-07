@@ -11,11 +11,13 @@ class VehicleList extends StatelessWidget {
     required this.vehicles,
     required this.selectedVehicle,
     required this.onItemSelected,
+    this.rideType = 0,
   }) : super(key: key);
 
   final List<Vehicle> vehicles;
   final Vehicle selectedVehicle;
   final Function(Vehicle selectedVehicle) onItemSelected;
+  final int rideType;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class VehicleList extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.fromLTRB(16.0, 10.0, 10.0, 20.0),
             child: VehicleTile(
+              rideType: rideType,
               vehicle: vehicle,
               isActive: selectedVehicle == vehicle,
               onTap: () => onItemSelected(vehicle),
@@ -52,11 +55,13 @@ class VehicleTile extends StatelessWidget {
     required this.vehicle,
     required this.onTap,
     this.isActive = false,
+    required this.rideType,
   }) : super(key: key);
 
   final Vehicle vehicle;
   final VoidCallback onTap;
   final bool isActive;
+  final int rideType;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +85,7 @@ class VehicleTile extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            if (vehicle.hasPromoCoupon ?? false)
+            if ((vehicle.hasPromoCoupon ?? false) && rideType == 0)
               Positioned(
                 right: 2.0,
                 child: RotatedBox(
@@ -139,7 +144,8 @@ class VehicleTile extends StatelessWidget {
                       color: AppTheme.primaryColor,
                     ),
                   ),
-                  if ((vehicle.hasPromoCoupon ?? false) &&
+                  if (rideType == 0 &&
+                      (vehicle.hasPromoCoupon ?? false) &&
                       vehicle.regionFare != null &&
                       vehicle.regionFare?.fare !=
                           vehicle.regionFare?.originalFare)

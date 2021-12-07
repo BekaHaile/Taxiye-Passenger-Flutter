@@ -184,6 +184,8 @@ class Payment with _$Payment {
   factory Payment({
     String? name,
     int? enabled,
+    List<String>? systems,
+    @JsonKey(name: 'display_name') String? displayName,
   }) = _Payment;
 
   factory Payment.fromJson(Map<String, dynamic> json) =>
@@ -523,10 +525,9 @@ abstract class WalletResponse with _$WalletResponse {
 
 @freezed
 abstract class PayWithHelloCashResponse with _$PayWithHelloCashResponse {
-  factory PayWithHelloCashResponse(
-    int flag, {
+  factory PayWithHelloCashResponse({
     int? amount,
-    int? code,
+    String? code,
     String? message,
     String? currency,
     String? date,
@@ -545,6 +546,26 @@ abstract class PayWithHelloCashResponse with _$PayWithHelloCashResponse {
 
   factory PayWithHelloCashResponse.fromJson(Map<String, dynamic> json) =>
       _$PayWithHelloCashResponseFromJson(json);
+}
+
+@freezed
+abstract class CheckHelloCashResponse with _$CheckHelloCashResponse {
+  factory CheckHelloCashResponse({
+    int? amount,
+    String? message,
+    String? error,
+    int? id,
+    String? status,
+    @JsonKey(name: 'passenger_id') int? passengerId,
+    @JsonKey(name: 'driver_id') int? driverId,
+    @JsonKey(name: 'statusdetail') String? statusDetail,
+    @JsonKey(name: 'bill_ref_number') String? billRefNumber,
+    @JsonKey(name: 'payment_method') String? paymentMethod,
+    @JsonKey(name: 'generated_date') String? generatedDate,
+  }) = _CheckHelloCashResponse;
+
+  factory CheckHelloCashResponse.fromJson(Map<String, dynamic> json) =>
+      _$CheckHelloCashResponseFromJson(json);
 }
 
 @freezed
@@ -880,6 +901,20 @@ abstract class PromotionsResponse with _$PromotionsResponse {
 
   factory PromotionsResponse.fromJson(Map<String, dynamic> json) =>
       _$PromotionsResponseFromJson(json);
+}
+
+@freezed
+abstract class AirTimeResponse with _$AirTimeResponse {
+  factory AirTimeResponse(
+    int flag, {
+    String? message,
+    String? error,
+    String? log,
+    @JsonKey(name: 'voucher_number') String? voucherNumber,
+  }) = _AirTimeResponse;
+
+  factory AirTimeResponse.fromJson(Map<String, dynamic> json) =>
+      _$AirTimeResponseFromJson(json);
 }
 
 @freezed

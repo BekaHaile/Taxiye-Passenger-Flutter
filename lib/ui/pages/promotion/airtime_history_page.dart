@@ -7,6 +7,7 @@ import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AirtimeHistoryPage extends GetView<PromotionsController> {
   const AirtimeHistoryPage({Key? key}) : super(key: key);
@@ -34,11 +35,23 @@ class AirtimeHistoryPage extends GetView<PromotionsController> {
                       itemBuilder: (context, index) {
                         final AirtimeHistory airtimeHistory =
                             controller.airtimeHistories[index];
+
                         return ListTile(
                           title: Text('${airtimeHistory.amount}'),
                           subtitle: Text(airtimeHistory.date != null
                               ? formatDate(airtimeHistory.date!)
                               : ''),
+                          trailing: IconButton(
+                              onPressed: () => launch(
+                                  'tel:*805*${airtimeHistory.voucherNumber}#'),
+                              icon: const CircleAvatar(
+                                  radius: 30.0,
+                                  backgroundColor: AppTheme.primaryColor,
+                                  child: Icon(
+                                    Icons.call,
+                                    size: 20.0,
+                                    color: Colors.white,
+                                  ))),
                         );
                       },
                       itemCount: controller.airtimeHistories.length,

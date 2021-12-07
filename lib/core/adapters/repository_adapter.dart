@@ -131,8 +131,10 @@ abstract class IProfileRepository {
 abstract class IPaymentRepository {
   // Todo: Add profile request class signitures (interfaces) here.
   Future<WalletResponse> fetchWalletBalance(Map<String, dynamic> walletPayload);
-  Future<PayWithHelloCashResponse> payWithHelloCash(Map<String, dynamic> payWithHelloCashPayload);
-  Future<PayWithHelloCashResponse> checkHelloCashPayment(Map<String, dynamic> checkHelloCashPaymentPayload);
+  Future<PayWithHelloCashResponse> payWithHelloCash(
+      Map<String, dynamic> payWithHelloCashPayload);
+  Future<CheckHelloCashResponse> checkHelloCashPayment(
+      Map<String, dynamic> checkHelloCashPaymentPayload);
   Future<BasicResponse> payWithMpesa(Map<String, dynamic> payWithMpesaPayload);
 }
 
@@ -158,7 +160,7 @@ abstract class IPromotionsRepository {
   // Todo: Add promotions request class signitures (interfaces) here.
   Future<OffersResponse> getPromotionBalance();
   Future<BasicResponse> applyPromotionCode(String code);
-  Future<BasicResponse> buyAirTime(String amount);
+  Future<AirTimeResponse> buyAirTime(String amount);
   Future<BasicResponse> transferPoints(Map<String, dynamic> transferPayload);
 
   Future<PointTransactionResponse> getPointTransactions();

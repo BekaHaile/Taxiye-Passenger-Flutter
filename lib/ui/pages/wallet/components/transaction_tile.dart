@@ -37,7 +37,8 @@ class TransactionTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Row(
             children: [
-              transaction.type?.toLowerCase() == describeEnum(TransactionType.debited)
+              transaction.type?.toLowerCase() ==
+                      describeEnum(TransactionType.debited)
                   ? const Icon(
                       Icons.arrow_upward,
                       color: AppTheme.redColor,
@@ -59,7 +60,7 @@ class TransactionTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    transaction.transactionDate ?? '',
+                    transaction.transactionTime ?? '',
                     style: AppTheme.body.copyWith(
                       fontSize: 12.0,
                       color: AppTheme.greyColor,

@@ -52,7 +52,7 @@ class _BuyAirtimePageState extends State<BuyAirtimePage> {
                       SizedBox(height: Get.height * 0.1),
                       Center(
                         child: Text(
-                          '${'balance'.tr} ${controller.walletBalance}',
+                          '${'balance'.tr}: ${controller.walletBalance} ${'point'.tr}',
                           style: AppTheme.body.copyWith(fontSize: 18.0),
                         ),
                       ),
@@ -119,8 +119,10 @@ class _BuyAirtimePageState extends State<BuyAirtimePage> {
                         title: 'buy_airtime'.tr,
                         content:
                             '${'buy_airtime_info'.tr} $selectedAirtime ${controller.currency} ${'airtime'.tr}',
-                        actionCallback: () =>
-                            controller.onBuyAirtime(selectedAirtime),
+                        actionCallback: () {
+                          controller.onBuyAirtime(selectedAirtime);
+                          selectedAirtime = 0;
+                        },
                         actionText: 'yes',
                         cancelText: 'no',
                       )),

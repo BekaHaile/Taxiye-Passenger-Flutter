@@ -34,13 +34,15 @@ class PromotionsRepository implements IPromotionsRepository {
   }
 
   @override
-  Future<BasicResponse> buyAirTime(String amount) async {
+  Future<AirTimeResponse> buyAirTime(String amount) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/taxiye-offers/buy-airtime',
       data: {'airtime_amount': amount},
     );
-    return BasicResponse.fromJson(response);
+
+    log('buy response: $response');
+    return AirTimeResponse.fromJson(response);
   }
 
   @override

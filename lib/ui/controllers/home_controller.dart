@@ -24,6 +24,7 @@ import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/payment_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
+import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 import 'package:uuid/uuid.dart';
@@ -220,6 +221,7 @@ class HomeController extends GetxService {
 
   Coupon? selectedCoupon;
   Promotion? selectedPromotion;
+  Country country = kCountries.first;
 
   @override
   void onInit() async {
@@ -234,6 +236,11 @@ class HomeController extends GetxService {
         authController.currentLocation.longitude);
     rideCancellReasons = authController.rideCancellationReasons;
     callCenterNumber = authController.callCenterNumber;
+    country = authController.user.countryCode != null
+        ? kCountries.firstWhere(
+            (element) => element.code == authController.user.countryCode,
+            orElse: () => kCountries.first)
+        : kCountries.first;
 
     getPlaceNameFromCordinate(currentLocation).then((value) {
       Place place = Place(
@@ -250,7 +257,7 @@ class HomeController extends GetxService {
     _findDrivers();
     _setPinIcons();
     _getUserCorporates();
-    _getPaymentTypes();
+    getPaymentTypes();
     _getSavedPlaces();
     _updateHomePayments();
   }
@@ -269,8 +276,30 @@ class HomeController extends GetxService {
         NotificationMessage notificationMessage =
             NotificationMessage.fromJson(jsonDecode(storedNotification!));
         onMessageRescieved(notificationMessage);
+
+        // check if ride started while app is on background
+        if (notificationMessage.flag == 3) {
+          final rideStartedTime = prefs.getString('rideStartedTime');
+          if (rideStartedTime?.isNotEmpty ?? false) {
+            rideCounter = DateTime.now()
+                .difference(DateTime.parse(rideStartedTime!))
+                .inSeconds;
+          }
+        }
+
+        final storedRideAccepted = prefs.getString('rideAcceptedNotification');
+        if (storedRideAccepted?.isNotEmpty ?? false) {
+          NotificationMessage rideAcceptedMessage =
+              NotificationMessage.fromJson(jsonDecode(storedRideAccepted!));
+
+          _setRideDriverInfo(rideAcceptedMessage);
+          engagementId = int.tryParse(rideAcceptedMessage.engagementId ?? '0');
+          prefs.setString('rideAcceptedNotification', '');
+        }
+
         // clear rideNotification from shared preference
         prefs.setString('rideNotification', '');
+        prefs.setString('rideStartedTime', '');
       }
     }
   }
@@ -345,25 +374,31 @@ class HomeController extends GetxService {
     }
   }
 
-  _startDriverOnRouteTimer(int mins) {
-    if ((mins * 60) != driverOnRouteCounter) {
-      driverOnRouteCounter = mins * 60; // in seconds
-      const oneSec = Duration(seconds: 1);
-      Timer.periodic(
-        oneSec,
-        (Timer timer) {
-          if (driverOnRouteCounter < 1) {
-            timer.cancel();
-          } else {
+  _startDriverOnRouteTimer() {
+    const oneSec = Duration(seconds: 1);
+    Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (tripStep == TripStep.driverDetail) {
+          if (driverOnRouteCounter > 0) {
             driverOnRouteCounter--;
           }
-        },
-      );
-    }
+        } else {
+          timer.cancel();
+        }
+      },
+    );
   }
 
   _startRideTimer() {
-    Timer.periodic(const Duration(seconds: 1), (Timer timer) => rideCounter++);
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (tripStep == TripStep.tripStarted) {
+        rideCounter++;
+      } else {
+        timer.cancel();
+        rideCounter = 0;
+      }
+    });
   }
 
   onMessageRescieved(NotificationMessage notificationMessage) {
@@ -395,6 +430,14 @@ class HomeController extends GetxService {
         tripStep = TripStep.tripDetail;
         break;
       case SuccessFlags.driverCancelRide:
+        Get.dialog(ConfirmDialog(
+          title: 'ride_cancelled'.tr,
+          content: 'driver_canceled_ride'.tr,
+          showCancel: false,
+          actionCallback: () => Get.back(),
+        ));
+        resetValues();
+        break;
       case SuccessFlags.driversBusy:
         resetValues();
         break;
@@ -405,11 +448,13 @@ class HomeController extends GetxService {
       case SuccessFlags.payWithMpesa:
         if (tripStep == TripStep.tripDetail) {
           tripStep = TripStep.tripFeedback;
+          Get.snackbar('error'.tr, 'mpesa_pay_fail'.tr);
         }
         break;
       case SuccessFlags.payWithMpesaFailed:
         if (tripStep == TripStep.tripDetail) {
           status(Status.error);
+          Get.snackbar('success'.tr, 'mpesa_pay_success'.tr);
         }
         break;
       default:
@@ -422,23 +467,7 @@ class HomeController extends GetxService {
 
   _onRideAccepted(NotificationMessage notificationMessage) {
     // Ride accepted with driver payload
-    // set driver and driver detail
-    driver = Driver(
-      userName: notificationMessage.userName ?? '',
-      driverId: notificationMessage.driverId,
-      phoneNo: notificationMessage.phoneNo,
-      vehicleNo: notificationMessage.driverCarNo,
-      driverImage: notificationMessage.userImage,
-      rating: notificationMessage.rating,
-    );
-
-    driverVehicle = Vehicle(
-      vehicleType: notificationMessage.vehicleType,
-      regionName: notificationMessage.vehicleName,
-      images: VehicleImage(tabNormal: notificationMessage.driverCarImage),
-      vehicleNumber: notificationMessage.driverCarNo,
-    );
-
+    _setRideDriverInfo(notificationMessage);
     // set session and engagement ids
     sessionId = notificationMessage.sessionId;
     engagementId = int.tryParse(notificationMessage.engagementId ?? '0');
@@ -483,6 +512,26 @@ class HomeController extends GetxService {
     }, onError: (error) => log('Poly line error: $error'));
 
     _updateDriverLocation();
+    _startDriverOnRouteTimer();
+  }
+
+  _setRideDriverInfo(NotificationMessage notificationMessage) {
+    // set driver and driver detail
+    driver = Driver(
+      userName: notificationMessage.userName ?? '',
+      driverId: notificationMessage.driverId,
+      phoneNo: notificationMessage.phoneNo,
+      vehicleNo: notificationMessage.driverCarNo,
+      driverImage: notificationMessage.userImage,
+      rating: notificationMessage.rating,
+    );
+
+    driverVehicle = Vehicle(
+      vehicleType: notificationMessage.vehicleType,
+      regionName: notificationMessage.vehicleName,
+      images: VehicleImage(tabNormal: notificationMessage.driverCarImage),
+      vehicleNumber: notificationMessage.driverCarNo,
+    );
   }
 
   _onRideStarted() {
@@ -526,8 +575,12 @@ class HomeController extends GetxService {
         List<String>? coporateRestrictedVehicles =
             selectedCorporate?.restrictedSubRegions?.split(',');
         if (coporateRestrictedVehicles?.isNotEmpty ?? false) {
-          vehicles = allVehicles?.where((vehicle) =>
+          // filter from Normal vehicles, instead of all vehicles
+          final List<Vehicle> temVehicles = [];
+          temVehicles.assignAll(vehicles);
+          final corporateVehicles = temVehicles.where((vehicle) =>
               !coporateRestrictedVehicles!.contains('${vehicle.regionId}'));
+          vehicles = corporateVehicles;
         }
       } else {
         vehicles =
@@ -605,8 +658,8 @@ class HomeController extends GetxService {
       if (debounce?.isActive ?? false) debounce?.cancel();
       debounce = Timer(const Duration(milliseconds: 250), () {
         repository
-            .getPlaceSugestions(
-                input, Get.locale?.languageCode ?? 'en', 'et', sessionToken)
+            .getPlaceSugestions(input, Get.locale?.languageCode ?? 'en',
+                country.isoCode, sessionToken)
             .then((placeSuggestions) {
           locationSuggestions = placeSuggestions;
         }, onError: (error) => log('location Suggetion error: $error'));
@@ -652,28 +705,44 @@ class HomeController extends GetxService {
     });
   }
 
-  _getPaymentTypes() {
+  getPaymentTypes() {
     //Todo: Get payment Types
-    paymentTypes = [
-      PaymentType(
-        paymentMode: 0,
-        text: 'cash'.tr,
-        icon: CustomIcons.payment,
-        iconColor: AppTheme.greenColor,
-      ),
-      PaymentType(
-        paymentMode: 1,
-        text: 'offers'.tr,
-        icon: CustomIcons.offer,
-        iconColor: AppTheme.primaryColor,
-      ),
-      const PaymentType(
-        paymentMode: 2,
-        text: 'notes',
-        icon: CustomIcons.notes,
-        iconColor: AppTheme.yellowColor,
-      )
-    ];
+
+    paymentTypes = selectedService == HomeServiceIndex.ride
+        ? [
+            PaymentType(
+              paymentMode: 0,
+              text: 'cash'.tr,
+              icon: CustomIcons.payment,
+              iconColor: AppTheme.greenColor,
+            ),
+            PaymentType(
+              paymentMode: 1,
+              text: 'offers'.tr,
+              icon: CustomIcons.offer,
+              iconColor: AppTheme.primaryColor,
+            ),
+            const PaymentType(
+              paymentMode: 2,
+              text: 'notes',
+              icon: CustomIcons.notes,
+              iconColor: AppTheme.yellowColor,
+            )
+          ]
+        : [
+            PaymentType(
+              paymentMode: 0,
+              text: 'cash'.tr,
+              icon: CustomIcons.payment,
+              iconColor: AppTheme.greenColor,
+            ),
+            const PaymentType(
+              paymentMode: 2,
+              text: 'notes',
+              icon: CustomIcons.notes,
+              iconColor: AppTheme.yellowColor,
+            )
+          ];
   }
 
   _getSavedPlaces() {
@@ -1113,8 +1182,11 @@ class HomeController extends GetxService {
       'feedback_reasons': 'performance'
     };
 
+    log('payload: $rateDriverPayload');
+
     status(Status.loading);
     repository.rateDriver(rateDriverPayload).then((rateDriverResponse) {
+      log('response here: $rateDriverPayload');
       if (rateDriverResponse.flag == SuccessFlags.rateDriver.successCode) {
         status(Status.success);
         Get.snackbar('succes'.tr, 'rate_driver_success'.tr);
@@ -1237,11 +1309,11 @@ class HomeController extends GetxService {
 
     routeDistance = 0.0;
     rideNote = '';
-    _refreshCurrentLocation();
+    refreshCurrentLocation();
     _findDrivers();
   }
 
-  _refreshCurrentLocation() {
+  refreshCurrentLocation() {
     getCurrentLocation().then((value) {
       currentLocation = LatLng(value.latitude, value.longitude);
 
@@ -1382,10 +1454,11 @@ class HomeController extends GetxService {
     // untill trip starts
     _getDriverLocation();
     Timer.periodic(const Duration(seconds: 10), (timer) {
-      if (tripStep != TripStep.driverDetail) {
+      if (tripStep == TripStep.driverDetail) {
+        _getDriverLocation();
+      } else {
         timer.cancel();
       }
-      _getDriverLocation();
     });
   }
 
@@ -1398,7 +1471,8 @@ class HomeController extends GetxService {
         if (driverLocationResponse.flag ==
             SuccessFlags.driverLocation.successCode) {
           if (driverLocationResponse.eta != null) {
-            _startDriverOnRouteTimer(driverLocationResponse.eta!);
+            // update driver waiting time
+            driverOnRouteCounter = driverLocationResponse.eta! * 60;
           }
           // update driver marker.
           if (driverLocationResponse.latitude != null &&
@@ -1655,10 +1729,11 @@ class HomeController extends GetxService {
     // this is called every 10 sec to update drivers' location
     // untill trip starts
     Timer.periodic(const Duration(seconds: 10), (timer) {
-      if (tripStep != TripStep.driverDetail) {
+      if (tripStep == TripStep.driverDetail) {
+        _liveDeliveryTracking();
+      } else {
         timer.cancel();
       }
-      _liveDeliveryTracking();
     });
   }
 
@@ -1872,9 +1947,10 @@ class HomeController extends GetxService {
   onHelloCashSelected() {
     if (driver?.driverId != null) {
       PaymentController paymentController = Get.find();
-      paymentController.amount = '${rideDetail?.toPay?.round()}';
-      paymentController.driverId = '${driver?.driverId}';
-      Get.toNamed(Routes.hellocash);
+      paymentController.onHelloCashSelected(
+          hellocash: selectedPayment,
+          amount: '${rideDetail?.toPay?.round()}',
+          driverId: '${driver?.driverId}');
     }
   }
 
@@ -1882,10 +1958,14 @@ class HomeController extends GetxService {
     if (driver?.driverId != null) {
       PaymentController paymentController = Get.find();
       status(Status.loading);
+      Get.snackbar('', 'payment_pending'.tr);
       paymentController.payWithMpesa('$engagementId');
 
       await Future<dynamic>.delayed(const Duration(seconds: 40));
-      status(Status.error);
+      if (status.value == Status.loading) {
+        status(Status.error);
+        toast('error', 'mpesa_pay_fail');
+      }
     }
   }
 }

@@ -3699,10 +3699,16 @@ Payment _$PaymentFromJson(Map<String, dynamic> json) {
 class _$PaymentTearOff {
   const _$PaymentTearOff();
 
-  _Payment call({String? name, int? enabled}) {
+  _Payment call(
+      {String? name,
+      int? enabled,
+      List<String>? systems,
+      @JsonKey(name: 'display_name') String? displayName}) {
     return _Payment(
       name: name,
       enabled: enabled,
+      systems: systems,
+      displayName: displayName,
     );
   }
 
@@ -3718,6 +3724,9 @@ const $Payment = _$PaymentTearOff();
 mixin _$Payment {
   String? get name => throw _privateConstructorUsedError;
   int? get enabled => throw _privateConstructorUsedError;
+  List<String>? get systems => throw _privateConstructorUsedError;
+  @JsonKey(name: 'display_name')
+  String? get displayName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -3728,7 +3737,11 @@ mixin _$Payment {
 abstract class $PaymentCopyWith<$Res> {
   factory $PaymentCopyWith(Payment value, $Res Function(Payment) then) =
       _$PaymentCopyWithImpl<$Res>;
-  $Res call({String? name, int? enabled});
+  $Res call(
+      {String? name,
+      int? enabled,
+      List<String>? systems,
+      @JsonKey(name: 'display_name') String? displayName});
 }
 
 /// @nodoc
@@ -3743,6 +3756,8 @@ class _$PaymentCopyWithImpl<$Res> implements $PaymentCopyWith<$Res> {
   $Res call({
     Object? name = freezed,
     Object? enabled = freezed,
+    Object? systems = freezed,
+    Object? displayName = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -3753,6 +3768,14 @@ class _$PaymentCopyWithImpl<$Res> implements $PaymentCopyWith<$Res> {
           ? _value.enabled
           : enabled // ignore: cast_nullable_to_non_nullable
               as int?,
+      systems: systems == freezed
+          ? _value.systems
+          : systems // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      displayName: displayName == freezed
+          ? _value.displayName
+          : displayName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -3762,7 +3785,11 @@ abstract class _$PaymentCopyWith<$Res> implements $PaymentCopyWith<$Res> {
   factory _$PaymentCopyWith(_Payment value, $Res Function(_Payment) then) =
       __$PaymentCopyWithImpl<$Res>;
   @override
-  $Res call({String? name, int? enabled});
+  $Res call(
+      {String? name,
+      int? enabled,
+      List<String>? systems,
+      @JsonKey(name: 'display_name') String? displayName});
 }
 
 /// @nodoc
@@ -3778,6 +3805,8 @@ class __$PaymentCopyWithImpl<$Res> extends _$PaymentCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? enabled = freezed,
+    Object? systems = freezed,
+    Object? displayName = freezed,
   }) {
     return _then(_Payment(
       name: name == freezed
@@ -3788,6 +3817,14 @@ class __$PaymentCopyWithImpl<$Res> extends _$PaymentCopyWithImpl<$Res>
           ? _value.enabled
           : enabled // ignore: cast_nullable_to_non_nullable
               as int?,
+      systems: systems == freezed
+          ? _value.systems
+          : systems // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      displayName: displayName == freezed
+          ? _value.displayName
+          : displayName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -3795,7 +3832,11 @@ class __$PaymentCopyWithImpl<$Res> extends _$PaymentCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Payment implements _Payment {
-  _$_Payment({this.name, this.enabled});
+  _$_Payment(
+      {this.name,
+      this.enabled,
+      this.systems,
+      @JsonKey(name: 'display_name') this.displayName});
 
   factory _$_Payment.fromJson(Map<String, dynamic> json) =>
       _$_$_PaymentFromJson(json);
@@ -3804,10 +3845,15 @@ class _$_Payment implements _Payment {
   final String? name;
   @override
   final int? enabled;
+  @override
+  final List<String>? systems;
+  @override
+  @JsonKey(name: 'display_name')
+  final String? displayName;
 
   @override
   String toString() {
-    return 'Payment(name: $name, enabled: $enabled)';
+    return 'Payment(name: $name, enabled: $enabled, systems: $systems, displayName: $displayName)';
   }
 
   @override
@@ -3817,14 +3863,23 @@ class _$_Payment implements _Payment {
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.enabled, enabled) ||
-                const DeepCollectionEquality().equals(other.enabled, enabled)));
+                const DeepCollectionEquality()
+                    .equals(other.enabled, enabled)) &&
+            (identical(other.systems, systems) ||
+                const DeepCollectionEquality()
+                    .equals(other.systems, systems)) &&
+            (identical(other.displayName, displayName) ||
+                const DeepCollectionEquality()
+                    .equals(other.displayName, displayName)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(enabled);
+      const DeepCollectionEquality().hash(enabled) ^
+      const DeepCollectionEquality().hash(systems) ^
+      const DeepCollectionEquality().hash(displayName);
 
   @JsonKey(ignore: true)
   @override
@@ -3838,7 +3893,11 @@ class _$_Payment implements _Payment {
 }
 
 abstract class _Payment implements Payment {
-  factory _Payment({String? name, int? enabled}) = _$_Payment;
+  factory _Payment(
+      {String? name,
+      int? enabled,
+      List<String>? systems,
+      @JsonKey(name: 'display_name') String? displayName}) = _$_Payment;
 
   factory _Payment.fromJson(Map<String, dynamic> json) = _$_Payment.fromJson;
 
@@ -3846,6 +3905,11 @@ abstract class _Payment implements Payment {
   String? get name => throw _privateConstructorUsedError;
   @override
   int? get enabled => throw _privateConstructorUsedError;
+  @override
+  List<String>? get systems => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'display_name')
+  String? get displayName => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PaymentCopyWith<_Payment> get copyWith =>
@@ -10828,9 +10892,9 @@ PayWithHelloCashResponse _$PayWithHelloCashResponseFromJson(
 class _$PayWithHelloCashResponseTearOff {
   const _$PayWithHelloCashResponseTearOff();
 
-  _PayWithHelloCashResponse call(int flag,
+  _PayWithHelloCashResponse call(
       {int? amount,
-      int? code,
+      String? code,
       String? message,
       String? currency,
       String? date,
@@ -10846,7 +10910,6 @@ class _$PayWithHelloCashResponseTearOff {
       @JsonKey(name: 'isupcoming') String? isUpcoming,
       String? error}) {
     return _PayWithHelloCashResponse(
-      flag,
       amount: amount,
       code: code,
       message: message,
@@ -10876,9 +10939,8 @@ const $PayWithHelloCashResponse = _$PayWithHelloCashResponseTearOff();
 
 /// @nodoc
 mixin _$PayWithHelloCashResponse {
-  int get flag => throw _privateConstructorUsedError;
   int? get amount => throw _privateConstructorUsedError;
-  int? get code => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
@@ -10910,9 +10972,8 @@ abstract class $PayWithHelloCashResponseCopyWith<$Res> {
           $Res Function(PayWithHelloCashResponse) then) =
       _$PayWithHelloCashResponseCopyWithImpl<$Res>;
   $Res call(
-      {int flag,
-      int? amount,
-      int? code,
+      {int? amount,
+      String? code,
       String? message,
       String? currency,
       String? date,
@@ -10940,7 +11001,6 @@ class _$PayWithHelloCashResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? flag = freezed,
     Object? amount = freezed,
     Object? code = freezed,
     Object? message = freezed,
@@ -10959,10 +11019,6 @@ class _$PayWithHelloCashResponseCopyWithImpl<$Res>
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
-      flag: flag == freezed
-          ? _value.flag
-          : flag // ignore: cast_nullable_to_non_nullable
-              as int,
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -10970,7 +11026,7 @@ class _$PayWithHelloCashResponseCopyWithImpl<$Res>
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -11039,9 +11095,8 @@ abstract class _$PayWithHelloCashResponseCopyWith<$Res>
       __$PayWithHelloCashResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int flag,
-      int? amount,
-      int? code,
+      {int? amount,
+      String? code,
       String? message,
       String? currency,
       String? date,
@@ -11072,7 +11127,6 @@ class __$PayWithHelloCashResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? flag = freezed,
     Object? amount = freezed,
     Object? code = freezed,
     Object? message = freezed,
@@ -11091,10 +11145,6 @@ class __$PayWithHelloCashResponseCopyWithImpl<$Res>
     Object? error = freezed,
   }) {
     return _then(_PayWithHelloCashResponse(
-      flag == freezed
-          ? _value.flag
-          : flag // ignore: cast_nullable_to_non_nullable
-              as int,
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -11102,7 +11152,7 @@ class __$PayWithHelloCashResponseCopyWithImpl<$Res>
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -11166,7 +11216,7 @@ class __$PayWithHelloCashResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_PayWithHelloCashResponse implements _PayWithHelloCashResponse {
-  _$_PayWithHelloCashResponse(this.flag,
+  _$_PayWithHelloCashResponse(
       {this.amount,
       this.code,
       this.message,
@@ -11188,11 +11238,9 @@ class _$_PayWithHelloCashResponse implements _PayWithHelloCashResponse {
       _$_$_PayWithHelloCashResponseFromJson(json);
 
   @override
-  final int flag;
-  @override
   final int? amount;
   @override
-  final int? code;
+  final String? code;
   @override
   final String? message;
   @override
@@ -11228,15 +11276,13 @@ class _$_PayWithHelloCashResponse implements _PayWithHelloCashResponse {
 
   @override
   String toString() {
-    return 'PayWithHelloCashResponse(flag: $flag, amount: $amount, code: $code, message: $message, currency: $currency, date: $date, description: $description, expires: $expires, from: $from, fromName: $fromName, id: $id, status: $status, statusDetail: $statusDetail, toName: $toName, to: $to, isUpcoming: $isUpcoming, error: $error)';
+    return 'PayWithHelloCashResponse(amount: $amount, code: $code, message: $message, currency: $currency, date: $date, description: $description, expires: $expires, from: $from, fromName: $fromName, id: $id, status: $status, statusDetail: $statusDetail, toName: $toName, to: $to, isUpcoming: $isUpcoming, error: $error)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _PayWithHelloCashResponse &&
-            (identical(other.flag, flag) ||
-                const DeepCollectionEquality().equals(other.flag, flag)) &&
             (identical(other.amount, amount) ||
                 const DeepCollectionEquality().equals(other.amount, amount)) &&
             (identical(other.code, code) ||
@@ -11281,7 +11327,6 @@ class _$_PayWithHelloCashResponse implements _PayWithHelloCashResponse {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(flag) ^
       const DeepCollectionEquality().hash(amount) ^
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(message) ^
@@ -11312,9 +11357,9 @@ class _$_PayWithHelloCashResponse implements _PayWithHelloCashResponse {
 }
 
 abstract class _PayWithHelloCashResponse implements PayWithHelloCashResponse {
-  factory _PayWithHelloCashResponse(int flag,
+  factory _PayWithHelloCashResponse(
       {int? amount,
-      int? code,
+      String? code,
       String? message,
       String? currency,
       String? date,
@@ -11334,11 +11379,9 @@ abstract class _PayWithHelloCashResponse implements PayWithHelloCashResponse {
       _$_PayWithHelloCashResponse.fromJson;
 
   @override
-  int get flag => throw _privateConstructorUsedError;
-  @override
   int? get amount => throw _privateConstructorUsedError;
   @override
-  int? get code => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
   @override
   String? get message => throw _privateConstructorUsedError;
   @override
@@ -11374,6 +11417,429 @@ abstract class _PayWithHelloCashResponse implements PayWithHelloCashResponse {
   @override
   @JsonKey(ignore: true)
   _$PayWithHelloCashResponseCopyWith<_PayWithHelloCashResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+CheckHelloCashResponse _$CheckHelloCashResponseFromJson(
+    Map<String, dynamic> json) {
+  return _CheckHelloCashResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$CheckHelloCashResponseTearOff {
+  const _$CheckHelloCashResponseTearOff();
+
+  _CheckHelloCashResponse call(
+      {int? amount,
+      String? message,
+      String? error,
+      int? id,
+      String? status,
+      @JsonKey(name: 'passenger_id') int? passengerId,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'statusdetail') String? statusDetail,
+      @JsonKey(name: 'bill_ref_number') String? billRefNumber,
+      @JsonKey(name: 'payment_method') String? paymentMethod,
+      @JsonKey(name: 'generated_date') String? generatedDate}) {
+    return _CheckHelloCashResponse(
+      amount: amount,
+      message: message,
+      error: error,
+      id: id,
+      status: status,
+      passengerId: passengerId,
+      driverId: driverId,
+      statusDetail: statusDetail,
+      billRefNumber: billRefNumber,
+      paymentMethod: paymentMethod,
+      generatedDate: generatedDate,
+    );
+  }
+
+  CheckHelloCashResponse fromJson(Map<String, Object> json) {
+    return CheckHelloCashResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $CheckHelloCashResponse = _$CheckHelloCashResponseTearOff();
+
+/// @nodoc
+mixin _$CheckHelloCashResponse {
+  int? get amount => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'passenger_id')
+  int? get passengerId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'statusdetail')
+  String? get statusDetail => throw _privateConstructorUsedError;
+  @JsonKey(name: 'bill_ref_number')
+  String? get billRefNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'payment_method')
+  String? get paymentMethod => throw _privateConstructorUsedError;
+  @JsonKey(name: 'generated_date')
+  String? get generatedDate => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CheckHelloCashResponseCopyWith<CheckHelloCashResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CheckHelloCashResponseCopyWith<$Res> {
+  factory $CheckHelloCashResponseCopyWith(CheckHelloCashResponse value,
+          $Res Function(CheckHelloCashResponse) then) =
+      _$CheckHelloCashResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int? amount,
+      String? message,
+      String? error,
+      int? id,
+      String? status,
+      @JsonKey(name: 'passenger_id') int? passengerId,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'statusdetail') String? statusDetail,
+      @JsonKey(name: 'bill_ref_number') String? billRefNumber,
+      @JsonKey(name: 'payment_method') String? paymentMethod,
+      @JsonKey(name: 'generated_date') String? generatedDate});
+}
+
+/// @nodoc
+class _$CheckHelloCashResponseCopyWithImpl<$Res>
+    implements $CheckHelloCashResponseCopyWith<$Res> {
+  _$CheckHelloCashResponseCopyWithImpl(this._value, this._then);
+
+  final CheckHelloCashResponse _value;
+  // ignore: unused_field
+  final $Res Function(CheckHelloCashResponse) _then;
+
+  @override
+  $Res call({
+    Object? amount = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? id = freezed,
+    Object? status = freezed,
+    Object? passengerId = freezed,
+    Object? driverId = freezed,
+    Object? statusDetail = freezed,
+    Object? billRefNumber = freezed,
+    Object? paymentMethod = freezed,
+    Object? generatedDate = freezed,
+  }) {
+    return _then(_value.copyWith(
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      passengerId: passengerId == freezed
+          ? _value.passengerId
+          : passengerId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      statusDetail: statusDetail == freezed
+          ? _value.statusDetail
+          : statusDetail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      billRefNumber: billRefNumber == freezed
+          ? _value.billRefNumber
+          : billRefNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paymentMethod: paymentMethod == freezed
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as String?,
+      generatedDate: generatedDate == freezed
+          ? _value.generatedDate
+          : generatedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CheckHelloCashResponseCopyWith<$Res>
+    implements $CheckHelloCashResponseCopyWith<$Res> {
+  factory _$CheckHelloCashResponseCopyWith(_CheckHelloCashResponse value,
+          $Res Function(_CheckHelloCashResponse) then) =
+      __$CheckHelloCashResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int? amount,
+      String? message,
+      String? error,
+      int? id,
+      String? status,
+      @JsonKey(name: 'passenger_id') int? passengerId,
+      @JsonKey(name: 'driver_id') int? driverId,
+      @JsonKey(name: 'statusdetail') String? statusDetail,
+      @JsonKey(name: 'bill_ref_number') String? billRefNumber,
+      @JsonKey(name: 'payment_method') String? paymentMethod,
+      @JsonKey(name: 'generated_date') String? generatedDate});
+}
+
+/// @nodoc
+class __$CheckHelloCashResponseCopyWithImpl<$Res>
+    extends _$CheckHelloCashResponseCopyWithImpl<$Res>
+    implements _$CheckHelloCashResponseCopyWith<$Res> {
+  __$CheckHelloCashResponseCopyWithImpl(_CheckHelloCashResponse _value,
+      $Res Function(_CheckHelloCashResponse) _then)
+      : super(_value, (v) => _then(v as _CheckHelloCashResponse));
+
+  @override
+  _CheckHelloCashResponse get _value => super._value as _CheckHelloCashResponse;
+
+  @override
+  $Res call({
+    Object? amount = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? id = freezed,
+    Object? status = freezed,
+    Object? passengerId = freezed,
+    Object? driverId = freezed,
+    Object? statusDetail = freezed,
+    Object? billRefNumber = freezed,
+    Object? paymentMethod = freezed,
+    Object? generatedDate = freezed,
+  }) {
+    return _then(_CheckHelloCashResponse(
+      amount: amount == freezed
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      passengerId: passengerId == freezed
+          ? _value.passengerId
+          : passengerId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      driverId: driverId == freezed
+          ? _value.driverId
+          : driverId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      statusDetail: statusDetail == freezed
+          ? _value.statusDetail
+          : statusDetail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      billRefNumber: billRefNumber == freezed
+          ? _value.billRefNumber
+          : billRefNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paymentMethod: paymentMethod == freezed
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as String?,
+      generatedDate: generatedDate == freezed
+          ? _value.generatedDate
+          : generatedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_CheckHelloCashResponse implements _CheckHelloCashResponse {
+  _$_CheckHelloCashResponse(
+      {this.amount,
+      this.message,
+      this.error,
+      this.id,
+      this.status,
+      @JsonKey(name: 'passenger_id') this.passengerId,
+      @JsonKey(name: 'driver_id') this.driverId,
+      @JsonKey(name: 'statusdetail') this.statusDetail,
+      @JsonKey(name: 'bill_ref_number') this.billRefNumber,
+      @JsonKey(name: 'payment_method') this.paymentMethod,
+      @JsonKey(name: 'generated_date') this.generatedDate});
+
+  factory _$_CheckHelloCashResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_CheckHelloCashResponseFromJson(json);
+
+  @override
+  final int? amount;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  final int? id;
+  @override
+  final String? status;
+  @override
+  @JsonKey(name: 'passenger_id')
+  final int? passengerId;
+  @override
+  @JsonKey(name: 'driver_id')
+  final int? driverId;
+  @override
+  @JsonKey(name: 'statusdetail')
+  final String? statusDetail;
+  @override
+  @JsonKey(name: 'bill_ref_number')
+  final String? billRefNumber;
+  @override
+  @JsonKey(name: 'payment_method')
+  final String? paymentMethod;
+  @override
+  @JsonKey(name: 'generated_date')
+  final String? generatedDate;
+
+  @override
+  String toString() {
+    return 'CheckHelloCashResponse(amount: $amount, message: $message, error: $error, id: $id, status: $status, passengerId: $passengerId, driverId: $driverId, statusDetail: $statusDetail, billRefNumber: $billRefNumber, paymentMethod: $paymentMethod, generatedDate: $generatedDate)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CheckHelloCashResponse &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.passengerId, passengerId) ||
+                const DeepCollectionEquality()
+                    .equals(other.passengerId, passengerId)) &&
+            (identical(other.driverId, driverId) ||
+                const DeepCollectionEquality()
+                    .equals(other.driverId, driverId)) &&
+            (identical(other.statusDetail, statusDetail) ||
+                const DeepCollectionEquality()
+                    .equals(other.statusDetail, statusDetail)) &&
+            (identical(other.billRefNumber, billRefNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.billRefNumber, billRefNumber)) &&
+            (identical(other.paymentMethod, paymentMethod) ||
+                const DeepCollectionEquality()
+                    .equals(other.paymentMethod, paymentMethod)) &&
+            (identical(other.generatedDate, generatedDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.generatedDate, generatedDate)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(passengerId) ^
+      const DeepCollectionEquality().hash(driverId) ^
+      const DeepCollectionEquality().hash(statusDetail) ^
+      const DeepCollectionEquality().hash(billRefNumber) ^
+      const DeepCollectionEquality().hash(paymentMethod) ^
+      const DeepCollectionEquality().hash(generatedDate);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CheckHelloCashResponseCopyWith<_CheckHelloCashResponse> get copyWith =>
+      __$CheckHelloCashResponseCopyWithImpl<_CheckHelloCashResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CheckHelloCashResponseToJson(this);
+  }
+}
+
+abstract class _CheckHelloCashResponse implements CheckHelloCashResponse {
+  factory _CheckHelloCashResponse(
+          {int? amount,
+          String? message,
+          String? error,
+          int? id,
+          String? status,
+          @JsonKey(name: 'passenger_id') int? passengerId,
+          @JsonKey(name: 'driver_id') int? driverId,
+          @JsonKey(name: 'statusdetail') String? statusDetail,
+          @JsonKey(name: 'bill_ref_number') String? billRefNumber,
+          @JsonKey(name: 'payment_method') String? paymentMethod,
+          @JsonKey(name: 'generated_date') String? generatedDate}) =
+      _$_CheckHelloCashResponse;
+
+  factory _CheckHelloCashResponse.fromJson(Map<String, dynamic> json) =
+      _$_CheckHelloCashResponse.fromJson;
+
+  @override
+  int? get amount => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  int? get id => throw _privateConstructorUsedError;
+  @override
+  String? get status => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'passenger_id')
+  int? get passengerId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_id')
+  int? get driverId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'statusdetail')
+  String? get statusDetail => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'bill_ref_number')
+  String? get billRefNumber => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'payment_method')
+  String? get paymentMethod => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'generated_date')
+  String? get generatedDate => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CheckHelloCashResponseCopyWith<_CheckHelloCashResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -17903,6 +18369,260 @@ abstract class _PromotionsResponse implements PromotionsResponse {
   @override
   @JsonKey(ignore: true)
   _$PromotionsResponseCopyWith<_PromotionsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+AirTimeResponse _$AirTimeResponseFromJson(Map<String, dynamic> json) {
+  return _AirTimeResponse.fromJson(json);
+}
+
+/// @nodoc
+class _$AirTimeResponseTearOff {
+  const _$AirTimeResponseTearOff();
+
+  _AirTimeResponse call(int flag,
+      {String? message,
+      String? error,
+      String? log,
+      @JsonKey(name: 'voucher_number') String? voucherNumber}) {
+    return _AirTimeResponse(
+      flag,
+      message: message,
+      error: error,
+      log: log,
+      voucherNumber: voucherNumber,
+    );
+  }
+
+  AirTimeResponse fromJson(Map<String, Object> json) {
+    return AirTimeResponse.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $AirTimeResponse = _$AirTimeResponseTearOff();
+
+/// @nodoc
+mixin _$AirTimeResponse {
+  int get flag => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  String? get log => throw _privateConstructorUsedError;
+  @JsonKey(name: 'voucher_number')
+  String? get voucherNumber => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $AirTimeResponseCopyWith<AirTimeResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AirTimeResponseCopyWith<$Res> {
+  factory $AirTimeResponseCopyWith(
+          AirTimeResponse value, $Res Function(AirTimeResponse) then) =
+      _$AirTimeResponseCopyWithImpl<$Res>;
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      String? log,
+      @JsonKey(name: 'voucher_number') String? voucherNumber});
+}
+
+/// @nodoc
+class _$AirTimeResponseCopyWithImpl<$Res>
+    implements $AirTimeResponseCopyWith<$Res> {
+  _$AirTimeResponseCopyWithImpl(this._value, this._then);
+
+  final AirTimeResponse _value;
+  // ignore: unused_field
+  final $Res Function(AirTimeResponse) _then;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? log = freezed,
+    Object? voucherNumber = freezed,
+  }) {
+    return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+      voucherNumber: voucherNumber == freezed
+          ? _value.voucherNumber
+          : voucherNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$AirTimeResponseCopyWith<$Res>
+    implements $AirTimeResponseCopyWith<$Res> {
+  factory _$AirTimeResponseCopyWith(
+          _AirTimeResponse value, $Res Function(_AirTimeResponse) then) =
+      __$AirTimeResponseCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int flag,
+      String? message,
+      String? error,
+      String? log,
+      @JsonKey(name: 'voucher_number') String? voucherNumber});
+}
+
+/// @nodoc
+class __$AirTimeResponseCopyWithImpl<$Res>
+    extends _$AirTimeResponseCopyWithImpl<$Res>
+    implements _$AirTimeResponseCopyWith<$Res> {
+  __$AirTimeResponseCopyWithImpl(
+      _AirTimeResponse _value, $Res Function(_AirTimeResponse) _then)
+      : super(_value, (v) => _then(v as _AirTimeResponse));
+
+  @override
+  _AirTimeResponse get _value => super._value as _AirTimeResponse;
+
+  @override
+  $Res call({
+    Object? flag = freezed,
+    Object? message = freezed,
+    Object? error = freezed,
+    Object? log = freezed,
+    Object? voucherNumber = freezed,
+  }) {
+    return _then(_AirTimeResponse(
+      flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as String?,
+      voucherNumber: voucherNumber == freezed
+          ? _value.voucherNumber
+          : voucherNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_AirTimeResponse implements _AirTimeResponse {
+  _$_AirTimeResponse(this.flag,
+      {this.message,
+      this.error,
+      this.log,
+      @JsonKey(name: 'voucher_number') this.voucherNumber});
+
+  factory _$_AirTimeResponse.fromJson(Map<String, dynamic> json) =>
+      _$_$_AirTimeResponseFromJson(json);
+
+  @override
+  final int flag;
+  @override
+  final String? message;
+  @override
+  final String? error;
+  @override
+  final String? log;
+  @override
+  @JsonKey(name: 'voucher_number')
+  final String? voucherNumber;
+
+  @override
+  String toString() {
+    return 'AirTimeResponse(flag: $flag, message: $message, error: $error, log: $log, voucherNumber: $voucherNumber)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _AirTimeResponse &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)) &&
+            (identical(other.voucherNumber, voucherNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.voucherNumber, voucherNumber)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(log) ^
+      const DeepCollectionEquality().hash(voucherNumber);
+
+  @JsonKey(ignore: true)
+  @override
+  _$AirTimeResponseCopyWith<_AirTimeResponse> get copyWith =>
+      __$AirTimeResponseCopyWithImpl<_AirTimeResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_AirTimeResponseToJson(this);
+  }
+}
+
+abstract class _AirTimeResponse implements AirTimeResponse {
+  factory _AirTimeResponse(int flag,
+          {String? message,
+          String? error,
+          String? log,
+          @JsonKey(name: 'voucher_number') String? voucherNumber}) =
+      _$_AirTimeResponse;
+
+  factory _AirTimeResponse.fromJson(Map<String, dynamic> json) =
+      _$_AirTimeResponse.fromJson;
+
+  @override
+  int get flag => throw _privateConstructorUsedError;
+  @override
+  String? get message => throw _privateConstructorUsedError;
+  @override
+  String? get error => throw _privateConstructorUsedError;
+  @override
+  String? get log => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'voucher_number')
+  String? get voucherNumber => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$AirTimeResponseCopyWith<_AirTimeResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

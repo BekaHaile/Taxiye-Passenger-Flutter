@@ -8,8 +8,8 @@ import 'package:taxiye_passenger/ui/pages/common/empty_state.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/components/coupon_list.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
-class PickCoupon extends GetView<PromotionsController> {
-  const PickCoupon({Key? key}) : super(key: key);
+class PickPromotion extends GetView<PromotionsController> {
+  const PickPromotion({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,9 @@ class PickCoupon extends GetView<PromotionsController> {
                 Expanded(
                     child: Obx(() => controller.coupons.isNotEmpty
                         ? CouponList(
-                            coupons: controller.coupons,
-                            showExpires: true,
-                            onCouponSelect: (selectedCoupon) =>
-                                controller.onPickOffer(coupon: selectedCoupon),
+                            promotions: controller.promotions,
+                            onPromotionSelect: (selectedPromotion) => controller
+                                .onPickOffer(promotion: selectedPromotion),
                           )
                         : const EmptyState()))
               ],

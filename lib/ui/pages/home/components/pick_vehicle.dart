@@ -11,7 +11,7 @@ import 'package:taxiye_passenger/ui/pages/home/components/ride_note.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_list.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_type_list.dart';
-import 'package:taxiye_passenger/ui/pages/promotion/components/pick_coupon.dart';
+import 'package:taxiye_passenger/ui/pages/promotion/components/pick_promotions.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -60,6 +60,7 @@ class PickVehicle extends GetView<HomeController> {
                         ? controller.deliveryVehicles
                         : controller.vehicles,
                 selectedVehicle: controller.selectedVehicle,
+                rideType: controller.rideType,
                 onItemSelected: (selectedVehice) {
                   if (controller.selectedVehicle == selectedVehice) {
                     Get.bottomSheet(
@@ -91,6 +92,7 @@ class PickVehicle extends GetView<HomeController> {
                                     paymentType.paymentMode,
                                 onTap: () {
                                   // on  one of the payment types
+
                                   switch (paymentType.paymentMode) {
                                     case 0:
                                       controller.paymentMode =
@@ -99,7 +101,7 @@ class PickVehicle extends GetView<HomeController> {
                                     case 1:
                                       controller.paymentMode =
                                           paymentType.paymentMode;
-                                      Get.bottomSheet(const PickCoupon());
+                                      Get.bottomSheet(const PickPromotion());
                                       break;
                                     case 2:
                                       // on notes selected

@@ -71,8 +71,8 @@ class SettingsController extends GetxController {
     settingOptions = [
       // Option(title: 'sound_voice', subtitle: 'customize_sounds'),
       // Option(title: 'navigation', subtitle: 'google_maps'),
-      Option(
-          title: 'night_mode', subtitle: 'night_mode_info', toggleValue: false),
+      // Option(
+      //     title: 'night_mode', subtitle: 'night_mode_info', toggleValue: false),
       // Option(title: 'follow_my_ride', subtitle: 'follow_my_ride_info'),
       Option(
           title: 'language',

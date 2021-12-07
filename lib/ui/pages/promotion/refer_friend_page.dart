@@ -91,7 +91,7 @@ class ReferFriendPage extends GetView<PromotionsController> {
                   // Todo: change app store link
                   String downloadLink = Platform.isAndroid
                       ? 'https://taxiye.app.link/9wlGrQIXBlb'
-                      : 'https://taxiye.app.link/9wlGrQIXBlb';
+                      : 'https://apps.apple.com/us/app/taxiye-passenger/id1455202776';
 
                   Share.share('${'share_referral'.trParams({
                         'code': controller.referralNumber

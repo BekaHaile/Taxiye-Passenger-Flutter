@@ -96,10 +96,35 @@ class _HomePageState extends State<HomePage>
                         onTap: () => _scaffoldKey.currentState?.openDrawer(),
                       )),
 
-                Obx(() => controller.tripStep == TripStep.tripStarted ||
-                        controller.tripStep == TripStep.tripDetail
+                Obx(() => controller.tripStep == TripStep.tripStarted
                     ? const SOS()
                     : const SizedBox()),
+
+                // refresh current location
+                Positioned(
+                  top: 120.0,
+                  right: 20.0,
+                  child: Container(
+                    width: 40.0,
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppTheme.shadowColor.withOpacity(0.2),
+                          spreadRadius: 0,
+                          blurRadius: 6,
+                          offset: const Offset(1, 3),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                        color: AppTheme.darkTextColor,
+                        onPressed: () => controller.refreshCurrentLocation(),
+                        icon: const Icon(Icons.my_location)),
+                  ),
+                ),
 
                 Obx(() => controller.tripStep == TripStep.pickOnMap ||
                         controller.tripStep == TripStep.addPlace ||

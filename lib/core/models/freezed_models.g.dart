@@ -286,6 +286,9 @@ _$_Payment _$_$_PaymentFromJson(Map<String, dynamic> json) {
   return _$_Payment(
     name: json['name'] as String?,
     enabled: json['enabled'] as int?,
+    systems:
+        (json['systems'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    displayName: json['display_name'] as String?,
   );
 }
 
@@ -293,6 +296,8 @@ Map<String, dynamic> _$_$_PaymentToJson(_$_Payment instance) =>
     <String, dynamic>{
       'name': instance.name,
       'enabled': instance.enabled,
+      'systems': instance.systems,
+      'display_name': instance.displayName,
     };
 
 _$_Transaction _$_$_TransactionFromJson(Map<String, dynamic> json) {
@@ -842,9 +847,8 @@ Map<String, dynamic> _$_$_WalletResponseToJson(_$_WalletResponse instance) =>
 _$_PayWithHelloCashResponse _$_$_PayWithHelloCashResponseFromJson(
     Map<String, dynamic> json) {
   return _$_PayWithHelloCashResponse(
-    json['flag'] as int,
     amount: json['amount'] as int?,
-    code: json['code'] as int?,
+    code: json['code'] as String?,
     message: json['message'] as String?,
     currency: json['currency'] as String?,
     date: json['date'] as String?,
@@ -865,7 +869,6 @@ _$_PayWithHelloCashResponse _$_$_PayWithHelloCashResponseFromJson(
 Map<String, dynamic> _$_$_PayWithHelloCashResponseToJson(
         _$_PayWithHelloCashResponse instance) =>
     <String, dynamic>{
-      'flag': instance.flag,
       'amount': instance.amount,
       'code': instance.code,
       'message': instance.message,
@@ -882,6 +885,39 @@ Map<String, dynamic> _$_$_PayWithHelloCashResponseToJson(
       'to': instance.to,
       'isupcoming': instance.isUpcoming,
       'error': instance.error,
+    };
+
+_$_CheckHelloCashResponse _$_$_CheckHelloCashResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_CheckHelloCashResponse(
+    amount: json['amount'] as int?,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    id: json['id'] as int?,
+    status: json['status'] as String?,
+    passengerId: json['passenger_id'] as int?,
+    driverId: json['driver_id'] as int?,
+    statusDetail: json['statusdetail'] as String?,
+    billRefNumber: json['bill_ref_number'] as String?,
+    paymentMethod: json['payment_method'] as String?,
+    generatedDate: json['generated_date'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_CheckHelloCashResponseToJson(
+        _$_CheckHelloCashResponse instance) =>
+    <String, dynamic>{
+      'amount': instance.amount,
+      'message': instance.message,
+      'error': instance.error,
+      'id': instance.id,
+      'status': instance.status,
+      'passenger_id': instance.passengerId,
+      'driver_id': instance.driverId,
+      'statusdetail': instance.statusDetail,
+      'bill_ref_number': instance.billRefNumber,
+      'payment_method': instance.paymentMethod,
+      'generated_date': instance.generatedDate,
     };
 
 _$_TransactionHistoryResponse _$_$_TransactionHistoryResponseFromJson(
@@ -1427,6 +1463,25 @@ Map<String, dynamic> _$_$_PromotionsResponseToJson(
       'error': instance.error,
       'coupons': instance.coupons,
       'promotions': instance.promotions,
+    };
+
+_$_AirTimeResponse _$_$_AirTimeResponseFromJson(Map<String, dynamic> json) {
+  return _$_AirTimeResponse(
+    json['flag'] as int,
+    message: json['message'] as String?,
+    error: json['error'] as String?,
+    log: json['log'] as String?,
+    voucherNumber: json['voucher_number'] as String?,
+  );
+}
+
+Map<String, dynamic> _$_$_AirTimeResponseToJson(_$_AirTimeResponse instance) =>
+    <String, dynamic>{
+      'flag': instance.flag,
+      'message': instance.message,
+      'error': instance.error,
+      'log': instance.log,
+      'voucher_number': instance.voucherNumber,
     };
 
 _$_LegalResponse _$_$_LegalResponseFromJson(Map<String, dynamic> json) {

@@ -93,7 +93,8 @@ enum SuccessFlags {
   logout,
   dummy,
   payWithMpesa,
-  payWithMpesaFailed
+  payWithMpesaFailed,
+  buyAirtime,
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
@@ -131,6 +132,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.payWithHelloCash: 143,
     SuccessFlags.payWithMpesa: 93,
     SuccessFlags.payWithMpesaFailed: 94,
+    SuccessFlags.buyAirtime: 1,
   };
 
   int get successCode => successCodes[this]!;

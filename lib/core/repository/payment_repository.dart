@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -20,31 +22,38 @@ class PaymentRepository implements IPaymentRepository {
       path: '/fetch_wallet_balance',
       data: walletPayload,
     );
+
     return WalletResponse.fromJson(response);
   }
 
   @override
-  Future<PayWithHelloCashResponse> payWithHelloCash(Map<String, dynamic> payWithHelloCashPayload) async{
-   final response = await apiClient.request(
+  Future<PayWithHelloCashResponse> payWithHelloCash(
+      Map<String, dynamic> payWithHelloCashPayload) async {
+    log('hello here $payWithHelloCashPayload');
+    final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/payment/request',
       data: payWithHelloCashPayload,
     );
+
+    log('pay with hellocash response here: $response');
     return PayWithHelloCashResponse.fromJson(response);
   }
 
   @override
-  Future<PayWithHelloCashResponse> checkHelloCashPayment(Map<String, dynamic> checkHelloCashPaymentPayload) async{
+  Future<CheckHelloCashResponse> checkHelloCashPayment(
+      Map<String, dynamic> checkHelloCashPaymentPayload) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/get/payment',
       data: checkHelloCashPaymentPayload,
     );
-    return PayWithHelloCashResponse.fromJson(response);
+    return CheckHelloCashResponse.fromJson(response);
   }
 
   @override
-  Future<BasicResponse> payWithMpesa(Map<String, dynamic> payWithMpesaPayload) async{
+  Future<BasicResponse> payWithMpesa(
+      Map<String, dynamic> payWithMpesaPayload) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/edit_driver_tip',

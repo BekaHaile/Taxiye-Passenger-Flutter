@@ -12,6 +12,7 @@ import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /*
   Handles any business logic and data binding with Promotions flow
@@ -112,7 +113,7 @@ class PromotionsController extends GetxController {
           status(Status.success);
           // check and set promotions and coupons
           if (promotionsResponse.promotions?.isNotEmpty ?? false) {
-            promotions = promotionsResponse.promotions;
+            promotions = promotionsResponse.promotions?.toSet().toList();
           }
           if (promotionsResponse.coupons?.isNotEmpty ?? false) {
             coupons = promotionsResponse.coupons;
@@ -199,11 +200,13 @@ class PromotionsController extends GetxController {
     status(Status.loading);
     repository.buyAirTime('$amount').then(
       (airtimeResponse) {
-        if (airtimeResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        if (airtimeResponse.flag == SuccessFlags.buyAirtime.successCode) {
           status(Status.success);
           Get.snackbar('success'.tr, 'buy_airtime_success'.tr);
           // update wallet balance
           walletBalance -= amount;
+
+          launch('tel:*805*${airtimeResponse.voucherNumber}#');
         } else {
           toast(
               'error', airtimeResponse.message ?? airtimeResponse.error ?? '');

@@ -112,8 +112,8 @@ handleNotification(RemoteMessage message,
       case 4:
         showNotification(
           notificationMessage.flag,
-          'ride_completed'.tr,
-          '${'your_fare_was'.tr} ${(notificationMessage.toPay ?? '')} ETB',
+          'Ride Completed',
+          'Your fare is ${(notificationMessage.toPay ?? '')} ETB',
         );
         break;
       case 5:
@@ -223,14 +223,23 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 persistBackgroundNotification(NotificationMessage notificationMessage) async {
   // set notification message on storage, so that app will read it on
   // onResume.
+  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   switch (notificationMessage.flag) {
     case 72:
       // skip this notification
       break;
     default:
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('rideNotification', jsonEncode(notificationMessage));
+      if (notificationMessage.flag == 3) {
+        prefs.setString('rideStartedTime', DateTime.now().toIso8601String());
+      }
+
+      if (notificationMessage.flag == 5) {
+        // save this notifcation, since the driver info is found here
+        prefs.setString(
+            'rideAcceptedNotification', jsonEncode(notificationMessage));
+      }
   }
 
   // For communication with the main ui thread.

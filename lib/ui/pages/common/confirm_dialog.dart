@@ -13,6 +13,7 @@ class ConfirmDialog extends StatelessWidget {
     this.actionCallback,
     this.contentTextAlign = TextAlign.center,
     this.secondAction,
+    this.showCancel = true,
     this.secondActionCallback,
   }) : super(key: key);
 
@@ -23,6 +24,7 @@ class ConfirmDialog extends StatelessWidget {
   final VoidCallback? actionCallback;
   final TextAlign contentTextAlign;
 
+  final bool showCancel;
   final VoidCallback? secondActionCallback;
   final String? secondAction;
   @override
@@ -43,21 +45,22 @@ class ConfirmDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        TextButton(
-          child: Text(
-            cancelText.tr,
-            style: const TextStyle(
-              fontFamily: AppTheme.fontName,
-              fontWeight: FontWeight.w700,
-              fontSize: 16.0,
-              letterSpacing: 1,
-              color: AppTheme.primaryColor,
+        if (showCancel)
+          TextButton(
+            child: Text(
+              cancelText.tr,
+              style: const TextStyle(
+                fontFamily: AppTheme.fontName,
+                fontWeight: FontWeight.w700,
+                fontSize: 16.0,
+                letterSpacing: 1,
+                color: AppTheme.primaryColor,
+              ),
             ),
+            onPressed: () {
+              Get.back();
+            },
           ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
         if (actionCallback != null)
           TextButton(
             child: Text(

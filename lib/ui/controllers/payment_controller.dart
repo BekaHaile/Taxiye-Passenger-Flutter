@@ -2,14 +2,17 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/payment/components/hellocash_info_dilog.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
 /*
@@ -34,15 +37,16 @@ class PaymentController extends GetxController {
   get selectedPayment => _selectedPayment.value;
   set selectedPayment(value) => _selectedPayment.value = value;
 
-  
   HomeController homeController = Get.find();
 
   //hellocash data
   String phoneNumber = '';
-  List<String> partners = ['Lion', 'Wegagen'];
-  String selectedPartner = 'Lion';
+  String countryCode = '';
+  List<String> hellocashPartners = ['Lion', 'Wegagen', 'Lucy'];
+  String selectedHellocashPartner = 'Lion';
   String amount = '';
   String driverId = '';
+  String userId = '';
 
   @override
   void onInit() async {
@@ -50,7 +54,14 @@ class PaymentController extends GetxController {
     getPaymentMethods();
     super.onInit();
 
-    phoneNumber = authController.user.phoneNo;
+    String test = '';
+    countryCode = authController.user.countryCode;
+    test.split(countryCode);
+
+    final splitPhone = authController.user.phoneNo.split(countryCode);
+    if (splitPhone.length > 1) {
+      phoneNumber = splitPhone[1];
+    }
   }
 
   getPaymentMethods() {
@@ -58,7 +69,7 @@ class PaymentController extends GetxController {
     final walletPayload = {
       "latitude": _storage.read('latitude'),
       "is_access_token_new": "1",
-      "longitude": _storage.read('longitude')
+      "longitude": _storage.read('longitude'),
     };
 
     status(Status.loading);
@@ -67,8 +78,25 @@ class PaymentController extends GetxController {
         status(Status.success);
         if (walletResponse.flag ==
             SuccessFlags.fetchWalletBalance.successCode) {
-          paymentMethods = walletResponse.paymentModes;
-          _updateHomePayments();
+          if (walletResponse.paymentModes?.isNotEmpty ?? false) {
+            // remove corporate
+            walletResponse.paymentModes
+                ?.removeWhere((element) => element.name == 'corporate');
+
+            paymentMethods = walletResponse.paymentModes;
+
+            // rename jugnoo_cash to cash
+            int jugnoCashIndex = paymentMethods.indexOf(walletResponse
+                .paymentModes
+                ?.firstWhere((element) => element.name == 'jugnoo_cash'));
+
+            if (jugnoCashIndex != -1) {
+              paymentMethods[jugnoCashIndex] =
+                  paymentMethods[jugnoCashIndex].copyWith(name: 'cash');
+            }
+
+            _updateHomePayments();
+          }
         } else {
           toast('error', walletResponse.message ?? walletResponse.error ?? '');
           status(Status.error);
@@ -83,27 +111,38 @@ class PaymentController extends GetxController {
 
   payWithHelloCash() {
     //Todo: Get payment Methods
-    final payWithHelloCashPayload = {
+    final Map<String, dynamic> payWithHelloCashPayload = {
       "payment_method": "HELLO-CASH",
-      "access_token": "1",
-      "driver_id": _storage.read('longitude'),
+      "driver_id": driverId,
       "amount": amount,
-      "phone_no": phoneNumber,
-      "system": selectedPartner
+      "phone_no": '$countryCode$phoneNumber',
+      "system": selectedHellocashPartner,
+      "user_type": "CUSTOMER",
+      "passenger_id": userId,
     };
+
+    log('hellocash payload: $payWithHelloCashPayload');
 
     status(Status.loading);
     repository.payWithHelloCash(payWithHelloCashPayload).then(
       (payWithHelloCashResponse) {
-        log(payWithHelloCashResponse.toString());
-        if (payWithHelloCashResponse.flag ==
-            SuccessFlags.payWithHelloCash.successCode) {
-            status(Status.success);
-            _displayAlert(payWithHelloCashResponse);
-        } else {
-          toast('error', payWithHelloCashResponse.message ?? payWithHelloCashResponse.error ?? '');
-          status(Status.error);
-        }
+        status(Status.success);
+        Get.dialog(HelloCashInfoDialog(
+            onConfirmCallBack: () =>
+                onConfirmPayWithHelloCash(payWithHelloCashResponse)));
+
+        // if (payWithHelloCashResponse.flag ==
+        //     SuccessFlags.payWithHelloCash.successCode) {
+
+        //   // _displayAlert(payWithHelloCashResponse);
+        // } else {
+        //   toast(
+        //       'error',
+        //       payWithHelloCashResponse.message ??
+        //           payWithHelloCashResponse.error ??
+        //           '');
+        //   status(Status.error);
+        // }
       },
       onError: (err) {
         print("$err");
@@ -112,89 +151,64 @@ class PaymentController extends GetxController {
     );
   }
 
-  _displayAlert (PayWithHelloCashResponse payWithHelloCashResponse){
-   return AlertDialog(
-      // insetPadding: const EdgeInsets.all(0),
-      title: Text(
-        'payment'.tr,
-        textAlign: TextAlign.center,
-        style: AppTheme.title2,
-      ),
-      content: Text(
-        'hello_cash_pay_fare'.tr,
-        textAlign: TextAlign.start,
-        style: const TextStyle(
-          fontSize: 14.0,
-          letterSpacing: 1.2,
-        ),
-      ),
-      actions: [
-        TextButton(
-          child: Text(
-            'cancel'.tr,
-            style: const TextStyle(
-              fontFamily: AppTheme.fontName,
-              fontWeight: FontWeight.w700,
-              fontSize: 16.0,
-              letterSpacing: 1,
-              color: AppTheme.primaryColor,
-            ),
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-          TextButton(
-            child: Text(
-              'ok'.tr,
-              style: const TextStyle(
-                fontFamily: AppTheme.fontName,
-                fontWeight: FontWeight.w700,
-                fontSize: 16.0,
-                letterSpacing: 1,
-                color: AppTheme.primaryColor,
-              ),
-            ),
-            onPressed: () {
-              status(Status.loading);
-             _checkHelloCashPayment(payWithHelloCashResponse.id);
-            },
-          ),
-      ],
-    );
+  onConfirmPayWithHelloCash(PayWithHelloCashResponse payWithHelloCashResponse) {
+    status(Status.loading);
+    Get.snackbar('', 'payment_pending'.tr);
+    _checkHelloCashPayment(payWithHelloCashResponse.id);
   }
 
-  _checkHelloCashPayment(String? paymentId){
+  _checkHelloCashPayment(String? paymentId) {
     int min = 0;
     Timer.periodic(const Duration(seconds: 10), (timer) {
-      if(min < 120){
+      log('min here: $min');
+      if (min < 120) {
         min += 10;
         _checkIfPaymentIsComplete(timer, paymentId);
-      }
-        else {
+      } else {
+        toast('error', 'check_hellocash_fail');
         timer.cancel();
+        status(Status.error);
       }
     });
   }
 
   _checkIfPaymentIsComplete(Timer timer, String? paymentId) {
-    final payWithHelloCashPayload = {
-      "id": paymentId,
+    final Map<String, dynamic> payWithHelloCashPayload = {
+      "id": paymentId ?? '',
     };
 
-    status(Status.loading);
     repository.checkHelloCashPayment(payWithHelloCashPayload).then(
       (payWithHelloCashResponse) {
-        status(Status.success);
-        if (payWithHelloCashResponse.flag ==
-            SuccessFlags.payWithHelloCash.successCode) {
-              timer.cancel();
-              //go to summary page
-              homeController.onPaymentProcessed();
-        } else {
-          toast('error', payWithHelloCashResponse.message ?? payWithHelloCashResponse.error ?? '');
-          status(Status.error);
+        log('checking payment: $payWithHelloCashResponse');
+
+        switch (payWithHelloCashResponse.status) {
+          case 'PENDING':
+            return;
+          case 'CANCELLED':
+            status(Status.error);
+            Get.snackbar('error'.tr, 'hellocash_cancelled'.tr);
+            break;
+          default:
+            //go to feedback page
+            status(Status.success);
+            Get.back();
+            Get.snackbar('success'.tr, 'hellocash_processed'.tr);
+            homeController.onPaymentProcessed();
         }
+
+        timer.cancel();
+
+        // if (payWithHelloCashResponse.flag ==
+        //     SuccessFlags.payWithHelloCash.successCode) {
+
+        // } else {
+        //   toast(
+        //       'error',
+        //       payWithHelloCashResponse.message ??
+        //           payWithHelloCashResponse.error ??
+        //           '');
+        //   status(Status.error);
+        // }
       },
       onError: (err) {
         print("$err");
@@ -203,7 +217,7 @@ class PaymentController extends GetxController {
     );
   }
 
-  payWithMpesa(String engagementId){
+  payWithMpesa(String engagementId) {
     final payWithMpesaPayload = {
       "pay_via_stripe": "0",
       "engagement_id": engagementId,
@@ -212,9 +226,8 @@ class PaymentController extends GetxController {
 
     repository.payWithMpesa(payWithMpesaPayload).then(
       (basicResponse) {
-        if (basicResponse.flag ==
-            SuccessFlags.basicSuccess.successCode) {
-              //go to summary page
+        if (basicResponse.flag == SuccessFlags.basicSuccess.successCode) {
+          //go to summary page
         } else {
           toast('error', basicResponse.message ?? basicResponse.error ?? '');
         }
@@ -225,8 +238,22 @@ class PaymentController extends GetxController {
     );
   }
 
-  _updateHomePayments(){
-    homeController.paymentMethods = paymentMethods;
+  onHelloCashSelected(
+      {required Payment hellocash,
+      required String amount,
+      required String driverId}) {
+    this.amount = amount;
+    this.driverId = driverId;
+
+    if (hellocash.systems?.isNotEmpty ?? false) {
+      hellocashPartners = hellocash.systems!;
+      selectedHellocashPartner = hellocashPartners.first;
+    }
+
+    Get.toNamed(Routes.hellocash);
   }
 
+  _updateHomePayments() {
+    homeController.paymentMethods = paymentMethods;
+  }
 }

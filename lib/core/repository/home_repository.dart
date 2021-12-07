@@ -170,7 +170,7 @@ class HomeRepository implements IHomeRepository {
   @override
   Future<BasicResponse> updateEmergency(Map<String, dynamic> emergencyPayload,
       EmergencyStatus emergencyStatus) async {
-    String endPoint = emergencyStatus == EmergencyStatus.enable
+    String endPoint = emergencyStatus == EmergencyStatus.disable
         ? '/emergency/alert'
         : '/emergency/disable';
     final response = await apiClient.request(

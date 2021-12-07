@@ -17,7 +17,9 @@ const List<Country> kCountries = [
   Country(name: 'Ethiopia', code: '+251', isoCode: 'ET', currency: 'ETB'),
   Country(name: 'Kenya', code: '+254', isoCode: 'KE', currency: 'KSH'),
   Country(name: 'USA', code: '+1', isoCode: 'US', currency: '\$'),
-  Country(name: 'Sudan', code: '+249', isoCode: 'SD', currency: 'ج.س')
+  Country(name: 'Sudan', code: '+249', isoCode: 'SD', currency: 'ج.س'),
+  Country(name: 'Senegal', code: '+221', isoCode: 'SN', currency: 'CFA'),
+  Country(name: 'Nigeria', code: '+234', isoCode: 'NG', currency: '₦'),
 ];
 
 const List<Language> kLanguages = [

@@ -196,6 +196,10 @@ final Map<String, String> enUs = {
   'book_now': 'Book Now',
   'schedule_ride': 'Schedule Ride',
 
+  'mpesa': 'Mpesa',
+  'amole': 'Amole',
+  'hellocash': 'Hellocash',
+
   'schedule_ride_success': 'Scheduled ride successfully',
   'upcoming_ride_scheduled': 'Upcoming ride scheduled!',
   'pick_offer': 'Pick Offer',
@@ -234,7 +238,7 @@ final Map<String, String> enUs = {
   // Trip details strings
   'arrived_destination': 'You’ve arrived at your destination.',
   'order_delivered': 'Your order has been delivered.',
-  'pay_with_cash': 'Pay With Cash',
+  'pay_with': 'Pay With @mode',
   'distance': 'Distance',
   'duration': 'Duration',
 
@@ -251,6 +255,13 @@ final Map<String, String> enUs = {
   'add_place_success': 'Place saved successfully',
   'delete_place_success': 'Place removed successfully',
   'edit_place_success': 'Place updated successfully',
+
+  'mpesa_pay_fail': 'Payment with Mpesa failed. Please try again latter',
+  'mpesa_pay_success': 'Paymnent has been processed with Mpessa',
+  'hellocash_cancelled': 'Hellocash payment cancelled',
+
+  'hellocash_processed': 'Payment has been processed with Hellocash',
+  'payment_pending': 'Waiting for payment to be processed',
 
   // trip feedback strings
   'block': 'Block',
@@ -394,6 +405,7 @@ final Map<String, String> enUs = {
   'setDefault': 'Set as default method',
 
   'hello_cash': 'Hello Cash',
+  'check_hellocash_fail': 'Hello cash payment is not processed.',
 
   // app settings strings
   'sound_voice': 'Sound & Voice',
@@ -428,7 +440,9 @@ final Map<String, String> enUs = {
 
   //notification Strings
   'ride_completed': 'Ride Completed',
-  'your_fare_was': 'your fare was',
+  'your_fare_was': 'Your fare was',
+  'ride_cancelled': 'Ride Cancelled',
+  'driver_canceled_ride': 'Driver has cancelled your ride.',
 
   // Empty state strings
   'empty_state_title': 'Sorry! No Data Found.',
