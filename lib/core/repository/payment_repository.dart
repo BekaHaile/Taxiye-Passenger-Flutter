@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -29,14 +27,12 @@ class PaymentRepository implements IPaymentRepository {
   @override
   Future<PayWithHelloCashResponse> payWithHelloCash(
       Map<String, dynamic> payWithHelloCashPayload) async {
-    log('hello here $payWithHelloCashPayload');
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/payment/request',
       data: payWithHelloCashPayload,
     );
 
-    log('pay with hellocash response here: $response');
     return PayWithHelloCashResponse.fromJson(response);
   }
 

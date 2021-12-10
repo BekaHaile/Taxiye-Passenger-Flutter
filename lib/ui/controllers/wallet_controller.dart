@@ -6,6 +6,7 @@ import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -18,6 +19,7 @@ class WalletController extends GetxController {
   WalletController({required this.repository});
 
   final status = Status.success.obs;
+  final AuthController _authController = Get.find();
 
   final _transactions = List<Transaction>.empty(growable: true).obs;
   get transactions => _transactions.value;
@@ -42,6 +44,10 @@ class WalletController extends GetxController {
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
+
+    country = kCountries.firstWhere(
+        (element) => element.code == _authController.user.countryCode,
+        orElse: () => kCountries.first);
     _getWalletBalance();
     _getTransactions();
   }

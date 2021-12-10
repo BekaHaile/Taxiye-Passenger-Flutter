@@ -87,9 +87,6 @@ class LocationSearch extends GetView<HomeController> {
     } else {
       controller.dropOffLocationSearch = initialText;
     }
-
-    log('mode: ${LocationType.pickUp}');
-    log('mode: $initialText');
   }
 
   TextEditingController getSearchController() =>

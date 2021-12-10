@@ -152,13 +152,11 @@ class DeliveryDetailPage extends GetView<HomeController> {
                         style: AppTheme.body),
                     const SizedBox(height: 16.0),
                     PhoneInput(
-                      onChanged: (value) {
-                        // Todo: on phone changed
-                        // controller.phoneNumber = value
-                      },
-                      onCountryChange: (value) {
-                        // Todo: on country code changed
-                      },
+                      initialCountry: controller.country,
+                      onChanged: (value) =>
+                          controller.deliveryRecieverPhone = value,
+                      onCountryChange: (value) =>
+                          controller.deliveryCountryCode = value?.code,
                       validator: (value) => value?.trim().isEmpty ?? true
                           ? null
                           : validateMobile(value ?? ''),

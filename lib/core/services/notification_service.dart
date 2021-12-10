@@ -101,8 +101,14 @@ class NotificationService extends GetxService {
 handleNotification(RemoteMessage message,
     Function(NotificationMessage notificationMessage) onMessageRecieved) {
   if (message.data['message'] != null) {
+    final messageObject = jsonDecode(message.data['message']);
+    // handle dynamic type of engagementId.
+    messageObject['engagement_id'] = messageObject['engagement_id'] != null
+        ? '${messageObject['engagement_id']}'
+        : null;
+
     NotificationMessage notificationMessage =
-        NotificationMessage.fromJson(jsonDecode(message.data['message']));
+        NotificationMessage.fromJson(messageObject);
 
     // send recieved data to the callback
     onMessageRecieved(notificationMessage);
@@ -224,6 +230,8 @@ persistBackgroundNotification(NotificationMessage notificationMessage) async {
   // set notification message on storage, so that app will read it on
   // onResume.
   SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  //log('background notification: $notificationMessage');
 
   switch (notificationMessage.flag) {
     case 72:

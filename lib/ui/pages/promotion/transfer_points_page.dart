@@ -54,6 +54,8 @@ class _TransferPointsPageState extends State<TransferPointsPage> {
                         ),
                         const SizedBox(height: 15.0),
                         PhoneInput(
+                          initialCountry: controller.country,
+                          countryList: [controller.country],
                           onChanged: (value) => phoneNumber = value,
                           onCountryChange: (value) =>
                               country = value ?? kCountries.first,

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/auth_enums.dart';
@@ -318,9 +319,19 @@ class AuthController extends GetxService {
   determineNextRoute() async {
     await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     await getCurrentLocation().then((value) {
+      // log('current location value: $value');
       currentLocation = value;
       _storage.write('latitude', value.latitude);
       _storage.write('longitude', value.longitude);
+
+      // get users current place and set default country code
+      getPlaceNameFromCordinate(LatLng(value.latitude, value.longitude))
+          .then((value) {
+        //value.isoCountryCode
+        country = kCountries.firstWhere(
+            (element) => element.code == value.isoCountryCode,
+            orElse: () => kCountries.first);
+      });
     });
     await setGeneralInfo();
     // await Future<dynamic>.delayed(const Duration(milliseconds: 500));
@@ -432,6 +443,7 @@ class AuthController extends GetxService {
         _storage.erase();
         // Get.reset();
         Get.offAllNamed(Routes.auth);
+        _storage.write('isFirstTime', false);
         // Get.snackbar('success'.tr, 'logout_success'.tr);
       } else {
         print(basicResponse.error ?? '');

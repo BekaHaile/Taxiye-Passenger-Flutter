@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -40,8 +38,6 @@ class PromotionsRepository implements IPromotionsRepository {
       path: '/taxiye-offers/buy-airtime',
       data: {'airtime_amount': amount},
     );
-
-    log('buy response: $response');
     return AirTimeResponse.fromJson(response);
   }
 

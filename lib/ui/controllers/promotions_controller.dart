@@ -57,6 +57,7 @@ class PromotionsController extends GetxController {
 
   String currency = kCountries.first.currency;
   String countryCode = kCountries.first.code;
+  Country country = kCountries.first;
   final GetStorage _storage = GetStorage();
 
   @override
@@ -69,12 +70,12 @@ class PromotionsController extends GetxController {
     // test.phoneNo
     referralNumber =
         _authController.user.phoneNo?.replaceAll(RegExp('[\\D]'), '') ?? '';
-    countryCode = _authController.user.countryCode ?? kCountries.first.code;
-    currency = kCountries
-        .firstWhere(
-            (element) => element.code == _authController.user.countryCode,
-            orElse: () => kCountries.first)
-        .currency;
+
+    country = kCountries.firstWhere(
+        (element) => element.code == _authController.user.countryCode,
+        orElse: () => kCountries.first);
+    countryCode = country.code;
+    currency = country.currency;
     _getPromotionsAndCoupons();
     _getPromotionBalance();
     _getExchangePointOptions();

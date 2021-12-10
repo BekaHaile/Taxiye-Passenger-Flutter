@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
-import 'package:taxiye_passenger/ui/widgets/box_ui.dart';
 import 'package:taxiye_passenger/ui/widgets/phone_input.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/ui/widgets/title_view.dart';
@@ -30,6 +28,7 @@ class SignUpForm extends GetView<AuthController> {
               ),
               const SizedBox(height: 48.0),
               PhoneInput(
+                initialCountry: controller.country,
                 onChanged: (value) => controller.phoneNumber = value,
                 onCountryChange: (value) =>
                     controller.country = value ?? kCountries.first,

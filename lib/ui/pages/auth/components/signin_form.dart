@@ -4,6 +4,7 @@ import 'package:taxiye_passenger/ui/widgets/phone_input.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/ui/widgets/title_view.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 
 class SignInForm extends GetView<AuthController> {
   const SignInForm({Key? key}) : super(key: key);
@@ -25,7 +26,10 @@ class SignInForm extends GetView<AuthController> {
               ),
               const SizedBox(height: 48.0),
               PhoneInput(
+                initialCountry: controller.country,
                 onChanged: (value) => controller.phoneNumber = value,
+                onCountryChange: (value) =>
+                    controller.country = value ?? kCountries.first,
               ),
               const SizedBox(height: 30.0),
               // uncomment the following if sign in logic is changed back to use password

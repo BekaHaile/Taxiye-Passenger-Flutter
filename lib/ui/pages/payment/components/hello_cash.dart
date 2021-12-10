@@ -42,8 +42,11 @@ class HelloCash extends GetView<PaymentController> {
                         children: [
                           PhoneInput(
                             intialValue: controller.phoneNumber,
+                            initialCountry: controller.country,
                             onChanged: (value) =>
                                 controller.phoneNumber = value,
+                            onCountryChange: (value) =>
+                                controller.country = value ?? kCountries.first,
                           ),
                           const SizedBox(height: 65.0),
                           Padding(

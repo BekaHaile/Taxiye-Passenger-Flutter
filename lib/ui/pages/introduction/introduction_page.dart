@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
@@ -14,6 +15,7 @@ class IntroductionPage extends StatefulWidget {
 
 class _IntroductionPageState extends State<IntroductionPage>
     with TickerProviderStateMixin {
+  final _storage = GetStorage();
   int _infoStep = 0;
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -29,7 +31,10 @@ class _IntroductionPageState extends State<IntroductionPage>
             Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: () => Get.toNamed(Routes.auth),
+                  onTap: () {
+                    Get.toNamed(Routes.auth);
+                    _storage.write('isFirstTime', false);
+                  },
                   child: Text(
                     'skip'.tr,
                     style: const TextStyle(letterSpacing: 0.27),
@@ -106,6 +111,7 @@ class _IntroductionPageState extends State<IntroductionPage>
                             curve: Curves.easeIn);
                       } else {
                         Get.toNamed(Routes.auth);
+                        _storage.write('isFirstTime', false);
                       }
                     },
                   ),

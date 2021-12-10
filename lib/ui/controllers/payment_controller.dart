@@ -1,18 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
-import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/payment/components/hellocash_info_dilog.dart';
+import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
 /*
@@ -42,6 +40,7 @@ class PaymentController extends GetxController {
   //hellocash data
   String phoneNumber = '';
   String countryCode = '';
+  Country country = kCountries.first;
   List<String> hellocashPartners = ['Lion', 'Wegagen', 'Lucy'];
   String selectedHellocashPartner = 'Lion';
   String amount = '';
@@ -54,9 +53,9 @@ class PaymentController extends GetxController {
     getPaymentMethods();
     super.onInit();
 
-    String test = '';
     countryCode = authController.user.countryCode;
-    test.split(countryCode);
+    country = kCountries.firstWhere((element) => element.code == countryCode,
+        orElse: () => kCountries.first);
 
     final splitPhone = authController.user.phoneNo.split(countryCode);
     if (splitPhone.length > 1) {
@@ -115,7 +114,7 @@ class PaymentController extends GetxController {
       "payment_method": "HELLO-CASH",
       "driver_id": driverId,
       "amount": amount,
-      "phone_no": '$countryCode$phoneNumber',
+      "phone_no": '${country.code}$phoneNumber',
       "system": selectedHellocashPartner,
       "user_type": "CUSTOMER",
       "passenger_id": userId,

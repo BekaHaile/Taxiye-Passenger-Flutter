@@ -182,6 +182,7 @@ class HomeController extends GetxService {
   int? deliveryId;
   String orderText = '';
   String? deliveryRecieverPhone;
+  String? deliveryCountryCode;
   Polyline? ridePolyline;
 
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
@@ -198,7 +199,7 @@ class HomeController extends GetxService {
   String sessionToken = const Uuid().v4();
   // trip started variables
   int? sessionId;
-  int? engagementId;
+  String? engagementId;
   double routeDistance = 0.0;
 
   RideDetail? rideDetail;
@@ -293,7 +294,8 @@ class HomeController extends GetxService {
               NotificationMessage.fromJson(jsonDecode(storedRideAccepted!));
 
           _setRideDriverInfo(rideAcceptedMessage);
-          engagementId = int.tryParse(rideAcceptedMessage.engagementId ?? '0');
+          // engagementId = int.tryParse(rideAcceptedMessage.engagementId ?? '0');
+          engagementId = notificationMessage.engagementId;
           prefs.setString('rideAcceptedNotification', '');
         }
 
@@ -470,8 +472,8 @@ class HomeController extends GetxService {
     _setRideDriverInfo(notificationMessage);
     // set session and engagement ids
     sessionId = notificationMessage.sessionId;
-    engagementId = int.tryParse(notificationMessage.engagementId ?? '0');
-    // engagementId = notificationMessage.engagementId;
+    //engagementId = int.tryParse(notificationMessage.engagementId ?? '0');
+    engagementId = notificationMessage.engagementId;
 
     // change ride step to waiting driver
     tripStep = TripStep.driverDetail;
@@ -536,28 +538,31 @@ class HomeController extends GetxService {
 
   _onRideStarted() {
     tripStep = TripStep.tripStarted;
-    _setMapPins(pickupLocation?.location ?? currentLocation,
-        dropOffLocation!.location!);
-    if (ridePolyline != null) {
-      _polyLines.clear();
-      _polyLines.add(ridePolyline!);
+    if (pickupLocation != null && dropOffLocation != null) {
+      _setMapPins(pickupLocation?.location ?? currentLocation,
+          dropOffLocation!.location!);
+      if (ridePolyline != null) {
+        _polyLines.clear();
+        _polyLines.add(ridePolyline!);
 
-      final origin = PointLatLng(
-          pickupLocation?.location?.latitude ?? currentLocation.latitude,
-          pickupLocation?.location?.longitude ?? currentLocation.longitude);
-      final destination = PointLatLng(dropOffLocation!.location!.latitude,
-          dropOffLocation!.location!.longitude);
+        final origin = PointLatLng(
+            pickupLocation?.location?.latitude ?? currentLocation.latitude,
+            pickupLocation?.location?.longitude ?? currentLocation.longitude);
+        final destination = PointLatLng(dropOffLocation!.location!.latitude,
+            dropOffLocation!.location!.longitude);
 
-      // animate camera to mid point between origin and destination
-      LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
-          (origin.longitude + destination.longitude) / 2);
-      mapController.animateCamera(
-        CameraUpdate.newCameraPosition(CameraPosition(
-          target: midPoint,
-          zoom: 13,
-        )),
-      );
+        // animate camera to mid point between origin and destination
+        LatLng midPoint = LatLng((origin.latitude + destination.latitude) / 2,
+            (origin.longitude + destination.longitude) / 2);
+        mapController.animateCamera(
+          CameraUpdate.newCameraPosition(CameraPosition(
+            target: midPoint,
+            zoom: 13,
+          )),
+        );
+      }
     }
+
     _startRideTimer();
     liveTrackTrip();
   }
@@ -1176,7 +1181,7 @@ class HomeController extends GetxService {
   submitFeedback() {
     final Map<String, dynamic> rateDriverPayload = {
       'given_rating': '$driverRating',
-      'engagement_id': '$engagementId',
+      'engagement_id': engagementId,
       'driver_id': '${driver?.driverId}',
       'feedback': feedbackComment,
       'feedback_reasons': 'performance'
@@ -1243,7 +1248,7 @@ class HomeController extends GetxService {
     if (driver?.driverId != null && engagementId != null) {
       final Map<String, dynamic> favouriteDriverPayload = {
         'driver_id': '${driver?.driverId}',
-        'engagement_id': '$engagementId',
+        'engagement_id': engagementId,
         'action_type': '1',
         'integrated': '1',
       };
@@ -1300,6 +1305,7 @@ class HomeController extends GetxService {
     deliveryId = null;
     orderText = '';
     deliveryRecieverPhone = null;
+    deliveryCountryCode = null;
     deliveryImages.clear();
 
     paymentMode = 0;
@@ -1512,7 +1518,7 @@ class HomeController extends GetxService {
   updateEmergencyStatus() async {
     // enable and disable emergency(status)
     final Map<String, dynamic> emergencyPayload = {
-      'engagement_id': '$engagementId',
+      'engagement_id': engagementId,
     };
 
     if (emergencyStatus == EmergencyStatus.disable) {
@@ -1867,7 +1873,9 @@ class HomeController extends GetxService {
         'region_id': selectedVehicle.regionId,
         'ride_type': selectedVehicle.rideType,
         'vehicle_type': selectedVehicle.type,
-        'phone_no': deliveryRecieverPhone ?? authController.user.phoneNo,
+        'phone_no': deliveryRecieverPhone != null
+            ? '$deliveryCountryCode$deliveryRecieverPhone'
+            : authController.user.phoneNo,
         'user_identifier': authController.user.userIdentifier,
         'is_immediate': '1',
         'payment_mode': '1',
@@ -1955,11 +1963,11 @@ class HomeController extends GetxService {
   }
 
   onMpesaSelected() async {
-    if (driver?.driverId != null) {
+    if (driver?.driverId != null && engagementId != null) {
       PaymentController paymentController = Get.find();
       status(Status.loading);
       Get.snackbar('', 'payment_pending'.tr);
-      paymentController.payWithMpesa('$engagementId');
+      paymentController.payWithMpesa(engagementId!);
 
       await Future<dynamic>.delayed(const Duration(seconds: 40));
       if (status.value == Status.loading) {

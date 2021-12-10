@@ -61,7 +61,7 @@ class ApiClient {
         });
       }
 
-      log('sent payload: $data');
+      //log('sent payload: $data');
       dynamic response;
       switch (requestType) {
         case RequestType.get:

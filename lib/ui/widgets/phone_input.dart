@@ -13,11 +13,15 @@ class PhoneInput extends StatelessWidget {
     this.onCountryChange,
     this.validator,
     this.intialValue = '',
+    this.initialCountry,
+    this.countryList,
   }) : super(key: key);
 
   final Function(String? value)? onSaved;
   final Function(String value)? onChanged;
   final String intialValue;
+  final Country? initialCountry;
+  final List<Country>? countryList;
   final Function(Country? value)? onCountryChange;
   final FormFieldValidator<String>? validator;
 
@@ -41,7 +45,7 @@ class PhoneInput extends StatelessWidget {
             decoration: const BoxDecoration(
                 border: Border(right: BorderSide(color: Colors.grey))),
             child: DropdownButtonFormField<Country>(
-              value: kCountries.first,
+              value: initialCountry ?? kCountries.first,
               isExpanded: true,
               icon: const Icon(Icons.expand_more),
               decoration: const InputDecoration(
@@ -49,8 +53,8 @@ class PhoneInput extends StatelessWidget {
                   borderSide: BorderSide(style: BorderStyle.none),
                 ),
               ),
-              items:
-                  kCountries.map<DropdownMenuItem<Country>>((Country country) {
+              items: (countryList ?? kCountries)
+                  .map<DropdownMenuItem<Country>>((Country country) {
                 return DropdownMenuItem<Country>(
                   value: country,
                   child: Center(child: Text(getCountryFlag(country.isoCode))),

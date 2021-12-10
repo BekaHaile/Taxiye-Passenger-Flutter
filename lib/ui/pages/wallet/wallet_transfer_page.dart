@@ -88,6 +88,8 @@ class WalletTransferPage extends GetView<WalletController> {
                             ),
                             const SizedBox(height: 15.0),
                             PhoneInput(
+                              initialCountry: controller.country,
+                              countryList: [controller.country],
                               onChanged: (value) =>
                                   controller.phoneNumber = value,
                               onCountryChange: (value) => controller.country =
