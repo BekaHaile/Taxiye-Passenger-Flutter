@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
@@ -110,28 +111,35 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<VerifyResponse> loginUsingToken(
       Map<String, dynamic> loginPayload) async {
-    final response = await apiClient.request(
+    var response;
+    await apiClient
+        .request(
       requestType: RequestType.post,
       path: '/v3/customer/login_using_access_token',
       data: loginPayload,
-    );
+    )
+        .then((loginResponse) {
+      VerifyResponse verifyResponse = VerifyResponse.fromJson(loginResponse);
+      if (loginResponse.containsKey('autos')) {
+        if (loginResponse['autos'].containsKey('cancellation')) {
+          verifyResponse = verifyResponse.copyWith(
+              cancelReasons: List<String>.from(
+                  loginResponse['autos']['cancellation']['reasons']));
+        }
 
-    // add cancellation reasons
-    VerifyResponse verifyResponse = VerifyResponse.fromJson(response);
-    if (response.containsKey('autos')) {
-      if (response['autos'].containsKey('cancellation')) {
         verifyResponse = verifyResponse.copyWith(
-            cancelReasons: List<String>.from(
-                response['autos']['cancellation']['reasons']));
+          locale: loginResponse['autos']['locale'],
+          callCenterNumber: loginResponse['autos']['call_center_number'],
+        );
       }
 
-      verifyResponse = verifyResponse.copyWith(
-        locale: response['autos']['locale'],
-        callCenterNumber: response['autos']['call_center_number'],
-      );
-    }
+      response = verifyResponse;
+      return verifyResponse;
+    }, onError: (e) {
+      throw e;
+    });
 
-    return verifyResponse;
+    return response;
   }
 
   @override

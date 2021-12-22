@@ -24,7 +24,7 @@ import 'package:taxiye_passenger/ui/controllers/wallet_controller.dart';
 class HomeBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => GoogleMapService());
+    Get.lazyPut(() => GoogleMapService(connectivity: Get.find()));
     Get.lazyPut(
         () => NotificationService(messaging: FirebaseMessaging.instance));
 

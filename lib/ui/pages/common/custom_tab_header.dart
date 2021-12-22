@@ -19,21 +19,25 @@ class CustomTabHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50.0,
       decoration: const BoxDecoration(
         color: AppTheme.lightSilverColor,
-        borderRadius: BorderRadius.all(Radius.circular(45.0)),
+        borderRadius: BorderRadius.all(Radius.circular(40.0)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ...tabTitles.map((tabTitle) => TabTile(
-                tabTitle: tabTitle,
-                isActive: selectedTitle == tabTitle.text,
-                onTap: () => onSelectTab(tabTitle))),
-          ],
+        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+        child: ListView.builder(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            final TabTitle tab = tabTitles[index];
+            return TabTile(
+                tabTitle: tab,
+                isActive: selectedTitle == tab.text,
+                onTap: () => onSelectTab(tab));
+          },
+          itemCount: tabTitles.length,
         ),
       ),
     );
@@ -56,17 +60,17 @@ class TabTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShadowButton(
         height: 40,
-        horzontalPadding: 10.0,
+        horzontalPadding: 5.0,
         color: isActive ? AppTheme.primaryColor : Colors.transparent,
         decoration: !isActive
             ? const BoxDecoration(
                 color: AppTheme.lightSilverColor,
-              )
+                borderRadius: BorderRadius.all(Radius.circular(50.0)))
             : null,
         text: tabTitle.text.tr,
         textStyle: AppTheme.title.copyWith(
           color: isActive ? Colors.white : AppTheme.darkColor,
-          fontSize: 14.0,
+          fontSize: 13.0,
         ),
         leadingIcon: isActive ? Icon(tabTitle.icon, color: Colors.white) : null,
         onPressed: onTap);

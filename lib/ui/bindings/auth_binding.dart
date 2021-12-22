@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -22,7 +23,9 @@ class AuthBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => Dio(), fenix: true);
-    Get.lazyPut(() => ApiClient(dio: Get.find()), fenix: true);
+    Get.lazyPut(() => Connectivity(), fenix: true);
+    Get.lazyPut(() => ApiClient(dio: Get.find(), connectivity: Get.find()),
+        fenix: true);
     Get.lazyPut(() => FileService(), fenix: true);
     Get.lazyPut(() => FirebaseMessaging.instance, fenix: true);
     Get.lazyPut(() => GoogleSignIn(), fenix: true);

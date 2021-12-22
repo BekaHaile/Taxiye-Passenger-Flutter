@@ -134,6 +134,8 @@ final Map<String, String> enUs = {
   'manage_your_wallet': 'Manage your wallet',
   'promotions': 'Promotions',
   'promotions_info': 'You can win stuff here',
+  'promotion': 'Promotion',
+  'coupon': 'Coupon',
 
   'my_orders': 'My Orders',
   'riview_orders': 'Review your ride orders',
@@ -236,7 +238,7 @@ final Map<String, String> enUs = {
   'emergency_disabled_success': 'Emergency disabled successfully',
 
   // Trip details strings
-  'arrived_destination': 'You’ve arrived at your destination.',
+  'arrived_destination': 'You\'ve arrived at your destination.',
   'order_delivered': 'Your order has been delivered.',
   'pay_with': 'Pay With @mode',
   'distance': 'Distance',
@@ -283,7 +285,7 @@ final Map<String, String> enUs = {
   'upload_pictures': 'Upload Pictures',
   'deliver_to_me': 'Deliver the package to me.',
 
-  'recievers_number': 'Reciever’s Phone Number',
+  'recievers_number': 'Reciever\'s Phone Number',
   'delivery_type': 'Delivery Type',
   'order_now': 'Order Now',
 
@@ -438,6 +440,9 @@ final Map<String, String> enUs = {
   'yes': 'Yes',
   'no': 'No',
 
+  'enable_location': 'Enable Location?',
+  'enable_location_info': 'Please enable your location to continue.',
+
   //notification Strings
   'ride_completed': 'Ride Completed',
   'your_fare_was': 'Your fare was',
@@ -476,4 +481,8 @@ final Map<String, String> enUs = {
   'error_select_reason': 'Please select your reason',
   'error_promotion_code': 'Please provide promotion code',
   'error_delivery_detail': 'Please provide delivery detail',
+
+  // New Translations I - the following texts are not translated to other languages
+  'logout': 'Logout',
+  'favourite': 'Favourite',
 };

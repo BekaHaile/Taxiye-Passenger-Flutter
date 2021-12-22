@@ -4,11 +4,13 @@ import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/wallet_controller.dart';
+import 'package:taxiye_passenger/ui/pages/common/empty_state.dart';
 import 'package:taxiye_passenger/ui/pages/wallet/components/transaction_list.dart';
 import 'package:taxiye_passenger/ui/widgets/shadow_button.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 
 class WalletPage extends GetView<WalletController> {
   const WalletPage({Key? key}) : super(key: key);
@@ -100,30 +102,35 @@ class WalletPage extends GetView<WalletController> {
                                     const SizedBox(height: 5.0),
                                     Obx(
                                       () => Text(
-                                        '${controller.walletBalance} Birr',
+                                        '${controller.walletBalance} ${controller.walletData.currency ?? ''}',
                                         style: AppTheme.titleWhite,
                                       ),
                                     )
                                   ],
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      'expires'.tr.toUpperCase(),
-                                      style: const TextStyle(
-                                        color: AppTheme.greyColor2,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5.0),
-                                    const Text(
-                                      '09/21',
-                                      style: AppTheme.titleWhite,
-                                    )
-                                  ],
-                                ),
+                                Obx(() =>
+                                    controller.walletData.expireDate != null
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                'expires'.tr.toUpperCase(),
+                                                style: const TextStyle(
+                                                  color: AppTheme.greyColor2,
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 5.0),
+                                              Text(
+                                                formatDate(controller
+                                                    .walletData.expireDate),
+                                                style: AppTheme.titleWhite,
+                                              )
+                                            ],
+                                          )
+                                        : const SizedBox()),
                               ],
                             )
                           ],
@@ -136,7 +143,7 @@ class WalletPage extends GetView<WalletController> {
                       children: [
                         ShadowButton(
                           height: 40,
-                          horzontalPadding: 36.0,
+                          horzontalPadding: 24.0,
                           text: 'history'.tr,
                           leadingIcon: const Icon(Icons.history),
                           onPressed: () {
@@ -147,7 +154,7 @@ class WalletPage extends GetView<WalletController> {
                         const SizedBox(width: 20.0),
                         ShadowButton(
                             height: 40,
-                            horzontalPadding: 36.0,
+                            horzontalPadding: 24.0,
                             text: 'transfer'.tr,
                             leadingIcon: const Padding(
                               padding: EdgeInsets.all(4.0),
@@ -165,8 +172,8 @@ class WalletPage extends GetView<WalletController> {
                 ),
               ),
               DraggableScrollableSheet(
-                initialChildSize: 0.38,
-                minChildSize: 0.38,
+                initialChildSize: 0.4,
+                minChildSize: 0.4,
                 maxChildSize: 1.0,
                 builder:
                     (BuildContext context, ScrollController scrollController) {
@@ -199,15 +206,21 @@ class WalletPage extends GetView<WalletController> {
                               ),
                             ),
                           ),
-                          Obx(() => Expanded(
-                                child: TransactionList(
-                                  transactions: controller.transactions,
-                                  scrollController: scrollController,
-                                  onTapItem: (selectedTransaction) {
-                                    //Todo: onSelect transaction
-                                  },
-                                ),
-                              )),
+                          Obx(() => controller.transactions.isNotEmpty
+                              ? Expanded(
+                                  child: TransactionList(
+                                    currency:
+                                        '${controller.walletData.currency ?? ''}',
+                                    transactions: controller.transactions,
+                                    scrollController: scrollController,
+                                    onTapItem: (selectedTransaction) {
+                                      //Todo: onSelect transaction
+                                    },
+                                  ),
+                                )
+                              : EmptyState(
+                                  imageHeight: Get.height * 0.1,
+                                )),
                         ],
                       ),
                     ),

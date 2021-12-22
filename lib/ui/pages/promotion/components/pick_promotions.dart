@@ -19,19 +19,49 @@ class PickPromotion extends GetView<PromotionsController> {
           decoration: AppTheme.bottomSheetDecoration,
           child: Padding(
             padding: const EdgeInsets.all(kPagePadding),
-            child: Column(
-              children: [
-                Text('pick_offer'.tr, style: AppTheme.title2),
-                const SizedBox(height: 20.0),
-                Expanded(
-                    child: Obx(() => controller.coupons.isNotEmpty
-                        ? CouponList(
-                            promotions: controller.promotions,
-                            onPromotionSelect: (selectedPromotion) => controller
-                                .onPickOffer(promotion: selectedPromotion),
-                          )
-                        : const EmptyState()))
-              ],
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Obx(
+                () => Column(
+                  children: [
+                    Text('pick_offer'.tr, style: AppTheme.title2),
+                    const SizedBox(height: 20.0),
+                    if (controller.promotions.isNotEmpty)
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'promotion'.trPlural(
+                                'promotions', controller.promotions.length),
+                            style: AppTheme.subtitle.copyWith(fontSize: 18.0),
+                          )),
+                    if (controller.promotions.isNotEmpty)
+                      CouponList(
+                        promotions: controller.promotions,
+                        onPromotionSelect: (selectedPromotion) => controller
+                            .onPickOffer(promotion: selectedPromotion),
+                      ),
+                    if (controller.coupons.isNotEmpty)
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'coupon'
+                                .trPlural('coupons', controller.coupons.length),
+                            style: AppTheme.subtitle.copyWith(fontSize: 18.0),
+                          )),
+                    if (controller.coupons.isNotEmpty)
+                      CouponList(
+                        coupons: controller.coupons,
+                        onCouponSelect: (selectedCoupon) =>
+                            controller.onPickOffer(coupon: selectedCoupon),
+                      ),
+                    if (controller.coupons.isEmpty &&
+                        controller.promotions.isEmpty)
+                      SizedBox(
+                        height: Get.height * 0.5,
+                        child: const EmptyState()),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

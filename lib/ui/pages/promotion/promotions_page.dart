@@ -65,7 +65,7 @@ class PromotionsPage extends GetView<PromotionsController> {
                       ),
                       const SizedBox(width: 10.0),
                       RoundedButton(
-                          width: 90.0,
+                          width: 110.0,
                           text: 'apply'.tr,
                           textStyle: AppTheme.title.copyWith(
                             fontSize: 14.0,
@@ -90,7 +90,7 @@ class PromotionsPage extends GetView<PromotionsController> {
                           onTap: () => Get.toNamed(Routes.exchangePoints),
                         ),
                       ),
-                      const SizedBox(width: 20.0),
+                      const SizedBox(width: 16.0),
                       Expanded(
                         child: PromotionOptionBox(
                           title: 'my_coupons',
@@ -98,7 +98,7 @@ class PromotionsPage extends GetView<PromotionsController> {
                           onTap: () => Get.toNamed(Routes.coupons),
                         ),
                       ),
-                      const SizedBox(width: 20.0),
+                      const SizedBox(width: 16.0),
                       Expanded(
                         child: PromotionOptionBox(
                           title: 'refer_friend',
@@ -183,7 +183,7 @@ class PromotionOptionBox extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

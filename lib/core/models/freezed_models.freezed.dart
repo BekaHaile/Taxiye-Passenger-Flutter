@@ -10634,13 +10634,19 @@ class _$WalletResponseTearOff {
   _WalletResponse call(int flag,
       {String? message,
       String? error,
+      String? currency,
       @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+      @JsonKey(name: 'expire_date') DateTime? expireDate,
+      @JsonKey(name: 'real_money_ratio') double? realMoneyRatio,
       @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes}) {
     return _WalletResponse(
       flag,
       message: message,
       error: error,
+      currency: currency,
       walletBalance: walletBalance,
+      expireDate: expireDate,
+      realMoneyRatio: realMoneyRatio,
       paymentModes: paymentModes,
     );
   }
@@ -10658,8 +10664,13 @@ mixin _$WalletResponse {
   int get flag => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
   @JsonKey(name: 'jugnoo_balance')
   double? get walletBalance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'expire_date')
+  DateTime? get expireDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'real_money_ratio')
+  double? get realMoneyRatio => throw _privateConstructorUsedError;
   @JsonKey(name: 'payment_mode_config_data')
   List<Payment>? get paymentModes => throw _privateConstructorUsedError;
 
@@ -10678,7 +10689,10 @@ abstract class $WalletResponseCopyWith<$Res> {
       {int flag,
       String? message,
       String? error,
+      String? currency,
       @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+      @JsonKey(name: 'expire_date') DateTime? expireDate,
+      @JsonKey(name: 'real_money_ratio') double? realMoneyRatio,
       @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes});
 }
 
@@ -10696,7 +10710,10 @@ class _$WalletResponseCopyWithImpl<$Res>
     Object? flag = freezed,
     Object? message = freezed,
     Object? error = freezed,
+    Object? currency = freezed,
     Object? walletBalance = freezed,
+    Object? expireDate = freezed,
+    Object? realMoneyRatio = freezed,
     Object? paymentModes = freezed,
   }) {
     return _then(_value.copyWith(
@@ -10712,9 +10729,21 @@ class _$WalletResponseCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
       walletBalance: walletBalance == freezed
           ? _value.walletBalance
           : walletBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      expireDate: expireDate == freezed
+          ? _value.expireDate
+          : expireDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      realMoneyRatio: realMoneyRatio == freezed
+          ? _value.realMoneyRatio
+          : realMoneyRatio // ignore: cast_nullable_to_non_nullable
               as double?,
       paymentModes: paymentModes == freezed
           ? _value.paymentModes
@@ -10735,7 +10764,10 @@ abstract class _$WalletResponseCopyWith<$Res>
       {int flag,
       String? message,
       String? error,
+      String? currency,
       @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+      @JsonKey(name: 'expire_date') DateTime? expireDate,
+      @JsonKey(name: 'real_money_ratio') double? realMoneyRatio,
       @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes});
 }
 
@@ -10755,7 +10787,10 @@ class __$WalletResponseCopyWithImpl<$Res>
     Object? flag = freezed,
     Object? message = freezed,
     Object? error = freezed,
+    Object? currency = freezed,
     Object? walletBalance = freezed,
+    Object? expireDate = freezed,
+    Object? realMoneyRatio = freezed,
     Object? paymentModes = freezed,
   }) {
     return _then(_WalletResponse(
@@ -10771,9 +10806,21 @@ class __$WalletResponseCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      currency: currency == freezed
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String?,
       walletBalance: walletBalance == freezed
           ? _value.walletBalance
           : walletBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      expireDate: expireDate == freezed
+          ? _value.expireDate
+          : expireDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      realMoneyRatio: realMoneyRatio == freezed
+          ? _value.realMoneyRatio
+          : realMoneyRatio // ignore: cast_nullable_to_non_nullable
               as double?,
       paymentModes: paymentModes == freezed
           ? _value.paymentModes
@@ -10789,7 +10836,10 @@ class _$_WalletResponse implements _WalletResponse {
   _$_WalletResponse(this.flag,
       {this.message,
       this.error,
+      this.currency,
       @JsonKey(name: 'jugnoo_balance') this.walletBalance,
+      @JsonKey(name: 'expire_date') this.expireDate,
+      @JsonKey(name: 'real_money_ratio') this.realMoneyRatio,
       @JsonKey(name: 'payment_mode_config_data') this.paymentModes});
 
   factory _$_WalletResponse.fromJson(Map<String, dynamic> json) =>
@@ -10802,15 +10852,23 @@ class _$_WalletResponse implements _WalletResponse {
   @override
   final String? error;
   @override
+  final String? currency;
+  @override
   @JsonKey(name: 'jugnoo_balance')
   final double? walletBalance;
+  @override
+  @JsonKey(name: 'expire_date')
+  final DateTime? expireDate;
+  @override
+  @JsonKey(name: 'real_money_ratio')
+  final double? realMoneyRatio;
   @override
   @JsonKey(name: 'payment_mode_config_data')
   final List<Payment>? paymentModes;
 
   @override
   String toString() {
-    return 'WalletResponse(flag: $flag, message: $message, error: $error, walletBalance: $walletBalance, paymentModes: $paymentModes)';
+    return 'WalletResponse(flag: $flag, message: $message, error: $error, currency: $currency, walletBalance: $walletBalance, expireDate: $expireDate, realMoneyRatio: $realMoneyRatio, paymentModes: $paymentModes)';
   }
 
   @override
@@ -10824,9 +10882,18 @@ class _$_WalletResponse implements _WalletResponse {
                     .equals(other.message, message)) &&
             (identical(other.error, error) ||
                 const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.currency, currency) ||
+                const DeepCollectionEquality()
+                    .equals(other.currency, currency)) &&
             (identical(other.walletBalance, walletBalance) ||
                 const DeepCollectionEquality()
                     .equals(other.walletBalance, walletBalance)) &&
+            (identical(other.expireDate, expireDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.expireDate, expireDate)) &&
+            (identical(other.realMoneyRatio, realMoneyRatio) ||
+                const DeepCollectionEquality()
+                    .equals(other.realMoneyRatio, realMoneyRatio)) &&
             (identical(other.paymentModes, paymentModes) ||
                 const DeepCollectionEquality()
                     .equals(other.paymentModes, paymentModes)));
@@ -10838,7 +10905,10 @@ class _$_WalletResponse implements _WalletResponse {
       const DeepCollectionEquality().hash(flag) ^
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(currency) ^
       const DeepCollectionEquality().hash(walletBalance) ^
+      const DeepCollectionEquality().hash(expireDate) ^
+      const DeepCollectionEquality().hash(realMoneyRatio) ^
       const DeepCollectionEquality().hash(paymentModes);
 
   @JsonKey(ignore: true)
@@ -10857,8 +10927,13 @@ abstract class _WalletResponse implements WalletResponse {
       int flag,
       {String? message,
       String? error,
+      String? currency,
       @JsonKey(name: 'jugnoo_balance')
           double? walletBalance,
+      @JsonKey(name: 'expire_date')
+          DateTime? expireDate,
+      @JsonKey(name: 'real_money_ratio')
+          double? realMoneyRatio,
       @JsonKey(name: 'payment_mode_config_data')
           List<Payment>? paymentModes}) = _$_WalletResponse;
 
@@ -10872,8 +10947,16 @@ abstract class _WalletResponse implements WalletResponse {
   @override
   String? get error => throw _privateConstructorUsedError;
   @override
+  String? get currency => throw _privateConstructorUsedError;
+  @override
   @JsonKey(name: 'jugnoo_balance')
   double? get walletBalance => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'expire_date')
+  DateTime? get expireDate => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'real_money_ratio')
+  double? get realMoneyRatio => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'payment_mode_config_data')
   List<Payment>? get paymentModes => throw _privateConstructorUsedError;

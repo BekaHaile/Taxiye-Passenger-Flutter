@@ -119,7 +119,6 @@ class SettingsController extends GetxController {
     status(Status.loading);
     repository.reloadProfile().then((profileResponse) {
       if (profileResponse.flag == SuccessFlags.reloadProfile.successCode) {
-        log('reload profile here $profileResponse');
         status(Status.success);
         authController.user = profileResponse;
         authController.persistUser(profileResponse);

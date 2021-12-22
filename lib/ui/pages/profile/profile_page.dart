@@ -165,7 +165,8 @@ class ProfileDetailTile extends StatelessWidget {
       child: Column(
         children: [
           Icon(icon, color: AppTheme.primaryColor),
-          Text('$value', style: AppTheme.title.copyWith(fontSize: 18.0)),
+          Text('${value ?? ''}',
+              style: AppTheme.title.copyWith(fontSize: 18.0)),
           Text(
             title,
             style: AppTheme.body,

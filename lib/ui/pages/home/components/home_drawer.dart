@@ -189,7 +189,7 @@ class HomeDrawer extends GetView<HomeController> {
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Text(
-                        'Logout',
+                        'logout'.tr,
                         style: AppTheme.title.copyWith(fontSize: 18.0),
                       ),
                       trailing: const Icon(
@@ -203,23 +203,25 @@ class HomeDrawer extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const LogoImage(
-                              width: 65.0,
-                              height: 30.0,
-                            ),
-                            Text(
-                              'speak_real_person'.tr,
-                              style: AppTheme.title.copyWith(fontSize: 14.0),
-                            ),
-                            Text(
-                              'speak_person_info'.tr,
-                              style: AppTheme.subtitle.copyWith(
-                                  fontSize: 12.0, color: AppTheme.darkColor),
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const LogoImage(
+                                width: 65.0,
+                                height: 30.0,
+                              ),
+                              Text(
+                                'speak_real_person'.tr,
+                                style: AppTheme.title.copyWith(fontSize: 14.0),
+                              ),
+                              Text(
+                                'speak_person_info'.tr,
+                                style: AppTheme.subtitle.copyWith(
+                                    fontSize: 12.0, color: AppTheme.darkColor),
+                              ),
+                            ],
+                          ),
                         ),
                         GestureDetector(
                           onTap: () =>

@@ -8,11 +8,13 @@ class TransactionList extends StatelessWidget {
   const TransactionList({
     Key? key,
     required this.transactions,
+    required this.currency,
     required this.onTapItem,
     this.scrollController,
   }) : super(key: key);
 
   final List<Transaction> transactions;
+  final String currency;
   final ScrollController? scrollController;
   final Function(Transaction selectedTransaction) onTapItem;
 
@@ -22,6 +24,7 @@ class TransactionList extends StatelessWidget {
       child: Column(
         children: getDateOrderedTransactions(
             transactions: transactions,
+            currency: currency,
             onTapItem: onTapItem,
             scrollController: scrollController),
       ),
@@ -31,6 +34,7 @@ class TransactionList extends StatelessWidget {
 
 List<Widget> getDateOrderedTransactions({
   required List<Transaction> transactions,
+  required String currency,
   required Function(Transaction selectedTransaction) onTapItem,
   ScrollController? scrollController,
 }) {
@@ -54,6 +58,7 @@ List<Widget> getDateOrderedTransactions({
       transactionTileList.add(getDailyTransactionList(
         key,
         value,
+        currency,
         scrollController,
         onTapItem,
       ));
@@ -67,6 +72,7 @@ List<Widget> getDateOrderedTransactions({
 getDailyTransactionList(
   DateTime date,
   List<Transaction> transactions,
+  String currency,
   ScrollController? scrollController,
   Function(Transaction selectedTransaction) onTapItem,
 ) {
@@ -89,6 +95,7 @@ getDailyTransactionList(
             padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
             child: TransactionTile(
               transaction: transaction,
+              currency: currency,
               onTap: () => onTapItem(transaction),
             ),
           );

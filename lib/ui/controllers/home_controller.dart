@@ -269,6 +269,7 @@ class HomeController extends GetxService {
     if (appState == AppLifecycleState.resumed) {
       // use sharedPreference for the ability of refreshing values changed in
       // background.
+      mapController.setMapStyle("[]");
       await prefs.reload();
       final storedNotification = prefs.getString('rideNotification');
 
@@ -741,12 +742,6 @@ class HomeController extends GetxService {
               icon: CustomIcons.payment,
               iconColor: AppTheme.greenColor,
             ),
-            const PaymentType(
-              paymentMode: 2,
-              text: 'notes',
-              icon: CustomIcons.notes,
-              iconColor: AppTheme.yellowColor,
-            )
           ];
   }
 

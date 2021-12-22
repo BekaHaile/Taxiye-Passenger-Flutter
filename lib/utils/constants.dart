@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 
 const kBaseUrl = 'https://staging.taxiye.com';
+const kBaseUrlRelease = 'https://release.taxiye.com';
 const kGooglePlacesUrl = 'https://maps.googleapis.com/maps/api/place/';
 const kTaxiyePhoneNumber = '6055';
 const kSOSNumber = '911';
@@ -28,6 +29,7 @@ const List<Language> kLanguages = [
   Language(name: 'Arabic', code: 'ar'),
   Language(name: 'Oromiffa', code: 'om'),
   Language(name: 'Amharic', code: 'am'),
+  Language(name: 'Tigrinya', code: 'tg'),
 ];
 
 // taxiye passenger constants

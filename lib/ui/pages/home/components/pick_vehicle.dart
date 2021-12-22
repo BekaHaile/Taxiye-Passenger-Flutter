@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
@@ -191,7 +189,6 @@ class CustomChip extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          width: 96.0,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
@@ -207,21 +204,24 @@ class CustomChip extends StatelessWidget {
                 color: isActive ? AppTheme.yellowColor : Colors.transparent,
                 width: 2.0),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (icon != null)
-                Icon(
-                  icon,
-                  color: iconColor ?? AppTheme.darkTextColor,
-                  size: 18.0,
-                ),
-              const SizedBox(width: 8.0),
-              Text(
-                text.tr,
-                style: AppTheme.body.copyWith(fontSize: 12.0),
-              )
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (icon != null)
+                  Icon(
+                    icon,
+                    color: iconColor ?? AppTheme.darkTextColor,
+                    size: 18.0,
+                  ),
+                const SizedBox(width: 8.0),
+                Text(
+                  text.tr,
+                  style: AppTheme.body.copyWith(fontSize: 12.0),
+                )
+              ],
+            ),
           ),
         ),
       ),

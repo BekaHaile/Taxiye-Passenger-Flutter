@@ -112,9 +112,7 @@ class VehicleDetail extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        print('vehicle here: $vehicle');
-                      },
+                      onTap: () {},
                       child: FareDetailRow(
                         title: 'per_kilometer',
                         currency: currency,
@@ -199,11 +197,13 @@ class FareDetailRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title.tr,
-            style: type == 'title'
-                ? AppTheme.title.copyWith(fontSize: 14.0)
-                : AppTheme.body,
+          Expanded(
+            child: Text(
+              title.tr,
+              style: type == 'title'
+                  ? AppTheme.title.copyWith(fontSize: 14.0)
+                  : AppTheme.body,
+            ),
           ),
           Text(
             value.toStringAsFixed(2) + ''.tr + ' $currency',

@@ -30,6 +30,7 @@ class WalletHistoryPage extends GetView<WalletController> {
                 Obx(() => controller.transactions.isNotEmpty
                     ? Expanded(
                         child: TransactionList(
+                          currency: ' ${controller.walletData.currency ?? ''}',
                           transactions: controller.transactions,
                           onTapItem: (selectedTransaction) {
                             //Todo: onSelect transaction

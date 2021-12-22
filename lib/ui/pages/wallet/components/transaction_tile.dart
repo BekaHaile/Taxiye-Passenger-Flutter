@@ -4,16 +4,17 @@ import 'package:intl/intl.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
-import 'package:taxiye_passenger/utils/functions.dart';
 
 class TransactionTile extends StatelessWidget {
   const TransactionTile({
     Key? key,
     required this.transaction,
+    required this.currency,
     required this.onTap,
   }) : super(key: key);
 
   final Transaction transaction;
+  final String currency;
   final VoidCallback onTap;
 
   @override
@@ -76,7 +77,7 @@ class TransactionTile extends StatelessWidget {
                   children: [
                     Text(
                       NumberFormat("###,###.00").format(transaction.amount) +
-                          " Birr",
+                          ' $currency',
                       style: AppTheme.title.copyWith(
                         fontSize: 14.0,
                         color: AppTheme.darkTextColor,

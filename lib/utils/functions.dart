@@ -1,14 +1,19 @@
+import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 // import 'package:device_info/device_info.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
 
 bool isPasswordValid(String password) {
   /*
@@ -117,8 +122,14 @@ Future<Position> getCurrentLocation() async {
   if (!serviceEnabled) {
     // Location services are not enabled don't continue
     // accessing the position and request users of the
-    // App to enable the location services.
-    Geolocator.openLocationSettings();
+    // App to enable the location services
+    Get.dialog(ConfirmDialog(
+      title: 'enable_location'.tr,
+      content: 'enable_location_info'.tr,
+      actionText: 'ok',
+      actionCallback: () => Geolocator.openLocationSettings(),
+    ));
+
     return Future.error('Location services are disabled.');
   }
 
@@ -165,7 +176,7 @@ Future<Placemark> getPlaceNameFromCordinate(LatLng placeCoordinate) async {
 
 String getDisplayTimeFromSeconds(int seconds) {
   int hour = seconds ~/ 3600;
-  int min = seconds ~/ 60;
+  int min = (seconds % 3600) ~/ 60;
   int sec = seconds % 60;
 
   return '${(hour > 0 ? '$hour h' : '')} ${(min > 0 ? '$min m' : '')} $sec s';
@@ -177,4 +188,25 @@ unfocus(BuildContext context) {
   if (!currentFocus.hasPrimaryFocus) {
     currentFocus.unfocus();
   }
+}
+
+refreshRequestOnConnectivityChanges(
+    VoidCallback onConnectivityChanges, String refreshFor) {
+  Connectivity connectivity = Get.find();
+  StreamSubscription? streamSubscription;
+  final GetStorage storage = GetStorage();
+
+  final scheduledRefreshes = storage.read<List<dynamic>>('scheduledRefreshes');
+  if (scheduledRefreshes?.contains(refreshFor) ?? false) {
+    return;
+  }
+  scheduledRefreshes?.add(refreshFor);
+  storage.write('scheduledRefreshes', scheduledRefreshes ?? [refreshFor]);
+  streamSubscription =
+      connectivity.onConnectivityChanged.listen((connectivityResult) async {
+    if (connectivityResult != ConnectivityResult.none) {
+      streamSubscription?.cancel();
+      onConnectivityChanges();
+    }
+  });
 }

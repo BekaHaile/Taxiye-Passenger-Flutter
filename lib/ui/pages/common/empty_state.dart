@@ -5,7 +5,12 @@ import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:get/get.dart';
 
 class EmptyState extends StatelessWidget {
-  const EmptyState({Key? key}) : super(key: key);
+  const EmptyState({
+    Key? key,
+    this.imageHeight,
+  }) : super(key: key);
+
+  final double? imageHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +23,7 @@ class EmptyState extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 'assets/images/empty_state.svg',
+                height: imageHeight,
               ),
               const SizedBox(height: 16.0),
               Text(

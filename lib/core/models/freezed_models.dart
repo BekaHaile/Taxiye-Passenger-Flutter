@@ -515,7 +515,10 @@ abstract class WalletResponse with _$WalletResponse {
     int flag, {
     String? message,
     String? error,
+    String? currency,
     @JsonKey(name: 'jugnoo_balance') double? walletBalance,
+    @JsonKey(name: 'expire_date') DateTime? expireDate,
+    @JsonKey(name: 'real_money_ratio') double? realMoneyRatio,
     @JsonKey(name: 'payment_mode_config_data') List<Payment>? paymentModes,
   }) = _WalletResponse;
 

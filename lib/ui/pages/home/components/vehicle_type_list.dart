@@ -81,18 +81,21 @@ class VehicleTypeTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 100.0,
-        height: 35.0,
+        // width: 100.0,
+        // height: 35.0,
         decoration: BoxDecoration(
           color: isActive ? AppTheme.primaryColor : AppTheme.lightSilverColor,
           borderRadius: const BorderRadius.all(Radius.circular(20.0)),
         ),
         child: Center(
-          child: Text(
-            vehicleType.type.tr,
-            style: AppTheme.body.copyWith(
-              color: isActive ? Colors.white : AppTheme.darkTextColor,
-              fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Text(
+              vehicleType.type.tr,
+              style: AppTheme.body.copyWith(
+                color: isActive ? Colors.white : AppTheme.darkTextColor,
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+              ),
             ),
           ),
         ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
+import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/payment_controller.dart';
+import 'package:taxiye_passenger/ui/pages/common/empty_state.dart';
 import 'package:taxiye_passenger/ui/pages/payment/components/payment_list.dart';
-import 'package:taxiye_passenger/ui/pages/payment/components/update_payment_method.dart';
 import 'package:taxiye_passenger/ui/widgets/white_appbar.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
@@ -67,18 +68,20 @@ class PaymentPage extends GetView<PaymentController> {
                 //         ),
                 //       ),
                 //     )),
-                Obx(() => PaymentList(
-                      paymentMethods: controller.paymentMethods,
-                      selectedPayment: controller.selectedPayment,
-                      onItemSelected: (selectedPayment) {
-                        // on payment selected
-                        // controller.selectedPayment = selectedPayment;
-                        // Todo: uncomment this when implementation supported.
-                        // Get.bottomSheet(
-                        //     UpdatePaymentMethod(payment: selectedPayment));
-                        // Todo: on Payment selected
-                      },
-                    )),
+                Obx(() => hasEnabledPayment(controller.paymentMethods)
+                    ? PaymentList(
+                        paymentMethods: controller.paymentMethods,
+                        selectedPayment: controller.selectedPayment,
+                        onItemSelected: (selectedPayment) {
+                          // on payment selected
+                          // controller.selectedPayment = selectedPayment;
+                          // Todo: uncomment this when implementation supported.
+                          // Get.bottomSheet(
+                          //     UpdatePaymentMethod(payment: selectedPayment));
+                          // Todo: on Payment selected
+                        },
+                      )
+                    : const EmptyState()),
               ],
             ),
           ),
@@ -89,5 +92,13 @@ class PaymentPage extends GetView<PaymentController> {
             )),
       ],
     );
+  }
+
+  bool hasEnabledPayment(List<Payment> paymentMethods) {
+    for (Payment payment in paymentMethods) {
+      if (payment.enabled == 1) return true;
+    }
+
+    return false;
   }
 }

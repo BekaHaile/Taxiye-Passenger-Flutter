@@ -24,7 +24,7 @@ class DriverTile extends StatelessWidget {
     return Container(
       decoration: AppTheme.bottomSheetDecoration,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        padding: const EdgeInsets.all(5.0),
         child: Row(
           children: [
             Column(
@@ -36,7 +36,7 @@ class DriverTile extends StatelessWidget {
                 //   style: AppTheme.body.copyWith(color: AppTheme.darkColor),
                 // ),
                 SizedBox(
-                  width: 150.0,
+                  width: 120.0,
                   child: Text(
                     vehicle.vehicleNumber ?? '',
                     textAlign: TextAlign.center,
@@ -76,7 +76,7 @@ class DriverTile extends StatelessWidget {
                           ),
                           const SizedBox(width: 5.0),
                           CircleAvatar(
-                            radius: 15.0,
+                            radius: 10.0,
                             backgroundColor: AppTheme.yellowColor,
                             child: Text(
                               driver.rating?.toStringAsFixed(1) ??

@@ -86,7 +86,7 @@ class _BuyAirtimePageState extends State<BuyAirtimePage> {
                                     crossAxisCount: 3,
                                     mainAxisSpacing: 8.0,
                                     crossAxisSpacing: 8.0,
-                                    childAspectRatio: 1.5,
+                                    childAspectRatio: 1.3,
                                   ),
                                   itemBuilder: (context, index) {
                                     int amount = airtimeValues[index];

@@ -98,7 +98,7 @@ class _IntroductionPageState extends State<IntroductionPage>
                   alignment: Alignment.centerRight,
                   child: RoundedButton(
                     text: _infoStep == 3 ? 'get_started'.tr : 'next'.tr,
-                    width: _infoStep == 3 ? 155.0 : 110.0,
+                    width: _infoStep == 3 ? 180.0 : 115.0,
                     trailingIcon: Icons.arrow_forward,
                     onPressed: () {
                       // Todo: change step

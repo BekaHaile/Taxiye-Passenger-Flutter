@@ -3,6 +3,7 @@
 */
 import 'dart:developer';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -18,9 +19,14 @@ class GoogleMapService {
   late Map<String, dynamic> defaultParams;
 
   final apiKey = dotenv.env['GOOGLE_MAP_KEY'];
+  final Connectivity connectivity;
 
-  GoogleMapService() {
-    dioClient = DioClient(Dio(), baseUrl: kGooglePlacesUrl);
+  GoogleMapService({required this.connectivity}) {
+    dioClient = DioClient(
+      Dio(),
+      baseUrl: kGooglePlacesUrl,
+      connectivity: connectivity,
+    );
   }
 
   Future<List<Suggestion>> getPlaceSugestions(

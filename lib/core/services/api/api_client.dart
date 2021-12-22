@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:get/utils.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,10 +18,14 @@ import 'package:taxiye_passenger/utils/functions.dart';
 class ApiClient {
   late DioClient dioClient;
   final Dio dio;
+  final Connectivity connectivity;
   Map<String, dynamic> defaultParams = {};
 
-  ApiClient({required this.dio}) {
-    dioClient = DioClient(dio);
+  ApiClient({
+    required this.dio,
+    required this.connectivity,
+  }) {
+    dioClient = DioClient(dio, connectivity: connectivity);
 
     PackageInfo.fromPlatform().then((packageInfo) => defaultParams.addAll({
           'app_version': packageInfo.version,
@@ -93,10 +98,9 @@ class ApiClient {
     } on DioError catch (e) {
       final errorMessage = NetworkExceptions.getErrorMessage(
           NetworkExceptions.getDioException(e));
-      log('$e');
       log('Api Error: $errorMessage');
-      toast('error', e.response?.data['message']);
-      return Future.error(errorMessage);
+      return Future.error(NetworkExceptions.getDioException(e));
+      //return NetworkExceptions.getDioException(e);
     }
   }
 

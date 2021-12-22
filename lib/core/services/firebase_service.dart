@@ -28,9 +28,9 @@ class FirebaseService extends GetxService {
   });
 
   Future<String?> getDeviceToken() async {
-    return await GetPlatform.isAndroid
-        ? firebaseMessaging.getToken()
-        : firebaseMessaging.getAPNSToken();
+    return GetPlatform.isAndroid
+        ? await firebaseMessaging.getToken()
+        : await firebaseMessaging.getAPNSToken();
   }
 
   Future<UserCredential> signInWithGoogle() async {

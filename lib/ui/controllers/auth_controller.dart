@@ -9,11 +9,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/auth_enums.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/core/services/api/network_exceptions.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/pages/common/phone_input_dialog.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
@@ -44,6 +46,7 @@ class AuthController extends GetxService {
   late Map<String, dynamic> deviceInfo;
   late Position currentLocation;
   String? deviceToken;
+  String? appSignature;
 
   // sign up info
   Country country = kCountries.first;
@@ -61,6 +64,7 @@ class AuthController extends GetxService {
   String fullName = '';
   String email = '';
   int gender = 1;
+  String verificationCode = '';
 
   final _profileImage = File('').obs;
   get profileImage => _profileImage.value;
@@ -75,6 +79,7 @@ class AuthController extends GetxService {
   void onInit() async {
     // Todo: initialize values and get any auth values here.
     super.onInit();
+    _storage.write('scheduledRefreshes', []);
   }
 
   setGeneralInfo() async {
@@ -83,6 +88,9 @@ class AuthController extends GetxService {
       repository.getDeviceToken().then((value) {
         // print('device token $value');
         deviceToken = value;
+      }),
+      SmsAutoFill().getAppSignature.then((signature) {
+        appSignature = signature;
       }),
     ]);
   }
@@ -114,6 +122,7 @@ class AuthController extends GetxService {
       'device_rooted': '0',
       'device_name': deviceInfo['name'],
       'device_token': deviceToken,
+      'otp_signature_token': appSignature ?? '',
       'last_push_time_diff': '-1'
     };
 
@@ -130,6 +139,8 @@ class AuthController extends GetxService {
   onsignUpSuccess(SignUpResponse signupResponse) {
     if (signupResponse.flag == SuccessFlags.signUp.successCode) {
       status(Status.success);
+      SmsAutoFill().listenForCode;
+      // Get.to(AutoFillTest());
       if (Get.currentRoute != Routes.verify) {
         Get.toNamed(Routes.verify);
       }
@@ -403,8 +414,13 @@ class AuthController extends GetxService {
           toast('error', loginResponse.error ?? loginResponse.message ?? '');
         }
       }, onError: (err) {
-        toast('error', 'error_connection'.tr);
         print('Login error: $err');
+        if (err == const NetworkExceptions.noInternetConnection()) {
+          toast('error', 'error_connection'.tr);
+          refreshRequestOnConnectivityChanges(() => _getUser(), 'getUser');
+        } else {
+          toast('error', '$err');
+        }
       });
 
       // reload profile

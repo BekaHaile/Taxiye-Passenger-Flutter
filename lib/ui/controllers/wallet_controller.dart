@@ -38,6 +38,14 @@ class WalletController extends GetxController {
   get walletBalance => _walletBalance.value;
   set walletBalance(value) => _walletBalance.value = value;
 
+  // final _currency = ''.obs;
+  // get currency => _currency.value;
+  // set currency(value) => _currency.value = value;
+
+  final _walletData = WalletResponse(0).obs;
+  get walletData => _walletData.value;
+  set walletData(value) => _walletData.value = value;
+
   final GetStorage _storage = GetStorage();
 
   @override
@@ -65,6 +73,8 @@ class WalletController extends GetxController {
         if (walletResponse.flag ==
             SuccessFlags.fetchWalletBalance.successCode) {
           walletBalance = walletResponse.walletBalance;
+          walletData = walletResponse;
+          //currency = walletResponse.currency;
           status(Status.success);
         } else {
           toast('error', walletResponse.message ?? walletResponse.error ?? '');

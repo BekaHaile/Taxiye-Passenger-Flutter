@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,7 +60,7 @@ class WalletTransferPage extends GetView<WalletController> {
                                               WalletTransferTo.driver,
                                         ),
                                       )),
-                                  const SizedBox(width: 20.0),
+                                  const SizedBox(width: 16.0),
                                   Obx(() => Expanded(
                                         child: TransferTo(
                                           to: describeEnum(
@@ -217,7 +215,7 @@ class TransferTo extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
           child: Row(
             children: [
               SvgPicture.asset(
@@ -225,9 +223,11 @@ class TransferTo extends StatelessWidget {
                 color: AppTheme.darkTextColor,
               ),
               const SizedBox(width: 16.0),
-              Text(
-                to.tr,
-                style: AppTheme.title.copyWith(fontSize: 14.0),
+              Expanded(
+                child: Text(
+                  to.tr,
+                  style: AppTheme.title.copyWith(fontSize: 14.0),
+                ),
               )
             ],
           ),

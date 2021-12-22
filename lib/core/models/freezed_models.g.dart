@@ -828,7 +828,12 @@ _$_WalletResponse _$_$_WalletResponseFromJson(Map<String, dynamic> json) {
     json['flag'] as int,
     message: json['message'] as String?,
     error: json['error'] as String?,
+    currency: json['currency'] as String?,
     walletBalance: (json['jugnoo_balance'] as num?)?.toDouble(),
+    expireDate: json['expire_date'] == null
+        ? null
+        : DateTime.parse(json['expire_date'] as String),
+    realMoneyRatio: (json['real_money_ratio'] as num?)?.toDouble(),
     paymentModes: (json['payment_mode_config_data'] as List<dynamic>?)
         ?.map((e) => Payment.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -840,7 +845,10 @@ Map<String, dynamic> _$_$_WalletResponseToJson(_$_WalletResponse instance) =>
       'flag': instance.flag,
       'message': instance.message,
       'error': instance.error,
+      'currency': instance.currency,
       'jugnoo_balance': instance.walletBalance,
+      'expire_date': instance.expireDate?.toIso8601String(),
+      'real_money_ratio': instance.realMoneyRatio,
       'payment_mode_config_data': instance.paymentModes,
     };
 
