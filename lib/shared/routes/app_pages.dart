@@ -5,8 +5,8 @@ import 'package:taxiye_passenger/ui/bindings/home_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/orders_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/payment_binding.dart';
 import 'package:taxiye_passenger/ui/bindings/profile_binding.dart';
+import 'package:taxiye_passenger/ui/bindings/promotions_binding.dart';
 import 'package:taxiye_passenger/ui/pages/pages.dart';
-
 part 'app_routes.dart';
 
 abstract class AppPages {
@@ -58,13 +58,18 @@ abstract class AppPages {
 
     GetPage(
       name: Routes.pickLocation,
-      page: () => PickLocationPage(),
+      page: () => const PickLocationPage(),
+    ),
+
+    GetPage(
+      name: Routes.deliveryDetail,
+      page: () => const DeliveryDetailPage(),
     ),
 
     // wallet Pages
     GetPage(
       name: Routes.wallet,
-      page: () => WalletPage(),
+      page: () => const WalletPage(),
     ),
 
     GetPage(
@@ -81,6 +86,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.promotions,
       page: () => const PromotionsPage(),
+      binding: PromotionsBinding(),
     ),
     GetPage(
       name: Routes.exchangePoints,
@@ -99,10 +105,27 @@ abstract class AppPages {
       page: () => const ReferFriendPage(),
     ),
 
+    GetPage(
+      name: Routes.buyAirtime,
+      page: () => const BuyAirtimePage(),
+    ),
+    GetPage(
+      name: Routes.transferPoints,
+      page: () => const TransferPointsPage(),
+    ),
+    GetPage(
+      name: Routes.transactions,
+      page: () => const TransactionsPage(),
+    ),
+    GetPage(
+      name: Routes.airtimeHistory,
+      page: () => const AirtimeHistoryPage(),
+    ),
+
     // Profile Pages
     GetPage(
       name: Routes.profile,
-      page: () => ProfilePage(),
+      page: () => const ProfilePage(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -117,10 +140,6 @@ abstract class AppPages {
       name: Routes.savedPlaces,
       page: () => const SavedPlacesPage(),
     ),
-    GetPage(
-      name: Routes.privacySettings,
-      page: () => PrivacySettingsPage(),
-    ),
 
     // Payment Pages
     GetPage(
@@ -129,16 +148,32 @@ abstract class AppPages {
       binding: PaymentBinding(),
     ),
 
+     // HelloCash Page
+    GetPage(
+      name: Routes.hellocash,
+      page: () => const HelloCash(),
+    ),
+
     // Settings pages
     GetPage(
       name: Routes.settings,
-      page: () => SettingsPage(),
+      page: () => const SettingsPage(),
+    ),
+
+    GetPage(
+      name: Routes.privacySettings,
+      page: () => const PrivacySettingsPage(),
     ),
 
     // Legals Pages
     GetPage(
       name: Routes.legals,
-      page: () => LegalsPage(),
+      page: () => const LegalsPage(),
+    ),
+
+    GetPage(
+      name: Routes.legalDetails,
+      page: () => const LegalDetailPage(),
     ),
 
     // Drivers Pages
@@ -159,5 +194,6 @@ abstract class AppPages {
       name: Routes.orderDetails,
       page: () => const OrderDetailsPage(),
     ),
+
   ];
 }

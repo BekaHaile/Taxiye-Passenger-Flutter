@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     as lNotification;
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:get/get.dart';
@@ -23,15 +24,15 @@ class NotificationService extends GetxService {
   registerFCM(
       {required Function(NotificationMessage notificationMessage)
           onMessageRecieved}) async {
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+    // NotificationSettings settings = await messaging.requestPermission(
+    //   alert: true,
+    //   announcement: false,
+    //   badge: true,
+    //   carPlay: false,
+    //   criticalAlert: false,
+    //   provisional: false,
+    //   sound: true,
+    // );
 
     configLocalNotification();
 
@@ -100,8 +101,14 @@ class NotificationService extends GetxService {
 handleNotification(RemoteMessage message,
     Function(NotificationMessage notificationMessage) onMessageRecieved) {
   if (message.data['message'] != null) {
+    final messageObject = jsonDecode(message.data['message']);
+    // handle dynamic type of engagementId.
+    messageObject['engagement_id'] = messageObject['engagement_id'] != null
+        ? '${messageObject['engagement_id']}'
+        : null;
+
     NotificationMessage notificationMessage =
-        NotificationMessage.fromJson(jsonDecode(message.data['message']));
+        NotificationMessage.fromJson(messageObject);
 
     // send recieved data to the callback
     onMessageRecieved(notificationMessage);
@@ -110,14 +117,16 @@ handleNotification(RemoteMessage message,
     switch (notificationMessage.flag) {
       case 4:
         showNotification(
-          'ride_completed'.tr,
-          '${'your_fare_was'.tr} ${(notificationMessage.toPay ?? '')} ETB',
+          notificationMessage.flag,
+          'Ride Completed',
+          'Your fare is ${(notificationMessage.toPay ?? '')} ETB',
         );
         break;
       case 5:
         break;
       default:
         showNotification(
+          notificationMessage.flag,
           notificationMessage.title ?? '',
           notificationMessage.message ??
               notificationMessage.log ??
@@ -154,7 +163,31 @@ handleNotification(RemoteMessage message,
   // }
 }
 
-showNotification(String title, String body) async {
+showNotification(int flag, String title, String body) async {
+  final GetStorage _storage = GetStorage();
+
+  // check if notification is enabled for different notification types
+
+  bool? showRideNotifications = _storage.read<bool>('showRideNotifications');
+  bool? showDeliveryNotifications =
+      _storage.read<bool>('showDeliveryNotifications');
+  bool? showTransactionNotifications =
+      _storage.read<bool>('showTransactionNotifications');
+
+  switch (flag) {
+    case 21:
+      // Transaction notifications
+      if (!(showTransactionNotifications ?? true)) return;
+      break;
+    case 54:
+      // Delivery notifications
+      if (!(showDeliveryNotifications ?? true)) return;
+      break;
+
+    default:
+      if (!(showRideNotifications ?? true)) return;
+  }
+
   var androidPlatformChannelSpecifics =
       const lNotification.AndroidNotificationDetails(
     'com.taxiye',
@@ -171,6 +204,8 @@ showNotification(String title, String body) async {
   var platformChannelSpecifics = lNotification.NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics);
+
+  // Todo: check notification type from body
 
   await lNotification.FlutterLocalNotificationsPlugin().show(
     0,
@@ -194,14 +229,25 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 persistBackgroundNotification(NotificationMessage notificationMessage) async {
   // set notification message on storage, so that app will read it on
   // onResume.
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  //log('background notification: $notificationMessage');
 
   switch (notificationMessage.flag) {
     case 72:
       // skip this notification
       break;
     default:
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('rideNotification', jsonEncode(notificationMessage));
+      if (notificationMessage.flag == 3) {
+        prefs.setString('rideStartedTime', DateTime.now().toIso8601String());
+      }
+
+      if (notificationMessage.flag == 5) {
+        // save this notifcation, since the driver info is found here
+        prefs.setString(
+            'rideAcceptedNotification', jsonEncode(notificationMessage));
+      }
   }
 
   // For communication with the main ui thread.

@@ -12,20 +12,7 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
 class ProfilePage extends GetView<ProfileController> {
-  ProfilePage({Key? key}) : super(key: key);
-
-  final List<Option> profileOPtions = [
-    Option(
-        title: 'your_info',
-        subtitle: 'view_edit_your_details',
-        leadingIcon: Icons.person),
-    Option(
-        title: 'emergency_contacts',
-        subtitle: '2 people',
-        leadingIcon: Icons.call),
-    Option(
-        title: 'saved_places', subtitle: '3 places', leadingIcon: Icons.call),
-  ];
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,26 +76,27 @@ class ProfilePage extends GetView<ProfileController> {
                       color: AppTheme.lightSilverColor,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Todo: replace values with real data
-                        ProfileDetailTile(
-                          title: 'ratings'.tr,
-                          value: 4.5,
-                          icon: Icons.star,
-                        ),
-                        ProfileDetailTile(
-                          title: 'rides_completed'.tr,
-                          value: 45,
-                          icon: Icons.check_circle,
-                        ),
-                        ProfileDetailTile(
-                            title: 'rides_cancelled'.tr,
-                            value: 21,
-                            icon: Icons.block_rounded),
-                      ],
-                    ),
+                    child: Obx(() => Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ProfileDetailTile(
+                              title: 'rides_completed'.tr,
+                              value: controller.userRideCount.completedRides,
+                              icon: Icons.check_circle,
+                            ),
+                            ProfileDetailTile(
+                                title: 'rides_cancelled'.tr,
+                                value: controller.userRideCount.cancelledRides,
+                                icon: Icons.block_rounded),
+                            // Expanded(
+                            //   child: ProfileDetailTile(
+                            //     title: 'total_money_spent'.tr,
+                            //     value: controller.userRideCount.totalMoneySpent,
+                            //     icon: Icons.star,
+                            //   ),
+                            // ),
+                          ],
+                        )),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -117,32 +105,33 @@ class ProfilePage extends GetView<ProfileController> {
                       color: AppTheme.lightSilverColor,
                     ),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final Option option = profileOPtions[index];
-                      return OptionTile(
-                        option: option,
-                        onTap: () {
-                          // Todo: nav based on option
-                          switch (option.title) {
-                            case 'your_info':
-                              Get.toNamed(Routes.profileInfo);
-                              break;
-                            case 'emergency_contacts':
-                              Get.toNamed(Routes.emergencyContacts);
-                              break;
-                            case 'saved_places':
-                              controller.onNavToSavedPlaces();
-                              break;
-                            default:
-                          }
+                  Obx(() => ListView.builder(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final Option option =
+                              controller.profileOPtions[index];
+                          return OptionTile(
+                            option: option,
+                            onTap: () {
+                              // Todo: nav based on option
+                              switch (option.title) {
+                                case 'your_info':
+                                  Get.toNamed(Routes.profileInfo);
+                                  break;
+                                case 'emergency_contacts':
+                                  Get.toNamed(Routes.emergencyContacts);
+                                  break;
+                                case 'saved_places':
+                                  Get.toNamed(Routes.savedPlaces);
+                                  break;
+                                default:
+                              }
+                            },
+                          );
                         },
-                      );
-                    },
-                    itemCount: profileOPtions.length,
-                  ),
+                        itemCount: controller.profileOPtions.length,
+                      )),
                 ],
               ),
             ),
@@ -176,7 +165,8 @@ class ProfileDetailTile extends StatelessWidget {
       child: Column(
         children: [
           Icon(icon, color: AppTheme.primaryColor),
-          Text('$value', style: AppTheme.title.copyWith(fontSize: 18.0)),
+          Text('${value ?? ''}',
+              style: AppTheme.title.copyWith(fontSize: 18.0)),
           Text(
             title,
             style: AppTheme.body,

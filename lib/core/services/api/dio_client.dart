@@ -1,17 +1,22 @@
+import 'dart:developer';
 import 'dart:io';
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:taxiye_passenger/core/services/api/retry_interceptor.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 
 class DioClient {
   late Dio _dio;
   final String? baseUrl;
   final List<Interceptor>? interceptors;
+  final Connectivity connectivity;
 
   DioClient(
     Dio? dio, {
     this.interceptors,
     this.baseUrl,
+    required this.connectivity,
   }) {
     _dio = dio ?? Dio();
     _dio
@@ -32,6 +37,17 @@ class DioClient {
     if (interceptors?.isNotEmpty ?? false) {
       _dio.interceptors.addAll(interceptors!);
     }
+
+    // add connectivity retry interceptor
+    _dio.interceptors.add(
+      RetryOnConnectionChangeInterceptor(
+        requestRetrier: DioConnectivityRequestRetrier(
+          dio: _dio,
+          connectivity: connectivity,
+        ),
+      ),
+    );
+
     // if (kDebugMode) {
     //   _dio.interceptors.add(LogInterceptor(
     //       responseBody: true,
@@ -41,6 +57,10 @@ class DioClient {
     //       request: false,
     //       requestBody: false));
     // }
+  }
+
+  updateBaseUrl(String port) {
+    _dio.options.baseUrl = '$kBaseUrl:$port';
   }
 
   Future addAuthorizationInterceptor() async {
@@ -57,7 +77,11 @@ class DioClient {
 
         // add the access token to the body too.
         if (options.data != null) {
-          options.data['access_token'] = accessToken;
+          try {
+            options.data['access_token'] = accessToken;
+          } catch (e) {
+            print('$e');
+          }
         }
 
         return handler.next(options); //continue

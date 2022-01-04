@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
@@ -108,13 +109,37 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<User> loginUsingToken(Map<String, dynamic> loginPayload) async {
-    final response = await apiClient.request(
+  Future<VerifyResponse> loginUsingToken(
+      Map<String, dynamic> loginPayload) async {
+    var response;
+    await apiClient
+        .request(
       requestType: RequestType.post,
       path: '/v3/customer/login_using_access_token',
       data: loginPayload,
-    );
-    return VerifyResponse.fromJson(response).userData ?? User('');
+    )
+        .then((loginResponse) {
+      VerifyResponse verifyResponse = VerifyResponse.fromJson(loginResponse);
+      if (loginResponse.containsKey('autos')) {
+        if (loginResponse['autos'].containsKey('cancellation')) {
+          verifyResponse = verifyResponse.copyWith(
+              cancelReasons: List<String>.from(
+                  loginResponse['autos']['cancellation']['reasons']));
+        }
+
+        verifyResponse = verifyResponse.copyWith(
+          locale: loginResponse['autos']['locale'],
+          callCenterNumber: loginResponse['autos']['call_center_number'],
+        );
+      }
+
+      response = verifyResponse;
+      return verifyResponse;
+    }, onError: (e) {
+      throw e;
+    });
+
+    return response;
   }
 
   @override
@@ -176,5 +201,17 @@ class AuthRepository implements IAuthRepository {
       data: {},
     );
     return BasicResponse.fromJson(response);
+  }
+
+  // get legals info
+  @override
+  Future<LegalResponse> getLagalsDetail(
+      Map<String, dynamic> legalPayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/get_information',
+      data: legalPayload,
+    );
+    return LegalResponse.fromJson(response);
   }
 }

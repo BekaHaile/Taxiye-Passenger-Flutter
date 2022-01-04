@@ -61,6 +61,8 @@ dependencies:
   smooth_page_indicator: ^0.3.0-nullsafety.0
   # For OTP pin input 
   pinput: ^1.2.0
+  # pin_code_fields: ^7.3.0
+  sms_autofill: ^2.2.0
   # for image cropper
   image_cropper: ^1.4.1
 
@@ -75,7 +77,9 @@ dependencies:
   google_maps_flutter: ^2.0.11
   # For drawing polylines
   flutter_polyline_points: ^1.0.0
-  flutter_svg: ^0.22.0
+  # For svg images
+  # flutter_svg: ^0.22.0
+  flutter_svg: ^0.23.0+1
   # For star rating
   flutter_rating_bar: ^4.0.0
 
@@ -128,6 +132,14 @@ dependencies:
 
   # for picking contacts
   contacts_service: ^0.6.3
+  # to handle permissions
+  permission_handler: ^8.2.5
+  # for showing html elements
+  # flutter_html: ^2.1.5
+  flutter_widget_from_html: ^0.8.1+1
+
+  # for checking connectivity
+  connectivity: ^3.0.6
 
   
 

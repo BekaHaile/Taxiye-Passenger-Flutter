@@ -19,20 +19,24 @@ class HomePaymentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 72.0,
+      height: 78.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           final Payment payment = paymentMethods[index];
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0.0, 5.0, 20.0),
-            child: PaymentTile(
-              payment: payment,
-              isActive: selectedPayment == payment,
-              onTap: () => onItemSelected(payment),
-            ),
-          );
+          if (payment.enabled == 1) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 4.0, 5.0, 20.0),
+              child: PaymentTile(
+                payment: payment,
+                isActive: selectedPayment == payment,
+                onTap: () => onItemSelected(payment),
+              ),
+            );
+          } else {
+            return Container();
+          }
         },
         itemCount: paymentMethods.length,
       ),
@@ -84,7 +88,7 @@ class PaymentTile extends StatelessWidget {
               ),
               const SizedBox(width: 12.0),
               Text(
-                (payment.name ?? '').tr,
+                (payment.displayName ?? (payment.name ?? '').tr),
                 style: AppTheme.title.copyWith(fontSize: 14.0),
               ),
             ],

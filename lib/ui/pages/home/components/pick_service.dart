@@ -31,19 +31,12 @@ class PickService extends GetView<HomeController> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          WhereTo(
-            onRoutePickLocation: controller.onRoutePickLocation,
-            onPickDate: (pickedDate) => controller.scheduleDate = pickedDate,
-            onPickTime: (pickedTime) {
-              controller.scheduleTime = pickedTime;
-              controller.onRoutePickLocation(isSchedule: true);
-            },
-          ),
+          const WhereTo(),
           Obx(() => ServiceList(
                 services: homeServices,
                 selectedService: controller.selectedService,
                 onSelectService: (selectedService) =>
-                    controller.selectedService = selectedService,
+                    controller.onServiceSelected(selectedService),
               )),
         ],
       ),

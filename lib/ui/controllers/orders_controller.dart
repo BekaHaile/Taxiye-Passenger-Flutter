@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -39,6 +40,14 @@ class OrdersController extends GetxController {
   final _scheduledRides = List<ScheduledRide>.empty(growable: true).obs;
   get scheduledRides => _scheduledRides.value;
   set scheduledRides(value) => _scheduledRides.assignAll(value);
+
+  final _selectedOrder = RideHistory().obs;
+  get selectedOrder => _selectedOrder.value;
+  set selectedOrder(value) => _selectedOrder.value = value;
+
+  final _rideSummary = RideSummary().obs;
+  get rideSummary => _rideSummary.value;
+  set rideSummary(value) => _rideSummary.value = value;
 
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
@@ -135,6 +144,33 @@ class OrdersController extends GetxController {
       status(Status.error);
       print('Cancel scheduled ride error: $error');
     });
+  }
+
+  _getRideSummary(String engagementId) {
+    status(Status.loading);
+    repository.getRideSummary(engagementId).then((rideSummaryResponse) {
+      if (rideSummaryResponse.flag == SuccessFlags.rideSummary.successCode) {
+        status(Status.success);
+        rideSummary = rideSummaryResponse;
+      } else {
+        print(rideSummaryResponse.error ?? '');
+        status(Status.error);
+        toast('error',
+            rideSummaryResponse.error ?? rideSummaryResponse.message ?? '');
+      }
+    }, onError: (error) {
+      status(Status.error);
+      print('Get ride summary error: $error');
+    });
+  }
+
+  onSelectOrder(RideHistory rideHistory) {
+    if (rideHistory.engagementId != null) {
+      rideSummary = RideSummary();
+      selectedOrder = rideHistory;
+      _getRideSummary('${rideHistory.engagementId}');
+      Get.toNamed(Routes.orderDetails);
+    }
   }
 
   Future<Polyline> getRoutePolyline(

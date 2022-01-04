@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 
-class WhereTo extends StatelessWidget {
+class WhereTo extends GetView<HomeController> {
   const WhereTo({
     Key? key,
-    required this.onRoutePickLocation,
-    required this.onPickDate,
-    required this.onPickTime,
   }) : super(key: key);
-
-  final VoidCallback onRoutePickLocation;
-  final Function(DateTime pickedDate) onPickDate;
-  final Function(TimeOfDay pickedTime) onPickTime;
 
   @override
   Widget build(BuildContext context) {
@@ -42,42 +37,47 @@ class WhereTo extends StatelessWidget {
                   style: TextButton.styleFrom(
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.symmetric(horizontal: 16.0)),
-                  onPressed: onRoutePickLocation,
-                  child: Text(
-                    'where_to'.tr,
-                    style: AppTheme.title
-                        .copyWith(fontSize: 18.0, color: Colors.white),
-                  ),
+                  onPressed: controller.onRoutePickLocation,
+                  child: Obx(() => Text(
+                        controller.selectedService == HomeServiceIndex.delivery
+                            ? 'what_do_you_need'.tr
+                            : 'where_to'.tr,
+                        style: AppTheme.title
+                            .copyWith(fontSize: 16.0, color: Colors.white),
+                      )),
                 ),
               ),
-              GestureDetector(
-                onTap: () => _pickDate(context),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 8.0),
-                    child: Row(
-                      children: [
-                        const Icon(CustomIcons.clock,
-                            color: AppTheme.darkTextColor),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            'now'.tr,
-                            style: AppTheme.title.copyWith(fontSize: 14.0),
-                          ),
+              Obx(() => GestureDetector(
+                    onTap: controller.selectedService == HomeServiceIndex.ride
+                        ? () => _pickDate(context)
+                        : null,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 8.0),
+                        child: Row(
+                          children: [
+                            const Icon(CustomIcons.clock,
+                                color: AppTheme.darkTextColor),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(
+                                'now'.tr,
+                                style: AppTheme.title.copyWith(fontSize: 14.0),
+                              ),
+                            ),
+                            const Icon(Icons.expand_more,
+                                color: AppTheme.darkTextColor),
+                          ],
                         ),
-                        const Icon(Icons.expand_more,
-                            color: AppTheme.darkTextColor),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              )
+                  ))
             ],
           ),
         ),
@@ -93,7 +93,7 @@ class WhereTo extends StatelessWidget {
       lastDate: DateTime.now().add(const Duration(days: 1)),
     );
     if (pickedDate != null) {
-      onPickDate(pickedDate);
+      controller.scheduleDate = pickedDate;
       _pickTime(context);
     }
   }
@@ -113,7 +113,8 @@ class WhereTo extends StatelessWidget {
           pickedTime.minute < minTime.minute) {
         Get.snackbar('error'.tr, 'invalid_time'.tr);
       } else {
-        onPickTime(pickedTime);
+        controller.scheduleTime = pickedTime;
+        controller.onRoutePickLocation(isSchedule: true);
       }
     }
   }

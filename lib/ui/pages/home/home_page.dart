@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
@@ -8,8 +9,10 @@ import 'package:taxiye_passenger/shared/custom_icons.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/cancel_reason_dialog.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/confirm_place.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/driver_detail.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/emergency_status_dialog.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/home_drawer.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/location_search.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/locations_list.dart';
@@ -48,8 +51,8 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     WidgetsBinding.instance?.addObserver(this);
-    drawerIndex = DrawerIndex.myWallet;
-    screenView = ProfilePage();
+    drawerIndex = DrawerIndex.home;
+    screenView = const ProfilePage();
     iconAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 0));
 
@@ -92,10 +95,35 @@ class _HomePageState extends State<HomePage>
                         onTap: () => _scaffoldKey.currentState?.openDrawer(),
                       )),
 
-                Obx(() => controller.tripStep == TripStep.tripStarted ||
-                        controller.tripStep == TripStep.tripDetail
+                Obx(() => controller.tripStep == TripStep.tripStarted
                     ? const SOS()
                     : const SizedBox()),
+
+                // refresh current location
+                Positioned(
+                  top: 120.0,
+                  right: 20.0,
+                  child: Container(
+                    width: 40.0,
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppTheme.shadowColor.withOpacity(0.2),
+                          spreadRadius: 0,
+                          blurRadius: 6,
+                          offset: const Offset(1, 3),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                        color: AppTheme.darkTextColor,
+                        onPressed: () => controller.refreshCurrentLocation(),
+                        icon: const Icon(Icons.my_location)),
+                  ),
+                ),
 
                 Obx(() => controller.tripStep == TripStep.pickOnMap ||
                         controller.tripStep == TripStep.addPlace ||
@@ -207,7 +235,19 @@ class _HomePageState extends State<HomePage>
         return const PickVehicle();
       case TripStep.lookingDrivers:
         return LookingDrivers(
-          onCancelDriverSearch: () => controller.onCancelRide(),
+          selectedService: controller.selectedService,
+          onCancelDriverSearch: () {
+            if (controller.selectedService == HomeServiceIndex.delivery) {
+              // show cancellationn reasons
+              Get.dialog(CancelReasonDialog(
+                  title: 'cancel_reason'.tr,
+                  reasons: controller.cancelOrderReasons,
+                  onSelectReason: (reason) =>
+                      controller.cancelDelivery(reason)));
+            } else {
+              controller.onCancelRide();
+            }
+          },
         );
       case TripStep.driverDetail:
         return const DriverDetail();
@@ -218,8 +258,8 @@ class _HomePageState extends State<HomePage>
           rideDetail: controller.rideDetail ?? RideDetail(),
         );
       case TripStep.tripFeedback:
-        return TripFeadback(
-            driver: controller.driver!, vehicle: controller.driverVehicle);
+        log('driver: ${controller.driver}');
+        return const TripFeadback();
       case TripStep.confirmPlace:
         return const ConfirmPlace();
       case TripStep.scheduleDetail:
@@ -256,6 +296,17 @@ class _HomePageState extends State<HomePage>
         // nav to legals page
         Get.toNamed(Routes.settings);
         break;
+      case DrawerIndex.email:
+        // nav to emails page
+        final Uri emailLaunchUri = Uri(
+          scheme: 'mailto',
+          path: 'support@taxiye.com',
+          query: encodeQueryParameters(
+            <String, String>{'subject': 'passenger_email_support'.tr},
+          ),
+        );
+        launch(emailLaunchUri.toString());
+        break;
       case DrawerIndex.legals:
         // nav to legals page
         Get.toNamed(Routes.legals);
@@ -263,9 +314,16 @@ class _HomePageState extends State<HomePage>
       default:
     }
   }
+
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
 }
 
-class SOS extends StatelessWidget {
+class SOS extends GetView<HomeController> {
   const SOS({
     Key? key,
   }) : super(key: key);
@@ -276,7 +334,12 @@ class SOS extends StatelessWidget {
       top: 40.0,
       right: 16.0,
       child: GestureDetector(
-        onTap: () => launch('tel:$kSOSNumber'),
+        onTap: () {
+          Get.dialog(EmergencyStatusDialog(
+            emergencyStatus: controller.emergencyStatus,
+            onToggle: (value) => controller.updateEmergencyStatus(),
+          ));
+        },
         child: Container(
           width: 50.0,
           height: 50.0,

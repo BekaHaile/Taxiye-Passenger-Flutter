@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -16,6 +19,7 @@ class WalletController extends GetxController {
   WalletController({required this.repository});
 
   final status = Status.success.obs;
+  final AuthController _authController = Get.find();
 
   final _transactions = List<Transaction>.empty(growable: true).obs;
   get transactions => _transactions.value;
@@ -34,17 +38,29 @@ class WalletController extends GetxController {
   get walletBalance => _walletBalance.value;
   set walletBalance(value) => _walletBalance.value = value;
 
+  // final _currency = ''.obs;
+  // get currency => _currency.value;
+  // set currency(value) => _currency.value = value;
+
+  final _walletData = WalletResponse(0).obs;
+  get walletData => _walletData.value;
+  set walletData(value) => _walletData.value = value;
+
   final GetStorage _storage = GetStorage();
 
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
-    getWalletBalance();
-    getTransactions();
+
+    country = kCountries.firstWhere(
+        (element) => element.code == _authController.user.countryCode,
+        orElse: () => kCountries.first);
+    _getWalletBalance();
+    _getTransactions();
   }
 
-  getWalletBalance() {
+  _getWalletBalance() {
     final walletPayload = {
       "latitude": _storage.read('latitude'),
       "is_access_token_new": "1",
@@ -57,6 +73,8 @@ class WalletController extends GetxController {
         if (walletResponse.flag ==
             SuccessFlags.fetchWalletBalance.successCode) {
           walletBalance = walletResponse.walletBalance;
+          walletData = walletResponse;
+          //currency = walletResponse.currency;
           status(Status.success);
         } else {
           toast('error', walletResponse.message ?? walletResponse.error ?? '');
@@ -70,7 +88,7 @@ class WalletController extends GetxController {
     );
   }
 
-  getTransactions() {
+  _getTransactions() {
     final Map<String, dynamic> transactionHistoryPayload = {
       "start_from": "0",
       "is_access_token_new": "1"
@@ -84,11 +102,17 @@ class WalletController extends GetxController {
           transactions = transactionHistoryResponse.transactions;
           status(Status.success);
         } else {
-          toast('error', transactionHistoryResponse.message ?? transactionHistoryResponse.error ?? '');
+          log('transaction error: ' + (transactionHistoryResponse.error ?? ''));
+          toast(
+              'error',
+              transactionHistoryResponse.message ??
+                  transactionHistoryResponse.error ??
+                  '');
           status(Status.error);
         }
       },
       onError: (err) {
+        log('$err');
         print("$err");
         status(Status.error);
       },
@@ -96,33 +120,34 @@ class WalletController extends GetxController {
   }
 
   transferWallet() {
-     final Map<String, dynamic> transferPayload = {
-      "phone_no": '${country.code}$phoneNumber', 
-      "amount": amount, 
-      "latitude":_storage.read('latitude'), 
-      "receiver_type": transferTo == WalletTransferTo.customer ? "0" : "1", 
-      "country_code": country.code, 
-      "engagement_id": "", 
+    final Map<String, dynamic> transferPayload = {
+      "phone_no": '${country.code}$phoneNumber',
+      "amount": amount,
+      "latitude": _storage.read('latitude'),
+      "receiver_type": transferTo == WalletTransferTo.customer ? "0" : "1",
+      "country_code": country.code,
+      "engagement_id": "",
       "longitude": _storage.read('longitude')
     };
 
-    
     status(Status.loading);
     repository.transfer(transferPayload).then(
       (transferResponse) {
-        if (transferResponse.flag ==
-            SuccessFlags.transfer.successCode) {
-            walletBalance = transferResponse.walletBalance;
-            status(Status.success);
-            getTransactions();
-            Get.back();
+        if (transferResponse.flag == SuccessFlags.transfer.successCode) {
+          walletBalance = transferResponse.walletBalance;
+          status(Status.success);
+          _getTransactions();
+          Get.back();
+          Get.snackbar('success'.tr, 'trasnsfer_success'.tr);
         } else {
-          toast('error', transferResponse.message ?? transferResponse.error ?? '');
+          toast('error',
+              transferResponse.message ?? transferResponse.error ?? '');
           status(Status.error);
         }
       },
       onError: (err) {
         print("$err");
+        toast('error', 'network_error'.tr);
         status(Status.error);
       },
     );

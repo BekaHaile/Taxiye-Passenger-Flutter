@@ -1,10 +1,12 @@
 enum DrawerIndex {
+  home,
   myWallet,
   promotions,
   myOrders,
   myDrivers,
   paymentMethod,
   settings,
+  email,
   legals,
 }
 
@@ -32,4 +34,14 @@ enum TripStep {
 enum LocationType {
   pickUp,
   dropOff,
+}
+
+enum EmergencyStatus {
+  enable,
+  disable,
+}
+
+enum OutStationType {
+  oneWay,
+  roundTrip,
 }

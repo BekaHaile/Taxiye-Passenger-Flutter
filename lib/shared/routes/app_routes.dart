@@ -17,11 +17,11 @@ abstract class Routes {
   static const profileInfo = '/profileInfo';
   static const emergencyContacts = '/emergencyContacts';
   static const savedPlaces = '/savedPlaces';
-  static const privacySettings = '/privacySettings';
 
   // Home routes
   static const home = '/home';
   static const pickLocation = '/pickLocation';
+  static const deliveryDetail = '/deliveryDetail';
 
   // wallet routes
   static const wallet = '/wallet';
@@ -35,14 +35,22 @@ abstract class Routes {
   static const coupons = '/coupons';
   static const referFreind = '/referFreind';
 
+  static const buyAirtime = '/buyAirtime';
+  static const transferPoints = '/transferPoints';
+  static const transactions = '/transactions';
+  static const airtimeHistory = '/airtimeHistory';
+
   // Payment routes
   static const payment = '/payment';
+  static const hellocash = '/hellocash';
 
   // Settings routes
   static const settings = '/settings';
+  static const privacySettings = '/privacySettings';
 
   // Legals routes
   static const legals = '/legals';
+  static const legalDetails = '/legalDetails';
 
   // drivers routes
   static const drivers = '/drivers';
@@ -50,4 +58,5 @@ abstract class Routes {
   // orders routes
   static const orders = '/orders';
   static const orderDetails = '/orderDetails';
+
 }

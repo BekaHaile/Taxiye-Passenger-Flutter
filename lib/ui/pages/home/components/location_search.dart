@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
@@ -78,9 +78,15 @@ class LocationSearch extends GetView<HomeController> {
   }
 
   _setInitialValues() {
-    getSearchController().text = locationType == LocationType.pickUp
+    String initialText = locationType == LocationType.pickUp
         ? controller.pickupLocation?.placeName ?? ''
         : controller.dropOffLocation?.placeName ?? '';
+    getSearchController().text = initialText;
+    if (locationType == LocationType.pickUp) {
+      controller.pickUpLocationSearch = initialText;
+    } else {
+      controller.dropOffLocationSearch = initialText;
+    }
   }
 
   TextEditingController getSearchController() =>

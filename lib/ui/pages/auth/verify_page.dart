@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pinput/pin_put/pin_put.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
@@ -35,31 +38,57 @@ class VerifyPage extends GetView<AuthController> {
                             const SizedBox(height: 96.0),
                             TitleView(
                               title: 'verify_title'.tr,
-                              subTitle: 'verify_info'.tr,
+                              subTitle: 'verify_info'.tr +
+                                  ' ${controller.country.code}${controller.phoneNumber}',
                             ),
                             const SizedBox(height: 40.0),
-                            PinPut(
-                              fieldsCount: 4,
-                              onSubmit: (String pin) => controller.verify(pin),
-                              // mainAxisSize: MainAxisSize.min,
-                              eachFieldWidth: 50.0,
-                              eachFieldHeight: 50.0,
-                              fieldsAlignment: MainAxisAlignment.center,
-                              eachFieldMargin:
-                                  const EdgeInsets.symmetric(horizontal: 15.0),
-                              textStyle:
-                                  AppTheme.title.copyWith(fontSize: 20.0),
+                            // PinPut(
+                            //   fieldsCount: 4,
+                            //   onSubmit: (String pin) => controller.verify(pin),
+                            //   // mainAxisSize: MainAxisSize.min,
+                            //   eachFieldWidth: 50.0,
+                            //   eachFieldHeight: 50.0,
+                            //   fieldsAlignment: MainAxisAlignment.center,
+                            //   eachFieldMargin:
+                            //       const EdgeInsets.symmetric(horizontal: 15.0),
+                            //   textStyle:
+                            //       AppTheme.title.copyWith(fontSize: 20.0),
 
-                              // focusNode: _pinPutFocusNode,
-                              // controller: _pinPutController,
-                              submittedFieldDecoration: _pinPutDecoration,
-                              selectedFieldDecoration:
-                                  _pinPutDecoration.copyWith(
-                                border: Border.all(
-                                  color: AppTheme.primaryColor,
+                            //   // focusNode: _pinPutFocusNode,
+                            //   // controller: _pinPutController,
+                            //   submittedFieldDecoration: _pinPutDecoration,
+                            //   selectedFieldDecoration:
+                            //       _pinPutDecoration.copyWith(
+                            //     border: Border.all(
+                            //       color: AppTheme.primaryColor,
+                            //     ),
+                            //   ),
+                            //   followingFieldDecoration: _pinPutDecoration,
+                            // ),
+                            SizedBox(
+                              width: Get.width * 0.7,
+                              child: PinFieldAutoFill(
+                                codeLength: 4,
+                                decoration: BoxLooseDecoration(
+                                  strokeColorBuilder: FixedColorBuilder(
+                                      Colors.black.withOpacity(0.3)),
+                                  gapSpace: 24.0
                                 ),
+                                currentCode: controller.verificationCode,
+                                onCodeSubmitted: (code) {
+                                 log('code here0: $code');
+                                },
+                                onCodeChanged: (code) {
+                                  if (code != null && code.length == 4) {
+                                    controller.verificationCode = code;
+                                    log('code here: $code');
+                                    controller.verify(code);
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                  }
+                                  
+                                },
                               ),
-                              followingFieldDecoration: _pinPutDecoration,
                             ),
                             const SizedBox(height: 40.0),
                             Obx(
@@ -90,16 +119,16 @@ class VerifyPage extends GetView<AuthController> {
                                                   controller.resendCode(),
                                             ),
                                             const SizedBox(width: 20.0),
-                                            ShadowButton(
-                                              text: 'call_me'.tr,
-                                              textStyle:
-                                                  AppTheme.title.copyWith(
-                                                fontSize: 14.0,
-                                                color: AppTheme.primaryColor,
-                                              ),
-                                              onPressed: () =>
-                                                  controller.callMe(),
-                                            ),
+                                            // ShadowButton(
+                                            //   text: 'call_me'.tr,
+                                            //   textStyle:
+                                            //       AppTheme.title.copyWith(
+                                            //     fontSize: 14.0,
+                                            //     color: AppTheme.primaryColor,
+                                            //   ),
+                                            //   onPressed: () =>
+                                            //       controller.callMe(),
+                                            // ),
                                           ],
                                         ),
                                       ],

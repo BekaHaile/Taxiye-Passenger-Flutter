@@ -3,39 +3,40 @@ import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
+import 'package:taxiye_passenger/ui/pages/common/empty_state.dart';
 
 class ContactList extends StatelessWidget {
   const ContactList({
     Key? key,
     required this.contacts,
     this.onDeleteContact,
-    this.onEditContact,
     this.onAddContact,
   }) : super(key: key);
 
   final List<EmergencyContact> contacts;
   final Function(EmergencyContact emergencyContact)? onDeleteContact;
-  final Function(EmergencyContact emergencyContact)? onEditContact;
   final Function(EmergencyContact emergencyContact)? onAddContact;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        final EmergencyContact contact = contacts[index];
-        return EmergencyContactTile(
-          contact: contact,
-          onEdit: onEditContact != null ? () => onEditContact!(contact) : null,
-          onDelete:
-              onDeleteContact != null ? () => onDeleteContact!(contact) : null,
-          onAddContact:
-              onAddContact != null ? () => onAddContact!(contact) : null,
-        );
-      },
-      itemCount: contacts.length,
-    );
+    return contacts.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              final EmergencyContact contact = contacts[index];
+              return EmergencyContactTile(
+                contact: contact,
+                onDelete: onDeleteContact != null
+                    ? () => onDeleteContact!(contact)
+                    : null,
+                onAddContact:
+                    onAddContact != null ? () => onAddContact!(contact) : null,
+              );
+            },
+            itemCount: contacts.length,
+          )
+        : const EmptyState();
   }
 }
 
@@ -43,13 +44,11 @@ class EmergencyContactTile extends StatelessWidget {
   const EmergencyContactTile({
     Key? key,
     required this.contact,
-    this.onEdit,
     this.onDelete,
     this.onAddContact,
   }) : super(key: key);
 
   final EmergencyContact contact;
-  final VoidCallback? onEdit;
   final VoidCallback? onDelete;
   final VoidCallback? onAddContact;
 
@@ -78,27 +77,15 @@ class EmergencyContactTile extends StatelessWidget {
         style: AppTheme.body,
       ),
       trailing: onAddContact == null
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: onEdit,
-                  child: const Icon(Icons.edit),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                GestureDetector(
-                  onTap: () => Get.dialog(ConfirmDialog(
-                    title: 'remove_emergency_contact'.tr,
-                    content: 'remove_emergency_contact_info'.tr,
-                    actionCallback: onDelete,
-                    actionText: 'yes',
-                    cancelText: 'no',
-                  )),
-                  child: const Icon(Icons.delete),
-                )
-              ],
+          ? GestureDetector(
+              onTap: () => Get.dialog(ConfirmDialog(
+                title: 'remove_emergency_contact'.tr,
+                content: 'remove_emergency_contact_info'.tr,
+                actionCallback: onDelete,
+                actionText: 'yes',
+                cancelText: 'no',
+              )),
+              child: const Icon(Icons.delete),
             )
           : const SizedBox(),
       onTap: onAddContact != null

@@ -1,12 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/outstation_packages.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/outstation_trips.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/ride_note.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_list.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_type_list.dart';
+import 'package:taxiye_passenger/ui/pages/promotion/components/pick_promotions.dart';
 import 'package:taxiye_passenger/ui/widgets/rounded_button.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -27,86 +34,171 @@ class PickVehicle extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'available_vehicles'.tr.toUpperCase(),
+                  controller.selectedService == HomeServiceIndex.delivery
+                      ? 'delivery_type'.tr.toUpperCase()
+                      : 'available_vehicles'.tr.toUpperCase(),
                   style: AppTheme.body.copyWith(color: AppTheme.darkColor),
                 ),
-                const Icon(
-                  Icons.menu,
-                  color: AppTheme.darkColor,
-                )
+                // const Icon(
+                //   Icons.menu,
+                //   color: AppTheme.darkColor,
+                // )
               ],
             ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              height: 35.0,
-              child: VehicleTypeList(
-                  hasCorporate: controller.userCorporates.length > 0,
-                  onFilterVehicle: (rideType) =>
-                      controller.filterVehicles(rideType)),
+            if (controller.selectedService == HomeServiceIndex.ride ||
+                controller.selectedService == HomeServiceIndex.outStation)
+              const SizedBox(height: 10.0),
+            if (controller.selectedService == HomeServiceIndex.ride)
+              SizedBox(
+                height: 35.0,
+                child: VehicleTypeList(
+                    hasCorporate: controller.userCorporates.length > 0,
+                    onFilterVehicle: (rideType) =>
+                        controller.filterVehicles(rideType)),
+              ),
+            Obx(() => controller.selectedService == HomeServiceIndex.outStation
+                ? OutStationTrips(
+                    selectedOutStationType: controller.selectedOutstationType,
+                    onSelectTripType: (outStationType) =>
+                        controller.selectedOutstationType = outStationType)
+                : const SizedBox()),
+            Obx(() => Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: VehicleList(
+                      vehicles: controller.selectedService ==
+                              HomeServiceIndex.delivery
+                          ? controller.deliveryVehicles
+                          : controller.vehicles,
+                      selectedVehicle: controller.selectedVehicle,
+                      rideType: controller.rideType,
+                      onItemSelected: (selectedVehice) =>
+                          controller.onVehicleSelected(selectedVehice)),
+                )),
+            Obx(() => controller.selectedVehicle.packages?.isNotEmpty ?? false
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Column(
+                          children: [
+                            Text('packages'.tr.toUpperCase(),
+                                style: AppTheme.body.copyWith(
+                                  color: AppTheme.darkColor,
+                                )),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 60,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: OutStationPackages(
+                              packages: controller.selectedVehicle.packages,
+                              selectedPackage: controller.selectedPackage,
+                              onSelectPackage: (package) {
+                                if (controller.selectedPackage != package) {
+                                  controller.selectedPackage = package;
+                                  log('packgeId ${controller.selectedPackage.packageId}');
+                                  controller.getVehiclesFareEstimates(
+                                      packageId:
+                                          controller.selectedPackage.packageId);
+                                }
+                              }),
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox()),
+            Obx(
+              () => controller.rideType == 0 ||
+                      controller.rideType == 2 ||
+                      controller.rideType == 7
+                  ? SizedBox(
+                      height: 32.0,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final PaymentType paymentType =
+                              controller.paymentTypes[index];
+                          return Obx(() => CustomChip(
+                                text: paymentType.text,
+                                icon: paymentType.icon,
+                                iconColor: paymentType.iconColor,
+                                isActive: controller.paymentMode ==
+                                    paymentType.paymentMode,
+                                onTap: () {
+                                  // on  one of the payment types
+
+                                  switch (paymentType.paymentMode) {
+                                    case 0:
+                                      controller.paymentMode =
+                                          paymentType.paymentMode;
+                                      break;
+                                    case 1:
+                                      controller.paymentMode =
+                                          paymentType.paymentMode;
+                                      Get.bottomSheet(const PickPromotion());
+                                      break;
+                                    case 2:
+                                      // on notes selected
+                                      Get.dialog(RideNote(
+                                          actionCallback: (note) =>
+                                              controller.rideNote = note));
+                                      break;
+                                    default:
+                                  }
+                                },
+                              ));
+                        },
+                        itemCount: controller.paymentTypes.length,
+                      ),
+                    )
+                  : SizedBox(
+                      height: 32.0,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final Corporate corporate =
+                              controller.userCorporates[index];
+                          return Obx(() => CustomChip(
+                                text: corporate.partnerName ?? '',
+                                isActive:
+                                    controller.selectedCorporate == corporate,
+                                onTap: () {
+                                  // Todo: set payment mode here too.
+                                  controller.selectedCorporate = corporate;
+                                  controller.filterVehicles(1);
+                                },
+                              ));
+                        },
+                        itemCount: controller.userCorporates.length,
+                      )),
             ),
             const SizedBox(height: 16.0),
-            Obx(() => VehicleList(
-                vehicles: controller.vehicles,
-                selectedVehicle: controller.selectedVehicle,
-                onItemSelected: (selectedVehice) {
-                  controller.selectedVehicle = selectedVehice;
-                  Get.bottomSheet(VehicleDetail(vehicle: selectedVehice),
-                      isScrollControlled: true);
-                })),
-            Obx(() => controller.rideType == 0 || controller.rideType == 2
-                ? SizedBox(
-                    height: 32.0,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final PaymentType paymentType =
-                            controller.paymentTypes[index];
-                        return CustomChip(
-                          text: paymentType.text,
-                          icon: paymentType.icon,
-                          iconColor: paymentType.iconColor,
-                          onTap: () {
-                            // Todo: on Tap one of the payment types
-                          },
-                        );
-                      },
-                      itemCount: controller.paymentTypes.length,
-                    ),
-                  )
-                : SizedBox(
-                    height: 32.0,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final Corporate corporate =
-                            controller.userCorporates[index];
-                        return CustomChip(
-                          text: corporate.partnerName ?? '',
-                          onTap: () {
-                            controller.selectedCorporate = corporate;
-                            controller.filterVehicles(1);
-                          },
-                        );
-                      },
-                      itemCount: controller.userCorporates.length,
-                    ),
-                  )),
-            const SizedBox(height: 16.0),
             RoundedButton(
-              text: controller.scheduleDate == null
-                  ? 'book_now'.tr
-                  : 'schedule_ride'.tr,
+              text: controller.selectedService == HomeServiceIndex.delivery
+                  ? 'order_now'.tr
+                  : controller.scheduleDate == null
+                      ? 'book_now'.tr
+                      : 'schedule_ride'.tr,
               subChild: controller.scheduleDate != null
                   ? Text(
                       '${formatDate(controller.scheduleDate!)} ${'at'.tr} ${controller.scheduleTime!.format(context)}')
                   : const SizedBox(),
-              onPressed: () => controller.scheduleDate == null
-                  ? controller.bookRide()
-                  : controller.scheduleRide(),
+              onPressed: () {
+                if (controller.selectedService == HomeServiceIndex.delivery) {
+                  controller.orderDelivery();
+                } else {
+                  controller.scheduleDate == null
+                      ? controller.bookRide()
+                      : controller.scheduleRide();
+                }
+              },
             )
           ],
         ),
@@ -121,12 +213,14 @@ class CustomChip extends StatelessWidget {
     required this.text,
     this.icon,
     this.iconColor,
+    this.isActive = false,
     required this.onTap,
   }) : super(key: key);
 
   final String text;
   final IconData? icon;
   final Color? iconColor;
+  final bool isActive;
   final VoidCallback onTap;
 
   @override
@@ -136,7 +230,6 @@ class CustomChip extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          width: 96.0,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
@@ -148,22 +241,28 @@ class CustomChip extends StatelessWidget {
                 offset: const Offset(2, 2),
               ),
             ],
+            border: Border.all(
+                color: isActive ? AppTheme.yellowColor : Colors.transparent,
+                width: 2.0),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (icon != null)
-                Icon(
-                  icon,
-                  color: iconColor ?? AppTheme.darkTextColor,
-                  size: 18.0,
-                ),
-              const SizedBox(width: 8.0),
-              Text(
-                text.tr,
-                style: AppTheme.body.copyWith(fontSize: 12.0),
-              )
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (icon != null)
+                  Icon(
+                    icon,
+                    color: iconColor ?? AppTheme.darkTextColor,
+                    size: 18.0,
+                  ),
+                const SizedBox(width: 8.0),
+                Text(
+                  text.tr,
+                  style: AppTheme.body.copyWith(fontSize: 12.0),
+                )
+              ],
+            ),
           ),
         ),
       ),

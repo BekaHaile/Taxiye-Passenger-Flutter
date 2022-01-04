@@ -42,12 +42,13 @@ final Map<String, String> enUs = {
 
   // verify
   'verify_title': 'Verify your\nPhone number',
-  'verify_info': 'Enter the 4-digit verification code sent to +251911399631.',
+  'verify_info': 'Enter the 4-digit verification code sent to.',
   'reset_code_in': 'Reset code in',
   'didnt_recieve_code': 'Didn’t recieve any code?',
 
   'resend_code': 'Resend Code',
   'call_me': 'Call me',
+  'token_expired': 'Your session expired, please login again.',
 
   // setup profile
   'setup_profile': 'Setup your profile\ninformation',
@@ -91,6 +92,7 @@ final Map<String, String> enUs = {
   'ratings': 'Ratings',
   'rides_completed': 'Rides Completed',
   'rides_cancelled': 'Rides Cancelled',
+  'total_money_spent': 'Total money spent',
 
   'remove_emergency_contact': 'Remove emergency contact?',
   'remove_emergency_contact_info':
@@ -103,6 +105,14 @@ final Map<String, String> enUs = {
 
   'add_emergency_contact_success':
       'Contact has been added as emergency contact',
+  'used': 'Used',
+  'times': 'times',
+
+  'recent_locations': 'Recent Locations',
+  'contact_permission_error': 'Contact permission is required',
+
+  'remove_address': 'Remove address?',
+  'remove_address_info': 'Are you sure you want to remove this address?',
 
   // privacy settings strings
   'transaction_updates': 'Transaction Updates',
@@ -124,6 +134,8 @@ final Map<String, String> enUs = {
   'manage_your_wallet': 'Manage your wallet',
   'promotions': 'Promotions',
   'promotions_info': 'You can win stuff here',
+  'promotion': 'Promotion',
+  'coupon': 'Coupon',
 
   'my_orders': 'My Orders',
   'riview_orders': 'Review your ride orders',
@@ -139,6 +151,10 @@ final Map<String, String> enUs = {
   'legals_info': 'Important info to read',
   'speak_real_person': 'Speak to a real person.',
   'speak_person_info': 'Just to talk or book a cab.',
+
+  'email_support': 'Email support',
+  'email_contact_us': 'Contact us with email',
+  'passenger_email_support': 'Passenger email support',
 
   // home strings
   'where_to': 'Where to?',
@@ -182,8 +198,17 @@ final Map<String, String> enUs = {
   'book_now': 'Book Now',
   'schedule_ride': 'Schedule Ride',
 
+  'mpesa': 'Mpesa',
+  'amole': 'Amole',
+  'hellocash': 'Hellocash',
+
   'schedule_ride_success': 'Scheduled ride successfully',
   'upcoming_ride_scheduled': 'Upcoming ride scheduled!',
+  'pick_offer': 'Pick Offer',
+
+  'ride_note': 'Ride Note',
+  'save_note': 'Save Note',
+  'note_hint': 'Write your note here ...',
 
   // vehicle detail
   'fare_details': 'Fare Details',
@@ -192,19 +217,30 @@ final Map<String, String> enUs = {
 
   'per_kilometer': 'Per Kilometer',
   'per_minute': 'Per Minute',
-  'congestion_change': 'Congestion changes per minutes',
+  'congestion_charges': 'Congestion changes per minutes',
+  'delivery_fare': 'Delivery Fare',
 
   // Looking drivers string
   'looking_for_drivers': 'We are looking for drivers...',
   'ride_starts_soon': 'Your ride will start soon.',
+  'delivery_starts_soon': 'Your delivery will start soon.',
   'side_to_cancel': 'Slide to Cancel',
 
   'driver_on_route': 'Driver on route!',
   'ride_started': 'Your ride has started!',
+  'delivery_started': 'Your delivery is on the way!',
+
+  // Trip started strings
+  'emrgency_status': 'Emergency Status',
+  'change_emergency_status': 'Change emergency status',
+  'emrgency_enabled_success':
+      'We have received the alert at Taxiye and are on it!',
+  'emergency_disabled_success': 'Emergency disabled successfully',
 
   // Trip details strings
-  'arrived_destination': 'You’ve arrived at your destination.',
-  'pay_with_cash': 'Pay With Cash',
+  'arrived_destination': 'You\'ve arrived at your destination.',
+  'order_delivered': 'Your order has been delivered.',
+  'pay_with': 'Pay With @mode',
   'distance': 'Distance',
   'duration': 'Duration',
 
@@ -219,17 +255,45 @@ final Map<String, String> enUs = {
   'address_name': 'Address name',
 
   'add_place_success': 'Place saved successfully',
+  'delete_place_success': 'Place removed successfully',
+  'edit_place_success': 'Place updated successfully',
+
+  'mpesa_pay_fail': 'Payment with Mpesa failed. Please try again latter',
+  'mpesa_pay_success': 'Paymnent has been processed with Mpessa',
+  'hellocash_cancelled': 'Hellocash payment cancelled',
+
+  'hellocash_processed': 'Payment has been processed with Hellocash',
+  'payment_pending': 'Waiting for payment to be processed',
 
   // trip feedback strings
   'block': 'Block',
   'add_to_favourites': 'Add to favourites',
   'submit': 'Submit',
   'how_was_trip': 'How was your Trip?',
+  'how_was_delivery': 'How was the delivery?',
 
   'feadback_info':
       'Your feedback will help us improve your next driving experience.',
+  'delivery_feadback_info':
+      'Your feedback will help us improve your next order experience.',
   'additional_comments': 'Additional comments here...',
   'add_favourite_driver_success': 'Driver has been added as favourite',
+
+  // delivery strings
+  'what_do_you_need': 'What do you need?',
+  'delivery_hint': 'Tell us about it here...',
+  'upload_pictures': 'Upload Pictures',
+  'deliver_to_me': 'Deliver the package to me.',
+
+  'recievers_number': 'Reciever\'s Phone Number',
+  'delivery_type': 'Delivery Type',
+  'order_now': 'Order Now',
+
+  'order_delivery_succes': 'Order placed successfully',
+  'cancel_order_success': 'Your order has been cancelled',
+  'cancel_reason': 'Cancel Reason',
+
+  'delivery_feedback_success': 'Thanks for your valuable feedback.',
 
   // Wallet strings
   'your_wallet': 'Your Wallet',
@@ -252,6 +316,9 @@ final Map<String, String> enUs = {
   'reason': 'Reason',
   'send': 'Send',
 
+  'today': 'Today',
+  'yesterday': 'Yesteray',
+
   // Promotions String
   'enter_promocode': 'Enter Promocode Here...',
   'apply': 'Apply',
@@ -269,15 +336,28 @@ final Map<String, String> enUs = {
   'book_ride_with_points': 'Book Ride with Points',
   'donate_points': 'Donate Points',
 
+  'transactions': 'Transactions',
+  'airtime_history': 'Airtime History',
   'your_coupons': 'Your Coupons',
   'points': 'points',
   'refer_friend_info':
       'Invite your friends and family to use this app and earn points!',
   'your_referal_code': 'Your Referral Code',
   'share': 'Share',
+  'share_referral':
+      'Dear User, As requested use my code @code to download the app from Taxiye Referral',
 
   'promo_details': 'Promo Details',
   'detail': 'Detail',
+  'promotion_code_success': 'Promotion code applied successfully.',
+
+  'buy_airtime': 'Buy AirtTime',
+  'buy_airtime_info': 'Are you sure you want to buy',
+  'airtime': 'airtime?',
+  'buy': 'Buy',
+  'buy_airtime_success': 'Buy airtime success.',
+
+  'trasnsfer_success': 'Transferred successfully.',
 
   // Orders strings
   'your_orders': 'Your Orders',
@@ -294,6 +374,11 @@ final Map<String, String> enUs = {
   'cancel_scheduled_ride_info':
       'Are you sure you want to cancel the scheduled ride?',
   'cancel_schedule_success': 'Scheduled ride cancelled!',
+
+  'pick_up': 'Pick up',
+  'drop_off': 'Drop off',
+  'time': 'Time',
+  'total': 'Total',
 
   // Drivers strings
   'your_drivers': 'Your Drivers',
@@ -312,11 +397,17 @@ final Map<String, String> enUs = {
   'cbe': 'Commercial Bank of Ethiopia',
   'mpessa': 'M-PESSA',
   'telebirr': 'Tele Birr',
+  'select_partner': 'Select Partner',
+  'payment': 'Payment',
+  'hello_cash_pay_fare': 'Pleae dial *912# and complete the payment.',
 
   'new_payment_method': 'Select new payment method',
   'edit': 'Edit',
   'remove': 'Remove',
   'setDefault': 'Set as default method',
+
+  'hello_cash': 'Hello Cash',
+  'check_hellocash_fail': 'Hello cash payment is not processed.',
 
   // app settings strings
   'sound_voice': 'Sound & Voice',
@@ -333,6 +424,9 @@ final Map<String, String> enUs = {
   'english': 'English',
   'customize_privacy': 'Customize what you share with us',
 
+  'privacy_settings_detail':
+      'We respect your personal space. Help us costomize your experiance by personalizing notifications you recieve.',
+
   // Legals strings
   'view_terms_conditions': 'View app usage terms & conditions',
   'privacy_policy': 'Privacy Policy',
@@ -346,9 +440,17 @@ final Map<String, String> enUs = {
   'yes': 'Yes',
   'no': 'No',
 
+  'enable_location': 'Enable Location?',
+  'enable_location_info': 'Please enable your location to continue.',
+
   //notification Strings
   'ride_completed': 'Ride Completed',
-  'your_fare_was': 'your fare was',
+  'your_fare_was': 'Your fare was',
+  'ride_cancelled': 'Ride Cancelled',
+  'driver_canceled_ride': 'Driver has cancelled your ride.',
+
+  // Empty state strings
+  'empty_state_title': 'Sorry! No Data Found.',
 
   // Error messages
   'invalid_passcode': 'Invalid Passcode',
@@ -370,4 +472,21 @@ final Map<String, String> enUs = {
   'check_pending_operations': 'Please complete pending operations first',
 
   'invalid_time': 'Invalid Time!\nTime should be after 30 minutes',
+  'error_connection':
+      'Unable to connect, Please check your connection and try again.',
+  'fetch_ride_summary_error': 'Unable to fetch ride summary.',
+  'network_error':
+      'Oops unable to perform operation, Please check your internet connection!',
+
+  'error_select_reason': 'Please select your reason',
+  'error_promotion_code': 'Please provide promotion code',
+  'error_delivery_detail': 'Please provide delivery detail',
+
+  // New Translations I - the following texts are not translated to other languages
+  'logout': 'Logout',
+  'favourite': 'Favourite',
+  'one_way': 'One Way',
+  'round_trip': 'Round Trip',
+
+  'packages': 'Packages',
 };

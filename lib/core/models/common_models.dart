@@ -16,24 +16,30 @@ class Country {
     required this.name,
     required this.code,
     required this.isoCode,
+    required this.currency,
   });
 
   final String name;
   final String code;
   final String isoCode;
+  final String currency;
 }
 
 class Option {
   Option({
     required this.title,
     required this.subtitle,
-    this.leadingIcon = Icons.info,
+    this.leadingIcon,
+    this.leadingIconAsset,
+    this.isActive = true,
     this.toggleValue,
   });
 
   String title;
   String subtitle;
-  IconData leadingIcon;
+  IconData? leadingIcon;
+  String? leadingIconAsset;
+  bool isActive;
   bool? toggleValue;
 }
 
@@ -55,7 +61,7 @@ class ExchangePoint {
   });
 
   final String text;
-  final IconData icon;
+  final String icon;
   final ExchangePointOption option;
 }
 
@@ -71,12 +77,26 @@ class VehicleType {
 
 class PaymentType {
   const PaymentType({
+    required this.paymentMode,
     required this.text,
     required this.icon,
     required this.iconColor,
   });
 
+  final int paymentMode;
   final String text;
   final IconData icon;
   final Color iconColor;
+}
+
+class RouteDistnaceInfo {
+  RouteDistnaceInfo({
+    this.distance,
+    this.duration,
+    this.durationInTraffic,
+  });
+
+  int? distance;
+  int? duration;
+  int? durationInTraffic;
 }

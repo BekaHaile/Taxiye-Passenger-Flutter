@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -11,6 +12,7 @@ import 'package:taxiye_passenger/core/services/api/api_client.dart';
 import 'package:taxiye_passenger/core/services/file_service.dart';
 import 'package:taxiye_passenger/core/services/firebase_service.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/ui/controllers/legals_controller.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 /*
@@ -21,7 +23,9 @@ class AuthBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => Dio(), fenix: true);
-    Get.lazyPut(() => ApiClient(dio: Get.find()), fenix: true);
+    Get.lazyPut(() => Connectivity(), fenix: true);
+    Get.lazyPut(() => ApiClient(dio: Get.find(), connectivity: Get.find()),
+        fenix: true);
     Get.lazyPut(() => FileService(), fenix: true);
     Get.lazyPut(() => FirebaseMessaging.instance, fenix: true);
     Get.lazyPut(() => GoogleSignIn(), fenix: true);
@@ -49,9 +53,12 @@ class AuthBinding implements Bindings {
         ));
     Get.lazyPut<IFileRepository>(() => FileRepository(fileService: Get.find()),
         fenix: true);
-    Get.lazyPut<IAuthRepository>(() =>
-        AuthRepository(apiClient: Get.find(), firebaseService: Get.find()));
+    Get.lazyPut<IAuthRepository>(
+        () =>
+            AuthRepository(apiClient: Get.find(), firebaseService: Get.find()),
+        fenix: true);
     Get.lazyPut(() =>
         AuthController(repository: Get.find(), fileRepository: Get.find()));
+    Get.lazyPut(() => LegalsController(repository: Get.find()), fenix: true);
   }
 }

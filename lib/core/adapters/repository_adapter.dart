@@ -6,6 +6,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'dart:io';
 
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -15,7 +16,7 @@ abstract class IAuthRepository {
   // Todo: Add Auth request class signitures (interfaces) here.
   Future<String?> getDeviceToken();
   Future<SignUpResponse> signup(Map<String, dynamic> signupPayload);
-  Future<User> loginUsingToken(Map<String, dynamic> loginPayload);
+  Future<VerifyResponse> loginUsingToken(Map<String, dynamic> loginPayload);
 
   Future<SignUpResponse> signInWithGoogle(
     Map<String, dynamic> googleSignInPayload, {
@@ -34,6 +35,8 @@ abstract class IAuthRepository {
       File? profileImage, Map<String, dynamic>? userPayload);
   Future<User> reloadProfile();
   Future<BasicResponse> logoutUser();
+
+  Future<LegalResponse> getLagalsDetail(Map<String, dynamic> legalPayload);
 }
 
 abstract class IHomeRepository {
@@ -43,6 +46,8 @@ abstract class IHomeRepository {
   Future<Place> getPlaceDetailFromId(String placeId, String sessionToken);
   Future<List<LatLng>> getRoutePolylines(
       PointLatLng origin, PointLatLng destination);
+  Future<RouteDistnaceInfo> getRouteDistanceInfo(
+      LatLng origin, LatLng destination);
 
   // notification calls
   registerFCM(
@@ -66,9 +71,33 @@ abstract class IHomeRepository {
   Future<DriverLocationResponse> getCurrentDriverLocation(String driverId);
 
   Future<SavedPlacesResponse> getSavedPlaces();
-  Future<SavedPlacesResponse> addNewPlace(Map<String, dynamic> addressPayload);
+  Future<SavedPlacesResponse> updateSavedPlaces(
+      Map<String, dynamic> addressPayload);
 
   Future<ListResponse<Corporate>> getUserCorporates();
+  Future<BasicResponse> updateEmergency(
+      Map<String, dynamic> emergencyPayload, EmergencyStatus emergencyStatus);
+
+  // delivery requests
+  Future<DeliveryAgentResponse> getDeliveryAgents(
+      Map<String, dynamic> getAgentsParams);
+  Future<DeliveryDetailResponse> getDeliveryDetail(
+      Map<String, dynamic> getDetailParams);
+  Future<CancellationReasonResponse> getCancelDeliveryOrderReasons(
+      Map<String, dynamic> reasonPayload);
+
+  Future<BasicResponse> cancelDelivery(Map<String, dynamic> cancelPayload);
+  Future<DeliveryTrackingResponse> liveDeliveryTracking(String trackPayload);
+  Future<OrderDeliveryResponse> orderDelivery(
+      Map<String, dynamic> orderPayload, List<File> deliveryImages);
+  Future<OrderHistoryResponse> getOrderHistory(
+      Map<String, dynamic> orderHistoryPayload);
+
+  Future<BasicResponse> submitDeliveryFeedBack(
+      Map<String, dynamic> feedbackPayload);
+
+  Future<VehicleFare> getFareEstimate(
+      Map<String, dynamic> getFareEstimatePayload);
 }
 
 abstract class ICommonRepository {
@@ -101,10 +130,18 @@ abstract class IProfileRepository {
   Future<BasicResponse> removeEmergencyContact(String contactId);
   Future<BasicResponse> addEmergencyContact(
       Map<String, dynamic> contactPayload);
+
+  Future<UserRideCount> getUserInfo();
 }
 
 abstract class IPaymentRepository {
   // Todo: Add profile request class signitures (interfaces) here.
+  Future<WalletResponse> fetchWalletBalance(Map<String, dynamic> walletPayload);
+  Future<PayWithHelloCashResponse> payWithHelloCash(
+      Map<String, dynamic> payWithHelloCashPayload);
+  Future<CheckHelloCashResponse> checkHelloCashPayment(
+      Map<String, dynamic> checkHelloCashPaymentPayload);
+  Future<BasicResponse> payWithMpesa(Map<String, dynamic> payWithMpesaPayload);
 }
 
 abstract class IOrdersRepository {
@@ -116,10 +153,24 @@ abstract class IOrdersRepository {
 
   Future<BasicResponse> cancelRideSchedule(
       Map<String, dynamic> cancelSchedulePayload);
+  Future<RideSummary> getRideSummary(String engagementID);
 }
 
 abstract class IDriversRepository {
   // Todo: Add drivers request class signitures (interfaces) here.
   Future<ListResponse<Driver>> getFavouriteDrivers();
   Future<BasicResponse> removeFavouriteDriver(int driverId);
+}
+
+abstract class IPromotionsRepository {
+  // Todo: Add promotions request class signitures (interfaces) here.
+  Future<OffersResponse> getPromotionBalance();
+  Future<BasicResponse> applyPromotionCode(String code);
+  Future<AirTimeResponse> buyAirTime(String amount);
+  Future<BasicResponse> transferPoints(Map<String, dynamic> transferPayload);
+
+  Future<PointTransactionResponse> getPointTransactions();
+  Future<ListResponse<AirtimeHistory>> getAirtimeHistory();
+  Future<PromotionsResponse> getPromotionsAndCoupons(
+      Map<String, dynamic> promotionsPayload);
 }

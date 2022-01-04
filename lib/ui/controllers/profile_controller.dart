@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:contacts_service/contacts_service.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'dart:io';
 
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
-import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
-import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -45,40 +45,42 @@ class ProfileController extends GetxController {
   get emergencyContacts => _emergencyContacts.value;
   set emergencyContacts(value) => _emergencyContacts.assignAll(value);
 
-  final _savedPlaces = List<Address>.empty(growable: true).obs;
-  get savedPlaces => _savedPlaces.value;
-  set savedPlaces(value) => _savedPlaces.value = value;
-
   final _contacts = List<EmergencyContact>.empty(growable: true).obs;
   get contacts => _contacts.value;
   set contacts(value) => _contacts.assignAll(value);
 
+  final _profileOPtions = List<Option>.empty(growable: true).obs;
+  get profileOPtions => _profileOPtions.value;
+  set profileOPtions(value) => _profileOPtions.assignAll(value);
+
+  final _userRideCount = UserRideCount().obs;
+  get userRideCount => _userRideCount.value;
+  set userRideCount(value) => _userRideCount.value = value;
+
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
+  final GetStorage _storage = GetStorage();
 
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
 
+    _getUserInfo();
     _setPinIcons();
-    setProfileInfos();
+    _setProfileInfos();
+    _setProfileOPtions();
     _getEmergencyContacts();
-    _getContacts();
+    _askContactPermission();
   }
 
   updateProfile(Map<String, dynamic> profilePayload) async {
-    // Map<String, dynamic> userPayload = {
-    //   'updated_user_name': fullName,
-    //   'gender': gender
-    // };
-    // if (email.isNotEmpty) userPayload['updated_user_email'] = email;
-
     status(Status.loading);
     repository
         .updateUser(
             profileImage.path.isNotEmpty ? profileImage : null, profilePayload)
         .then(
       (data) {
+        log('upload succes here: $data');
         if (data.flag == SuccessFlags.updateProfile.successCode) {
           status(Status.success);
           reloadProfile();
@@ -101,12 +103,12 @@ class ProfileController extends GetxController {
   reloadProfile() {
     status(Status.loading);
     repository.reloadProfile().then((profileResponse) {
+      log('reload succes here: $profileResponse');
       if (profileResponse.flag == SuccessFlags.reloadProfile.successCode) {
         status(Status.success);
         authController.user = profileResponse;
         authController.persistUser(profileResponse);
-        print('updated profile: $profileResponse');
-        setProfileInfos();
+        _setProfileInfos();
       } else {
         print(profileResponse.erorr ?? '');
         status(Status.error);
@@ -117,7 +119,7 @@ class ProfileController extends GetxController {
     });
   }
 
-  setProfileInfos() {
+  _setProfileInfos() {
     User user = authController.user;
     _profileInfos.clear();
     profileInfos = [
@@ -136,6 +138,24 @@ class ProfileController extends GetxController {
                   orElse: () => kCountries.first)
               .name,
           isActive: false),
+    ];
+  }
+
+  _setProfileOPtions() {
+    int? savedPlacesCount = _storage.read<int>('savedPlacesCount');
+    profileOPtions = [
+      Option(
+          title: 'your_info',
+          subtitle: 'view_edit_your_details',
+          leadingIcon: Icons.person),
+      Option(
+          title: 'emergency_contacts',
+          subtitle: '${emergencyContacts.length} people',
+          leadingIconAsset: 'assets/icons/emergency_contacts.png'),
+      Option(
+          title: 'saved_places',
+          subtitle: '${savedPlacesCount ?? 0} places',
+          leadingIconAsset: 'assets/icons/saved_places.png'),
     ];
   }
 
@@ -160,6 +180,8 @@ class ProfileController extends GetxController {
         // update user profile
         Map<String, dynamic> payload = {};
 
+        log('crop image here: $profileImage');
+
         updateProfile(payload);
       } else {
         // print('crop error.');
@@ -169,12 +191,21 @@ class ProfileController extends GetxController {
     }
   }
 
+  _getUserInfo() {
+    repository.getUserInfo().then((userInfo) {
+      userRideCount = userInfo;
+    }, onError: (error) {
+      print('Get emergency contacts error: $error');
+    });
+  }
+
   _getEmergencyContacts() {
     repository.getEmergencyContacts().then((emergencyContactsResponse) {
       if (emergencyContactsResponse.flag ==
           SuccessFlags.emergencyContacts.successCode) {
         if (emergencyContactsResponse.emergencyContacts?.isNotEmpty ?? false) {
           emergencyContacts = emergencyContactsResponse.emergencyContacts;
+          _setProfileOPtions();
         }
       } else {
         print(
@@ -192,20 +223,15 @@ class ProfileController extends GetxController {
     });
   }
 
-  // _getSavedPlaces() {
-  //   // Todo: get and set saved places
-  //   savedPlaces = [
-  //     SavedPlace(
-  //         placeTitle: 'home'.tr,
-  //         placeAddress: 'Egypt Street, Addis Ababa, Ethiopia'),
-  //     SavedPlace(
-  //         placeTitle: 'work'.tr,
-  //         placeAddress: 'Alemayehu Building, Addis Ababa, Ethiopia'),
-  //     SavedPlace(
-  //         placeTitle: 'work'.tr,
-  //         placeAddress: 'Arat killo, Addis Ababa, Ethiopia'),
-  //   ];
-  // }
+  Future _askContactPermission() async {
+    if (await Permission.contacts.request().isGranted) {
+      // Either the permission was already granted before or the user just granted it.
+      await _getContacts();
+    } else {
+      toast('error', 'contact_permission_error');
+      print('permission refused');
+    }
+  }
 
   Future<void> _getContacts() async {
     // Load without thumbnails initially.
@@ -241,23 +267,24 @@ class ProfileController extends GetxController {
 
   addEmergencyContact(EmergencyContact emergencyContact) {
     //Todo: on add emergency contacts
-    final contactpayload = {
-      'emergency_contacts': [
+    final Map<String, dynamic> contactpayload = {
+      'emergency_contacts': jsonEncode([
         {
           'name': emergencyContact.name,
           'phone_no': emergencyContact.phoneNo,
           'country_code': '+251',
         }
-      ].toString()
+      ])
     };
 
     status(Status.loading);
     repository.addEmergencyContact(contactpayload).then(
         (addEmergencyContactresponse) {
-      log('add emergency contact response: $addEmergencyContactresponse');
       if (addEmergencyContactresponse.flag ==
           SuccessFlags.basicSuccess.successCode) {
-        Get.snackbar('success'.tr, 'add_emergency_contact_success'.tr);
+        status(Status.success);
+        Get.back();
+        _getEmergencyContacts();
       } else {
         print(
             'Add emergency contact error: ${addEmergencyContactresponse.error}');
@@ -283,7 +310,9 @@ class ProfileController extends GetxController {
         if (removeContactResponse.flag ==
             SuccessFlags.basicSuccess.successCode) {
           status(Status.success);
+          _emergencyContacts.remove(emergencyContact);
           Get.snackbar('success'.tr, 'remove_emergency_contact_success'.tr);
+          _setProfileOPtions();
         } else {
           print(
               'Remove emergency contact error: ${removeContactResponse.error}');
@@ -302,22 +331,10 @@ class ProfileController extends GetxController {
     }
   }
 
-  onNavToSavedPlaces() {
-    // get saved places from home controller
-    HomeController homeController = Get.find();
-    savedPlaces = homeController.savedPlaces;
-    // remove the first element, since it's add place
-    if (savedPlaces.length > 0) {
-      savedPlaces.removeAt(0);
-    }
-
-    Get.toNamed(Routes.savedPlaces);
-  }
-
   _setPinIcons() async {
     sourceIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/source_location.png');
+        'assets/icons/dest_location.png');
   }
 }
 

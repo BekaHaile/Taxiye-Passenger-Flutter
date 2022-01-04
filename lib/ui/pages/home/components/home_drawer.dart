@@ -63,6 +63,12 @@ class HomeDrawer extends GetView<HomeController> {
         icon: Icons.settings,
       ),
       DrawerList(
+        index: DrawerIndex.email,
+        title: 'email_support'.tr,
+        subtitle: 'email_contact_us',
+        icon: Icons.email,
+      ),
+      DrawerList(
         index: DrawerIndex.legals,
         title: 'legals'.tr,
         subtitle: 'legals_info',
@@ -155,15 +161,16 @@ class HomeDrawer extends GetView<HomeController> {
                   ),
                 ),
               ),
-              Divider(
+              const SizedBox(height: 20.0),
+              const Divider(
                 indent: 20.0,
                 endIndent: 20.0,
-                height: 1,
-                color: AppTheme.greyColor.withOpacity(0.6),
+                height: 3,
+                color: AppTheme.greyColor,
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 5.0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 5.0),
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.all(0.0),
@@ -182,7 +189,7 @@ class HomeDrawer extends GetView<HomeController> {
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Text(
-                        'Logout',
+                        'logout'.tr,
                         style: AppTheme.title.copyWith(fontSize: 18.0),
                       ),
                       trailing: const Icon(
@@ -196,26 +203,29 @@ class HomeDrawer extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const LogoImage(
-                              width: 65.0,
-                              height: 30.0,
-                            ),
-                            Text(
-                              'speak_real_person'.tr,
-                              style: AppTheme.title.copyWith(fontSize: 14.0),
-                            ),
-                            Text(
-                              'speak_person_info'.tr,
-                              style: AppTheme.subtitle.copyWith(
-                                  fontSize: 12.0, color: AppTheme.darkColor),
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const LogoImage(
+                                width: 65.0,
+                                height: 30.0,
+                              ),
+                              Text(
+                                'speak_real_person'.tr,
+                                style: AppTheme.title.copyWith(fontSize: 14.0),
+                              ),
+                              Text(
+                                'speak_person_info'.tr,
+                                style: AppTheme.subtitle.copyWith(
+                                    fontSize: 12.0, color: AppTheme.darkColor),
+                              ),
+                            ],
+                          ),
                         ),
                         GestureDetector(
-                          onTap: () => launch('tel:$kTaxiyePhoneNumber'),
+                          onTap: () =>
+                              launch('tel:${controller.callCenterNumber}'),
                           child: const CircleAvatar(
                               radius: 25.0,
                               backgroundColor: AppTheme.primaryColor,

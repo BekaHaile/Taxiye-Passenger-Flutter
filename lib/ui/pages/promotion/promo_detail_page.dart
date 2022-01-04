@@ -65,29 +65,45 @@ class PromoDetailPage extends GetView<PromotionsController> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text:
-                                                '${controller.selectedCoupon?.point} ',
-                                            style: const TextStyle(
-                                              fontSize: 34.0,
-                                              fontWeight: FontWeight.w700,
-                                              color: AppTheme.primaryColor,
+                                    controller.selectedCoupon != null
+                                        ? RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      '${controller.selectedCoupon?.discount} ',
+                                                  style: const TextStyle(
+                                                    fontSize: 34.0,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                        AppTheme.primaryColor,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: 'points'.tr,
+                                                  style: AppTheme.title
+                                                      .copyWith(fontSize: 18.0),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                          TextSpan(
-                                            text: 'points'.tr,
-                                            style: AppTheme.title
-                                                .copyWith(fontSize: 18.0),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                          )
+                                        : controller.selectedPromotion != null
+                                            ? Text(
+                                                controller.selectedPromotion
+                                                        ?.title ??
+                                                    '',
+                                                style: AppTheme.title.copyWith(
+                                                  fontSize: 14.0,
+                                                  color: AppTheme.darkTextColor,
+                                                ),
+                                              )
+                                            : const SizedBox(),
                                     const SizedBox(height: 5.0),
                                     Text(
-                                      controller.selectedCoupon?.name ?? '',
+                                      controller.selectedCoupon?.title ??
+                                          controller
+                                              .selectedPromotion?.promoText ??
+                                          '',
                                       style: AppTheme.title.copyWith(
                                         fontSize: 14.0,
                                         color: AppTheme.darkTextColor,
@@ -109,27 +125,34 @@ class PromoDetailPage extends GetView<PromotionsController> {
                         ),
                         const SizedBox(height: 5.0),
                         Text(
-                          formatDate(controller.selectedCoupon?.expireDate ??
-                              DateTime.now()),
+                          controller.selectedCoupon?.expiryDate != null
+                              ? formatDate(
+                                  (controller.selectedCoupon?.expiryDate)!)
+                              : controller.selectedPromotion?.endOn != null
+                                  ? formatDate(
+                                      (controller.selectedPromotion?.endOn)!)
+                                  : '',
                           style: AppTheme.title.copyWith(
                               fontSize: 16.0, color: AppTheme.primaryColor),
                         ),
                         const SizedBox(height: 20.0),
-                        Text(
-                          'detail'.tr.toUpperCase(),
-                          style: AppTheme.title.copyWith(
-                            fontSize: 14.0,
-                            color: AppTheme.darkTextColor,
+                        if (controller.selectedCoupon != null)
+                          Text(
+                            'detail'.tr.toUpperCase(),
+                            style: AppTheme.title.copyWith(
+                              fontSize: 14.0,
+                              color: AppTheme.darkTextColor,
+                            ),
                           ),
-                        ),
                         const SizedBox(height: 10.0),
-                        Text(
-                          'Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint.',
-                          style: AppTheme.title.copyWith(
-                            fontSize: 14.0,
-                            color: AppTheme.darkTextColor,
+                        if (controller.selectedCoupon != null)
+                          Text(
+                            controller.selectedCoupon?.description ?? '',
+                            style: AppTheme.title.copyWith(
+                              fontSize: 14.0,
+                              color: AppTheme.darkTextColor,
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -142,9 +165,7 @@ class PromoDetailPage extends GetView<PromotionsController> {
                 alignment: Alignment.bottomCenter,
                 child: RoundedButton(
                     text: 'book_now'.tr,
-                    onPressed: () {
-                      //Todo: on coupon action
-                    }),
+                    onPressed: () => controller.onCouponBookNow()),
               ),
             )
           ],

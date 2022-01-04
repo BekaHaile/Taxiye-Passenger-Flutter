@@ -1,19 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/auth_enums.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/core/services/api/network_exceptions.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
-import 'package:taxiye_passenger/ui/bindings/auth_binding.dart';
 import 'package:taxiye_passenger/ui/pages/common/phone_input_dialog.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
@@ -43,6 +46,7 @@ class AuthController extends GetxService {
   late Map<String, dynamic> deviceInfo;
   late Position currentLocation;
   String? deviceToken;
+  String? appSignature;
 
   // sign up info
   Country country = kCountries.first;
@@ -60,6 +64,7 @@ class AuthController extends GetxService {
   String fullName = '';
   String email = '';
   int gender = 1;
+  String verificationCode = '';
 
   final _profileImage = File('').obs;
   get profileImage => _profileImage.value;
@@ -67,12 +72,14 @@ class AuthController extends GetxService {
 
   final GetStorage _storage = GetStorage();
   late Map<String, dynamic> defaultParams;
+  List<String> rideCancellationReasons = [];
+  String callCenterNumber = kTaxiyePhoneNumber;
 
   @override
   void onInit() async {
     // Todo: initialize values and get any auth values here.
     super.onInit();
-    setLocale();
+    _storage.write('scheduledRefreshes', []);
   }
 
   setGeneralInfo() async {
@@ -82,11 +89,15 @@ class AuthController extends GetxService {
         // print('device token $value');
         deviceToken = value;
       }),
+      SmsAutoFill().getAppSignature.then((signature) {
+        appSignature = signature;
+      }),
     ]);
   }
 
-  setLocale() {
-    String locale = _storage.read<String>('locale') ?? 'en';
+  setLocale(String locale) {
+    _storage.write('locale', locale);
+    //String locale = _storage.read<String>('locale') ?? 'en';
     Get.updateLocale(Locale(locale));
   }
 
@@ -111,6 +122,7 @@ class AuthController extends GetxService {
       'device_rooted': '0',
       'device_name': deviceInfo['name'],
       'device_token': deviceToken,
+      'otp_signature_token': appSignature ?? '',
       'last_push_time_diff': '-1'
     };
 
@@ -126,8 +138,9 @@ class AuthController extends GetxService {
 
   onsignUpSuccess(SignUpResponse signupResponse) {
     if (signupResponse.flag == SuccessFlags.signUp.successCode) {
-      print('this called here');
       status(Status.success);
+      SmsAutoFill().listenForCode;
+      // Get.to(AutoFillTest());
       if (Get.currentRoute != Routes.verify) {
         Get.toNamed(Routes.verify);
       }
@@ -207,13 +220,14 @@ class AuthController extends GetxService {
       (data) {
         if (data.flag == SuccessFlags.verify.successCode) {
           status(Status.success);
-          if (data.userData != null) persistUser(data.userData!);
-          user = data.userData;
-          // Get.toNamed(Routes.setProfile);
+          if (data.userData != null) {
+            user = data.userData;
+            persistUser(data.userData!);
+          }
           _navigateUser();
         } else {
           print(data.message);
-          toast('error', data.message ?? 'api_error'.tr);
+          toast('error', data.error ?? data.message ?? '');
           status(Status.error);
         }
       },
@@ -270,7 +284,7 @@ class AuthController extends GetxService {
           Get.toNamed(Routes.home);
         } else {
           print(data.erorr);
-          toast('error', data.erorr ?? 'api_error'.tr);
+          toast('error', data.erorr ?? '');
           status(Status.error);
         }
       },
@@ -316,12 +330,22 @@ class AuthController extends GetxService {
   determineNextRoute() async {
     await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     await getCurrentLocation().then((value) {
+      // log('current location value: $value');
       currentLocation = value;
       _storage.write('latitude', value.latitude);
       _storage.write('longitude', value.longitude);
+
+      // get users current place and set default country code
+      getPlaceNameFromCordinate(LatLng(value.latitude, value.longitude))
+          .then((value) {
+        //value.isoCountryCode
+        country = kCountries.firstWhere(
+            (element) => element.code == value.isoCountryCode,
+            orElse: () => kCountries.first);
+      });
     });
     await setGeneralInfo();
-    await Future<dynamic>.delayed(const Duration(milliseconds: 500));
+    // await Future<dynamic>.delayed(const Duration(milliseconds: 500));
     if (user.userName.isEmpty ?? true) {
       //Get current user if the user already loged in and route accordingly
       //else show welcome screen
@@ -330,8 +354,7 @@ class AuthController extends GetxService {
       if (userString != null) {
         user = User.fromJson(jsonDecode(userString));
         if (user.userName.isNotEmpty ?? false) {
-          getUser();
-          _navigateUser();
+          _getUser();
         }
       } else {
         if (isFirstTime ?? true) {
@@ -354,8 +377,7 @@ class AuthController extends GetxService {
     // else to home page
     // for now check for gender and username
     // user?.gender == null ||
-
-    if (user.userName.isEmpty || user.userName.split('').length < 2) {
+    if (user.userName.isEmpty || user.userName.split(' ').length < 2) {
       Future.delayed(Duration.zero, () {
         Get.offAllNamed(Routes.setProfile);
       });
@@ -366,20 +388,44 @@ class AuthController extends GetxService {
     }
   }
 
-  getUser() {
+  _getUser() {
     final accessToken = _storage.read<String>('accessToken');
     if (accessToken != null) {
       // login user
       repository.loginUsingToken({
         'device_token': deviceToken,
-      }).then((value) {}, onError: (err) {
+      }).then((loginResponse) {
+        if (loginResponse.flag == SuccessFlags.login.successCode) {
+          rideCancellationReasons = loginResponse.cancelReasons ?? [];
+          setLocale(loginResponse.locale ?? 'en');
+          callCenterNumber =
+              loginResponse.callCenterNumber ?? kTaxiyePhoneNumber;
+
+          _navigateUser();
+          if (loginResponse.userData != null) {
+            user = loginResponse.userData;
+            persistUser(loginResponse.userData!);
+          }
+        } else if (loginResponse.flag == SuccessFlags.tokenExpire.successCode) {
+          Get.offAllNamed(Routes.auth);
+          Get.snackbar('', 'token_expired'.tr);
+          _storage.remove('user');
+        } else {
+          toast('error', loginResponse.error ?? loginResponse.message ?? '');
+        }
+      }, onError: (err) {
         print('Login error: $err');
+        if (err == const NetworkExceptions.noInternetConnection()) {
+          toast('error', 'error_connection'.tr);
+          refreshRequestOnConnectivityChanges(() => _getUser(), 'getUser');
+        } else {
+          toast('error', '$err');
+        }
       });
 
       // reload profile
       repository.reloadProfile().then((profileResponse) {
         if (profileResponse.flag == SuccessFlags.reloadProfile.successCode) {
-          print('reload profile success $profileResponse');
           status(Status.success);
           user = profileResponse;
         } else {
@@ -413,6 +459,7 @@ class AuthController extends GetxService {
         _storage.erase();
         // Get.reset();
         Get.offAllNamed(Routes.auth);
+        _storage.write('isFirstTime', false);
         // Get.snackbar('success'.tr, 'logout_success'.tr);
       } else {
         print(basicResponse.error ?? '');

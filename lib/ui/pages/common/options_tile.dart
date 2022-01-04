@@ -9,11 +9,15 @@ class OptionTile extends StatefulWidget {
     required this.option,
     required this.onTap,
     this.toggleColor = AppTheme.yellowColor,
+    this.isActive = true,
+    this.onToggle,
   }) : super(key: key);
 
   final Option option;
   final VoidCallback onTap;
   final Color toggleColor;
+  final bool isActive;
+  final Function(bool value)? onToggle;
 
   @override
   State<OptionTile> createState() => _OptionTileState();
@@ -31,14 +35,24 @@ class _OptionTileState extends State<OptionTile> {
           color: AppTheme.lightSilverColor,
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
         ),
-        child: Icon(
-          widget.option.leadingIcon,
-          color: AppTheme.darkTextColor,
-        ),
+        child: widget.option.leadingIconAsset != null
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ImageIcon(
+                  AssetImage(widget.option.leadingIconAsset!),
+                  color: AppTheme.darkTextColor,
+                ),
+              )
+            : Icon(
+                widget.option.leadingIcon ?? Icons.info,
+                color: AppTheme.darkTextColor,
+              ),
       ),
       title: Text(
         widget.option.title.tr,
-        style: AppTheme.title2,
+        style: AppTheme.title2.copyWith(
+            color:
+                widget.isActive ? AppTheme.darkTextColor : AppTheme.greyColor2),
       ),
       subtitle: Text(
         widget.option.subtitle.tr,
@@ -47,9 +61,14 @@ class _OptionTileState extends State<OptionTile> {
       trailing: widget.option.toggleValue != null
           ? Switch(
               value: widget.option.toggleValue ?? false,
-              onChanged: (value) => setState(() {
-                widget.option.toggleValue = value;
-              }),
+              onChanged: widget.isActive
+                  ? (value) {
+                      setState(() {
+                        widget.option.toggleValue = value;
+                      });
+                      if (widget.onToggle != null) widget.onToggle!(value);
+                    }
+                  : null,
               activeColor: widget.toggleColor,
             )
           : const Icon(

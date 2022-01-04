@@ -18,6 +18,12 @@ enum UpdateOption {
   setDefault,
 }
 
+enum UpdateMode {
+  add,
+  edit,
+  delete,
+}
+
 enum DriverPreference {
   favourite,
   blocked,
@@ -44,6 +50,8 @@ enum ExchangePointOption {
   transfer,
   bookRide,
   donate,
+  transactions,
+  airtimeHistory,
 }
 
 enum Gender {
@@ -54,6 +62,8 @@ enum Gender {
 
 enum SuccessFlags {
   basicSuccess,
+  login,
+  tokenExpire,
   signUp,
   verify,
   updateProfile,
@@ -66,7 +76,9 @@ enum SuccessFlags {
   driverCancelRide,
   driversBusy,
   rateDriver,
+  delivery,
   fetchWalletBalance,
+  payWithHelloCash,
   getTransactionHistory,
   transfer,
   reloadProfile,
@@ -74,14 +86,22 @@ enum SuccessFlags {
   addNewPlace,
   driverLocation,
   rideHistory,
+  rideSummary,
   emergencyContacts,
+  transferPoints,
+  promotions,
   logout,
-  dummy
+  dummy,
+  payWithMpesa,
+  payWithMpesaFailed,
+  buyAirtime,
 }
 
 extension SuccessFlagsExtension on SuccessFlags {
   static const Map<SuccessFlags, int> successCodes = {
     SuccessFlags.basicSuccess: 143,
+    SuccessFlags.login: 407,
+    SuccessFlags.tokenExpire: 101,
     SuccessFlags.signUp: 143,
     SuccessFlags.verify: 407,
     SuccessFlags.updateProfile: 416,
@@ -94,6 +114,7 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.driverCancelRide: 7,
     SuccessFlags.driversBusy: 8,
     SuccessFlags.rateDriver: 143,
+    SuccessFlags.delivery: 54,
     SuccessFlags.dummy: -1,
     SuccessFlags.fetchWalletBalance: 143,
     SuccessFlags.getTransactionHistory: 423,
@@ -103,8 +124,15 @@ extension SuccessFlagsExtension on SuccessFlags {
     SuccessFlags.addNewPlace: 143,
     SuccessFlags.driverLocation: 117,
     SuccessFlags.rideHistory: 173,
+    SuccessFlags.rideSummary: 115,
     SuccessFlags.emergencyContacts: 450,
+    SuccessFlags.transferPoints: 1,
+    SuccessFlags.promotions: 140,
     SuccessFlags.logout: 409,
+    SuccessFlags.payWithHelloCash: 143,
+    SuccessFlags.payWithMpesa: 93,
+    SuccessFlags.payWithMpesaFailed: 94,
+    SuccessFlags.buyAirtime: 1,
   };
 
   int get successCode => successCodes[this]!;

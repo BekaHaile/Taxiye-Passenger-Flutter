@@ -8,6 +8,7 @@ import 'package:get/state_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
+import 'package:get/get.dart';
 
 class FirebaseService extends GetxService {
   // Todo: configure any firebase services here.
@@ -27,7 +28,9 @@ class FirebaseService extends GetxService {
   });
 
   Future<String?> getDeviceToken() async {
-    return await firebaseMessaging.getToken();
+    return GetPlatform.isAndroid
+        ? await firebaseMessaging.getToken()
+        : await firebaseMessaging.getAPNSToken();
   }
 
   Future<UserCredential> signInWithGoogle() async {

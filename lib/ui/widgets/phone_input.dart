@@ -12,10 +12,16 @@ class PhoneInput extends StatelessWidget {
     this.onChanged,
     this.onCountryChange,
     this.validator,
+    this.intialValue = '',
+    this.initialCountry,
+    this.countryList,
   }) : super(key: key);
 
   final Function(String? value)? onSaved;
   final Function(String value)? onChanged;
+  final String intialValue;
+  final Country? initialCountry;
+  final List<Country>? countryList;
   final Function(Country? value)? onCountryChange;
   final FormFieldValidator<String>? validator;
 
@@ -23,12 +29,15 @@ class PhoneInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       // controller: phoneController,
+      initialValue: intialValue,
+      maxLength: 12,
       keyboardType: TextInputType.phone,
       onChanged: onChanged,
       onSaved: onSaved,
       style: AppTheme.title2,
       decoration: AppTheme.textFieldDecoration.copyWith(
         hintText: 'phone_number'.tr,
+        counterText: '',
         prefixIconConstraints: const BoxConstraints(maxWidth: 100.0),
         prefixIcon: Padding(
           padding: const EdgeInsets.only(right: 12.0),
@@ -36,7 +45,7 @@ class PhoneInput extends StatelessWidget {
             decoration: const BoxDecoration(
                 border: Border(right: BorderSide(color: Colors.grey))),
             child: DropdownButtonFormField<Country>(
-              value: kCountries.first,
+              value: initialCountry ?? kCountries.first,
               isExpanded: true,
               icon: const Icon(Icons.expand_more),
               decoration: const InputDecoration(
@@ -44,8 +53,8 @@ class PhoneInput extends StatelessWidget {
                   borderSide: BorderSide(style: BorderStyle.none),
                 ),
               ),
-              items:
-                  kCountries.map<DropdownMenuItem<Country>>((Country country) {
+              items: (countryList ?? kCountries)
+                  .map<DropdownMenuItem<Country>>((Country country) {
                 return DropdownMenuItem<Country>(
                   value: country,
                   child: Center(child: Text(getCountryFlag(country.isoCode))),

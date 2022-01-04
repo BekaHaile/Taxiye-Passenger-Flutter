@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:get/utils.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,18 +18,23 @@ import 'package:taxiye_passenger/utils/functions.dart';
 class ApiClient {
   late DioClient dioClient;
   final Dio dio;
+  final Connectivity connectivity;
   Map<String, dynamic> defaultParams = {};
 
-  ApiClient({required this.dio}) {
-    dioClient = DioClient(dio);
+  ApiClient({
+    required this.dio,
+    required this.connectivity,
+  }) {
+    dioClient = DioClient(dio, connectivity: connectivity);
 
     PackageInfo.fromPlatform().then((packageInfo) => defaultParams.addAll({
-          'app_version': packageInfo.version,
+          // 'app_version': packageInfo.version,
+          'app_version': kAppVersion,
           'device_type': Platform.isAndroid ? '0' : '7',
           'login_type': '0',
           'operator_token': kOperatorToken,
           'customer_package_name': packageInfo.packageName,
-          'locale': Get.locale?.languageCode ?? 'en',
+          //'locale': Get.locale?.languageCode ?? 'en',
           'client_id': kClientId,
         }));
   }
@@ -37,17 +43,31 @@ class ApiClient {
       {required RequestType requestType,
       bool requiresAuth = true,
       bool requiresDefaultParams = true,
+      String? port,
       required String path,
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? data}) async {
     try {
+      dioClient.updateBaseUrl(port ?? '8008');
       if (requiresAuth) await dioClient.addAuthorizationInterceptor();
       if (requiresDefaultParams && data != null) {
+        String locale = GetStorage().read<String>('locale') ?? 'en';
         data.addAll(defaultParams);
-        data['locale'] = Get.locale?.languageCode ?? 'en';
+        data['locale'] = locale;
       }
 
-      // log('sent payload: $data');
+      if (requiresDefaultParams && queryParameters != null) {
+        queryParameters.addAll(defaultParams);
+        GetStorage storage = GetStorage();
+        final accessToken = storage.read('accessToken');
+        String locale = storage.read<String>('locale') ?? 'en';
+        queryParameters.addAll({
+          'locale': locale,
+          'access_token': accessToken,
+        });
+      }
+
+      //log('sent payload: $data');
       dynamic response;
       switch (requestType) {
         case RequestType.get:
@@ -70,15 +90,18 @@ class ApiClient {
           throw "Request type not found.";
       }
 
-      // log('raw response: $response');
-      return (response is String) ? jsonDecode(response) : response;
+      //log('raw response: $response');
+      return (response is String)
+          ? jsonDecode(response)
+          : (response is List)
+              ? {'flag': 143, 'data': response}
+              : response;
     } on DioError catch (e) {
       final errorMessage = NetworkExceptions.getErrorMessage(
           NetworkExceptions.getDioException(e));
-      log('$e');
       log('Api Error: $errorMessage');
-      toast('error', e.response?.data['message']);
-      return Future.error(errorMessage);
+      return Future.error(NetworkExceptions.getDioException(e));
+      //return NetworkExceptions.getDioException(e);
     }
   }
 
@@ -129,27 +152,54 @@ class ApiClient {
     }
   }
 
-  Future<List<Files>> uploadFiles(List<File> files, String userId) async {
+  // sends form data for single or multiple files
+  Future<Map<String, dynamic>> sendFormData({
+    required String fileFieldName,
+    required Map<String, dynamic> formPayload,
+    required String endPoint,
+    String? port,
+    File? file,
+    List<File>? files,
+  }) async {
     try {
-      // await dioClient.addAuthorizationInterceptor();
+      // For multiple files case
+      if (files?.isNotEmpty ?? false) {
+        List<MultipartFile> multipartFiles = [];
+        for (File file in files!) {
+          String? mimeType = lookupMimeType(file.path);
+          List<String> splitMimeTypes = mimeType?.split('/') ?? [];
 
-      List<MultipartFile> multipartFiles = [];
-      for (File file in files) {
-        String? mimeType = lookupMimeType(file.path);
-        List<String> splitMimeTypes = mimeType?.split('/') ?? [];
-        print(splitMimeTypes);
+          final MultipartFile multipartFile = MultipartFile.fromFileSync(
+              file.path,
+              contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1]));
 
-        if (splitMimeTypes.length > 1) {
-          multipartFiles.add(MultipartFile.fromFileSync(file.path,
-              contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1])));
+          multipartFiles.add(multipartFile);
         }
+
+        formPayload[fileFieldName] = multipartFiles;
+      } else if (file?.path.isNotEmpty ?? false) {
+        // case for single file form data
+        String? mimeType = lookupMimeType(file!.path);
+        List<String> splitMimeTypes = mimeType?.split('/') ?? [];
+
+        final MultipartFile multipartFile = MultipartFile.fromFileSync(
+            file.path,
+            contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1]));
+        formPayload[fileFieldName] = multipartFile;
       }
 
-      var formData =
-          FormData.fromMap({'files': multipartFiles, 'userId': userId});
-      final response = await dioClient.post('/files', data: formData);
-      Iterable l = json.decode(jsonEncode(response));
-      return List<Files>.from(l.map((model) => Files.fromJson(model)).toList());
+      formPayload.addAll(defaultParams);
+      final accessToken = GetStorage().read('accessToken');
+      formPayload['access_token'] = accessToken;
+      log('form payload here: $formPayload');
+      var formData = FormData.fromMap(formPayload);
+
+      dioClient.updateBaseUrl(port ?? '8008');
+      final response = await dioClient.post(endPoint, data: formData);
+      // Iterable l = json.decode(jsonEncode(response));
+      // return List<Files>.from(l.map((model) => Files.fromJson(model)).toList());
+
+      return (response is String) ? jsonDecode(response) : response;
     } on DioError catch (e) {
       final errorMessage = NetworkExceptions.getErrorMessage(
           NetworkExceptions.getDioException(e));
@@ -158,4 +208,32 @@ class ApiClient {
       return Future.error(errorMessage);
     }
   }
+
+  // Future<List<Files>> uploadFiles(List<File> files, String userId) async {
+  //   try {
+  //     List<MultipartFile> multipartFiles = [];
+  //     for (File file in files) {
+  //       String? mimeType = lookupMimeType(file.path);
+  //       List<String> splitMimeTypes = mimeType?.split('/') ?? [];
+  //       print(splitMimeTypes);
+
+  //       if (splitMimeTypes.length > 1) {
+  //         multipartFiles.add(MultipartFile.fromFileSync(file.path,
+  //             contentType: MediaType(splitMimeTypes[0], splitMimeTypes[1])));
+  //       }
+  //     }
+
+  //     var formData =
+  //         FormData.fromMap({'files': multipartFiles, 'userId': userId});
+  //     final response = await dioClient.post('/files', data: formData);
+  //     Iterable l = json.decode(jsonEncode(response));
+  //     return List<Files>.from(l.map((model) => Files.fromJson(model)).toList());
+  //   } on DioError catch (e) {
+  //     final errorMessage = NetworkExceptions.getErrorMessage(
+  //         NetworkExceptions.getDioException(e));
+  //     print(errorMessage);
+  //     toast('error', e.response?.data['message']);
+  //     return Future.error(errorMessage);
+  //   }
+  // }
 }

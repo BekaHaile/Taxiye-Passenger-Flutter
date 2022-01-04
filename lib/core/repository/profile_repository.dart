@@ -76,7 +76,7 @@ class ProfileRepository implements IProfileRepository {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/emergency/contacts/add_multiple',
-      data: {},
+      data: contactPayload,
     );
     return BasicResponse.fromJson(response);
   }
@@ -89,5 +89,20 @@ class ProfileRepository implements IProfileRepository {
       data: {'id': contactId},
     );
     return BasicResponse.fromJson(response);
+  }
+
+  @override
+  Future<UserRideCount> getUserInfo() async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/customer/fetch_user_info',
+      data: {},
+    );
+
+    if (response.containsKey('userRideCount')) {
+      return UserRideCount.fromJson(response['userRideCount']);
+    }
+
+    return UserRideCount();
   }
 }
