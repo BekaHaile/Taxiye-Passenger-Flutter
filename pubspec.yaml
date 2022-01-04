@@ -65,15 +65,16 @@ dependencies:
   image_cropper: ^1.4.1
 
    # firebase services 
-  firebase_core: ^1.8.0
-  firebase_messaging: ^10.0.9
+  firebase_core: ^1.10.0
+  firebase_messaging: ^11.2.4
+
+
 
 
   # For google maps 
   google_maps_flutter: ^2.0.11
   # For drawing polylines
   flutter_polyline_points: ^1.0.0
-  # For svg images
   flutter_svg: ^0.22.0
   # For star rating
   flutter_rating_bar: ^4.0.0
