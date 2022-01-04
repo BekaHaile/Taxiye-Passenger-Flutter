@@ -6,6 +6,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'dart:io';
 
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -45,6 +46,8 @@ abstract class IHomeRepository {
   Future<Place> getPlaceDetailFromId(String placeId, String sessionToken);
   Future<List<LatLng>> getRoutePolylines(
       PointLatLng origin, PointLatLng destination);
+  Future<RouteDistnaceInfo> getRouteDistanceInfo(
+      LatLng origin, LatLng destination);
 
   // notification calls
   registerFCM(
@@ -92,6 +95,9 @@ abstract class IHomeRepository {
 
   Future<BasicResponse> submitDeliveryFeedBack(
       Map<String, dynamic> feedbackPayload);
+
+  Future<VehicleFare> getFareEstimate(
+      Map<String, dynamic> getFareEstimatePayload);
 }
 
 abstract class ICommonRepository {

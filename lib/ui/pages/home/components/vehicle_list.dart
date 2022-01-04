@@ -38,7 +38,7 @@ class VehicleList extends StatelessWidget {
             child: VehicleTile(
               rideType: rideType,
               vehicle: vehicle,
-              isActive: selectedVehicle == vehicle,
+              isActive: selectedVehicle.regionId == vehicle.regionId,
               onTap: () => onItemSelected(vehicle),
             ),
           );

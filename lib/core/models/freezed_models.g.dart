@@ -98,6 +98,9 @@ _$_Vehicle _$_$_VehicleFromJson(Map<String, dynamic> json) {
         : DeliveryCharge.fromJson(
             json['deliveryCharge'] as Map<String, dynamic>),
     hasPromoCoupon: json['hasPromoCoupon'] as bool?,
+    packages: (json['packages'] as List<dynamic>?)
+        ?.map((e) => FareStructure.fromJson(e as Map<String, dynamic>))
+        .toList(),
     regionId: json['region_id'] as int?,
     operatorId: json['operator_id'] as int?,
     regionName: json['region_name'] as String?,
@@ -120,6 +123,7 @@ Map<String, dynamic> _$_$_VehicleToJson(_$_Vehicle instance) =>
       'fareStructure': instance.fareStructure,
       'deliveryCharge': instance.deliveryCharge,
       'hasPromoCoupon': instance.hasPromoCoupon,
+      'packages': instance.packages,
       'region_id': instance.regionId,
       'operator_id': instance.operatorId,
       'region_name': instance.regionName,
@@ -132,7 +136,9 @@ Map<String, dynamic> _$_$_VehicleToJson(_$_Vehicle instance) =>
 
 _$_VehicleFare _$_$_VehicleFareFromJson(Map<String, dynamic> json) {
   return _$_VehicleFare(
+    flag: json['flag'] as int?,
     fare: json['fare'] as int?,
+    regionId: json['regionId'] as int?,
     minFare: json['min_fare'] as int?,
     maxFare: json['max_fare'] as int?,
     baseFare: json['base_fare'] as int?,
@@ -147,7 +153,9 @@ _$_VehicleFare _$_$_VehicleFareFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_VehicleFareToJson(_$_VehicleFare instance) =>
     <String, dynamic>{
+      'flag': instance.flag,
       'fare': instance.fare,
+      'regionId': instance.regionId,
       'min_fare': instance.minFare,
       'max_fare': instance.maxFare,
       'base_fare': instance.baseFare,
@@ -162,24 +170,34 @@ Map<String, dynamic> _$_$_VehicleFareToJson(_$_VehicleFare instance) =>
 _$_FareStructure _$_$_FareStructureFromJson(Map<String, dynamic> json) {
   return _$_FareStructure(
     fare: json['fare'] as int?,
+    packageId: json['package_id'] as int?,
+    packageName: json['package_name'] as String?,
+    fareMinimum: json['fare_minimum'] as int?,
     fareFixed: json['fare_fixed'] as int?,
     farePerKm: json['fare_per_km'] as int?,
     farePerMin: json['fare_per_min'] as int?,
     farePerWaitingMin: json['fare_per_waiting_min'] as int?,
     vehicleType: json['vehicle_type'] as int?,
     rideType: json['ride_type'] as int?,
+    regionId: json['region_id'] as int?,
+    returnTrip: json['return_trip'] as int?,
   );
 }
 
 Map<String, dynamic> _$_$_FareStructureToJson(_$_FareStructure instance) =>
     <String, dynamic>{
       'fare': instance.fare,
+      'package_id': instance.packageId,
+      'package_name': instance.packageName,
+      'fare_minimum': instance.fareMinimum,
       'fare_fixed': instance.fareFixed,
       'fare_per_km': instance.farePerKm,
       'fare_per_min': instance.farePerMin,
       'fare_per_waiting_min': instance.farePerWaitingMin,
       'vehicle_type': instance.vehicleType,
       'ride_type': instance.rideType,
+      'region_id': instance.regionId,
+      'return_trip': instance.returnTrip,
     };
 
 _$_VehicleImage _$_$_VehicleImageFromJson(Map<String, dynamic> json) {

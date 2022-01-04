@@ -40,3 +40,8 @@ enum EmergencyStatus {
   enable,
   disable,
 }
+
+enum OutStationType {
+  oneWay,
+  roundTrip,
+}

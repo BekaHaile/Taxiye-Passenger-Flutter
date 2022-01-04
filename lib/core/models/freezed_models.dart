@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'freezed_models.freezed.dart';
 part 'freezed_models.g.dart';
@@ -65,6 +66,7 @@ class Vehicle with _$Vehicle {
     FareStructure? fareStructure,
     DeliveryCharge? deliveryCharge,
     bool? hasPromoCoupon,
+    List<FareStructure>? packages,
     @JsonKey(name: 'region_id') int? regionId,
     @JsonKey(name: 'operator_id') int? operatorId,
     @JsonKey(name: 'region_name') String? regionName,
@@ -82,7 +84,9 @@ class Vehicle with _$Vehicle {
 @freezed
 class VehicleFare with _$VehicleFare {
   factory VehicleFare({
+    int? flag,
     int? fare,
+    int? regionId,
     @JsonKey(name: 'min_fare') int? minFare,
     @JsonKey(name: 'max_fare') int? maxFare,
     @JsonKey(name: 'base_fare') int? baseFare,
@@ -102,12 +106,17 @@ class VehicleFare with _$VehicleFare {
 class FareStructure with _$FareStructure {
   factory FareStructure({
     int? fare,
+    @JsonKey(name: 'package_id') int? packageId,
+    @JsonKey(name: 'package_name') String? packageName,
+    @JsonKey(name: 'fare_minimum') int? fareMinimum,
     @JsonKey(name: 'fare_fixed') int? fareFixed,
     @JsonKey(name: 'fare_per_km') int? farePerKm,
     @JsonKey(name: 'fare_per_min') int? farePerMin,
     @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
     @JsonKey(name: 'vehicle_type') int? vehicleType,
     @JsonKey(name: 'ride_type') int? rideType,
+    @JsonKey(name: 'region_id') int? regionId,
+    @JsonKey(name: 'return_trip') int? returnTrip,
   }) = _FareStructure;
 
   factory FareStructure.fromJson(Map<String, dynamic> json) =>

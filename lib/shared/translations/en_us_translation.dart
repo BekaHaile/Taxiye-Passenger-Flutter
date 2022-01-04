@@ -485,4 +485,8 @@ final Map<String, String> enUs = {
   // New Translations I - the following texts are not translated to other languages
   'logout': 'Logout',
   'favourite': 'Favourite',
+  'one_way': 'One Way',
+  'round_trip': 'Round Trip',
+
+  'packages': 'Packages',
 };

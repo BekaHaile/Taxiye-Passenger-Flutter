@@ -5,9 +5,10 @@ import 'package:taxiye_passenger/core/models/common_models.dart';
 
 const kBaseUrl = 'https://staging.taxiye.com';
 const kBaseUrlRelease = 'https://release.taxiye.com';
-const kGooglePlacesUrl = 'https://maps.googleapis.com/maps/api/place/';
+const kGooglePlacesUrl = 'https://maps.googleapis.com/maps/api/';
 const kTaxiyePhoneNumber = '6055';
 const kSOSNumber = '911';
+const kAppVersion = '6015';
 
 const kDioConnectTimeout = 50000;
 const kDioReceiveTimeout = 50000;

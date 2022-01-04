@@ -28,7 +28,8 @@ class ApiClient {
     dioClient = DioClient(dio, connectivity: connectivity);
 
     PackageInfo.fromPlatform().then((packageInfo) => defaultParams.addAll({
-          'app_version': packageInfo.version,
+          // 'app_version': packageInfo.version,
+          'app_version': kAppVersion,
           'device_type': Platform.isAndroid ? '0' : '1',
           'login_type': '0',
           'operator_token': kOperatorToken,
@@ -89,7 +90,7 @@ class ApiClient {
           throw "Request type not found.";
       }
 
-      // log('raw response: $response');
+      //log('raw response: $response');
       return (response is String)
           ? jsonDecode(response)
           : (response is List)

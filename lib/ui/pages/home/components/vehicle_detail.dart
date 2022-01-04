@@ -54,7 +54,8 @@ class VehicleDetail extends StatelessWidget {
                 style: AppTheme.title.copyWith(fontSize: 14.0),
               ),
             ),
-            if (serviceType == HomeServiceIndex.ride)
+            if (serviceType == HomeServiceIndex.ride ||
+                serviceType == HomeServiceIndex.outStation)
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

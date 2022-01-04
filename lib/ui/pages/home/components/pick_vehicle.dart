@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
@@ -5,6 +7,8 @@ import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/outstation_packages.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/outstation_trips.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/ride_note.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_list.dart';
@@ -41,7 +45,8 @@ class PickVehicle extends GetView<HomeController> {
                 // )
               ],
             ),
-            if (controller.selectedService == HomeServiceIndex.ride)
+            if (controller.selectedService == HomeServiceIndex.ride ||
+                controller.selectedService == HomeServiceIndex.outStation)
               const SizedBox(height: 10.0),
             if (controller.selectedService == HomeServiceIndex.ride)
               SizedBox(
@@ -51,28 +56,64 @@ class PickVehicle extends GetView<HomeController> {
                     onFilterVehicle: (rideType) =>
                         controller.filterVehicles(rideType)),
               ),
-            const SizedBox(height: 16.0),
-            Obx(() => VehicleList(
-                vehicles:
-                    controller.selectedService == HomeServiceIndex.delivery
-                        ? controller.deliveryVehicles
-                        : controller.vehicles,
-                selectedVehicle: controller.selectedVehicle,
-                rideType: controller.rideType,
-                onItemSelected: (selectedVehice) {
-                  if (controller.selectedVehicle == selectedVehice) {
-                    Get.bottomSheet(
-                        VehicleDetail(
-                          vehicle: selectedVehice,
-                          currency: controller.currency,
-                          serviceType: controller.selectedService,
+            Obx(() => controller.selectedService == HomeServiceIndex.outStation
+                ? OutStationTrips(
+                    selectedOutStationType: controller.selectedOutstationType,
+                    onSelectTripType: (outStationType) =>
+                        controller.selectedOutstationType = outStationType)
+                : const SizedBox()),
+            Obx(() => Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: VehicleList(
+                      vehicles: controller.selectedService ==
+                              HomeServiceIndex.delivery
+                          ? controller.deliveryVehicles
+                          : controller.vehicles,
+                      selectedVehicle: controller.selectedVehicle,
+                      rideType: controller.rideType,
+                      onItemSelected: (selectedVehice) =>
+                          controller.onVehicleSelected(selectedVehice)),
+                )),
+            Obx(() => controller.selectedVehicle.packages?.isNotEmpty ?? false
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Column(
+                          children: [
+                            Text('packages'.tr.toUpperCase(),
+                                style: AppTheme.body.copyWith(
+                                  color: AppTheme.darkColor,
+                                )),
+                          ],
                         ),
-                        isScrollControlled: true);
-                  }
-                  controller.selectedVehicle = selectedVehice;
-                })),
+                      ),
+                      SizedBox(
+                        height: 60,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: OutStationPackages(
+                              packages: controller.selectedVehicle.packages,
+                              selectedPackage: controller.selectedPackage,
+                              onSelectPackage: (package) {
+                                if (controller.selectedPackage != package) {
+                                  controller.selectedPackage = package;
+                                  log('packgeId ${controller.selectedPackage.packageId}');
+                                  controller.getVehiclesFareEstimates(
+                                      packageId:
+                                          controller.selectedPackage.packageId);
+                                }
+                              }),
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox()),
             Obx(
-              () => controller.rideType == 0 || controller.rideType == 2
+              () => controller.rideType == 0 ||
+                      controller.rideType == 2 ||
+                      controller.rideType == 7
                   ? SizedBox(
                       height: 32.0,
                       child: ListView.builder(

@@ -1074,6 +1074,7 @@ class _$VehicleTearOff {
       FareStructure? fareStructure,
       DeliveryCharge? deliveryCharge,
       bool? hasPromoCoupon,
+      List<FareStructure>? packages,
       @JsonKey(name: 'region_id') int? regionId,
       @JsonKey(name: 'operator_id') int? operatorId,
       @JsonKey(name: 'region_name') String? regionName,
@@ -1090,6 +1091,7 @@ class _$VehicleTearOff {
       fareStructure: fareStructure,
       deliveryCharge: deliveryCharge,
       hasPromoCoupon: hasPromoCoupon,
+      packages: packages,
       regionId: regionId,
       operatorId: operatorId,
       regionName: regionName,
@@ -1118,6 +1120,7 @@ mixin _$Vehicle {
   FareStructure? get fareStructure => throw _privateConstructorUsedError;
   DeliveryCharge? get deliveryCharge => throw _privateConstructorUsedError;
   bool? get hasPromoCoupon => throw _privateConstructorUsedError;
+  List<FareStructure>? get packages => throw _privateConstructorUsedError;
   @JsonKey(name: 'region_id')
   int? get regionId => throw _privateConstructorUsedError;
   @JsonKey(name: 'operator_id')
@@ -1152,6 +1155,7 @@ abstract class $VehicleCopyWith<$Res> {
       FareStructure? fareStructure,
       DeliveryCharge? deliveryCharge,
       bool? hasPromoCoupon,
+      List<FareStructure>? packages,
       @JsonKey(name: 'region_id') int? regionId,
       @JsonKey(name: 'operator_id') int? operatorId,
       @JsonKey(name: 'region_name') String? regionName,
@@ -1184,6 +1188,7 @@ class _$VehicleCopyWithImpl<$Res> implements $VehicleCopyWith<$Res> {
     Object? fareStructure = freezed,
     Object? deliveryCharge = freezed,
     Object? hasPromoCoupon = freezed,
+    Object? packages = freezed,
     Object? regionId = freezed,
     Object? operatorId = freezed,
     Object? regionName = freezed,
@@ -1222,6 +1227,10 @@ class _$VehicleCopyWithImpl<$Res> implements $VehicleCopyWith<$Res> {
           ? _value.hasPromoCoupon
           : hasPromoCoupon // ignore: cast_nullable_to_non_nullable
               as bool?,
+      packages: packages == freezed
+          ? _value.packages
+          : packages // ignore: cast_nullable_to_non_nullable
+              as List<FareStructure>?,
       regionId: regionId == freezed
           ? _value.regionId
           : regionId // ignore: cast_nullable_to_non_nullable
@@ -1315,6 +1324,7 @@ abstract class _$VehicleCopyWith<$Res> implements $VehicleCopyWith<$Res> {
       FareStructure? fareStructure,
       DeliveryCharge? deliveryCharge,
       bool? hasPromoCoupon,
+      List<FareStructure>? packages,
       @JsonKey(name: 'region_id') int? regionId,
       @JsonKey(name: 'operator_id') int? operatorId,
       @JsonKey(name: 'region_name') String? regionName,
@@ -1352,6 +1362,7 @@ class __$VehicleCopyWithImpl<$Res> extends _$VehicleCopyWithImpl<$Res>
     Object? fareStructure = freezed,
     Object? deliveryCharge = freezed,
     Object? hasPromoCoupon = freezed,
+    Object? packages = freezed,
     Object? regionId = freezed,
     Object? operatorId = freezed,
     Object? regionName = freezed,
@@ -1390,6 +1401,10 @@ class __$VehicleCopyWithImpl<$Res> extends _$VehicleCopyWithImpl<$Res>
           ? _value.hasPromoCoupon
           : hasPromoCoupon // ignore: cast_nullable_to_non_nullable
               as bool?,
+      packages: packages == freezed
+          ? _value.packages
+          : packages // ignore: cast_nullable_to_non_nullable
+              as List<FareStructure>?,
       regionId: regionId == freezed
           ? _value.regionId
           : regionId // ignore: cast_nullable_to_non_nullable
@@ -1437,6 +1452,7 @@ class _$_Vehicle implements _Vehicle {
       this.fareStructure,
       this.deliveryCharge,
       this.hasPromoCoupon,
+      this.packages,
       @JsonKey(name: 'region_id') this.regionId,
       @JsonKey(name: 'operator_id') this.operatorId,
       @JsonKey(name: 'region_name') this.regionName,
@@ -1464,6 +1480,8 @@ class _$_Vehicle implements _Vehicle {
   @override
   final bool? hasPromoCoupon;
   @override
+  final List<FareStructure>? packages;
+  @override
   @JsonKey(name: 'region_id')
   final int? regionId;
   @override
@@ -1490,7 +1508,7 @@ class _$_Vehicle implements _Vehicle {
 
   @override
   String toString() {
-    return 'Vehicle(images: $images, vehicleNumber: $vehicleNumber, type: $type, name: $name, fareStructure: $fareStructure, deliveryCharge: $deliveryCharge, hasPromoCoupon: $hasPromoCoupon, regionId: $regionId, operatorId: $operatorId, regionName: $regionName, vehicleType: $vehicleType, iconSet: $iconSet, rideType: $rideType, maxPeople: $maxPeople, regionFare: $regionFare)';
+    return 'Vehicle(images: $images, vehicleNumber: $vehicleNumber, type: $type, name: $name, fareStructure: $fareStructure, deliveryCharge: $deliveryCharge, hasPromoCoupon: $hasPromoCoupon, packages: $packages, regionId: $regionId, operatorId: $operatorId, regionName: $regionName, vehicleType: $vehicleType, iconSet: $iconSet, rideType: $rideType, maxPeople: $maxPeople, regionFare: $regionFare)';
   }
 
   @override
@@ -1515,6 +1533,9 @@ class _$_Vehicle implements _Vehicle {
             (identical(other.hasPromoCoupon, hasPromoCoupon) ||
                 const DeepCollectionEquality()
                     .equals(other.hasPromoCoupon, hasPromoCoupon)) &&
+            (identical(other.packages, packages) ||
+                const DeepCollectionEquality()
+                    .equals(other.packages, packages)) &&
             (identical(other.regionId, regionId) ||
                 const DeepCollectionEquality()
                     .equals(other.regionId, regionId)) &&
@@ -1551,6 +1572,7 @@ class _$_Vehicle implements _Vehicle {
       const DeepCollectionEquality().hash(fareStructure) ^
       const DeepCollectionEquality().hash(deliveryCharge) ^
       const DeepCollectionEquality().hash(hasPromoCoupon) ^
+      const DeepCollectionEquality().hash(packages) ^
       const DeepCollectionEquality().hash(regionId) ^
       const DeepCollectionEquality().hash(operatorId) ^
       const DeepCollectionEquality().hash(regionName) ^
@@ -1580,6 +1602,7 @@ abstract class _Vehicle implements Vehicle {
       FareStructure? fareStructure,
       DeliveryCharge? deliveryCharge,
       bool? hasPromoCoupon,
+      List<FareStructure>? packages,
       @JsonKey(name: 'region_id') int? regionId,
       @JsonKey(name: 'operator_id') int? operatorId,
       @JsonKey(name: 'region_name') String? regionName,
@@ -1605,6 +1628,8 @@ abstract class _Vehicle implements Vehicle {
   DeliveryCharge? get deliveryCharge => throw _privateConstructorUsedError;
   @override
   bool? get hasPromoCoupon => throw _privateConstructorUsedError;
+  @override
+  List<FareStructure>? get packages => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'region_id')
   int? get regionId => throw _privateConstructorUsedError;
@@ -1644,7 +1669,9 @@ class _$VehicleFareTearOff {
   const _$VehicleFareTearOff();
 
   _VehicleFare call(
-      {int? fare,
+      {int? flag,
+      int? fare,
+      int? regionId,
       @JsonKey(name: 'min_fare') int? minFare,
       @JsonKey(name: 'max_fare') int? maxFare,
       @JsonKey(name: 'base_fare') int? baseFare,
@@ -1655,7 +1682,9 @@ class _$VehicleFareTearOff {
       @JsonKey(name: 'fare_text') String? fareText,
       @JsonKey(name: 'distance_unit') String? distanceUnit}) {
     return _VehicleFare(
+      flag: flag,
       fare: fare,
+      regionId: regionId,
       minFare: minFare,
       maxFare: maxFare,
       baseFare: baseFare,
@@ -1678,7 +1707,9 @@ const $VehicleFare = _$VehicleFareTearOff();
 
 /// @nodoc
 mixin _$VehicleFare {
+  int? get flag => throw _privateConstructorUsedError;
   int? get fare => throw _privateConstructorUsedError;
+  int? get regionId => throw _privateConstructorUsedError;
   @JsonKey(name: 'min_fare')
   int? get minFare => throw _privateConstructorUsedError;
   @JsonKey(name: 'max_fare')
@@ -1709,7 +1740,9 @@ abstract class $VehicleFareCopyWith<$Res> {
           VehicleFare value, $Res Function(VehicleFare) then) =
       _$VehicleFareCopyWithImpl<$Res>;
   $Res call(
-      {int? fare,
+      {int? flag,
+      int? fare,
+      int? regionId,
       @JsonKey(name: 'min_fare') int? minFare,
       @JsonKey(name: 'max_fare') int? maxFare,
       @JsonKey(name: 'base_fare') int? baseFare,
@@ -1731,7 +1764,9 @@ class _$VehicleFareCopyWithImpl<$Res> implements $VehicleFareCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? flag = freezed,
     Object? fare = freezed,
+    Object? regionId = freezed,
     Object? minFare = freezed,
     Object? maxFare = freezed,
     Object? baseFare = freezed,
@@ -1743,9 +1778,17 @@ class _$VehicleFareCopyWithImpl<$Res> implements $VehicleFareCopyWith<$Res> {
     Object? distanceUnit = freezed,
   }) {
     return _then(_value.copyWith(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int?,
       fare: fare == freezed
           ? _value.fare
           : fare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionId: regionId == freezed
+          ? _value.regionId
+          : regionId // ignore: cast_nullable_to_non_nullable
               as int?,
       minFare: minFare == freezed
           ? _value.minFare
@@ -1795,7 +1838,9 @@ abstract class _$VehicleFareCopyWith<$Res>
       __$VehicleFareCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int? fare,
+      {int? flag,
+      int? fare,
+      int? regionId,
       @JsonKey(name: 'min_fare') int? minFare,
       @JsonKey(name: 'max_fare') int? maxFare,
       @JsonKey(name: 'base_fare') int? baseFare,
@@ -1819,7 +1864,9 @@ class __$VehicleFareCopyWithImpl<$Res> extends _$VehicleFareCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? flag = freezed,
     Object? fare = freezed,
+    Object? regionId = freezed,
     Object? minFare = freezed,
     Object? maxFare = freezed,
     Object? baseFare = freezed,
@@ -1831,9 +1878,17 @@ class __$VehicleFareCopyWithImpl<$Res> extends _$VehicleFareCopyWithImpl<$Res>
     Object? distanceUnit = freezed,
   }) {
     return _then(_VehicleFare(
+      flag: flag == freezed
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
+              as int?,
       fare: fare == freezed
           ? _value.fare
           : fare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      regionId: regionId == freezed
+          ? _value.regionId
+          : regionId // ignore: cast_nullable_to_non_nullable
               as int?,
       minFare: minFare == freezed
           ? _value.minFare
@@ -1879,7 +1934,9 @@ class __$VehicleFareCopyWithImpl<$Res> extends _$VehicleFareCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_VehicleFare implements _VehicleFare {
   _$_VehicleFare(
-      {this.fare,
+      {this.flag,
+      this.fare,
+      this.regionId,
       @JsonKey(name: 'min_fare') this.minFare,
       @JsonKey(name: 'max_fare') this.maxFare,
       @JsonKey(name: 'base_fare') this.baseFare,
@@ -1894,7 +1951,11 @@ class _$_VehicleFare implements _VehicleFare {
       _$_$_VehicleFareFromJson(json);
 
   @override
+  final int? flag;
+  @override
   final int? fare;
+  @override
+  final int? regionId;
   @override
   @JsonKey(name: 'min_fare')
   final int? minFare;
@@ -1924,15 +1985,20 @@ class _$_VehicleFare implements _VehicleFare {
 
   @override
   String toString() {
-    return 'VehicleFare(fare: $fare, minFare: $minFare, maxFare: $maxFare, baseFare: $baseFare, originalFare: $originalFare, rideDistance: $rideDistance, currency: $currency, currencySymbol: $currencySymbol, fareText: $fareText, distanceUnit: $distanceUnit)';
+    return 'VehicleFare(flag: $flag, fare: $fare, regionId: $regionId, minFare: $minFare, maxFare: $maxFare, baseFare: $baseFare, originalFare: $originalFare, rideDistance: $rideDistance, currency: $currency, currencySymbol: $currencySymbol, fareText: $fareText, distanceUnit: $distanceUnit)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _VehicleFare &&
+            (identical(other.flag, flag) ||
+                const DeepCollectionEquality().equals(other.flag, flag)) &&
             (identical(other.fare, fare) ||
                 const DeepCollectionEquality().equals(other.fare, fare)) &&
+            (identical(other.regionId, regionId) ||
+                const DeepCollectionEquality()
+                    .equals(other.regionId, regionId)) &&
             (identical(other.minFare, minFare) ||
                 const DeepCollectionEquality()
                     .equals(other.minFare, minFare)) &&
@@ -1965,7 +2031,9 @@ class _$_VehicleFare implements _VehicleFare {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(flag) ^
       const DeepCollectionEquality().hash(fare) ^
+      const DeepCollectionEquality().hash(regionId) ^
       const DeepCollectionEquality().hash(minFare) ^
       const DeepCollectionEquality().hash(maxFare) ^
       const DeepCollectionEquality().hash(baseFare) ^
@@ -1989,7 +2057,9 @@ class _$_VehicleFare implements _VehicleFare {
 
 abstract class _VehicleFare implements VehicleFare {
   factory _VehicleFare(
-      {int? fare,
+      {int? flag,
+      int? fare,
+      int? regionId,
       @JsonKey(name: 'min_fare') int? minFare,
       @JsonKey(name: 'max_fare') int? maxFare,
       @JsonKey(name: 'base_fare') int? baseFare,
@@ -2004,7 +2074,11 @@ abstract class _VehicleFare implements VehicleFare {
       _$_VehicleFare.fromJson;
 
   @override
+  int? get flag => throw _privateConstructorUsedError;
+  @override
   int? get fare => throw _privateConstructorUsedError;
+  @override
+  int? get regionId => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'min_fare')
   int? get minFare => throw _privateConstructorUsedError;
@@ -2047,20 +2121,30 @@ class _$FareStructureTearOff {
 
   _FareStructure call(
       {int? fare,
+      @JsonKey(name: 'package_id') int? packageId,
+      @JsonKey(name: 'package_name') String? packageName,
+      @JsonKey(name: 'fare_minimum') int? fareMinimum,
       @JsonKey(name: 'fare_fixed') int? fareFixed,
       @JsonKey(name: 'fare_per_km') int? farePerKm,
       @JsonKey(name: 'fare_per_min') int? farePerMin,
       @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
-      @JsonKey(name: 'ride_type') int? rideType}) {
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'region_id') int? regionId,
+      @JsonKey(name: 'return_trip') int? returnTrip}) {
     return _FareStructure(
       fare: fare,
+      packageId: packageId,
+      packageName: packageName,
+      fareMinimum: fareMinimum,
       fareFixed: fareFixed,
       farePerKm: farePerKm,
       farePerMin: farePerMin,
       farePerWaitingMin: farePerWaitingMin,
       vehicleType: vehicleType,
       rideType: rideType,
+      regionId: regionId,
+      returnTrip: returnTrip,
     );
   }
 
@@ -2075,6 +2159,12 @@ const $FareStructure = _$FareStructureTearOff();
 /// @nodoc
 mixin _$FareStructure {
   int? get fare => throw _privateConstructorUsedError;
+  @JsonKey(name: 'package_id')
+  int? get packageId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'package_name')
+  String? get packageName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fare_minimum')
+  int? get fareMinimum => throw _privateConstructorUsedError;
   @JsonKey(name: 'fare_fixed')
   int? get fareFixed => throw _privateConstructorUsedError;
   @JsonKey(name: 'fare_per_km')
@@ -2087,6 +2177,10 @@ mixin _$FareStructure {
   int? get vehicleType => throw _privateConstructorUsedError;
   @JsonKey(name: 'ride_type')
   int? get rideType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'region_id')
+  int? get regionId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'return_trip')
+  int? get returnTrip => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2101,12 +2195,17 @@ abstract class $FareStructureCopyWith<$Res> {
       _$FareStructureCopyWithImpl<$Res>;
   $Res call(
       {int? fare,
+      @JsonKey(name: 'package_id') int? packageId,
+      @JsonKey(name: 'package_name') String? packageName,
+      @JsonKey(name: 'fare_minimum') int? fareMinimum,
       @JsonKey(name: 'fare_fixed') int? fareFixed,
       @JsonKey(name: 'fare_per_km') int? farePerKm,
       @JsonKey(name: 'fare_per_min') int? farePerMin,
       @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
-      @JsonKey(name: 'ride_type') int? rideType});
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'region_id') int? regionId,
+      @JsonKey(name: 'return_trip') int? returnTrip});
 }
 
 /// @nodoc
@@ -2121,17 +2220,34 @@ class _$FareStructureCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fare = freezed,
+    Object? packageId = freezed,
+    Object? packageName = freezed,
+    Object? fareMinimum = freezed,
     Object? fareFixed = freezed,
     Object? farePerKm = freezed,
     Object? farePerMin = freezed,
     Object? farePerWaitingMin = freezed,
     Object? vehicleType = freezed,
     Object? rideType = freezed,
+    Object? regionId = freezed,
+    Object? returnTrip = freezed,
   }) {
     return _then(_value.copyWith(
       fare: fare == freezed
           ? _value.fare
           : fare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      packageId: packageId == freezed
+          ? _value.packageId
+          : packageId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      packageName: packageName == freezed
+          ? _value.packageName
+          : packageName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fareMinimum: fareMinimum == freezed
+          ? _value.fareMinimum
+          : fareMinimum // ignore: cast_nullable_to_non_nullable
               as int?,
       fareFixed: fareFixed == freezed
           ? _value.fareFixed
@@ -2157,6 +2273,14 @@ class _$FareStructureCopyWithImpl<$Res>
           ? _value.rideType
           : rideType // ignore: cast_nullable_to_non_nullable
               as int?,
+      regionId: regionId == freezed
+          ? _value.regionId
+          : regionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      returnTrip: returnTrip == freezed
+          ? _value.returnTrip
+          : returnTrip // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -2170,12 +2294,17 @@ abstract class _$FareStructureCopyWith<$Res>
   @override
   $Res call(
       {int? fare,
+      @JsonKey(name: 'package_id') int? packageId,
+      @JsonKey(name: 'package_name') String? packageName,
+      @JsonKey(name: 'fare_minimum') int? fareMinimum,
       @JsonKey(name: 'fare_fixed') int? fareFixed,
       @JsonKey(name: 'fare_per_km') int? farePerKm,
       @JsonKey(name: 'fare_per_min') int? farePerMin,
       @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
-      @JsonKey(name: 'ride_type') int? rideType});
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'region_id') int? regionId,
+      @JsonKey(name: 'return_trip') int? returnTrip});
 }
 
 /// @nodoc
@@ -2192,17 +2321,34 @@ class __$FareStructureCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fare = freezed,
+    Object? packageId = freezed,
+    Object? packageName = freezed,
+    Object? fareMinimum = freezed,
     Object? fareFixed = freezed,
     Object? farePerKm = freezed,
     Object? farePerMin = freezed,
     Object? farePerWaitingMin = freezed,
     Object? vehicleType = freezed,
     Object? rideType = freezed,
+    Object? regionId = freezed,
+    Object? returnTrip = freezed,
   }) {
     return _then(_FareStructure(
       fare: fare == freezed
           ? _value.fare
           : fare // ignore: cast_nullable_to_non_nullable
+              as int?,
+      packageId: packageId == freezed
+          ? _value.packageId
+          : packageId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      packageName: packageName == freezed
+          ? _value.packageName
+          : packageName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fareMinimum: fareMinimum == freezed
+          ? _value.fareMinimum
+          : fareMinimum // ignore: cast_nullable_to_non_nullable
               as int?,
       fareFixed: fareFixed == freezed
           ? _value.fareFixed
@@ -2228,6 +2374,14 @@ class __$FareStructureCopyWithImpl<$Res>
           ? _value.rideType
           : rideType // ignore: cast_nullable_to_non_nullable
               as int?,
+      regionId: regionId == freezed
+          ? _value.regionId
+          : regionId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      returnTrip: returnTrip == freezed
+          ? _value.returnTrip
+          : returnTrip // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -2237,18 +2391,32 @@ class __$FareStructureCopyWithImpl<$Res>
 class _$_FareStructure implements _FareStructure {
   _$_FareStructure(
       {this.fare,
+      @JsonKey(name: 'package_id') this.packageId,
+      @JsonKey(name: 'package_name') this.packageName,
+      @JsonKey(name: 'fare_minimum') this.fareMinimum,
       @JsonKey(name: 'fare_fixed') this.fareFixed,
       @JsonKey(name: 'fare_per_km') this.farePerKm,
       @JsonKey(name: 'fare_per_min') this.farePerMin,
       @JsonKey(name: 'fare_per_waiting_min') this.farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') this.vehicleType,
-      @JsonKey(name: 'ride_type') this.rideType});
+      @JsonKey(name: 'ride_type') this.rideType,
+      @JsonKey(name: 'region_id') this.regionId,
+      @JsonKey(name: 'return_trip') this.returnTrip});
 
   factory _$_FareStructure.fromJson(Map<String, dynamic> json) =>
       _$_$_FareStructureFromJson(json);
 
   @override
   final int? fare;
+  @override
+  @JsonKey(name: 'package_id')
+  final int? packageId;
+  @override
+  @JsonKey(name: 'package_name')
+  final String? packageName;
+  @override
+  @JsonKey(name: 'fare_minimum')
+  final int? fareMinimum;
   @override
   @JsonKey(name: 'fare_fixed')
   final int? fareFixed;
@@ -2267,10 +2435,16 @@ class _$_FareStructure implements _FareStructure {
   @override
   @JsonKey(name: 'ride_type')
   final int? rideType;
+  @override
+  @JsonKey(name: 'region_id')
+  final int? regionId;
+  @override
+  @JsonKey(name: 'return_trip')
+  final int? returnTrip;
 
   @override
   String toString() {
-    return 'FareStructure(fare: $fare, fareFixed: $fareFixed, farePerKm: $farePerKm, farePerMin: $farePerMin, farePerWaitingMin: $farePerWaitingMin, vehicleType: $vehicleType, rideType: $rideType)';
+    return 'FareStructure(fare: $fare, packageId: $packageId, packageName: $packageName, fareMinimum: $fareMinimum, fareFixed: $fareFixed, farePerKm: $farePerKm, farePerMin: $farePerMin, farePerWaitingMin: $farePerWaitingMin, vehicleType: $vehicleType, rideType: $rideType, regionId: $regionId, returnTrip: $returnTrip)';
   }
 
   @override
@@ -2279,6 +2453,15 @@ class _$_FareStructure implements _FareStructure {
         (other is _FareStructure &&
             (identical(other.fare, fare) ||
                 const DeepCollectionEquality().equals(other.fare, fare)) &&
+            (identical(other.packageId, packageId) ||
+                const DeepCollectionEquality()
+                    .equals(other.packageId, packageId)) &&
+            (identical(other.packageName, packageName) ||
+                const DeepCollectionEquality()
+                    .equals(other.packageName, packageName)) &&
+            (identical(other.fareMinimum, fareMinimum) ||
+                const DeepCollectionEquality()
+                    .equals(other.fareMinimum, fareMinimum)) &&
             (identical(other.fareFixed, fareFixed) ||
                 const DeepCollectionEquality()
                     .equals(other.fareFixed, fareFixed)) &&
@@ -2296,19 +2479,30 @@ class _$_FareStructure implements _FareStructure {
                     .equals(other.vehicleType, vehicleType)) &&
             (identical(other.rideType, rideType) ||
                 const DeepCollectionEquality()
-                    .equals(other.rideType, rideType)));
+                    .equals(other.rideType, rideType)) &&
+            (identical(other.regionId, regionId) ||
+                const DeepCollectionEquality()
+                    .equals(other.regionId, regionId)) &&
+            (identical(other.returnTrip, returnTrip) ||
+                const DeepCollectionEquality()
+                    .equals(other.returnTrip, returnTrip)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(fare) ^
+      const DeepCollectionEquality().hash(packageId) ^
+      const DeepCollectionEquality().hash(packageName) ^
+      const DeepCollectionEquality().hash(fareMinimum) ^
       const DeepCollectionEquality().hash(fareFixed) ^
       const DeepCollectionEquality().hash(farePerKm) ^
       const DeepCollectionEquality().hash(farePerMin) ^
       const DeepCollectionEquality().hash(farePerWaitingMin) ^
       const DeepCollectionEquality().hash(vehicleType) ^
-      const DeepCollectionEquality().hash(rideType);
+      const DeepCollectionEquality().hash(rideType) ^
+      const DeepCollectionEquality().hash(regionId) ^
+      const DeepCollectionEquality().hash(returnTrip);
 
   @JsonKey(ignore: true)
   @override
@@ -2324,18 +2518,32 @@ class _$_FareStructure implements _FareStructure {
 abstract class _FareStructure implements FareStructure {
   factory _FareStructure(
       {int? fare,
+      @JsonKey(name: 'package_id') int? packageId,
+      @JsonKey(name: 'package_name') String? packageName,
+      @JsonKey(name: 'fare_minimum') int? fareMinimum,
       @JsonKey(name: 'fare_fixed') int? fareFixed,
       @JsonKey(name: 'fare_per_km') int? farePerKm,
       @JsonKey(name: 'fare_per_min') int? farePerMin,
       @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
-      @JsonKey(name: 'ride_type') int? rideType}) = _$_FareStructure;
+      @JsonKey(name: 'ride_type') int? rideType,
+      @JsonKey(name: 'region_id') int? regionId,
+      @JsonKey(name: 'return_trip') int? returnTrip}) = _$_FareStructure;
 
   factory _FareStructure.fromJson(Map<String, dynamic> json) =
       _$_FareStructure.fromJson;
 
   @override
   int? get fare => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'package_id')
+  int? get packageId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'package_name')
+  String? get packageName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'fare_minimum')
+  int? get fareMinimum => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'fare_fixed')
   int? get fareFixed => throw _privateConstructorUsedError;
@@ -2354,6 +2562,12 @@ abstract class _FareStructure implements FareStructure {
   @override
   @JsonKey(name: 'ride_type')
   int? get rideType => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'region_id')
+  int? get regionId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'return_trip')
+  int? get returnTrip => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FareStructureCopyWith<_FareStructure> get copyWith =>

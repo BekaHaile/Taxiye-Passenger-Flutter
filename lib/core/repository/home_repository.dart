@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
 import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
+import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
 import 'package:taxiye_passenger/core/models/map_models.dart';
 import 'package:taxiye_passenger/core/services/api/api_client.dart';
@@ -38,6 +39,12 @@ class HomeRepository implements IHomeRepository {
   Future<Place> getPlaceDetailFromId(
       String placeId, String sessionToken) async {
     return mapService.getPlaceDetailFromId(placeId, sessionToken);
+  }
+
+  @override
+  Future<RouteDistnaceInfo> getRouteDistanceInfo(
+      LatLng origin, LatLng destination) {
+    return mapService.getRouteDistanceInfo(origin, destination);
   }
 
   @override
@@ -274,5 +281,16 @@ class HomeRepository implements IHomeRepository {
       data: feedbackPayload,
     );
     return BasicResponse.fromJson(response);
+  }
+
+  @override
+  Future<VehicleFare> getFareEstimate(
+      Map<String, dynamic> getFareEstimatePayload) async {
+    final response = await apiClient.request(
+      requestType: RequestType.post,
+      path: '/get_fare_estimate',
+      data: getFareEstimatePayload,
+    );
+    return VehicleFare.fromJson(response);
   }
 }

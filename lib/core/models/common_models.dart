@@ -88,3 +88,15 @@ class PaymentType {
   final IconData icon;
   final Color iconColor;
 }
+
+class RouteDistnaceInfo {
+  RouteDistnaceInfo({
+    this.distance,
+    this.duration,
+    this.durationInTraffic,
+  });
+
+  int? distance;
+  int? duration;
+  int? durationInTraffic;
+}

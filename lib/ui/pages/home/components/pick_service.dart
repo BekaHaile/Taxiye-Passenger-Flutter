@@ -35,10 +35,8 @@ class PickService extends GetView<HomeController> {
           Obx(() => ServiceList(
                 services: homeServices,
                 selectedService: controller.selectedService,
-                onSelectService: (selectedService) {
-                  controller.selectedService = selectedService;
-                  controller.getPaymentTypes();
-                },
+                onSelectService: (selectedService) =>
+                    controller.onServiceSelected(selectedService),
               )),
         ],
       ),

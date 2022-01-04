@@ -25,6 +25,7 @@ import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/payment_controller.dart';
 import 'package:taxiye_passenger/ui/controllers/profile_controller.dart';
 import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
+import 'package:taxiye_passenger/ui/pages/home/components/vehicle_detail.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 import 'package:uuid/uuid.dart';
@@ -178,6 +179,14 @@ class HomeController extends GetxService {
   get selectedCorporate => _selectedCorporate.value;
   set selectedCorporate(value) => _selectedCorporate.value = value;
 
+  final _selectedOutstationType = OutStationType.oneWay.obs;
+  get selectedOutstationType => _selectedOutstationType.value;
+  set selectedOutstationType(value) => _selectedOutstationType.value = value;
+
+  final _selectedPackage = FareStructure().obs;
+  get selectedPackage => _selectedPackage.value;
+  set selectedPackage(value) => _selectedPackage.value = value;
+
   int? orderId;
   int? deliveryId;
   String orderText = '';
@@ -201,6 +210,7 @@ class HomeController extends GetxService {
   int? sessionId;
   String? engagementId;
   double routeDistance = 0.0;
+  double routeDuration = 0.0;
 
   RideDetail? rideDetail;
   Place? pickupLocation;
@@ -209,6 +219,7 @@ class HomeController extends GetxService {
 
   String feedbackComment = '';
   double driverRating = 0;
+  VehicleFare? originalVehicleFare;
 
   final GetStorage _storage = GetStorage();
   late SharedPreferences prefs;
@@ -223,6 +234,8 @@ class HomeController extends GetxService {
   Coupon? selectedCoupon;
   Promotion? selectedPromotion;
   Country country = kCountries.first;
+
+  List<FareStructure>? fareStructures;
 
   @override
   void onInit() async {
@@ -318,6 +331,18 @@ class HomeController extends GetxService {
   //   });
   // }
 
+  onServiceSelected(HomeServiceIndex service) {
+    selectedService = service;
+    getPaymentTypes();
+
+    // filter vehicles
+    if (selectedService == HomeServiceIndex.outStation) {
+      filterVehicles(7);
+    } else {
+      filterVehicles(0);
+    }
+  }
+
   _findDrivers({LatLng? destination, double? routeDistance}) async {
     Map<String, dynamic> findDriversPayload = {
       'latitude':
@@ -352,8 +377,18 @@ class HomeController extends GetxService {
           // add vehicles filteredby ride_type, show O || 2
           allVehicles = findDriverResponse.regions;
           currency = findDriverResponse.currency;
+          fareStructures = findDriverResponse.fareStructure;
           _setVehiclesFareStructures(findDriverResponse.fareStructure);
-          filterVehicles(0);
+
+          // filter vehicles based on selected service and ride type
+          switch (selectedService) {
+            case HomeServiceIndex.outStation:
+              filterVehicles(7);
+              break;
+            default:
+              filterVehicles(0);
+          }
+
           _setPromoTags();
         }
       } else {
@@ -368,7 +403,7 @@ class HomeController extends GetxService {
         (fareStructures?.isNotEmpty ?? false)) {
       // set fare structure for each vehicle
       for (Vehicle vehicle in allVehicles!) {
-        if (vehicle.regionFare != null) {
+        if (vehicle.regionFare != null || vehicle.rideType == 7) {
           allVehicles![allVehicles!.indexOf(vehicle)] = vehicle.copyWith(
               fareStructure: fareStructures!.firstWhere(
                   (element) => element.vehicleType == vehicle.vehicleType));
@@ -568,11 +603,58 @@ class HomeController extends GetxService {
     liveTrackTrip();
   }
 
+  onVehicleSelected(Vehicle vehicle) {
+    // var fareS = controller.fareStructures?.firstWhere(
+    //     (element) =>
+    //         element.vehicleType ==
+    //         selectedVehice.vehicleType);
+    // log('selcted fare structures: $fareS');
+    // log('vehicle type: ${selectedVehice.vehicleType}');
+    // log('vehicle region fare: ${selectedVehice.regionFare}');
+
+    // show vehicle detail with fare estimation
+    if (selectedVehicle == vehicle) {
+      Get.bottomSheet(
+          VehicleDetail(
+            vehicle: vehicle,
+            currency: currency,
+            serviceType: selectedService,
+          ),
+          isScrollControlled: true);
+    } else {
+      selectedVehicle = vehicle;
+
+      if (rideType == 7) {
+        selectedPackage = FareStructure();
+        // replace the previously selected vehicle with it's orignal fare(without package)
+        if (originalVehicleFare != null) {
+          int vehicleIndex = _vehicles.indexWhere(
+              (element) => element.regionId == originalVehicleFare?.regionId);
+          if (vehicleIndex != -1) {
+            _vehicles[vehicleIndex] = _vehicles[vehicleIndex]
+                .copyWith(regionFare: originalVehicleFare);
+          }
+        }
+      }
+    }
+  }
+
+  onPackageSelected(FareStructure package) {
+    if (selectedPackage != package) {
+      selectedPackage = package;
+      // log('packgeId ${selectedPackage.packageId}');
+      getVehiclesFareEstimates(packageId: selectedPackage.packageId);
+    }
+
+    //Todo:
+  }
+
   filterVehicles(int rideType) {
     // filter vehicles based on rideType
     // 0 - normal
     // 2 - shared
     // 1 - corporate
+    // 7 - outstation
     this.rideType = rideType;
     if (allVehicles?.isNotEmpty ?? false) {
       if (rideType == 1) {
@@ -591,8 +673,94 @@ class HomeController extends GetxService {
       } else {
         vehicles =
             allVehicles?.where((vehicle) => vehicle.rideType == rideType);
+
+        // get estimated fares for outstation cars (this required since the backend is not
+        // returnig region fares for outstation cars unlike the others on find drivers)
+        if (rideType == 7) {
+          getVehiclesFareEstimates();
+        }
+
+        // set the first vehicle as the selected one.
+        if (vehicles.isNotEmpty) {
+          selectedVehicle = vehicles[0];
+        }
       }
     }
+  }
+
+  getVehiclesFareEstimates({int? packageId}) {
+    if (dropOffLocation != null) {
+      final Map<String, dynamic> getFareEstimatePayload = {
+        'is_pooled': '0',
+        'ride_type': rideType,
+        'start_latitude': '${pickupLocation?.location?.latitude}',
+        'start_longitude': '${pickupLocation?.location?.longitude}',
+        'drop_latitude': '${dropOffLocation?.location?.latitude}',
+        'drop_longitude': '${dropOffLocation?.location?.longitude}',
+        'is_round_trip':
+            selectedOutstationType == OutStationType.roundTrip ? '1' : '0',
+      };
+
+      repository
+          .getRouteDistanceInfo(
+              pickupLocation!.location!, dropOffLocation!.location!)
+          .then((routeInfo) {
+        // change distance in km
+        routeDistance = (routeInfo.distance ?? 0) / 1000;
+        // change duration into seconds
+        routeDuration = (routeInfo.duration ?? 0) / 60;
+
+        getFareEstimatePayload.addAll({
+          'ride_distance': routeDistance,
+          'ride_time': routeDuration,
+        });
+
+        // log('get vehicle estimation payload here: $getFareEstimatePayload');
+
+        // If package id is provided get fare estiomatio for the selected car with
+        // the package id else get fare estimate for all outstation cars
+        if (packageId != null && selectedVehicle.regionId != null) {
+          getFareEstimatePayload.addAll({
+            'region_id': '${selectedVehicle.regionId}',
+            'package_id': '$packageId',
+            'vehicle_type': '${selectedVehicle.vehicleType}',
+          });
+          fareRequest(selectedVehicle, getFareEstimatePayload,
+              setOriginalFare: true);
+        } else {
+          for (Vehicle vehicle in vehicles) {
+            getFareEstimatePayload.addAll({
+              'region_id': '${vehicle.regionId}',
+              'vehicle_type': '${vehicle.vehicleType}',
+            });
+            fareRequest(vehicle, getFareEstimatePayload);
+          }
+        }
+      }, onError: (e) => print('get route distance info error $e'));
+    }
+  }
+
+  fareRequest(Vehicle vehicle, Map<String, dynamic> getFareEstimatePayload,
+      {bool setOriginalFare = false}) {
+    //log('fare request: $getFareEstimatePayload');
+    repository.getFareEstimate(getFareEstimatePayload).then((fareResponse) {
+      if (fareResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        int vehicleIndex = _vehicles
+            .indexWhere((element) => element.regionId == vehicle.regionId);
+        if (vehicleIndex != -1) {
+          _vehicles[vehicleIndex] = vehicle.copyWith(regionFare: fareResponse);
+          if (selectedVehicle.regionId == vehicle.regionId) {
+            selectedVehicle = _vehicles[vehicleIndex];
+          }
+          if (setOriginalFare) {
+            originalVehicleFare =
+                vehicle.regionFare?.copyWith(regionId: vehicle.regionId);
+          }
+        }
+      }
+    }, onError: (error) {
+      print('Get Fare estimate error:  $error');
+    });
   }
 
   _setPromoTags() {
@@ -712,37 +880,38 @@ class HomeController extends GetxService {
   }
 
   getPaymentTypes() {
-    //Todo: Get payment Types
+    paymentTypes = [
+      PaymentType(
+        paymentMode: 0,
+        text: 'cash'.tr,
+        icon: CustomIcons.payment,
+        iconColor: AppTheme.greenColor,
+      ),
+      PaymentType(
+        paymentMode: 1,
+        text: 'offers'.tr,
+        icon: CustomIcons.offer,
+        iconColor: AppTheme.primaryColor,
+      ),
+      const PaymentType(
+        paymentMode: 2,
+        text: 'notes',
+        icon: CustomIcons.notes,
+        iconColor: AppTheme.yellowColor,
+      )
+    ];
 
-    paymentTypes = selectedService == HomeServiceIndex.ride
-        ? [
-            PaymentType(
-              paymentMode: 0,
-              text: 'cash'.tr,
-              icon: CustomIcons.payment,
-              iconColor: AppTheme.greenColor,
-            ),
-            PaymentType(
-              paymentMode: 1,
-              text: 'offers'.tr,
-              icon: CustomIcons.offer,
-              iconColor: AppTheme.primaryColor,
-            ),
-            const PaymentType(
-              paymentMode: 2,
-              text: 'notes',
-              icon: CustomIcons.notes,
-              iconColor: AppTheme.yellowColor,
-            )
-          ]
-        : [
-            PaymentType(
-              paymentMode: 0,
-              text: 'cash'.tr,
-              icon: CustomIcons.payment,
-              iconColor: AppTheme.greenColor,
-            ),
-          ];
+    // update supported payment types based on selected service
+    switch (selectedService) {
+      case HomeServiceIndex.outStation:
+        _paymentMethods.removeAt(2);
+        break;
+      case HomeServiceIndex.delivery:
+        _paymentMethods.removeAt(1);
+        _paymentMethods.removeAt(2);
+        break;
+      default:
+    }
   }
 
   _getSavedPlaces() {
@@ -873,7 +1042,8 @@ class HomeController extends GetxService {
 
   onLocationPicked() {
     // get vehicle Fare estimations
-    if (selectedService == HomeServiceIndex.ride) {
+    if (selectedService == HomeServiceIndex.ride ||
+        selectedService == HomeServiceIndex.outStation) {
       _findDrivers(destination: dropOffLocation!.location);
     } else if (selectedService == HomeServiceIndex.delivery) {
       Get.back();
@@ -898,7 +1068,8 @@ class HomeController extends GetxService {
     repository.getRoutePolylines(origin, destination).then(
         (polylineCoordinates) {
       // get vehicles fare calculation
-      if (selectedService == HomeServiceIndex.ride) {
+      if (selectedService == HomeServiceIndex.ride ||
+          selectedService == HomeServiceIndex.outStation) {
         routeDistance = getRouteDistance(polylineCoordinates);
         _findDrivers(
             destination: dropOffLocation!.location,
@@ -1295,6 +1466,7 @@ class HomeController extends GetxService {
     updateFrom = 'home';
 
     selectedSavedPlace = Address();
+    selectedVehicle = Vehicle();
 
     orderId = null;
     deliveryId = null;
@@ -1310,6 +1482,8 @@ class HomeController extends GetxService {
 
     routeDistance = 0.0;
     rideNote = '';
+    originalVehicleFare = null;
+
     refreshCurrentLocation();
     _findDrivers();
   }

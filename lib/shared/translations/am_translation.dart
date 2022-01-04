@@ -16,7 +16,7 @@ final Map<String, String> am = {
   'intro2_title': 'በሰዓት ይከራዩ',
   'intro2_info': 'በሁሉም ቦታዎች ታክሲዬን ይዘዙ',
   'intro3_title': 'መልክተኛ',
-  'intro3_info': 'ጥቅሎችን ይላኩ ምግብ ይውሰዱ እና ሌሎችም አገልግሎቶች.',
+  'intro3_info': 'የመልእክት ጥቅሎችን ይላኩ እና ሌሎችም አገልግሎቶች',
 
   // Auth Strings
   'signup': 'ይመዝገቡ',
@@ -32,13 +32,13 @@ final Map<String, String> am = {
   'welcome_back': 'በድጋሚ እንኳን ደህና መጡ!',
   'signin_info': 'ስልክ እና የይለፍ ቁጥርዎን ያስገቡ.',
 
-  'terms_conditions': 'ትግበራ እና መመሪያ',
+  'terms_conditions': 'ደንብ እና ሁኔታዎች',
   'terms_info': 'በመቀጠልዎ ከታክሲዬ ጋር ተስማምተዋል',
   'signup_with': '- ወይም በዚህ ይመዝገቡ -',
-  'already_have_account': 'ቀድሞውን ተመዝግበዋል?',
+  'already_have_account': 'ከዚህቀደም ተመዝግበዋል?',
   'not_regeitered': 'ምዝገባው አልተካሄደም?',
 
-  'logout_success': 'በተሳካ ሁኔታ ከመለያው ወጥተዋል',
+  'logout_success': 'በተሳካ ሁኔታ ከመተግበሪያው ወጥተዋል',
 
   // verify
   'verify_title': 'ስልክዎን ያረጋግጡ',
@@ -51,7 +51,7 @@ final Map<String, String> am = {
   'token_expired': 'የቆይታ ጊዜው አልፏል እባክዎ እንደገና ይግቡ.',
 
   // setup profile
-  'setup_profile': 'መገለጫዎን ያደራጁ\መረጃዎን ያስገቡ',
+  'setup_profile': 'መረጃዎን ያሟሉ',
   'setup_profile_info': 'እባክዎ ትክክለኛውን መረጃ መስጠትዎን ያረጋግጡ.',
   'full_name': 'ሙሉ ስም',
   'email_address': 'የኢሜል አድራሻ',
@@ -71,14 +71,14 @@ final Map<String, String> am = {
   'view_edit_your_details': 'ዝርዝር መረጃዎን ለመመልከት እና ለማስተካከል',
   'your_feedback': 'የእርስዎ አስተያየት ',
   'customers_ride_feedback': 'የደንበኞች አስተያየት',
-  'emergency_contacts': 'የአደጋ ጊዜ ስም እና ስልኮች',
+  'emergency_contacts': 'የአደጋ ጊዜ ተጠሪ መረጃ',
   'country': 'ሀገር',
 
   'saved_places': 'የተመዘገቡ ቦታዎች',
   'privacy_settings': 'ግላዊ ማስተካከያ',
   'enter_name': 'ስም ያስገቡ',
 
-  'profile_picture': 'የመገለጫ ምስል',
+  'profile_picture': 'የደንበኛ መግለጫ ምስል',
   'cancel': 'ሰርዝ',
   'ok': 'እሺ',
 
@@ -111,39 +111,39 @@ final Map<String, String> am = {
   'remove_address_info': 'እርግጠኛ ነዎት አድራሻውን ለማስወገድ ይፈልጋሉ?',
 
   // privacy settings strings
-  'transaction_updates': 'ግብይቱ ቅየራ',
+  'transaction_updates': 'የግብይት ሁኔታ',
   'transaction_updates_info': 'ማረጋገጫ ፣ መድረስ ፣ የክፍያ ሁኔታ እና ሌሎችም',
   'rides': 'ጉዞዎች',
-  'rides_info': 'የተለዩ ቅናሾች ፣ በከተማ ያሉ ልዩ ታሪፍ ድልድሎች እና ሌሎችም',
-  'delivery': 'ያድርሱ',
+  'rides_info': 'የተለዩ ቅናሾች ፣ በከተማዎ ያሉ ልዩ እድሎች እና ሌሎችም',
+  'delivery': 'መልእክት',
   'delivery_info': 'የደረሱበትን የጉዞ ጥሪ ይቀበሉ',
 
   // setup passcode
-  'setup_passcode': ' የይለፍ መግቢያ ቁጥሩን ያስተካክሉ ',
+  'setup_passcode': 'የይለፍ ምስጥር ቁጥር ያስገቡ',
   'setup_passcode_info': 'ባለ አራት አሃዝ የይለፍ ቁጥሩን ያስገቡ ለወደፊት ይህን አይርሱ .',
   'confirm_passcode': 'የይለፍ ቁጥሩን ያረጋግጡ',
   'finish': 'ይጨርሱ',
 
   // Drawer items
-  'my_wallet': 'ግላዊ ሂሳብ',
+  'my_wallet': 'ያሎት ሂሳብ',
   'manage_your_wallet': 'ሂሳብዎን ያስተዳድሩ',
   'promotions': 'ሽልማቶች',
-  'promotions_info': 'እዚህ ማሽነፍ ይችላሉ',
+  'promotions_info': 'የተለያዩ ሽልማቶች እዚህ ያግኙ',
 
   'my_orders': 'የእኔ ትዕዛዞች',
   'riview_orders': 'ጉዞዎን ይገምግሙ',
   'my_drivers': 'አሽከርካሪዬ',
-  'drivers_info': 'የእርሶ የአሽከርካሪ ምርጫ',
+  'drivers_info': 'የእርሶ ምርጥ አሽከርካሪ',
 
-  'payment_method': 'የክፍያ ሁኔታ',
-  'payment_info': 'በተለየ ያከፋፈል ሁኔታ ይክፈሉ',
+  'payment_method': 'የአከፋፍል ዘዴ',
+  'payment_info': 'በተለያዩ አማራጮች ይክፈሉ',
   'app_settings': 'የመተግበሪያ ማስተካከያ',
   'adjust_preference': 'በራስዎ ምርጫ ያስተካክሉ',
 
-  'legals': 'ህጋዊ',
-  'legals_info': 'አስፈላጊ ማሳወቂያዎች',
-  'speak_real_person': 'የጥሪ ማእከሉን ያነጋግሩ',
-  'speak_person_info': 'ለማሳወቅ ወይም ታክሲ ይዘዙ.',
+  'legals': 'ህግጋቶች',
+  'legals_info': 'የሚነበቡ ጠቃሚ መረጃዎ',
+  'speak_real_person': 'የጥሪ ማእከል ሰራተኛ ያነጋግሩ',
+  'speak_person_info': 'መረጃ ለመጠየቀና ታክሲ ለማዘዝ',
 
   'email_support': 'የኢሜል ድጋፍ',
   'email_contact_us': 'በኢሜል ያግኙን',
@@ -159,7 +159,7 @@ final Map<String, String> am = {
   'ride_cancel_success': 'ጉዞው ተሰርዟል',
 
   // Map Strings
-  'current_location': 'አሁኑ ያሉበት አካባቢ',
+  'current_location': 'አሁን ያሉበት አካባቢ',
   'confirm': ' ያረጋግጡ ',
 
   // pick locations string
@@ -167,12 +167,12 @@ final Map<String, String> am = {
   'enter_location': 'መድረሻ ቦታዎን ያስገቡ...',
   'choose_on_map': 'በካርታው ላይ ይምረጡ',
   'add': 'ተጨማሪ አስገባ',
-  'bf_house': ' የወዳጅ ቤት ',
+  'bf_house': 'የቅርብ ጓደኛ/ቤተሰብ አድራሻ',
 
   'pick_up_location': 'መነሻ ቦታ ',
 
   // Location detail strings
-  'your_location': 'የእርስዎ ቦታ',
+  'your_location': 'ያሉበት ቦታ',
   'add_more_stops': 'ተጨማሪ መዳረሻዎች ',
   'choose_vehicles': 'የመኪና ዓይነት ይምረጡ',
   'km': 'ኪ.ሜ',
@@ -192,7 +192,7 @@ final Map<String, String> am = {
   'schedule_ride': 'የቀጠሮ ጉዞ',
 
   'schedule_ride_success': 'የቀጠሮ ጉዞዎ ተመዝግቧል',
-  'upcoming_ride_scheduled': 'ቀጣይ ጉዞዎ !',
+  'upcoming_ride_scheduled': 'ቀጣይ ጉዞዎ ተመዝግቧል!',
   'pick_offer': 'ቅናሽ ይምረጡ',
 
   // vehicle detail
@@ -211,15 +211,15 @@ final Map<String, String> am = {
   'delivery_starts_soon': 'መልእክትዎን ማድረስ በቅርቡ ይጀምራል',
   'side_to_cancel': 'ለመሰረዝ ይህንን ይጫኑ',
 
-  'driver_on_route': 'አሽከርካሪያችን በመንገድ ላይ!',
+  'driver_on_route': 'አሽከርካሪው በመንገድ ላይ ነው!',
   'ride_started': 'ጉዞዎ ተጀምሯል!',
   'delivery_started': 'መልእክትዎ በመንገድ ላይ ነው!',
 
   // Trip started strings
   'emrgency_status': 'የአደጋ ጊዜ ሁኔታ',
-  'change_emergency_status': ' የአደጋ ጊዜ ሁኔታውን  ይቀይሩ',
-  'emrgency_enabled_success': ' ማንቂያው ደርሶናል   እየሰራንበት ነው!',
-  'emergency_disabled_success': ' አደጋ ጊዜ ሁኔታ ተሰርዟል ',
+  'change_emergency_status': 'የአደጋ ጊዜ ሁኔታውን  ይቀይሩ',
+  'emrgency_enabled_success': 'ማንቂያው ታክሲዬ ደርሷል፤  እየሰራንበት ነው!',
+  'emergency_disabled_success': 'አደጋ ጊዜ ሁኔታ ተሰርዟል',
 
   // Trip details strings
   'arrived_destination': 'መድረሻዎ ላይ ደርሰዋል.',
@@ -230,7 +230,7 @@ final Map<String, String> am = {
 
   'inc_tax': 'ታክስን ጨምሮ',
   'cash_payment': 'የጥሬ ገንዘብ ክፍያ',
-  'cbe_bank': 'ኢ.ን.ባ',
+  'cbe_bank': 'ኢ.ን.ባንክ',
   'kms': 'ኪ.ሜ',
   'mins': 'ደቂቃ',
 
@@ -244,15 +244,15 @@ final Map<String, String> am = {
 
   // trip feedback strings
   'block': 'አግድ',
-  'add_to_favourites': 'ወደ ተወዳጅ ጨምር',
+  'add_to_favourites': 'ወደ ምርጦች ስብስብ ይጨምሩ',
   'submit': 'አስገባ',
   'how_was_trip': 'ጉዞው እንዴት ነበር?',
-  'how_was_delivery': 'አገልግሎቱ እንዴት ነበር?',
+  'how_was_delivery': 'የመልእክት አገልግሎቱ እንዴት ነበር?',
 
   'feadback_info': 'የአርስዎ አስተያየት ቀጣዩን ጉዞዎን እንድናሻሽል ይረዳናል',
   'delivery_feadback_info': 'የአርስዎ አስተያየት ቀጣዩን አገልግሎት እንድናሻሽል ይረዳናል.',
   'additional_comments': 'ተጨማሪ አስተያየት ካለዎት...',
-  'add_favourite_driver_success': 'አሽከርካሪያችን እንደ ተወዳጅ ተጨምሯል',
+  'add_favourite_driver_success': 'አሽከርካሪው ወደ ምርጦች ስብስብ ተጨምሯል',
   // delivery strings
   'what_do_you_need': 'ምን ይፈልጋሉ?',
   'delivery_hint': 'ስለሚልኩት መልእክት የተወሰነ ነገር ይንገሩን...',
@@ -307,15 +307,16 @@ final Map<String, String> am = {
   'delivery_rewards': 'ሽልማቶች',
   'convert_to_mobile_card': 'ወደ ሞባይል ካርድ ይቀይሩ',
   'transfer_points': 'ነጥቦችን ያስተላልፉ',
-  'book_ride_with_points': 'በነጥብዎ ጉዞ ያሲዙ',
+  'book_ride_with_points': 'በነጥብዎ ጉዞ ይጓዙ',
   'donate_points': 'ነጥቦን ይለግሱ',
 
   'transactions': 'ግብይቶች',
   'airtime_history': 'የአየር ሰዓት ታሪክ',
   'your_coupons': 'የእርስዎ ኩፖኖች',
   'points': 'ነጥቦች',
-  'refer_friend_info': 'ይህንን መተግበሪያ ለጓደኛዎ  እና ለቤተሰብዎ እንዲጠቀሙ በመጋበዝ ነጥቦችን ይሰብስቡ!',
-  'your_referal_code': 'የእርስዎ የግብዣ ኮድ',
+  'refer_friend_info':
+      'ይህንን መተግበሪያ ለጓደኛዎ  እና ለቤተሰብዎ እንዲጠቀሙ በመጋበዝ ነጥቦችን ይሰብስቡ!, ያጋሩ',
+  'your_referal_code': 'ያጋሩበት መለያ ቁጥር',
   'share': 'ያጋሩ',
   'share_referral': 'ውድ ተጠቃሚ መተግበሪያውን ከታክሲዬ ሪፈራል ለማውረድ የእኔን ኮድ @code ይጠቀሙ',
 
@@ -335,7 +336,7 @@ final Map<String, String> am = {
   'your_orders': 'ትዕዛዝዎ',
   'completed': 'ተጠናቋል',
   'canceled': 'ተሰርዟል',
-  'scheduled': 'የተያዘለት',
+  'scheduled': 'በቀጠሮ የተያዘ ',
 
   'order_details': 'የትዕዛዝ ዝርዝሮች',
   'processed': 'ተሰርቷል',
@@ -352,13 +353,13 @@ final Map<String, String> am = {
   'total': 'ጠቅላላ',
 
   // Drivers strings
-  'your_drivers': 'የእርስዎ አሽከርካሪ',
-  'favourites': 'ተወዳጆች',
+  'your_drivers': 'የእርሶ አሽከሪካሪዎች',
+  'favourites': 'ምርጦች',
   'blocked': 'ታግዷል',
 
-  'fav_driver_removed_success': 'አሽከርካሪ ከተወዳጆች ተወግዷል',
-  'remove_fav_driver': 'ተወዳጅ አሽከርካሪ ይወገድ?',
-  'remove_fav_driver_info': 'እርግጠኛ ነዎት ተወዳጅ አሽከርካሪ ማስወገድ ይፈልጋሉ?',
+  'fav_driver_removed_success': 'ከምርጥ አሽከርካሪዎች ተወግዷል',
+  'remove_fav_driver': 'የተመረጠው አሽከርካሪ ይወገድ?',
+  'remove_fav_driver_info': 'እርግጠኛ ነዎት? ከምርጥ አሽከርካሪዎች ለማስወጣት ይፈልጋሉ?',
 
   // Payment strings
   'payment_methods': 'የመክፈያ ዘዴዎች',
@@ -384,9 +385,9 @@ final Map<String, String> am = {
   'navigation': 'አቅጣጫ',
   'google_maps': 'የጎግል ካርታዎች',
 
-  'night_mode': 'የሌሊት ሁኔታ',
-  'night_mode_info': 'የሌሊት ሁኔታን አብራ ወይም አጥፋ',
-  'follow_my_ride': 'ጉዞን ተከተል',
+  'night_mode': 'የምሽት እይታ',
+  'night_mode_info': 'የምሽት እይታ አብራ ወይም አጥፋ',
+  'follow_my_ride': 'ጉዞዬን ተከተል',
   'follow_my_ride_info': 'ጉዞዎችን በቀላሉ ለቤተሰብ እና ለጓደኞች አጋራ',
 
   'language': 'ቋንቋ',
@@ -397,8 +398,8 @@ final Map<String, String> am = {
       'ነፃነትዎን አንጋፋም...በየጊዜው የሚደርስዎትን ማሳወቂያዎች በመመልከት ለእርስዎ የሚያስፈልግዎትን ብቻ መጥነን እንድንልክ ልምዶትን ያጋሩን ',
 
   // Legals strings
-  'view_terms_conditions': 'የመተግበሪያ አጠቃቀም ውሎችን እና ሁኔታዎችን ይመልከቱ',
-  'privacy_policy': 'መመሪያ',
+  'view_terms_conditions': 'የመተግበሪያ አጠቃቀም ደንብና መመሪያዎች ይመልከቱ',
+  'privacy_policy': 'ግላዊ መመሪያ',
   'privacy_info': 'የእርስዎን መረጃ እንዴት እንደምንጠቀም ይመልከቱ',
   'about_us': 'ስለ እኛ',
   'know_us': 'ስለ እኛ ትንሽ ይወቁ',
@@ -411,7 +412,7 @@ final Map<String, String> am = {
 
   //notification Strings
   'ride_completed': 'ጉዞ ተጠናቋል',
-  'your_fare_was': 'የእርስዎ ዋጋ...',
+  'your_fare_was': 'የጉዞዎ ዋጋ',
 
   // Empty state strings
   'empty_state_title': 'ይቅርታ! ምንም መረጃ አልተገኘም',
@@ -442,7 +443,7 @@ final Map<String, String> am = {
 
   'error_select_reason': 'እባክዎ ምክንያትዎን ይምረጡ',
   'error_promotion_code': 'እባክዎ የማስተዋወቂያ ኮድ ያቅርቡ',
-  'error_delivery_detail': 'እባክዎ ዝርዝር ያስገቡ',
+  'error_delivery_detail': 'እባክዎ የመልእክቱን ዝርዝር መረጃ ያስገቡ',
 
   // New Translations I - the following texts are not translated to other languages
   'logout': 'ውጣ',
