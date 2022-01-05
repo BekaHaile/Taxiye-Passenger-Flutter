@@ -12,14 +12,19 @@ if (flutterRoot == null) {
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
+// if (flutterVersionCode == null) {
+//     flutterVersionCode = '1'
+// }
+
+flutterVersionCode = '6015'
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
+// if (flutterVersionName == null) {
+//     flutterVersionName = '1.0'
+// }
+
+flutterVersionName = '60.1.5'
+
 
 // set googles map api key 
 // remmember to put it on CI/CD variables too.
@@ -27,6 +32,12 @@ def localPropertyApiToken = localProperties['GOOGLE_MAPS_API_KEY']
 def systemEnvApiToken = System.getenv('GOOGLE_MAPS_API_KEY')
 def GOOGLE_MAPS_API_KEY = localPropertyApiToken != null ? localPropertyApiToken : systemEnvApiToken
 
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -58,11 +69,20 @@ android {
         manifestPlaceholders = [GOOGLE_MAPS_API_KEY: GOOGLE_MAPS_API_KEY]
     }
 
+    signingConfigs {
+       release {
+           keyAlias keystoreProperties['keyAlias']
+           keyPassword keystoreProperties['keyPassword']
+           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+           storePassword keystoreProperties['storePassword']
+       }
+   }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }

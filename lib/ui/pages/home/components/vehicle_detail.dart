@@ -101,6 +101,7 @@ class VehicleDetail extends StatelessWidget {
                       title: 'base_fare',
                       currency: currency,
                       value: vehicle.regionFare?.baseFare?.toDouble() ??
+                          vehicle.fareStructure?.fareFixed?.toDouble() ??
                           _getDeliveryChargeValues('base_fare'),
                     ),
                     const Padding(

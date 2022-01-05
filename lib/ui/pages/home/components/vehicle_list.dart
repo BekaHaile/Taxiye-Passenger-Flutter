@@ -12,12 +12,14 @@ class VehicleList extends StatelessWidget {
     required this.selectedVehicle,
     required this.onItemSelected,
     this.rideType = 0,
+    this.fareLoading = false,
   }) : super(key: key);
 
   final List<Vehicle> vehicles;
   final Vehicle selectedVehicle;
   final Function(Vehicle selectedVehicle) onItemSelected;
   final int rideType;
+  final bool fareLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class VehicleList extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.fromLTRB(16.0, 10.0, 10.0, 20.0),
             child: VehicleTile(
+              fareLoading: fareLoading,
               rideType: rideType,
               vehicle: vehicle,
               isActive: selectedVehicle.regionId == vehicle.regionId,
@@ -56,12 +59,14 @@ class VehicleTile extends StatelessWidget {
     required this.onTap,
     this.isActive = false,
     required this.rideType,
+    required this.fareLoading,
   }) : super(key: key);
 
   final Vehicle vehicle;
   final VoidCallback onTap;
   final bool isActive;
   final int rideType;
+  final bool fareLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -130,20 +135,23 @@ class VehicleTile extends StatelessWidget {
                       style: AppTheme.title.copyWith(fontSize: 14.0),
                     ),
                   ),
-                  Text(
-                    vehicle.regionFare != null
-                        ? vehicle.regionFare?.fare != null
-                            ? '${vehicle.regionFare?.fare} ${vehicle.regionFare?.currency}'
-                            : ''
-                        : vehicle.deliveryCharge?.estimatedCharges != null
-                            ? '${vehicle.deliveryCharge?.estimatedCharges} ${vehicle.deliveryCharge?.currency}'
-                            : '',
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w700,
-                      color: AppTheme.primaryColor,
-                    ),
-                  ),
+                  fareLoading
+                      ? const SpinKitFadingCircle(
+                          color: AppTheme.primaryColor, size: 30)
+                      : Text(
+                          vehicle.regionFare != null
+                              ? vehicle.regionFare?.fare != null
+                                  ? '${vehicle.regionFare?.fare} ${vehicle.regionFare?.currency}'
+                                  : ''
+                              : vehicle.deliveryCharge?.estimatedCharges != null
+                                  ? '${vehicle.deliveryCharge?.estimatedCharges} ${vehicle.deliveryCharge?.currency}'
+                                  : '',
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w700,
+                            color: AppTheme.primaryColor,
+                          ),
+                        ),
                   if (rideType == 0 &&
                       (vehicle.hasPromoCoupon ?? false) &&
                       vehicle.regionFare != null &&

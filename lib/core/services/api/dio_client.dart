@@ -21,7 +21,7 @@ class DioClient {
     _dio = dio ?? Dio();
     _dio
       ..options = BaseOptions(
-        baseUrl: baseUrl ?? kBaseUrl,
+        baseUrl: baseUrl ?? kBaseUrlRelease,
         connectTimeout: 50000,
         receiveTimeout: 50000,
         followRedirects: false,
@@ -60,7 +60,7 @@ class DioClient {
   }
 
   updateBaseUrl(String port) {
-    _dio.options.baseUrl = '$kBaseUrl:$port';
+    _dio.options.baseUrl = '$kBaseUrlRelease:$port';
   }
 
   Future addAuthorizationInterceptor() async {

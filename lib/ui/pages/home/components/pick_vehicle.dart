@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taxiye_passenger/core/enums/common_enums.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
@@ -10,7 +11,6 @@ import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/outstation_packages.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/outstation_trips.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/ride_note.dart';
-import 'package:taxiye_passenger/ui/pages/home/components/vehicle_detail.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_list.dart';
 import 'package:taxiye_passenger/ui/pages/home/components/vehicle_type_list.dart';
 import 'package:taxiye_passenger/ui/pages/promotion/components/pick_promotions.dart';
@@ -59,8 +59,11 @@ class PickVehicle extends GetView<HomeController> {
             Obx(() => controller.selectedService == HomeServiceIndex.outStation
                 ? OutStationTrips(
                     selectedOutStationType: controller.selectedOutstationType,
-                    onSelectTripType: (outStationType) =>
-                        controller.selectedOutstationType = outStationType)
+                    onSelectTripType: (outStationType) {
+                      controller.selectedOutstationType = outStationType;
+                      controller.selectedPackage = FareStructure();
+                      controller.getVehiclesFareEstimates();
+                    })
                 : const SizedBox()),
             Obx(() => Padding(
                   padding: const EdgeInsets.only(top: 16.0),
@@ -71,10 +74,21 @@ class PickVehicle extends GetView<HomeController> {
                           : controller.vehicles,
                       selectedVehicle: controller.selectedVehicle,
                       rideType: controller.rideType,
+                      fareLoading:
+                          controller.fareLoading.value == Status.loading,
                       onItemSelected: (selectedVehice) =>
                           controller.onVehicleSelected(selectedVehice)),
                 )),
-            Obx(() => controller.selectedVehicle.packages?.isNotEmpty ?? false
+            Obx(() => controller.selectedVehicle.packages
+                        .where((element) =>
+                            element.returnTrip ==
+                            (controller.selectedOutstationType ==
+                                    OutStationType.oneWay
+                                ? 0
+                                : 1))
+                        ?.toList()
+                        ?.isNotEmpty ??
+                    false
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -94,17 +108,17 @@ class PickVehicle extends GetView<HomeController> {
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: OutStationPackages(
-                              packages: controller.selectedVehicle.packages,
+                              packages: controller.selectedVehicle.packages
+                                  .where((element) =>
+                                      element.returnTrip ==
+                                      (controller.selectedOutstationType ==
+                                              OutStationType.oneWay
+                                          ? 0
+                                          : 1))
+                                  ?.toList(),
                               selectedPackage: controller.selectedPackage,
-                              onSelectPackage: (package) {
-                                if (controller.selectedPackage != package) {
-                                  controller.selectedPackage = package;
-                                  log('packgeId ${controller.selectedPackage.packageId}');
-                                  controller.getVehiclesFareEstimates(
-                                      packageId:
-                                          controller.selectedPackage.packageId);
-                                }
-                              }),
+                              onSelectPackage: (package) =>
+                                  controller.onPackageSelected(package)),
                         ),
                       ),
                     ],

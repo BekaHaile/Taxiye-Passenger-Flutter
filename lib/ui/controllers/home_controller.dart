@@ -41,6 +41,7 @@ class HomeController extends GetxService {
   HomeController({required this.repository, required this.fileRepository});
 
   final status = Status.success.obs;
+  final fareLoading = Status.success.obs;
   final AuthController authController = Get.find();
   ProfileController? profileController;
 
@@ -614,6 +615,11 @@ class HomeController extends GetxService {
 
     // show vehicle detail with fare estimation
     if (selectedVehicle == vehicle) {
+      if (rideType == 7 &&
+          selectedVehicle.regionId == selectedPackage.regionId) {
+        vehicle = vehicle.copyWith(fareStructure: selectedPackage);
+      }
+
       Get.bottomSheet(
           VehicleDetail(
             vehicle: vehicle,
@@ -623,7 +629,6 @@ class HomeController extends GetxService {
           isScrollControlled: true);
     } else {
       selectedVehicle = vehicle;
-
       if (rideType == 7) {
         selectedPackage = FareStructure();
         // replace the previously selected vehicle with it's orignal fare(without package)
@@ -645,8 +650,6 @@ class HomeController extends GetxService {
       // log('packgeId ${selectedPackage.packageId}');
       getVehiclesFareEstimates(packageId: selectedPackage.packageId);
     }
-
-    //Todo:
   }
 
   filterVehicles(int rideType) {
@@ -743,8 +746,10 @@ class HomeController extends GetxService {
   fareRequest(Vehicle vehicle, Map<String, dynamic> getFareEstimatePayload,
       {bool setOriginalFare = false}) {
     //log('fare request: $getFareEstimatePayload');
+    fareLoading(Status.loading);
     repository.getFareEstimate(getFareEstimatePayload).then((fareResponse) {
       if (fareResponse.flag == SuccessFlags.basicSuccess.successCode) {
+        fareLoading(Status.success);
         int vehicleIndex = _vehicles
             .indexWhere((element) => element.regionId == vehicle.regionId);
         if (vehicleIndex != -1) {
@@ -757,9 +762,12 @@ class HomeController extends GetxService {
                 vehicle.regionFare?.copyWith(regionId: vehicle.regionId);
           }
         }
+      } else {
+        fareLoading(Status.error);
       }
     }, onError: (error) {
       print('Get Fare estimate error:  $error');
+      fareLoading(Status.error);
     });
   }
 
@@ -903,12 +911,8 @@ class HomeController extends GetxService {
 
     // update supported payment types based on selected service
     switch (selectedService) {
-      case HomeServiceIndex.outStation:
-        _paymentMethods.removeAt(2);
-        break;
       case HomeServiceIndex.delivery:
-        _paymentMethods.removeAt(1);
-        _paymentMethods.removeAt(2);
+        _paymentTypes.removeRange(1, 3);
         break;
       default:
     }
@@ -1243,6 +1247,14 @@ class HomeController extends GetxService {
         ridePayload['is_manual'] = selectedCorporate.businessId;
       }
 
+      if (rideType == 7 && selectedPackage.packageId != null) {
+        ridePayload.addAll({
+          'package_id': selectedPackage.packageId,
+          'location_accuracy': '5.156'
+        });
+        ridePayload['package_id'] = selectedPackage.packageId;
+      }
+
       //log('book ride request: $ridePayload');
 
       status(Status.loading);
@@ -1353,7 +1365,7 @@ class HomeController extends GetxService {
       'feedback_reasons': 'performance'
     };
 
-    log('payload: $rateDriverPayload');
+    //log('payload: $rateDriverPayload');
 
     status(Status.loading);
     repository.rateDriver(rateDriverPayload).then((rateDriverResponse) {
