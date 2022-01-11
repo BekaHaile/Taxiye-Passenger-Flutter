@@ -80,7 +80,7 @@ class PickVehicle extends GetView<HomeController> {
                           controller.onVehicleSelected(selectedVehice)),
                 )),
             Obx(() => controller.selectedVehicle.packages
-                        .where((element) =>
+                        ?.where((element) =>
                             element.returnTrip ==
                             (controller.selectedOutstationType ==
                                     OutStationType.oneWay
@@ -104,7 +104,7 @@ class PickVehicle extends GetView<HomeController> {
                         ),
                       ),
                       SizedBox(
-                        height: 60,
+                        height: 75,
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: OutStationPackages(

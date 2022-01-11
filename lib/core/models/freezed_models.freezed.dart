@@ -2123,11 +2123,11 @@ class _$FareStructureTearOff {
       {int? fare,
       @JsonKey(name: 'package_id') int? packageId,
       @JsonKey(name: 'package_name') String? packageName,
-      @JsonKey(name: 'fare_minimum') int? fareMinimum,
-      @JsonKey(name: 'fare_fixed') int? fareFixed,
-      @JsonKey(name: 'fare_per_km') int? farePerKm,
-      @JsonKey(name: 'fare_per_min') int? farePerMin,
-      @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
+      @JsonKey(name: 'fare_minimum') double? fareMinimum,
+      @JsonKey(name: 'fare_fixed') double? fareFixed,
+      @JsonKey(name: 'fare_per_km') double? farePerKm,
+      @JsonKey(name: 'fare_per_min') double? farePerMin,
+      @JsonKey(name: 'fare_per_waiting_min') double? farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'ride_type') int? rideType,
       @JsonKey(name: 'region_id') int? regionId,
@@ -2164,15 +2164,15 @@ mixin _$FareStructure {
   @JsonKey(name: 'package_name')
   String? get packageName => throw _privateConstructorUsedError;
   @JsonKey(name: 'fare_minimum')
-  int? get fareMinimum => throw _privateConstructorUsedError;
+  double? get fareMinimum => throw _privateConstructorUsedError;
   @JsonKey(name: 'fare_fixed')
-  int? get fareFixed => throw _privateConstructorUsedError;
+  double? get fareFixed => throw _privateConstructorUsedError;
   @JsonKey(name: 'fare_per_km')
-  int? get farePerKm => throw _privateConstructorUsedError;
+  double? get farePerKm => throw _privateConstructorUsedError;
   @JsonKey(name: 'fare_per_min')
-  int? get farePerMin => throw _privateConstructorUsedError;
+  double? get farePerMin => throw _privateConstructorUsedError;
   @JsonKey(name: 'fare_per_waiting_min')
-  int? get farePerWaitingMin => throw _privateConstructorUsedError;
+  double? get farePerWaitingMin => throw _privateConstructorUsedError;
   @JsonKey(name: 'vehicle_type')
   int? get vehicleType => throw _privateConstructorUsedError;
   @JsonKey(name: 'ride_type')
@@ -2197,11 +2197,11 @@ abstract class $FareStructureCopyWith<$Res> {
       {int? fare,
       @JsonKey(name: 'package_id') int? packageId,
       @JsonKey(name: 'package_name') String? packageName,
-      @JsonKey(name: 'fare_minimum') int? fareMinimum,
-      @JsonKey(name: 'fare_fixed') int? fareFixed,
-      @JsonKey(name: 'fare_per_km') int? farePerKm,
-      @JsonKey(name: 'fare_per_min') int? farePerMin,
-      @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
+      @JsonKey(name: 'fare_minimum') double? fareMinimum,
+      @JsonKey(name: 'fare_fixed') double? fareFixed,
+      @JsonKey(name: 'fare_per_km') double? farePerKm,
+      @JsonKey(name: 'fare_per_min') double? farePerMin,
+      @JsonKey(name: 'fare_per_waiting_min') double? farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'ride_type') int? rideType,
       @JsonKey(name: 'region_id') int? regionId,
@@ -2248,23 +2248,23 @@ class _$FareStructureCopyWithImpl<$Res>
       fareMinimum: fareMinimum == freezed
           ? _value.fareMinimum
           : fareMinimum // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       fareFixed: fareFixed == freezed
           ? _value.fareFixed
           : fareFixed // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       farePerKm: farePerKm == freezed
           ? _value.farePerKm
           : farePerKm // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       farePerMin: farePerMin == freezed
           ? _value.farePerMin
           : farePerMin // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       farePerWaitingMin: farePerWaitingMin == freezed
           ? _value.farePerWaitingMin
           : farePerWaitingMin // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       vehicleType: vehicleType == freezed
           ? _value.vehicleType
           : vehicleType // ignore: cast_nullable_to_non_nullable
@@ -2296,11 +2296,11 @@ abstract class _$FareStructureCopyWith<$Res>
       {int? fare,
       @JsonKey(name: 'package_id') int? packageId,
       @JsonKey(name: 'package_name') String? packageName,
-      @JsonKey(name: 'fare_minimum') int? fareMinimum,
-      @JsonKey(name: 'fare_fixed') int? fareFixed,
-      @JsonKey(name: 'fare_per_km') int? farePerKm,
-      @JsonKey(name: 'fare_per_min') int? farePerMin,
-      @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
+      @JsonKey(name: 'fare_minimum') double? fareMinimum,
+      @JsonKey(name: 'fare_fixed') double? fareFixed,
+      @JsonKey(name: 'fare_per_km') double? farePerKm,
+      @JsonKey(name: 'fare_per_min') double? farePerMin,
+      @JsonKey(name: 'fare_per_waiting_min') double? farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'ride_type') int? rideType,
       @JsonKey(name: 'region_id') int? regionId,
@@ -2349,23 +2349,23 @@ class __$FareStructureCopyWithImpl<$Res>
       fareMinimum: fareMinimum == freezed
           ? _value.fareMinimum
           : fareMinimum // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       fareFixed: fareFixed == freezed
           ? _value.fareFixed
           : fareFixed // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       farePerKm: farePerKm == freezed
           ? _value.farePerKm
           : farePerKm // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       farePerMin: farePerMin == freezed
           ? _value.farePerMin
           : farePerMin // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       farePerWaitingMin: farePerWaitingMin == freezed
           ? _value.farePerWaitingMin
           : farePerWaitingMin // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       vehicleType: vehicleType == freezed
           ? _value.vehicleType
           : vehicleType // ignore: cast_nullable_to_non_nullable
@@ -2416,19 +2416,19 @@ class _$_FareStructure implements _FareStructure {
   final String? packageName;
   @override
   @JsonKey(name: 'fare_minimum')
-  final int? fareMinimum;
+  final double? fareMinimum;
   @override
   @JsonKey(name: 'fare_fixed')
-  final int? fareFixed;
+  final double? fareFixed;
   @override
   @JsonKey(name: 'fare_per_km')
-  final int? farePerKm;
+  final double? farePerKm;
   @override
   @JsonKey(name: 'fare_per_min')
-  final int? farePerMin;
+  final double? farePerMin;
   @override
   @JsonKey(name: 'fare_per_waiting_min')
-  final int? farePerWaitingMin;
+  final double? farePerWaitingMin;
   @override
   @JsonKey(name: 'vehicle_type')
   final int? vehicleType;
@@ -2520,11 +2520,11 @@ abstract class _FareStructure implements FareStructure {
       {int? fare,
       @JsonKey(name: 'package_id') int? packageId,
       @JsonKey(name: 'package_name') String? packageName,
-      @JsonKey(name: 'fare_minimum') int? fareMinimum,
-      @JsonKey(name: 'fare_fixed') int? fareFixed,
-      @JsonKey(name: 'fare_per_km') int? farePerKm,
-      @JsonKey(name: 'fare_per_min') int? farePerMin,
-      @JsonKey(name: 'fare_per_waiting_min') int? farePerWaitingMin,
+      @JsonKey(name: 'fare_minimum') double? fareMinimum,
+      @JsonKey(name: 'fare_fixed') double? fareFixed,
+      @JsonKey(name: 'fare_per_km') double? farePerKm,
+      @JsonKey(name: 'fare_per_min') double? farePerMin,
+      @JsonKey(name: 'fare_per_waiting_min') double? farePerWaitingMin,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'ride_type') int? rideType,
       @JsonKey(name: 'region_id') int? regionId,
@@ -2543,19 +2543,19 @@ abstract class _FareStructure implements FareStructure {
   String? get packageName => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'fare_minimum')
-  int? get fareMinimum => throw _privateConstructorUsedError;
+  double? get fareMinimum => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'fare_fixed')
-  int? get fareFixed => throw _privateConstructorUsedError;
+  double? get fareFixed => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'fare_per_km')
-  int? get farePerKm => throw _privateConstructorUsedError;
+  double? get farePerKm => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'fare_per_min')
-  int? get farePerMin => throw _privateConstructorUsedError;
+  double? get farePerMin => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'fare_per_waiting_min')
-  int? get farePerWaitingMin => throw _privateConstructorUsedError;
+  double? get farePerWaitingMin => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'vehicle_type')
   int? get vehicleType => throw _privateConstructorUsedError;
@@ -5760,7 +5760,8 @@ class _$RideDetailTearOff {
       double? paidUsingWallet,
       int? rideTime,
       String? distanceUnit,
-      double? toPay}) {
+      double? toPay,
+      String? toPayText}) {
     return _RideDetail(
       fare: fare,
       paymentMode: paymentMode,
@@ -5770,6 +5771,7 @@ class _$RideDetailTearOff {
       rideTime: rideTime,
       distanceUnit: distanceUnit,
       toPay: toPay,
+      toPayText: toPayText,
     );
   }
 
@@ -5791,6 +5793,7 @@ mixin _$RideDetail {
   int? get rideTime => throw _privateConstructorUsedError;
   String? get distanceUnit => throw _privateConstructorUsedError;
   double? get toPay => throw _privateConstructorUsedError;
+  String? get toPayText => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -5811,7 +5814,8 @@ abstract class $RideDetailCopyWith<$Res> {
       double? paidUsingWallet,
       int? rideTime,
       String? distanceUnit,
-      double? toPay});
+      double? toPay,
+      String? toPayText});
 }
 
 /// @nodoc
@@ -5832,6 +5836,7 @@ class _$RideDetailCopyWithImpl<$Res> implements $RideDetailCopyWith<$Res> {
     Object? rideTime = freezed,
     Object? distanceUnit = freezed,
     Object? toPay = freezed,
+    Object? toPayText = freezed,
   }) {
     return _then(_value.copyWith(
       fare: fare == freezed
@@ -5866,6 +5871,10 @@ class _$RideDetailCopyWithImpl<$Res> implements $RideDetailCopyWith<$Res> {
           ? _value.toPay
           : toPay // ignore: cast_nullable_to_non_nullable
               as double?,
+      toPayText: toPayText == freezed
+          ? _value.toPayText
+          : toPayText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -5884,7 +5893,8 @@ abstract class _$RideDetailCopyWith<$Res> implements $RideDetailCopyWith<$Res> {
       double? paidUsingWallet,
       int? rideTime,
       String? distanceUnit,
-      double? toPay});
+      double? toPay,
+      String? toPayText});
 }
 
 /// @nodoc
@@ -5907,6 +5917,7 @@ class __$RideDetailCopyWithImpl<$Res> extends _$RideDetailCopyWithImpl<$Res>
     Object? rideTime = freezed,
     Object? distanceUnit = freezed,
     Object? toPay = freezed,
+    Object? toPayText = freezed,
   }) {
     return _then(_RideDetail(
       fare: fare == freezed
@@ -5941,6 +5952,10 @@ class __$RideDetailCopyWithImpl<$Res> extends _$RideDetailCopyWithImpl<$Res>
           ? _value.toPay
           : toPay // ignore: cast_nullable_to_non_nullable
               as double?,
+      toPayText: toPayText == freezed
+          ? _value.toPayText
+          : toPayText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -5956,7 +5971,8 @@ class _$_RideDetail implements _RideDetail {
       this.paidUsingWallet,
       this.rideTime,
       this.distanceUnit,
-      this.toPay});
+      this.toPay,
+      this.toPayText});
 
   factory _$_RideDetail.fromJson(Map<String, dynamic> json) =>
       _$_$_RideDetailFromJson(json);
@@ -5977,10 +5993,12 @@ class _$_RideDetail implements _RideDetail {
   final String? distanceUnit;
   @override
   final double? toPay;
+  @override
+  final String? toPayText;
 
   @override
   String toString() {
-    return 'RideDetail(fare: $fare, paymentMode: $paymentMode, distanceTraveled: $distanceTraveled, discount: $discount, paidUsingWallet: $paidUsingWallet, rideTime: $rideTime, distanceUnit: $distanceUnit, toPay: $toPay)';
+    return 'RideDetail(fare: $fare, paymentMode: $paymentMode, distanceTraveled: $distanceTraveled, discount: $discount, paidUsingWallet: $paidUsingWallet, rideTime: $rideTime, distanceUnit: $distanceUnit, toPay: $toPay, toPayText: $toPayText)';
   }
 
   @override
@@ -6008,7 +6026,10 @@ class _$_RideDetail implements _RideDetail {
                 const DeepCollectionEquality()
                     .equals(other.distanceUnit, distanceUnit)) &&
             (identical(other.toPay, toPay) ||
-                const DeepCollectionEquality().equals(other.toPay, toPay)));
+                const DeepCollectionEquality().equals(other.toPay, toPay)) &&
+            (identical(other.toPayText, toPayText) ||
+                const DeepCollectionEquality()
+                    .equals(other.toPayText, toPayText)));
   }
 
   @override
@@ -6021,7 +6042,8 @@ class _$_RideDetail implements _RideDetail {
       const DeepCollectionEquality().hash(paidUsingWallet) ^
       const DeepCollectionEquality().hash(rideTime) ^
       const DeepCollectionEquality().hash(distanceUnit) ^
-      const DeepCollectionEquality().hash(toPay);
+      const DeepCollectionEquality().hash(toPay) ^
+      const DeepCollectionEquality().hash(toPayText);
 
   @JsonKey(ignore: true)
   @override
@@ -6043,7 +6065,8 @@ abstract class _RideDetail implements RideDetail {
       double? paidUsingWallet,
       int? rideTime,
       String? distanceUnit,
-      double? toPay}) = _$_RideDetail;
+      double? toPay,
+      String? toPayText}) = _$_RideDetail;
 
   factory _RideDetail.fromJson(Map<String, dynamic> json) =
       _$_RideDetail.fromJson;
@@ -6064,6 +6087,8 @@ abstract class _RideDetail implements RideDetail {
   String? get distanceUnit => throw _privateConstructorUsedError;
   @override
   double? get toPay => throw _privateConstructorUsedError;
+  @override
+  String? get toPayText => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RideDetailCopyWith<_RideDetail> get copyWith =>
@@ -7842,15 +7867,20 @@ class _$RideSummaryTearOff {
       @JsonKey(name: 'drop_latitude') double? dropLatitude,
       @JsonKey(name: 'drop_longitude') double? dropLongitude,
       @JsonKey(name: 'drop_address') String? dropAddress,
-      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
-      @JsonKey(name: 'drop_time') DateTime? dropTime,
-      @JsonKey(name: 'ride_date') DateTime? rideDate,
+      @JsonKey(name: 'pickup_time') String? pickupTime,
+      @JsonKey(name: 'drop_time') String? dropTime,
+      @JsonKey(name: 'ride_date') String? rideDate,
+      @JsonKey(name: 'accept_time') String? acceptTime,
+      @JsonKey(name: 'engagement_date') String? engagementDate,
       @JsonKey(name: 'ride_type') int? rideType,
       @JsonKey(name: 'to_pay') int? toPay,
       @JsonKey(name: 'ride_time') int? rideTime,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'driver_id') int? driverId,
       @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'driver_name') String? driverName,
+      @JsonKey(name: 'driver_image') String? driverImage,
+      @JsonKey(name: 'phone_no') String? phoneNo,
       @JsonKey(name: 'engagement_id') int? engagementId,
       @JsonKey(name: 'user_id') int? userId,
       @JsonKey(name: 'wait_time') int? waitTime,
@@ -7879,12 +7909,17 @@ class _$RideSummaryTearOff {
       pickupTime: pickupTime,
       dropTime: dropTime,
       rideDate: rideDate,
+      acceptTime: acceptTime,
+      engagementDate: engagementDate,
       rideType: rideType,
       toPay: toPay,
       rideTime: rideTime,
       vehicleType: vehicleType,
       driverId: driverId,
       driverRating: driverRating,
+      driverName: driverName,
+      driverImage: driverImage,
+      phoneNo: phoneNo,
       engagementId: engagementId,
       userId: userId,
       waitTime: waitTime,
@@ -7929,11 +7964,15 @@ mixin _$RideSummary {
   @JsonKey(name: 'drop_address')
   String? get dropAddress => throw _privateConstructorUsedError;
   @JsonKey(name: 'pickup_time')
-  DateTime? get pickupTime => throw _privateConstructorUsedError;
+  String? get pickupTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'drop_time')
-  DateTime? get dropTime => throw _privateConstructorUsedError;
+  String? get dropTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'ride_date')
-  DateTime? get rideDate => throw _privateConstructorUsedError;
+  String? get rideDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'accept_time')
+  String? get acceptTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'engagement_date')
+  String? get engagementDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'ride_type')
   int? get rideType => throw _privateConstructorUsedError;
   @JsonKey(name: 'to_pay')
@@ -7946,6 +7985,12 @@ mixin _$RideSummary {
   int? get driverId => throw _privateConstructorUsedError;
   @JsonKey(name: 'driver_rating')
   int? get driverRating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_name')
+  String? get driverName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'driver_image')
+  String? get driverImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
   @JsonKey(name: 'engagement_id')
   int? get engagementId => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_id')
@@ -7994,15 +8039,20 @@ abstract class $RideSummaryCopyWith<$Res> {
       @JsonKey(name: 'drop_latitude') double? dropLatitude,
       @JsonKey(name: 'drop_longitude') double? dropLongitude,
       @JsonKey(name: 'drop_address') String? dropAddress,
-      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
-      @JsonKey(name: 'drop_time') DateTime? dropTime,
-      @JsonKey(name: 'ride_date') DateTime? rideDate,
+      @JsonKey(name: 'pickup_time') String? pickupTime,
+      @JsonKey(name: 'drop_time') String? dropTime,
+      @JsonKey(name: 'ride_date') String? rideDate,
+      @JsonKey(name: 'accept_time') String? acceptTime,
+      @JsonKey(name: 'engagement_date') String? engagementDate,
       @JsonKey(name: 'ride_type') int? rideType,
       @JsonKey(name: 'to_pay') int? toPay,
       @JsonKey(name: 'ride_time') int? rideTime,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'driver_id') int? driverId,
       @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'driver_name') String? driverName,
+      @JsonKey(name: 'driver_image') String? driverImage,
+      @JsonKey(name: 'phone_no') String? phoneNo,
       @JsonKey(name: 'engagement_id') int? engagementId,
       @JsonKey(name: 'user_id') int? userId,
       @JsonKey(name: 'wait_time') int? waitTime,
@@ -8042,12 +8092,17 @@ class _$RideSummaryCopyWithImpl<$Res> implements $RideSummaryCopyWith<$Res> {
     Object? pickupTime = freezed,
     Object? dropTime = freezed,
     Object? rideDate = freezed,
+    Object? acceptTime = freezed,
+    Object? engagementDate = freezed,
     Object? rideType = freezed,
     Object? toPay = freezed,
     Object? rideTime = freezed,
     Object? vehicleType = freezed,
     Object? driverId = freezed,
     Object? driverRating = freezed,
+    Object? driverName = freezed,
+    Object? driverImage = freezed,
+    Object? phoneNo = freezed,
     Object? engagementId = freezed,
     Object? userId = freezed,
     Object? waitTime = freezed,
@@ -8116,15 +8171,23 @@ class _$RideSummaryCopyWithImpl<$Res> implements $RideSummaryCopyWith<$Res> {
       pickupTime: pickupTime == freezed
           ? _value.pickupTime
           : pickupTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       dropTime: dropTime == freezed
           ? _value.dropTime
           : dropTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       rideDate: rideDate == freezed
           ? _value.rideDate
           : rideDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
+      acceptTime: acceptTime == freezed
+          ? _value.acceptTime
+          : acceptTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      engagementDate: engagementDate == freezed
+          ? _value.engagementDate
+          : engagementDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       rideType: rideType == freezed
           ? _value.rideType
           : rideType // ignore: cast_nullable_to_non_nullable
@@ -8149,6 +8212,18 @@ class _$RideSummaryCopyWithImpl<$Res> implements $RideSummaryCopyWith<$Res> {
           ? _value.driverRating
           : driverRating // ignore: cast_nullable_to_non_nullable
               as int?,
+      driverName: driverName == freezed
+          ? _value.driverName
+          : driverName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverImage: driverImage == freezed
+          ? _value.driverImage
+          : driverImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
       engagementId: engagementId == freezed
           ? _value.engagementId
           : engagementId // ignore: cast_nullable_to_non_nullable
@@ -8218,15 +8293,20 @@ abstract class _$RideSummaryCopyWith<$Res>
       @JsonKey(name: 'drop_latitude') double? dropLatitude,
       @JsonKey(name: 'drop_longitude') double? dropLongitude,
       @JsonKey(name: 'drop_address') String? dropAddress,
-      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
-      @JsonKey(name: 'drop_time') DateTime? dropTime,
-      @JsonKey(name: 'ride_date') DateTime? rideDate,
+      @JsonKey(name: 'pickup_time') String? pickupTime,
+      @JsonKey(name: 'drop_time') String? dropTime,
+      @JsonKey(name: 'ride_date') String? rideDate,
+      @JsonKey(name: 'accept_time') String? acceptTime,
+      @JsonKey(name: 'engagement_date') String? engagementDate,
       @JsonKey(name: 'ride_type') int? rideType,
       @JsonKey(name: 'to_pay') int? toPay,
       @JsonKey(name: 'ride_time') int? rideTime,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'driver_id') int? driverId,
       @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'driver_name') String? driverName,
+      @JsonKey(name: 'driver_image') String? driverImage,
+      @JsonKey(name: 'phone_no') String? phoneNo,
       @JsonKey(name: 'engagement_id') int? engagementId,
       @JsonKey(name: 'user_id') int? userId,
       @JsonKey(name: 'wait_time') int? waitTime,
@@ -8268,12 +8348,17 @@ class __$RideSummaryCopyWithImpl<$Res> extends _$RideSummaryCopyWithImpl<$Res>
     Object? pickupTime = freezed,
     Object? dropTime = freezed,
     Object? rideDate = freezed,
+    Object? acceptTime = freezed,
+    Object? engagementDate = freezed,
     Object? rideType = freezed,
     Object? toPay = freezed,
     Object? rideTime = freezed,
     Object? vehicleType = freezed,
     Object? driverId = freezed,
     Object? driverRating = freezed,
+    Object? driverName = freezed,
+    Object? driverImage = freezed,
+    Object? phoneNo = freezed,
     Object? engagementId = freezed,
     Object? userId = freezed,
     Object? waitTime = freezed,
@@ -8342,15 +8427,23 @@ class __$RideSummaryCopyWithImpl<$Res> extends _$RideSummaryCopyWithImpl<$Res>
       pickupTime: pickupTime == freezed
           ? _value.pickupTime
           : pickupTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       dropTime: dropTime == freezed
           ? _value.dropTime
           : dropTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       rideDate: rideDate == freezed
           ? _value.rideDate
           : rideDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
+      acceptTime: acceptTime == freezed
+          ? _value.acceptTime
+          : acceptTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      engagementDate: engagementDate == freezed
+          ? _value.engagementDate
+          : engagementDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       rideType: rideType == freezed
           ? _value.rideType
           : rideType // ignore: cast_nullable_to_non_nullable
@@ -8375,6 +8468,18 @@ class __$RideSummaryCopyWithImpl<$Res> extends _$RideSummaryCopyWithImpl<$Res>
           ? _value.driverRating
           : driverRating // ignore: cast_nullable_to_non_nullable
               as int?,
+      driverName: driverName == freezed
+          ? _value.driverName
+          : driverName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverImage: driverImage == freezed
+          ? _value.driverImage
+          : driverImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNo: phoneNo == freezed
+          ? _value.phoneNo
+          : phoneNo // ignore: cast_nullable_to_non_nullable
+              as String?,
       engagementId: engagementId == freezed
           ? _value.engagementId
           : engagementId // ignore: cast_nullable_to_non_nullable
@@ -8443,12 +8548,17 @@ class _$_RideSummary implements _RideSummary {
       @JsonKey(name: 'pickup_time') this.pickupTime,
       @JsonKey(name: 'drop_time') this.dropTime,
       @JsonKey(name: 'ride_date') this.rideDate,
+      @JsonKey(name: 'accept_time') this.acceptTime,
+      @JsonKey(name: 'engagement_date') this.engagementDate,
       @JsonKey(name: 'ride_type') this.rideType,
       @JsonKey(name: 'to_pay') this.toPay,
       @JsonKey(name: 'ride_time') this.rideTime,
       @JsonKey(name: 'vehicle_type') this.vehicleType,
       @JsonKey(name: 'driver_id') this.driverId,
       @JsonKey(name: 'driver_rating') this.driverRating,
+      @JsonKey(name: 'driver_name') this.driverName,
+      @JsonKey(name: 'driver_image') this.driverImage,
+      @JsonKey(name: 'phone_no') this.phoneNo,
       @JsonKey(name: 'engagement_id') this.engagementId,
       @JsonKey(name: 'user_id') this.userId,
       @JsonKey(name: 'wait_time') this.waitTime,
@@ -8498,13 +8608,19 @@ class _$_RideSummary implements _RideSummary {
   final String? dropAddress;
   @override
   @JsonKey(name: 'pickup_time')
-  final DateTime? pickupTime;
+  final String? pickupTime;
   @override
   @JsonKey(name: 'drop_time')
-  final DateTime? dropTime;
+  final String? dropTime;
   @override
   @JsonKey(name: 'ride_date')
-  final DateTime? rideDate;
+  final String? rideDate;
+  @override
+  @JsonKey(name: 'accept_time')
+  final String? acceptTime;
+  @override
+  @JsonKey(name: 'engagement_date')
+  final String? engagementDate;
   @override
   @JsonKey(name: 'ride_type')
   final int? rideType;
@@ -8523,6 +8639,15 @@ class _$_RideSummary implements _RideSummary {
   @override
   @JsonKey(name: 'driver_rating')
   final int? driverRating;
+  @override
+  @JsonKey(name: 'driver_name')
+  final String? driverName;
+  @override
+  @JsonKey(name: 'driver_image')
+  final String? driverImage;
+  @override
+  @JsonKey(name: 'phone_no')
+  final String? phoneNo;
   @override
   @JsonKey(name: 'engagement_id')
   final int? engagementId;
@@ -8559,7 +8684,7 @@ class _$_RideSummary implements _RideSummary {
 
   @override
   String toString() {
-    return 'RideSummary(flag: $flag, distance: $distance, status: $status, currency: $currency, fare: $fare, error: $error, message: $message, pickupAddress: $pickupAddress, pickupLatitude: $pickupLatitude, pickupLongitude: $pickupLongitude, dropLatitude: $dropLatitude, dropLongitude: $dropLongitude, dropAddress: $dropAddress, pickupTime: $pickupTime, dropTime: $dropTime, rideDate: $rideDate, rideType: $rideType, toPay: $toPay, rideTime: $rideTime, vehicleType: $vehicleType, driverId: $driverId, driverRating: $driverRating, engagementId: $engagementId, userId: $userId, waitTime: $waitTime, distanceUnit: $distanceUnit, cancellationCharges: $cancellationCharges, isCorporateRide: $isCorporateRide, baseFare: $baseFare, fareFactor: $fareFactor, balance: $balance, totalRides: $totalRides, createdAt: $createdAt)';
+    return 'RideSummary(flag: $flag, distance: $distance, status: $status, currency: $currency, fare: $fare, error: $error, message: $message, pickupAddress: $pickupAddress, pickupLatitude: $pickupLatitude, pickupLongitude: $pickupLongitude, dropLatitude: $dropLatitude, dropLongitude: $dropLongitude, dropAddress: $dropAddress, pickupTime: $pickupTime, dropTime: $dropTime, rideDate: $rideDate, acceptTime: $acceptTime, engagementDate: $engagementDate, rideType: $rideType, toPay: $toPay, rideTime: $rideTime, vehicleType: $vehicleType, driverId: $driverId, driverRating: $driverRating, driverName: $driverName, driverImage: $driverImage, phoneNo: $phoneNo, engagementId: $engagementId, userId: $userId, waitTime: $waitTime, distanceUnit: $distanceUnit, cancellationCharges: $cancellationCharges, isCorporateRide: $isCorporateRide, baseFare: $baseFare, fareFactor: $fareFactor, balance: $balance, totalRides: $totalRides, createdAt: $createdAt)';
   }
 
   @override
@@ -8610,6 +8735,12 @@ class _$_RideSummary implements _RideSummary {
             (identical(other.rideDate, rideDate) ||
                 const DeepCollectionEquality()
                     .equals(other.rideDate, rideDate)) &&
+            (identical(other.acceptTime, acceptTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.acceptTime, acceptTime)) &&
+            (identical(other.engagementDate, engagementDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.engagementDate, engagementDate)) &&
             (identical(other.rideType, rideType) ||
                 const DeepCollectionEquality()
                     .equals(other.rideType, rideType)) &&
@@ -8627,13 +8758,12 @@ class _$_RideSummary implements _RideSummary {
             (identical(other.driverRating, driverRating) ||
                 const DeepCollectionEquality()
                     .equals(other.driverRating, driverRating)) &&
-            (identical(other.engagementId, engagementId) ||
-                const DeepCollectionEquality()
-                    .equals(other.engagementId, engagementId)) &&
-            (identical(other.userId, userId) ||
-                const DeepCollectionEquality().equals(other.userId, userId)) &&
-            (identical(other.waitTime, waitTime) ||
-                const DeepCollectionEquality().equals(other.waitTime, waitTime)) &&
+            (identical(other.driverName, driverName) || const DeepCollectionEquality().equals(other.driverName, driverName)) &&
+            (identical(other.driverImage, driverImage) || const DeepCollectionEquality().equals(other.driverImage, driverImage)) &&
+            (identical(other.phoneNo, phoneNo) || const DeepCollectionEquality().equals(other.phoneNo, phoneNo)) &&
+            (identical(other.engagementId, engagementId) || const DeepCollectionEquality().equals(other.engagementId, engagementId)) &&
+            (identical(other.userId, userId) || const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.waitTime, waitTime) || const DeepCollectionEquality().equals(other.waitTime, waitTime)) &&
             (identical(other.distanceUnit, distanceUnit) || const DeepCollectionEquality().equals(other.distanceUnit, distanceUnit)) &&
             (identical(other.cancellationCharges, cancellationCharges) || const DeepCollectionEquality().equals(other.cancellationCharges, cancellationCharges)) &&
             (identical(other.isCorporateRide, isCorporateRide) || const DeepCollectionEquality().equals(other.isCorporateRide, isCorporateRide)) &&
@@ -8663,12 +8793,17 @@ class _$_RideSummary implements _RideSummary {
       const DeepCollectionEquality().hash(pickupTime) ^
       const DeepCollectionEquality().hash(dropTime) ^
       const DeepCollectionEquality().hash(rideDate) ^
+      const DeepCollectionEquality().hash(acceptTime) ^
+      const DeepCollectionEquality().hash(engagementDate) ^
       const DeepCollectionEquality().hash(rideType) ^
       const DeepCollectionEquality().hash(toPay) ^
       const DeepCollectionEquality().hash(rideTime) ^
       const DeepCollectionEquality().hash(vehicleType) ^
       const DeepCollectionEquality().hash(driverId) ^
       const DeepCollectionEquality().hash(driverRating) ^
+      const DeepCollectionEquality().hash(driverName) ^
+      const DeepCollectionEquality().hash(driverImage) ^
+      const DeepCollectionEquality().hash(phoneNo) ^
       const DeepCollectionEquality().hash(engagementId) ^
       const DeepCollectionEquality().hash(userId) ^
       const DeepCollectionEquality().hash(waitTime) ^
@@ -8707,15 +8842,20 @@ abstract class _RideSummary implements RideSummary {
       @JsonKey(name: 'drop_latitude') double? dropLatitude,
       @JsonKey(name: 'drop_longitude') double? dropLongitude,
       @JsonKey(name: 'drop_address') String? dropAddress,
-      @JsonKey(name: 'pickup_time') DateTime? pickupTime,
-      @JsonKey(name: 'drop_time') DateTime? dropTime,
-      @JsonKey(name: 'ride_date') DateTime? rideDate,
+      @JsonKey(name: 'pickup_time') String? pickupTime,
+      @JsonKey(name: 'drop_time') String? dropTime,
+      @JsonKey(name: 'ride_date') String? rideDate,
+      @JsonKey(name: 'accept_time') String? acceptTime,
+      @JsonKey(name: 'engagement_date') String? engagementDate,
       @JsonKey(name: 'ride_type') int? rideType,
       @JsonKey(name: 'to_pay') int? toPay,
       @JsonKey(name: 'ride_time') int? rideTime,
       @JsonKey(name: 'vehicle_type') int? vehicleType,
       @JsonKey(name: 'driver_id') int? driverId,
       @JsonKey(name: 'driver_rating') int? driverRating,
+      @JsonKey(name: 'driver_name') String? driverName,
+      @JsonKey(name: 'driver_image') String? driverImage,
+      @JsonKey(name: 'phone_no') String? phoneNo,
       @JsonKey(name: 'engagement_id') int? engagementId,
       @JsonKey(name: 'user_id') int? userId,
       @JsonKey(name: 'wait_time') int? waitTime,
@@ -8765,13 +8905,19 @@ abstract class _RideSummary implements RideSummary {
   String? get dropAddress => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'pickup_time')
-  DateTime? get pickupTime => throw _privateConstructorUsedError;
+  String? get pickupTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'drop_time')
-  DateTime? get dropTime => throw _privateConstructorUsedError;
+  String? get dropTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'ride_date')
-  DateTime? get rideDate => throw _privateConstructorUsedError;
+  String? get rideDate => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'accept_time')
+  String? get acceptTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'engagement_date')
+  String? get engagementDate => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'ride_type')
   int? get rideType => throw _privateConstructorUsedError;
@@ -8790,6 +8936,15 @@ abstract class _RideSummary implements RideSummary {
   @override
   @JsonKey(name: 'driver_rating')
   int? get driverRating => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_name')
+  String? get driverName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'driver_image')
+  String? get driverImage => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'phone_no')
+  String? get phoneNo => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'engagement_id')
   int? get engagementId => throw _privateConstructorUsedError;

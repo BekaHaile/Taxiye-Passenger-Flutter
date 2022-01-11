@@ -137,7 +137,7 @@ class VehicleTile extends StatelessWidget {
                   ),
                   fareLoading
                       ? const SpinKitFadingCircle(
-                          color: AppTheme.primaryColor, size: 30)
+                          color: AppTheme.primaryColor, size: 20)
                       : Text(
                           vehicle.regionFare != null
                               ? vehicle.regionFare?.fare != null

@@ -30,7 +30,7 @@ class ApiClient {
     PackageInfo.fromPlatform().then((packageInfo) => defaultParams.addAll({
           // 'app_version': packageInfo.version,
           'app_version': kAppVersion,
-          'device_type': Platform.isAndroid ? '0' : '7',
+          'device_type': '0',
           'login_type': '0',
           'operator_token': kOperatorToken,
           'customer_package_name': packageInfo.packageName,

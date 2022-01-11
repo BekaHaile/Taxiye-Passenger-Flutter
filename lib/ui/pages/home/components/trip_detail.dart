@@ -75,7 +75,7 @@ class TripDetail extends GetView<HomeController> {
                               ),
                             const SizedBox(height: 5.0),
                             Text(
-                              '${controller.rideType == 1 ? 0 : rideDetail.toPay?.round()} ${'birr'.tr}',
+                              '${controller.rideType == 1 ? 0 : getTopayAmount(rideDetail.toPay, rideDetail.toPayText)} ${controller.currency}',
                               style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.w700,
@@ -147,6 +147,17 @@ class TripDetail extends GetView<HomeController> {
         ),
       ),
     );
+  }
+
+  int getTopayAmount(double? toPay, String? toPayText) {
+    if (toPay != null) {
+      return toPay.round();
+    } else if (toPayText != null) {
+      String aStr = toPayText.replaceAll(RegExp(r'[^0-9]'), '');
+      return double.parse(aStr).round();
+    } else {
+      return 0;
+    }
   }
 }
 

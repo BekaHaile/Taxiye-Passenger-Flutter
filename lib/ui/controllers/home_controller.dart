@@ -465,6 +465,7 @@ class HomeController extends GetxService {
           distanceUnit: notificationMessage.distanceUnit,
           paidUsingWallet:
               double.parse(notificationMessage.paidUsingWallet ?? '0'),
+          toPayText: notificationMessage.message,
         );
         tripStep = TripStep.tripDetail;
         break;
@@ -497,6 +498,17 @@ class HomeController extends GetxService {
         }
         break;
       default:
+    }
+  }
+
+  int getTopayAmount(double? toPay, String? toPayText) {
+    if (toPay != null) {
+      return toPay.round();
+    } else if (toPayText != null) {
+      String aStr = toPayText.replaceAll(RegExp(r'[^0-9]'), '');
+      return double.parse(aStr).round();
+    } else {
+      return 0;
     }
   }
 

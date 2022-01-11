@@ -172,11 +172,11 @@ _$_FareStructure _$_$_FareStructureFromJson(Map<String, dynamic> json) {
     fare: json['fare'] as int?,
     packageId: json['package_id'] as int?,
     packageName: json['package_name'] as String?,
-    fareMinimum: json['fare_minimum'] as int?,
-    fareFixed: json['fare_fixed'] as int?,
-    farePerKm: json['fare_per_km'] as int?,
-    farePerMin: json['fare_per_min'] as int?,
-    farePerWaitingMin: json['fare_per_waiting_min'] as int?,
+    fareMinimum: (json['fare_minimum'] as num?)?.toDouble(),
+    fareFixed: (json['fare_fixed'] as num?)?.toDouble(),
+    farePerKm: (json['fare_per_km'] as num?)?.toDouble(),
+    farePerMin: (json['fare_per_min'] as num?)?.toDouble(),
+    farePerWaitingMin: (json['fare_per_waiting_min'] as num?)?.toDouble(),
     vehicleType: json['vehicle_type'] as int?,
     rideType: json['ride_type'] as int?,
     regionId: json['region_id'] as int?,
@@ -444,6 +444,7 @@ _$_RideDetail _$_$_RideDetailFromJson(Map<String, dynamic> json) {
     rideTime: json['rideTime'] as int?,
     distanceUnit: json['distanceUnit'] as String?,
     toPay: (json['toPay'] as num?)?.toDouble(),
+    toPayText: json['toPayText'] as String?,
   );
 }
 
@@ -457,6 +458,7 @@ Map<String, dynamic> _$_$_RideDetailToJson(_$_RideDetail instance) =>
       'rideTime': instance.rideTime,
       'distanceUnit': instance.distanceUnit,
       'toPay': instance.toPay,
+      'toPayText': instance.toPayText,
     };
 
 _$_Address _$_$_AddressFromJson(Map<String, dynamic> json) {
@@ -607,21 +609,20 @@ _$_RideSummary _$_$_RideSummaryFromJson(Map<String, dynamic> json) {
     dropLatitude: (json['drop_latitude'] as num?)?.toDouble(),
     dropLongitude: (json['drop_longitude'] as num?)?.toDouble(),
     dropAddress: json['drop_address'] as String?,
-    pickupTime: json['pickup_time'] == null
-        ? null
-        : DateTime.parse(json['pickup_time'] as String),
-    dropTime: json['drop_time'] == null
-        ? null
-        : DateTime.parse(json['drop_time'] as String),
-    rideDate: json['ride_date'] == null
-        ? null
-        : DateTime.parse(json['ride_date'] as String),
+    pickupTime: json['pickup_time'] as String?,
+    dropTime: json['drop_time'] as String?,
+    rideDate: json['ride_date'] as String?,
+    acceptTime: json['accept_time'] as String?,
+    engagementDate: json['engagement_date'] as String?,
     rideType: json['ride_type'] as int?,
     toPay: json['to_pay'] as int?,
     rideTime: json['ride_time'] as int?,
     vehicleType: json['vehicle_type'] as int?,
     driverId: json['driver_id'] as int?,
     driverRating: json['driver_rating'] as int?,
+    driverName: json['driver_name'] as String?,
+    driverImage: json['driver_image'] as String?,
+    phoneNo: json['phone_no'] as String?,
     engagementId: json['engagement_id'] as int?,
     userId: json['user_id'] as int?,
     waitTime: json['wait_time'] as int?,
@@ -653,15 +654,20 @@ Map<String, dynamic> _$_$_RideSummaryToJson(_$_RideSummary instance) =>
       'drop_latitude': instance.dropLatitude,
       'drop_longitude': instance.dropLongitude,
       'drop_address': instance.dropAddress,
-      'pickup_time': instance.pickupTime?.toIso8601String(),
-      'drop_time': instance.dropTime?.toIso8601String(),
-      'ride_date': instance.rideDate?.toIso8601String(),
+      'pickup_time': instance.pickupTime,
+      'drop_time': instance.dropTime,
+      'ride_date': instance.rideDate,
+      'accept_time': instance.acceptTime,
+      'engagement_date': instance.engagementDate,
       'ride_type': instance.rideType,
       'to_pay': instance.toPay,
       'ride_time': instance.rideTime,
       'vehicle_type': instance.vehicleType,
       'driver_id': instance.driverId,
       'driver_rating': instance.driverRating,
+      'driver_name': instance.driverName,
+      'driver_image': instance.driverImage,
+      'phone_no': instance.phoneNo,
       'engagement_id': instance.engagementId,
       'user_id': instance.userId,
       'wait_time': instance.waitTime,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -61,18 +63,24 @@ class OrderDetailsPage extends GetView<OrdersController> {
                                 children: [
                                   Row(
                                     children: [
-                                      const ProfileAvatar(
+                                      ProfileAvatar(
                                         canEdit: false,
                                         radius: 35.0,
-                                        name: 'Abebe Kebede',
-                                        imageUrl: null,
+                                        name:
+                                            controller.rideSummary.driverName ??
+                                                '',
+                                        imageUrl:
+                                            controller.rideSummary.driverImage,
                                       ),
                                       const SizedBox(width: 10.0),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text('Driver Name',
+                                          Text(
+                                              controller
+                                                      .rideSummary.driverName ??
+                                                  '',
                                               style: AppTheme.body),
                                           RichText(
                                             text: TextSpan(
@@ -107,9 +115,7 @@ class OrderDetailsPage extends GetView<OrdersController> {
                                             .copyWith(fontSize: 18.0),
                                       ),
                                       Text(
-                                          formatDate(
-                                              controller.rideSummary.rideDate ??
-                                                  DateTime.now()),
+                                          controller.rideSummary.rideDate ?? '',
                                           style: AppTheme.body
                                               .copyWith(fontSize: 12.0))
                                     ],

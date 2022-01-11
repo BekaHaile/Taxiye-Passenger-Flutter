@@ -22,7 +22,7 @@ class OutStationPackages extends StatelessWidget {
       itemBuilder: (context, index) {
         final FareStructure package = packages[index];
         return Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 10.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 4.0, 10.0, 5.0),
           child: PackageTile(
             package: package,
             isActive: selectedPackage == package,

@@ -277,11 +277,11 @@ class PromotionsController extends GetxController {
             airtimeHistories = airTimeHistoryResponse.data;
           }
         } else {
-          toast(
-              'error',
-              airTimeHistoryResponse.message ??
-                  airTimeHistoryResponse.error ??
-                  '');
+          // toast(
+          //     'error',
+          //     airTimeHistoryResponse.message ??
+          //         airTimeHistoryResponse.error ??
+          //         '');
         }
       },
       onError: (err) {
