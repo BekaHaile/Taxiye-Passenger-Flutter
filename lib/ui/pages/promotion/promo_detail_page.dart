@@ -127,10 +127,10 @@ class PromoDetailPage extends GetView<PromotionsController> {
                         Text(
                           controller.selectedCoupon?.expiryDate != null
                               ? formatDate(
-                                  (controller.selectedCoupon?.expiryDate)!)
+                                  (controller.selectedCoupon!.expiryDate)!)
                               : controller.selectedPromotion?.endOn != null
                                   ? formatDate(
-                                      (controller.selectedPromotion?.endOn)!)
+                                      (controller.selectedPromotion!.endOn)!)
                                   : '',
                           style: AppTheme.title.copyWith(
                               fontSize: 16.0, color: AppTheme.primaryColor),
