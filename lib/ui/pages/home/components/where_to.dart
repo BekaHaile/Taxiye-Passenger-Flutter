@@ -47,37 +47,44 @@ class WhereTo extends GetView<HomeController> {
                       )),
                 ),
               ),
-              Obx(() => GestureDetector(
-                    onTap: controller.selectedService == HomeServiceIndex.ride
-                        ? () => _pickDate(context)
-                        : null,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12.0, vertical: 8.0),
-                        child: Row(
-                          children: [
-                            const Icon(CustomIcons.clock,
-                                color: AppTheme.darkTextColor),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                'now'.tr,
-                                style: AppTheme.title.copyWith(fontSize: 14.0),
-                              ),
+              Obx(
+                () => controller.selectedService == HomeServiceIndex.ride
+                    ? GestureDetector(
+                        onTap:
+                            controller.selectedService == HomeServiceIndex.ride
+                                ? () => _pickDate(context)
+                                : null,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50.0)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12.0, vertical: 8.0),
+                            child: Row(
+                              children: [
+                                const Icon(CustomIcons.clock,
+                                    color: AppTheme.darkTextColor),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    'now'.tr,
+                                    style:
+                                        AppTheme.title.copyWith(fontSize: 14.0),
+                                  ),
+                                ),
+                                const Icon(Icons.expand_more,
+                                    color: AppTheme.darkTextColor),
+                              ],
                             ),
-                            const Icon(Icons.expand_more,
-                                color: AppTheme.darkTextColor),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ))
+                      )
+                    : const SizedBox(),
+              ),
             ],
           ),
         ),

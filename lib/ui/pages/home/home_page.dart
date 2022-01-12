@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage>
       HomeService(title: HomeServiceIndex.ride, icon: CustomIcons.car),
       HomeService(title: HomeServiceIndex.delivery, icon: CustomIcons.delivery),
       // HomeService(title: HomeServiceIndex.rental, icon: CustomIcons.rental),
-      HomeService(title: HomeServiceIndex.outStation, icon: CustomIcons.car),
+      // HomeService(title: HomeServiceIndex.outStation, icon: CustomIcons.car),
     ];
     super.initState();
   }

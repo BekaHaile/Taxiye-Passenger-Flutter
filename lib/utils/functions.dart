@@ -182,6 +182,12 @@ String getDisplayTimeFromSeconds(int seconds) {
   return '${(hour > 0 ? '$hour h' : '')} ${(min > 0 ? '$min m' : '')} $sec s';
 }
 
+String getDisplayTimeFromMinutes(int minutes) {
+  int hour = minutes ~/ 60;
+  int min = minutes % 60;
+  return '${(hour > 0 ? '$hour h' : '')} ${('$min m')}';
+}
+
 unfocus(BuildContext context) {
   var currentFocus = FocusScope.of(context);
 

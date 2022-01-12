@@ -456,9 +456,13 @@ class HomeController extends GetxService {
         positionStream?.cancel();
         // set ride details
         rideDetail = RideDetail(
-          fare: double.parse(notificationMessage.fare ?? '0'),
+          fare: notificationMessage.fare != null
+              ? double.parse(notificationMessage.fare ?? '0')
+              : null,
           discount: double.parse(notificationMessage.discount ?? '0'),
-          toPay: double.parse(notificationMessage.toPay ?? '0'),
+          toPay: notificationMessage.toPay != null
+              ? double.parse(notificationMessage.toPay ?? '0')
+              : null,
           distanceTraveled:
               double.parse(notificationMessage.distanceTravelled ?? '0'),
           rideTime: int.parse(notificationMessage.rideTime ?? '0'),

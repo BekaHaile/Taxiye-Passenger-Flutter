@@ -120,7 +120,7 @@ class ProfilePage extends GetView<ProfileController> {
                                   Get.toNamed(Routes.profileInfo);
                                   break;
                                 case 'emergency_contacts':
-                                  Get.toNamed(Routes.emergencyContacts);
+                                  controller.onSelectEmergencyContacts();
                                   break;
                                 case 'saved_places':
                                   Get.toNamed(Routes.savedPlaces);

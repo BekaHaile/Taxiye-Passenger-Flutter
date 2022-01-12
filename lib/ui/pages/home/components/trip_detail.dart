@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taxiye_passenger/core/enums/home_enums.dart';
@@ -65,7 +67,7 @@ class TripDetail extends GetView<HomeController> {
                             if (controller.rideType == 1 ||
                                 rideDetail.fare != rideDetail.toPay)
                               Text(
-                                '${rideDetail.fare?.round()} ${'birr'.tr}',
+                                '${getTopayAmount(rideDetail.fare, rideDetail.toPayText)} ${controller.currency}',
                                 style: const TextStyle(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w700,

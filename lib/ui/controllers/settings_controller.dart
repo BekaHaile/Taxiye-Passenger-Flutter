@@ -96,6 +96,7 @@ class SettingsController extends GetxController {
           title: 'transaction_updates',
           subtitle: 'transaction_updates_info',
           leadingIconAsset: 'assets/icons/transfer.png',
+          isActive: false,
           toggleValue: showTransactionNotifications ?? true),
       Option(
           title: 'rides',

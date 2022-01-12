@@ -57,69 +57,81 @@ class OrderDetailsPage extends GetView<OrdersController> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
                                 children: [
+                                  Text(
+                                      'engagement_id'.tr +
+                                          ': ${controller.rideSummary.engagementId}',
+                                      style: AppTheme.title2
+                                          .copyWith(fontSize: 12.0)),
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      ProfileAvatar(
-                                        canEdit: false,
-                                        radius: 35.0,
-                                        name:
-                                            controller.rideSummary.driverName ??
-                                                '',
-                                        imageUrl:
-                                            controller.rideSummary.driverImage,
-                                      ),
-                                      const SizedBox(width: 10.0),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      Row(
                                         children: [
-                                          Text(
-                                              controller
-                                                      .rideSummary.driverName ??
-                                                  '',
-                                              style: AppTheme.body),
-                                          RichText(
-                                            text: TextSpan(
-                                              style: AppTheme.body
-                                                  .copyWith(fontSize: 12.0),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        '${controller.rideSummary.driverRating ?? 0}'),
-                                                const WidgetSpan(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 4.0),
-                                                    child: Icon(
-                                                        Icons.star_outline,
-                                                        size: 17.0),
-                                                  ),
+                                          ProfileAvatar(
+                                            canEdit: false,
+                                            radius: 35.0,
+                                            name: controller
+                                                    .rideSummary.driverName ??
+                                                '',
+                                            imageUrl: controller
+                                                .rideSummary.driverImage,
+                                          ),
+                                          const SizedBox(width: 10.0),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  controller.rideSummary
+                                                          .driverName ??
+                                                      '',
+                                                  style: AppTheme.body),
+                                              RichText(
+                                                text: TextSpan(
+                                                  style: AppTheme.body
+                                                      .copyWith(fontSize: 12.0),
+                                                  children: [
+                                                    TextSpan(
+                                                        text:
+                                                            '${controller.rideSummary.driverRating ?? 0}'),
+                                                    const WidgetSpan(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 4.0),
+                                                        child: Icon(
+                                                            Icons.star_outline,
+                                                            size: 17.0),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                          )
+                                              )
+                                            ],
+                                          ),
                                         ],
                                       ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            '${controller.rideSummary.fare} ${controller.rideSummary.currency}',
+                                            style: AppTheme.title2
+                                                .copyWith(fontSize: 18.0),
+                                          ),
+                                          Text(
+                                              controller.rideSummary.rideDate ??
+                                                  '',
+                                              style: AppTheme.body
+                                                  .copyWith(fontSize: 12.0))
+                                        ],
+                                      )
                                     ],
                                   ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        '${controller.rideSummary.fare} ${controller.rideSummary.currency}',
-                                        style: AppTheme.title2
-                                            .copyWith(fontSize: 18.0),
-                                      ),
-                                      Text(
-                                          controller.rideSummary.rideDate ?? '',
-                                          style: AppTheme.body
-                                              .copyWith(fontSize: 12.0))
-                                    ],
-                                  )
                                 ],
                               ),
                             ),
@@ -339,13 +351,37 @@ class OrderDetailsPage extends GetView<OrdersController> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'time'.tr,
+                                        'ride_time'.tr,
                                         style: AppTheme.title2
                                             .copyWith(fontSize: 12.0),
                                       ),
                                       Text(
-                                        getDisplayTimeFromSeconds(
+                                        getDisplayTimeFromMinutes(
                                             controller.rideSummary.rideTime ??
+                                                0),
+                                        style: AppTheme.title2
+                                            .copyWith(fontSize: 12.0),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  const Divider(
+                                    height: 2,
+                                    color: AppTheme.greyColor2,
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'wait_time'.tr,
+                                        style: AppTheme.title2
+                                            .copyWith(fontSize: 12.0),
+                                      ),
+                                      Text(
+                                        getDisplayTimeFromMinutes(
+                                            controller.rideSummary.waitTime ??
                                                 0),
                                         style: AppTheme.title2
                                             .copyWith(fontSize: 12.0),
@@ -382,7 +418,7 @@ class OrderDetailsPage extends GetView<OrdersController> {
                                 ],
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

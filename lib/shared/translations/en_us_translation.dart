@@ -440,9 +440,6 @@ final Map<String, String> enUs = {
   'yes': 'Yes',
   'no': 'No',
 
-  'enable_location': 'Enable Location?',
-  'enable_location_info': 'Please enable your location to continue.',
-
   //notification Strings
   'ride_completed': 'Ride Completed',
   'your_fare_was': 'Your fare was',
@@ -488,5 +485,13 @@ final Map<String, String> enUs = {
   'one_way': 'One Way',
   'round_trip': 'Round Trip',
 
+  'enable_location': 'Enable Location?',
+  'enable_location_info': 'Please enable your location to continue.',
+  'allow_contacts': 'Allow Contacts?',
+  'allow_contacts_info': 'Please allow accessing contacts to continue.',
+
   'packages': 'Packages',
+  'ride_time': 'Ride Time',
+  'wait_time': 'Wait Time',
+  'engagement_id': 'Engagement Id'
 };

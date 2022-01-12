@@ -14,24 +14,22 @@ class EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(kPagePadding),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                'assets/images/empty_state.svg',
-                height: imageHeight,
-              ),
-              const SizedBox(height: 16.0),
-              Text(
-                'empty_state_title'.tr,
-                style: AppTheme.body.copyWith(fontSize: 16.0),
-              )
-            ],
-          ),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(kPagePadding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/images/empty_state.svg',
+              height: imageHeight,
+            ),
+            const SizedBox(height: 16.0),
+            Text(
+              'empty_state_title'.tr,
+              style: AppTheme.body.copyWith(fontSize: 16.0),
+            )
+          ],
         ),
       ),
     );

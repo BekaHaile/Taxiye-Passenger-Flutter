@@ -13,7 +13,9 @@ import 'package:taxiye_passenger/core/models/common_models.dart';
 import 'dart:io';
 
 import 'package:taxiye_passenger/core/models/freezed_models.dart';
+import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/ui/controllers/auth_controller.dart';
+import 'package:taxiye_passenger/ui/pages/common/confirm_dialog.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
 
@@ -228,7 +230,7 @@ class ProfileController extends GetxController {
       // Either the permission was already granted before or the user just granted it.
       await _getContacts();
     } else {
-      toast('error', 'contact_permission_error');
+      //toast('error', 'contact_permission_error');
       print('permission refused');
     }
   }
@@ -263,6 +265,20 @@ class ProfileController extends GetxController {
     //     contact.avatar = avatar;
     //   });
     // }
+  }
+
+  onSelectEmergencyContacts() async {
+    var status = await Permission.contacts.status;
+    if (status.isGranted) {
+      Get.toNamed(Routes.emergencyContacts);
+    } else {
+      Get.dialog(ConfirmDialog(
+        title: 'allow_contacts'.tr,
+        content: 'allow_contacts_info'.tr,
+        actionText: 'ok',
+        actionCallback: () => openAppSettings(),
+      ));
+    }
   }
 
   addEmergencyContact(EmergencyContact emergencyContact) {

@@ -101,7 +101,7 @@ class NotificationService extends GetxService {
 handleNotification(RemoteMessage message,
     Function(NotificationMessage notificationMessage) onMessageRecieved) {
   if (message.data['message'] != null) {
-    // log('message before parsed: ${message.data['message']}');
+    //log('message before parsed: ${message.data['message']}');
     final messageObject = jsonDecode(message.data['message']);
     // handle dynamic type of engagementId.
     messageObject['engagement_id'] = messageObject['engagement_id'] != null
