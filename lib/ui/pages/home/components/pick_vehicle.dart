@@ -124,74 +124,77 @@ class PickVehicle extends GetView<HomeController> {
                     ],
                   )
                 : const SizedBox()),
-            Obx(
-              () => controller.rideType == 0 ||
-                      controller.rideType == 2 ||
-                      controller.rideType == 7
-                  ? SizedBox(
-                      height: 32.0,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final PaymentType paymentType =
-                              controller.paymentTypes[index];
-                          return Obx(() => CustomChip(
-                                text: paymentType.text,
-                                icon: paymentType.icon,
-                                iconColor: paymentType.iconColor,
-                                isActive: controller.paymentMode ==
-                                    paymentType.paymentMode,
-                                onTap: () {
-                                  // on  one of the payment types
+            Align(
+              alignment: Alignment.center,
+              child: Obx(
+                () => controller.rideType == 0 ||
+                        controller.rideType == 2 ||
+                        controller.rideType == 7
+                    ? SizedBox(
+                        height: 32.0,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final PaymentType paymentType =
+                                controller.paymentTypes[index];
+                            return Obx(() => CustomChip(
+                                  text: paymentType.text,
+                                  icon: paymentType.icon,
+                                  iconColor: paymentType.iconColor,
+                                  isActive: controller.paymentMode ==
+                                      paymentType.paymentMode,
+                                  onTap: () {
+                                    // on  one of the payment types
 
-                                  switch (paymentType.paymentMode) {
-                                    case 0:
-                                      controller.paymentMode =
-                                          paymentType.paymentMode;
-                                      break;
-                                    case 1:
-                                      controller.paymentMode =
-                                          paymentType.paymentMode;
-                                      Get.bottomSheet(const PickPromotion());
-                                      break;
-                                    case 2:
-                                      // on notes selected
-                                      Get.dialog(RideNote(
-                                          actionCallback: (note) =>
-                                              controller.rideNote = note));
-                                      break;
-                                    default:
-                                  }
-                                },
-                              ));
-                        },
-                        itemCount: controller.paymentTypes.length,
-                      ),
-                    )
-                  : SizedBox(
-                      height: 32.0,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final Corporate corporate =
-                              controller.userCorporates[index];
-                          return Obx(() => CustomChip(
-                                text: corporate.partnerName ?? '',
-                                isActive:
-                                    controller.selectedCorporate == corporate,
-                                onTap: () {
-                                  // Todo: set payment mode here too.
-                                  controller.selectedCorporate = corporate;
-                                  controller.filterVehicles(1);
-                                },
-                              ));
-                        },
-                        itemCount: controller.userCorporates.length,
-                      )),
+                                    switch (paymentType.paymentMode) {
+                                      case 0:
+                                        controller.paymentMode =
+                                            paymentType.paymentMode;
+                                        break;
+                                      case 1:
+                                        controller.paymentMode =
+                                            paymentType.paymentMode;
+                                        Get.bottomSheet(const PickPromotion());
+                                        break;
+                                      case 2:
+                                        // on notes selected
+                                        Get.dialog(RideNote(
+                                            actionCallback: (note) =>
+                                                controller.rideNote = note));
+                                        break;
+                                      default:
+                                    }
+                                  },
+                                ));
+                          },
+                          itemCount: controller.paymentTypes.length,
+                        ),
+                      )
+                    : SizedBox(
+                        height: 32.0,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final Corporate corporate =
+                                controller.userCorporates[index];
+                            return Obx(() => CustomChip(
+                                  text: corporate.partnerName ?? '',
+                                  isActive:
+                                      controller.selectedCorporate == corporate,
+                                  onTap: () {
+                                    // Todo: set payment mode here too.
+                                    controller.selectedCorporate = corporate;
+                                    controller.filterVehicles(1);
+                                  },
+                                ));
+                          },
+                          itemCount: controller.userCorporates.length,
+                        )),
+              ),
             ),
             const SizedBox(height: 16.0),
             RoundedButton(

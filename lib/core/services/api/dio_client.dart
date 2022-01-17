@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';

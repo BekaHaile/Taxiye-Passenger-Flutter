@@ -147,7 +147,7 @@ abstract class IPaymentRepository {
 abstract class IOrdersRepository {
   // Todo: Add orders request class signitures (interfaces) here.
   Future<ListResponse<ScheduledRide>> getScheduledRides();
-  Future<ListResponse<RideHistory>> getRideHistory();
+  Future<ListResponse<RideHistory>> getRideHistory(int skip);
   Future<List<LatLng>> getRoutePolylines(
       PointLatLng origin, PointLatLng destination);
 

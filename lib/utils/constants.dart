@@ -1,10 +1,12 @@
 // api constants
 // const kBaseUrl = 'http://10.0.2.2:3030';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxiye_passenger/core/models/common_models.dart';
 
-const kBaseUrl = 'https://staging.taxiye.com';
-const kBaseUrlRelease = 'https://release.taxiye.com';
+var kBaseUrl = dotenv.env['RELEASE_MODE'] == 'prod'
+    ? 'https://release.taxiye.com'
+    : 'https://staging.taxiye.com';
 const kGooglePlacesUrl = 'https://maps.googleapis.com/maps/api/';
 const kTaxiyePhoneNumber = '6055';
 const kSOSNumber = '911';

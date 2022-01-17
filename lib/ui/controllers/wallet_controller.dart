@@ -63,8 +63,8 @@ class WalletController extends GetxController {
   _getWalletBalance() {
     final walletPayload = {
       "latitude": _storage.read('latitude'),
-      "is_access_token_new": "1",
-      "longitude": _storage.read('longitude')
+      "longitude": _storage.read('longitude'),
+      'is_access_token_new': '1',
     };
 
     status(Status.loading);

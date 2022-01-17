@@ -493,5 +493,7 @@ final Map<String, String> enUs = {
   'packages': 'Packages',
   'ride_time': 'Ride Time',
   'wait_time': 'Wait Time',
-  'engagement_id': 'Engagement Id'
+  'engagement_id': 'Engagement Id',
+
+  'exit_warning': 'Tap again to exit',
 };

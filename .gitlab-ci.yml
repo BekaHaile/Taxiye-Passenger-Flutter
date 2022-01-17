@@ -9,6 +9,7 @@ build_debug_release:
     - flutter channel beta
     - flutter upgrade
     - echo GOOGLE_MAP_KEY=$GOOGLE_MAPS_API_KEY >> .env
+    - echo RELEASE_MODE=prod >> .env
     - flutter build apk --release
     - mkdir output
     - mv "build/app/outputs/apk/release/app-release.apk" output/taxiye-passenger-release.apk
