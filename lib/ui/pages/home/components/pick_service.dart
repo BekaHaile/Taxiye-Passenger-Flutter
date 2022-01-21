@@ -29,7 +29,7 @@ class PickService extends GetView<HomeController> {
       width: Get.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const WhereTo(),
           Obx(() => ServiceList(

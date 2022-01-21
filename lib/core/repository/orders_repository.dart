@@ -29,12 +29,12 @@ class OrdersRepository implements IOrdersRepository {
   }
 
   @override
-  Future<ListResponse<RideHistory>> getRideHistory() async {
+  Future<ListResponse<RideHistory>> getRideHistory(int skip) async {
     final response = await apiClient.request(
       requestType: RequestType.post,
       path: '/autos_integrated_order_history',
       data: {
-        'start_from': '0',
+        'start_from': '$skip',
         'show_custom_fields': '1',
         'fetch_make_data_and_name': '1',
       },

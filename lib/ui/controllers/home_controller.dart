@@ -237,6 +237,7 @@ class HomeController extends GetxService {
   Country country = kCountries.first;
 
   List<FareStructure>? fareStructures;
+  DateTime? currentBackPressTime;
 
   @override
   void onInit() async {
@@ -502,17 +503,6 @@ class HomeController extends GetxService {
         }
         break;
       default:
-    }
-  }
-
-  int getTopayAmount(double? toPay, String? toPayText) {
-    if (toPay != null) {
-      return toPay.round();
-    } else if (toPayText != null) {
-      String aStr = toPayText.replaceAll(RegExp(r'[^0-9]'), '');
-      return double.parse(aStr).round();
-    } else {
-      return 0;
     }
   }
 
@@ -2138,9 +2128,17 @@ class HomeController extends GetxService {
         break;
       default:
         Get.back();
+        DateTime now = DateTime.now();
+        if (currentBackPressTime == null ||
+            now.difference(currentBackPressTime!) >
+                const Duration(seconds: 2)) {
+          currentBackPressTime = now;
+          Get.snackbar('', 'exit_warning'.tr);
+          return Future.value(false);
+        }
     }
 
-    return false;
+    return Future.value(true);
   }
 
   @override

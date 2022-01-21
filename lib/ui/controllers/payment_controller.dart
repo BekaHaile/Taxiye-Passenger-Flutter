@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/core/adapters/repository_adapter.dart';
@@ -67,8 +68,8 @@ class PaymentController extends GetxController {
     //Todo: Get payment Methods
     final walletPayload = {
       "latitude": _storage.read('latitude'),
-      "is_access_token_new": "1",
       "longitude": _storage.read('longitude'),
+      'is_access_token_new': '1',
     };
 
     status(Status.loading);
@@ -87,11 +88,26 @@ class PaymentController extends GetxController {
             // rename jugnoo_cash to cash
             int jugnoCashIndex = paymentMethods.indexOf(walletResponse
                 .paymentModes
-                ?.firstWhere((element) => element.name == 'jugnoo_cash'));
+                ?.firstWhere((element) => element.name == 'jugnoo_cash',
+                    orElse: () => Payment()));
 
             if (jugnoCashIndex != -1) {
               paymentMethods[jugnoCashIndex] =
                   paymentMethods[jugnoCashIndex].copyWith(name: 'cash');
+            }
+
+            // Remove 'Lucy' partner from Hello cash for Prod
+            if (dotenv.env['RELEASE_MODE'] == 'prod') {
+              int hellocashIndex = paymentMethods.indexOf(walletResponse
+                  .paymentModes
+                  ?.firstWhere((element) => element.name == 'hellocash',
+                      orElse: () => Payment()));
+
+              if (hellocashIndex != -1 &&
+                  (paymentMethods[hellocashIndex].systems?.isNotEmpty ??
+                      false)) {
+                paymentMethods[hellocashIndex].systems.remove('Lucy');
+              }
             }
 
             _updateHomePayments();

@@ -22,6 +22,7 @@ class ServiceList extends StatelessWidget {
     return SizedBox(
       height: 55.0,
       child: ListView.builder(
+        shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {

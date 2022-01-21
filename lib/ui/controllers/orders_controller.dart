@@ -52,47 +52,64 @@ class OrdersController extends GetxController {
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
 
+  // For Ride history pagination
+  int historyLimit = 10;
+  int previousHistoryLength = 10;
+  int historySkip = 0;
+
   @override
   void onInit() async {
     // Todo: Initialize and get any initial values here.
     super.onInit();
     _setPinIcons();
     getScheduledRides();
-    getRideHistory();
+    getRideHistory('completed');
   }
 
-  getRideHistory() {
-    status(Status.loading);
-    repository.getRideHistory().then((rideHistoryResponse) {
-      if (rideHistoryResponse.flag == SuccessFlags.rideHistory.successCode) {
-        status(Status.success);
-        if (rideHistoryResponse.data != null) {
-          rideHistories = rideHistoryResponse.data;
-          // set completed and cancelled ride history based on isCancelledRide
-          // "is_cancelled_ride": 0, Ride completed
-          // "is_cancelled_ride": 1, Ride cancelled
-          completedRides = rideHistories
-              .where((rideHistory) => rideHistory.isCancelledRide == 0)
-              .toList();
+  getRideHistory(String tab) async {
+    while (previousHistoryLength == historyLimit &&
+        ((tab == 'completed' && completedRides.length < 4) ||
+            (tab == 'canceled' && cancelledRides.length < 4) ||
+            tab == 'scroll')) {
+      status(Status.loading);
+      await repository.getRideHistory(historySkip).then((rideHistoryResponse) {
+        if (rideHistoryResponse.flag == SuccessFlags.rideHistory.successCode) {
+          status(Status.success);
+          if (rideHistoryResponse.data != null) {
+            rideHistories = rideHistoryResponse.data;
+            // set completed and cancelled ride history based on isCancelledRide
+            // "is_cancelled_ride": 0, Ride completed
+            // "is_cancelled_ride": 1, Ride cancelled
+            _completedRides.addAll(rideHistories
+                .where((rideHistory) => rideHistory.isCancelledRide == 0)
+                .toList());
 
-          cancelledRides = rideHistories
-              .where((rideHistory) => rideHistory.isCancelledRide == 1)
-              .toList();
+            _cancelledRides.addAll(rideHistories
+                .where((rideHistory) => rideHistory.isCancelledRide == 1)
+                .toList());
+
+            // set pagination values
+            previousHistoryLength = rideHistoryResponse.data!.length;
+            historySkip += previousHistoryLength;
+            if (tab == 'scroll') {
+              tab = '';
+            }
+          }
+        } else {
+          print(rideHistoryResponse.error ?? '');
+          status(Status.error);
+          toast(
+              'error',
+              rideHistoryResponse.error ??
+                  rideHistoryResponse.log ??
+                  rideHistoryResponse.message ??
+                  '');
         }
-      } else {
-        print(rideHistoryResponse.error ?? '');
+      }, onError: (error) {
         status(Status.error);
-        toast(
-            'error',
-            rideHistoryResponse.error ??
-                rideHistoryResponse.log ??
-                rideHistoryResponse.message ??
-                '');
-      }
-    }, onError: (error) {
-      status(Status.error);
-      print('Get ride history error: $error');
-    });
+        print('Get ride history error: $error');
+      });
+    }
   }
 
   getScheduledRides() {

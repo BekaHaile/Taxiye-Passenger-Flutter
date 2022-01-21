@@ -52,10 +52,12 @@ class OrdersPage extends GetView<OrdersController> {
                           case 'completed':
                             controller.orderStatus = OrderStatus.completed;
                             tabIndex = 0;
+                            controller.getRideHistory('completed');
                             break;
                           case 'canceled':
                             tabIndex = 1;
                             controller.orderStatus = OrderStatus.canceled;
+                            controller.getRideHistory('canceled');
                             break;
                           case 'scheduled':
                             tabIndex = 2;
@@ -75,11 +77,13 @@ class OrdersPage extends GetView<OrdersController> {
                     children: [
                       Obx(() => OrdersList(
                             orders: controller.completedRides,
+                            tab: 'completed',
                             onSelectOrder: (selectedOrder) =>
                                 controller.onSelectOrder(selectedOrder),
                           )),
                       Obx(() => OrdersList(
                             orders: controller.cancelledRides,
+                            tab: 'canceled',
                             onSelectOrder: (selectedOrder) =>
                                 controller.onSelectOrder(selectedOrder),
                           )),
