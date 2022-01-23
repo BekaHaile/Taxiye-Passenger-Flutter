@@ -531,7 +531,7 @@ _$_RideHistory _$_$_RideHistoryFromJson(Map<String, dynamic> json) {
     longitude: (json['longitude'] as num?)?.toDouble(),
     status: json['status'] as int?,
     modifiable: json['modifiable'] as int?,
-    amount: json['amount'] as int?,
+    amount: (json['amount'] as num?)?.toDouble(),
     currency: json['currency'] as String?,
     date: json['date'] as String?,
     pickupAddress: json['pickup_address'] as String?,

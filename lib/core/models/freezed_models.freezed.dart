@@ -6953,7 +6953,7 @@ class _$RideHistoryTearOff {
       double? longitude,
       int? status,
       int? modifiable,
-      int? amount,
+      double? amount,
       String? currency,
       String? date,
       @JsonKey(name: 'pickup_address') String? pickupAddress,
@@ -7025,7 +7025,7 @@ mixin _$RideHistory {
   double? get longitude => throw _privateConstructorUsedError;
   int? get status => throw _privateConstructorUsedError;
   int? get modifiable => throw _privateConstructorUsedError;
-  int? get amount => throw _privateConstructorUsedError;
+  double? get amount => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
   @JsonKey(name: 'pickup_address')
@@ -7089,7 +7089,7 @@ abstract class $RideHistoryCopyWith<$Res> {
       double? longitude,
       int? status,
       int? modifiable,
-      int? amount,
+      double? amount,
       String? currency,
       String? date,
       @JsonKey(name: 'pickup_address') String? pickupAddress,
@@ -7176,7 +7176,7 @@ class _$RideHistoryCopyWithImpl<$Res> implements $RideHistoryCopyWith<$Res> {
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       currency: currency == freezed
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -7289,7 +7289,7 @@ abstract class _$RideHistoryCopyWith<$Res>
       double? longitude,
       int? status,
       int? modifiable,
-      int? amount,
+      double? amount,
       String? currency,
       String? date,
       @JsonKey(name: 'pickup_address') String? pickupAddress,
@@ -7378,7 +7378,7 @@ class __$RideHistoryCopyWithImpl<$Res> extends _$RideHistoryCopyWithImpl<$Res>
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       currency: currency == freezed
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -7525,7 +7525,7 @@ class _$_RideHistory implements _RideHistory {
   @override
   final int? modifiable;
   @override
-  final int? amount;
+  final double? amount;
   @override
   final String? currency;
   @override
@@ -7730,7 +7730,7 @@ abstract class _RideHistory implements RideHistory {
       double? longitude,
       int? status,
       int? modifiable,
-      int? amount,
+      double? amount,
       String? currency,
       String? date,
       @JsonKey(name: 'pickup_address') String? pickupAddress,
@@ -7768,7 +7768,7 @@ abstract class _RideHistory implements RideHistory {
   @override
   int? get modifiable => throw _privateConstructorUsedError;
   @override
-  int? get amount => throw _privateConstructorUsedError;
+  double? get amount => throw _privateConstructorUsedError;
   @override
   String? get currency => throw _privateConstructorUsedError;
   @override
