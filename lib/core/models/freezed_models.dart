@@ -331,7 +331,7 @@ abstract class RideHistory with _$RideHistory {
     double? longitude,
     int? status,
     int? modifiable,
-    int? amount,
+    double? amount,
     String? currency,
     String? date,
     @JsonKey(name: 'pickup_address') String? pickupAddress,

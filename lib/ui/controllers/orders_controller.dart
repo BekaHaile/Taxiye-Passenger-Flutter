@@ -109,6 +109,10 @@ class OrdersController extends GetxController {
         status(Status.error);
         print('Get ride history error: $error');
       });
+
+      if (status.value == Status.error) {
+        break;
+      }
     }
   }
 
