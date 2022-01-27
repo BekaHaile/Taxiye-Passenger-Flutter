@@ -16,14 +16,14 @@ def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 //     flutterVersionCode = '1'
 // }
 
-flutterVersionCode = '6016'
+flutterVersionCode = '6017'
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 // if (flutterVersionName == null) {
 //     flutterVersionName = '1.0'
 // }
 
-flutterVersionName = '60.1.6'
+flutterVersionName = '60.1.7'
 
 
 // set googles map api key 
