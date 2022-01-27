@@ -1,6 +1,8 @@
 import 'dart:developer';
-
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -208,11 +210,20 @@ class OrdersController extends GetxController {
   }
 
   _setPinIcons() async {
-    sourceIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/source_location.png');
-    destinationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/dest_location.png');
+    double width = Get.size.aspectRatio * 0.11;
+    sourceIcon = BitmapDescriptor.fromBytes(await getBytesFromAsset(
+        'assets/icons/source_location.png', (width).round()));
+    destinationIcon = BitmapDescriptor.fromBytes(await getBytesFromAsset(
+        'assets/icons/dest_location.png', width.round()));
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 }

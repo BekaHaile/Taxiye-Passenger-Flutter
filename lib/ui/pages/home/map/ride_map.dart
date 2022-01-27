@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -9,6 +12,7 @@ import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/ui/controllers/home_controller.dart';
 import 'package:taxiye_passenger/utils/constants.dart';
 import 'package:taxiye_passenger/utils/functions.dart';
+import 'dart:ui' as ui;
 import 'package:get/get.dart';
 
 class RideMap extends StatefulWidget {
@@ -72,10 +76,22 @@ class _RideMapState extends State<RideMap> with SingleTickerProviderStateMixin {
     });
   }
 
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+  }
+
   _setCurrentLocationMarker(LatLng location) async {
-    final currentLocationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 0.1, size: Size(10, 10)),
-        'assets/icons/source_location.png');
+    double width = Get.size.aspectRatio * 0.1;
+    print("icon width" + width.round().toString());
+    final currentLocationIcon = BitmapDescriptor.fromBytes(
+        await getBytesFromAsset(
+            'assets/icons/source_location.png', width.round()));
 
     setState(() {
       currentLocationMarker = <Marker>{

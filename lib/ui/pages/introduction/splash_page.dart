@@ -17,7 +17,6 @@ class _SplashPageState extends State<SplashPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-
     controller.determineNextRoute();
     // Add the observer.
     WidgetsBinding.instance!.addObserver(this);

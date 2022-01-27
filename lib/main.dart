@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:taxiye_passenger/shared/routes/app_pages.dart';
 import 'package:taxiye_passenger/shared/theme/app_theme.dart';
 import 'package:taxiye_passenger/shared/translations/app_translations.dart';
+import 'package:taxiye_passenger/utils/functions.dart';
 import 'package:taxiye_passenger/utils/logger_utils.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +15,7 @@ void main() async {
   await GetStorage.init();
   await Firebase.initializeApp();
   await dotenv.load(fileName: ".env");
+  WidgetsBinding.instance!.addPostFrameCallback((_) => initPlugin());
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown

@@ -149,7 +149,16 @@ class AuthRepository implements IAuthRepository {
       path: '/v4/customer/verify_otp',
       data: verifyPayload,
     );
-    return VerifyResponse.fromJson(response);
+    VerifyResponse verifyResponse = VerifyResponse.fromJson(response);
+    if (response.containsKey('autos')) {
+      if (response['autos'].containsKey('cancellation')) {
+        verifyResponse = verifyResponse.copyWith(
+            cancelReasons: List<String>.from(
+                response['autos']['cancellation']['reasons']));
+      }
+    }
+
+    return verifyResponse;
   }
 
   @override

@@ -216,11 +216,15 @@ class AuthController extends GetxService {
     };
 
     status(Status.loading);
+    // print("payload@@@@@@@@@@@@@@@/n\n$verifyPayload/n\n@@@@@@@@@@@@@@");
     repository.verifyOtp(verifyPayload).then(
       (data) {
+        log(data.toJson().toString());
+        // print("asd " + data.toJson().toString());
         if (data.flag == SuccessFlags.verify.successCode) {
           status(Status.success);
           if (data.userData != null) {
+            rideCancellationReasons = data.cancelReasons ?? [];
             user = data.userData;
             persistUser(data.userData!);
           }

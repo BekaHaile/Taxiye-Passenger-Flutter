@@ -140,6 +140,7 @@ dependencies:
 
   # for checking connectivity
   connectivity: ^3.0.6
+  app_tracking_transparency: ^2.0.2+1
 
   
 

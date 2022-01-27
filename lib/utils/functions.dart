@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 // import 'package:device_info/device_info.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -134,6 +135,17 @@ Future<Position> getCurrentLocation() async {
   }
 
   permission = await Geolocator.checkPermission();
+  print(permission);
+  if (permission == LocationPermission.deniedForever) {
+    Get.dialog(ConfirmDialog(
+      title: '"Taxiye" requires Location Services to work'.tr,
+      content:
+          'Go to Setting to allow "Taxiye" to determine your location. This will help us set your pickup location and improve our services.'
+              .tr,
+      actionText: 'ok',
+      actionCallback: () => Geolocator.openLocationSettings(),
+    ));
+  }
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
@@ -215,4 +227,17 @@ refreshRequestOnConnectivityChanges(
       onConnectivityChanges();
     }
   });
+}
+
+Future<void> initPlugin() async {
+  // Platform messages may fail, so we use a try/catch PlatformException.
+  try {
+    final TrackingStatus status =
+        await AppTrackingTransparency.trackingAuthorizationStatus;
+    if (status == TrackingStatus.notDetermined) {
+      await AppTrackingTransparency.requestTrackingAuthorization();
+    }
+  } on PlatformException {}
+
+  await AppTrackingTransparency.getAdvertisingIdentifier();
 }

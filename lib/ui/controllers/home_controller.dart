@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -796,19 +799,30 @@ class HomeController extends GetxService {
   }
 
   _setPinIcons() async {
-    sourceIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/source_location.png');
-    destinationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/dest_location.png');
-    yellowCarIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/yellow_car.png');
+    double width = Get.size.aspectRatio * 0.13;
 
-    whiteCarIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/icons/white_car.png');
+    sourceIcon = BitmapDescriptor.fromBytes(await getBytesFromAsset(
+        'assets/icons/source_location.png', (width).round()));
+    destinationIcon = BitmapDescriptor.fromBytes(await getBytesFromAsset(
+        'assets/icons/dest_location.png', (width * 0.7).round()));
+    yellowCarIcon = BitmapDescriptor.fromBytes(
+        await getBytesFromAsset('assets/icons/yellow_car.png', width.round()));
+    // BitmapDescriptor.fromAssetImage(
+    //     ImageConfiguration(devicePixelRatio: 2.5, size: Size(10, 10)),
+    //     'assets/icons/yellow_car.png');
+
+    whiteCarIcon = BitmapDescriptor.fromBytes(
+        await getBytesFromAsset('assets/icons/white_car.png', width.round()));
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
   onRoutePickLocation({bool isSchedule = false}) {
@@ -1931,6 +1945,7 @@ class HomeController extends GetxService {
   }
 
   _getCancelOrderReasons() {
+    print("orderId before: " + orderId.toString());
     // Get Cancellation order Reasons
     if (orderId != null) {
       final Map<String, dynamic> reasonsParams = {
