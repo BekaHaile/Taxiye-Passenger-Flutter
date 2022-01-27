@@ -1198,15 +1198,15 @@ class HomeController extends GetxService {
     //     await getBytesFromAsset('assets/icons/current_location_sm.png', 50);
 
     // remove if previous driver marker
-    _markers
-        .removeWhere((marker) => marker.markerId.value == 'available_drivers');
+    _markers.removeWhere(
+        (marker) => marker.markerId.value.contains('available_drivers'));
     markers.clear();
     // add driver markers
     for (Driver driver in drivers) {
       if (driver.latitude != null && driver.longitude != null) {
         _markers.add(
           Marker(
-            markerId: const MarkerId('available_drivers'),
+            markerId: MarkerId('available_drivers_${driver.driverId}'),
             infoWindow: InfoWindow(title: driver.userName),
             icon: yellowCarIcon,
             position: LatLng(driver.latitude!, driver.longitude!),
